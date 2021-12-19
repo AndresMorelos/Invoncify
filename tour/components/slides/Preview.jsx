@@ -1,6 +1,7 @@
 import React from 'react';
 import path from 'path';
 import Slide from '../Slide';
+import PreviewImg from '@images/Preview.svg'
 
 const description = `
 `;
@@ -13,8 +14,8 @@ function Preview({t}) {
       toColor="#457fca"
       heading={t('tour:slides:preview:heading')}
       description={t('tour:slides:preview:description')}
-      imgSrc={path.resolve(__dirname, './imgs/Preview.svg')}
-      imgSize="520px"
+      imgSrc={PreviewImg}
+      imgSize="400px"
     />
   );
 }

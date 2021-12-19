@@ -1,6 +1,7 @@
 import React from 'react';
 import path from 'path';
 import Slide from '../Slide';
+import CreateImg from '@images/Create.svg'
 
 function Create({t}) {
   return (
@@ -9,7 +10,7 @@ function Create({t}) {
       toColor="#26BB86"
       heading={t('tour:slides:create:heading')}
       description={t('tour:slides:create:description')}
-      imgSrc={path.resolve(__dirname, './imgs/Create.svg')}
+      imgSrc={CreateImg}
       imgSize="350px"
     />
   );
