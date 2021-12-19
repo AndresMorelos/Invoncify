@@ -1,6 +1,7 @@
 import React from 'react';
 import path from 'path';
 import Slide from '../Slide';
+import SaveImg from '@images/Save.svg';
 
 function Save({t}) {
   return (
@@ -9,7 +10,7 @@ function Save({t}) {
       toColor="#F7971E"
       heading={t('tour:slides:save:heading')}
       description={t('tour:slides:save:description')}
-      imgSrc={path.resolve(__dirname, './imgs/Save.svg')}
+      imgSrc={SaveImg}
       imgSize="460px"
     />
   );

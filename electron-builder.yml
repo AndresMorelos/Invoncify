@@ -1,6 +1,11 @@
 appId: me.andresmorelos.invoncify
 copyright: AndresMorelos
 productName: Invoncify
+protocols:
+  - name: "Invoncify protocol"
+    role: "Viewer"
+    schemes:
+     - invoncify
 publish:
   - provider: github
     owner: AndresMorelos

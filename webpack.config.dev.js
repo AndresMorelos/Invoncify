@@ -26,7 +26,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@styles': path.resolve(__dirname, 'static', 'css')
+      '@styles': path.resolve(__dirname, 'static', 'css'),
+      '@images': [
+        path.resolve(__dirname, 'static', 'imgs'),
+        path.resolve(__dirname, 'tour', 'imgs')
+      ]
     }
   },
   mode: 'development',
@@ -46,6 +50,10 @@ module.exports = {
                   loader: 'html-loader'
               }
           ]
+      },
+      {
+          test: /\.png|\.svg$/,
+          type: 'asset/resource'
       },
       {
           test: /\.(css|sass|sacss|scss)$/,

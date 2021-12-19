@@ -481,6 +481,9 @@ function windowStateKeeper(windowName) {
 
 function initialize() {
   app.on('ready', () => {
+    if (!app.isDefaultProtocolClient('invoncify')) {
+      app.setAsDefaultProtocolClient('invoncify');
+    }
     createTourWindow();
     createMainWindow();
     createPreviewWindow();
@@ -506,6 +509,14 @@ function initialize() {
     if (mainWindow !== null) mainWindow.destroy();
     if (previewWindow !== null) previewWindow.destroy();
   });
+  app.on('open-url', (event, url) => {
+    ipcMain.send('open-dialog', {
+      type: 'warning',
+      title: 'Example',
+      message: url,
+    })
+  })
+  
   console.timeEnd('init');
 }
 
