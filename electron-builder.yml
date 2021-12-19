@@ -1,0 +1,28 @@
+appId: me.andresmorelos.invoncify
+copyright: AndresMorelos
+productName: Invoncify
+publish:
+  - provider: github
+    owner: AndresMorelos
+    repo: Invoncify
+directories:
+  output: dist/
+mac:
+  category: public.app-category.business
+  target:
+    - zip
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+    - target: portable
+      arch:
+        - x64
+        - ia32
+linux:
+  category: Office
+  target:
+    - deb
+    - AppImage

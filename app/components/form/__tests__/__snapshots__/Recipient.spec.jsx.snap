@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipient component matches snapshot 1`] = `
+<div
+  className="Section__SectionStyle-dgSKSv cwfAAu"
+>
+  <label
+    className="itemLabel"
+  >
+     *
+  </label>
+  <div
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "opacity": 0,
+        }
+      }
+    >
+      <div
+        className="Part__PartStyle-kAWmVX iwwkMM"
+      >
+        <div
+          className="Part__RowStyle-nLRvo cGeXDT"
+        >
+          <div
+            className="Part__FieldStyle-dkcwja bIqrsv"
+          >
+            <label
+              className="itemLabel"
+            >
+               *
+            </label>
+            <input
+              name="fullname"
+              onChange={[Function]}
+              type="text"
+              value="Jon Snow"
+            />
+          </div>
+          <div
+            className="Part__FieldStyle-dkcwja bIqrsv"
+          >
+            <label
+              className="itemLabel"
+            />
+            <input
+              name="company"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="Part__RowStyle-nLRvo cGeXDT"
+        >
+          <div
+            className="Part__FieldStyle-dkcwja bIqrsv"
+          >
+            <label
+              className="itemLabel"
+            >
+               *
+            </label>
+            <input
+              name="email"
+              onChange={[Function]}
+              type="text"
+              value="john@hbo.com"
+            />
+          </div>
+          <div
+            className="Part__FieldStyle-dkcwja bIqrsv"
+          >
+            <label
+              className="itemLabel"
+            />
+            <input
+              name="phone"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      className="radio"
+    >
+      <label>
+        <input
+          checked={true}
+          onChange={[Function]}
+          type="radio"
+          value="new"
+        />
+      </label>
+    </div>
+    <div
+      className="radio"
+    >
+      <label>
+        <input
+          checked={false}
+          onChange={[Function]}
+          type="radio"
+          value="select"
+        />
+      </label>
+    </div>
+  </div>
+</div>
+`;

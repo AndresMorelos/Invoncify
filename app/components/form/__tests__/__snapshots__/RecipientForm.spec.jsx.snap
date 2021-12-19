@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipient Form component matches snapshot 1`] = `
+<div
+  className="Part__PartStyle-kAWmVX iwwkMM"
+>
+  <div
+    className="Part__RowStyle-nLRvo cGeXDT"
+  >
+    <div
+      className="Part__FieldStyle-dkcwja bIqrsv"
+    >
+      <label
+        className="itemLabel"
+      >
+         *
+      </label>
+      <input
+        name="fullname"
+        onChange={[MockFunction]}
+        type="text"
+        value="Jon Snow"
+      />
+    </div>
+    <div
+      className="Part__FieldStyle-dkcwja bIqrsv"
+    >
+      <label
+        className="itemLabel"
+      />
+      <input
+        name="company"
+        onChange={[MockFunction]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="Part__RowStyle-nLRvo cGeXDT"
+  >
+    <div
+      className="Part__FieldStyle-dkcwja bIqrsv"
+    >
+      <label
+        className="itemLabel"
+      >
+         *
+      </label>
+      <input
+        name="email"
+        onChange={[MockFunction]}
+        type="text"
+        value="john@hbo.com"
+      />
+    </div>
+    <div
+      className="Part__FieldStyle-dkcwja bIqrsv"
+    >
+      <label
+        className="itemLabel"
+      />
+      <input
+        name="phone"
+        onChange={[MockFunction]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;

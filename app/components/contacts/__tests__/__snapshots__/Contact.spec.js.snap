@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders correctly to the DOM matches snapshot 1`] = `
+<tr
+  className="Table__TRStyle-gHmqLx BngTM"
+>
+  <td
+    className="Table__TDStyle-cAmfHP hlnQVD"
+  >
+    Jon Snow
+  </td>
+  <td
+    className="Table__TDStyle-cAmfHP jrRCak"
+  >
+    jon@snow.hbo
+  </td>
+  <td
+    className="Table__TDStyle-cAmfHP jrRCak"
+  >
+    000-000-000
+  </td>
+  <td
+    className="Table__TDStyle-cAmfHP evw"
+  >
+    <button
+      className="Button__ButtonLinkStyle-caVwCA lhMtRH"
+      onClick={[Function]}
+    >
+      <i
+        className="ion-plus-round"
+      />
+    </button>
+    <button
+      className="Button__ButtonLinkStyle-caVwCA gvxXrI"
+      onClick={[Function]}
+    >
+      <i
+        className="ion-close-circled"
+      />
+    </button>
+  </td>
+</tr>
+`;

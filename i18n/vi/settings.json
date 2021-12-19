@@ -1,0 +1,66 @@
+{
+  "header": "Cài đặt",
+  "tabs": {
+    "profile": "Hồ sơ công ty",
+    "invoice": "Hoá đơn",
+    "general": "Tổng quát"
+  },
+  "fields": {
+    "logo": {
+      "name": "Logo",
+      "hint": "Chấp nhận PNG, JPG & SVG (Khuyên dùng)"
+    },
+    "taxSettings": "Thiết lập thuế",
+    "template": "Mẫu thiết kế",
+    "dateFormat": "Định dạng ngày tháng",
+    "pdfExportDir": "Thư mục xuất PDF",
+    "requiredFields": "Các trường bắt buộc",
+    "sound": "Âm thanh",
+    "mute": "Tắt tiếng",
+    "autoCheckUpdate": {
+      "name": "Tự động kiểm tra cập nhật",
+      "daily": "Hàng ngày",
+      "weekly": "Hàng tuần"
+    },
+    "currency": {
+      "placement": "Vị trí biểu tượng",
+      "afterAmount": "Sau số tiền",
+      "beforeAmount": "Trước số tiền",
+      "fraction": "Phân số thập phân",
+      "separator": "Dấu ngăn cách",
+      "commaDot": "Dấu phẩy & chấm",
+      "dotComma": "Dấu chấm & phẩy",
+      "spaceDot": "Dấu cách và chấm"
+    },
+    "openPDFReader": "Mở file PDF sau khi xuất",
+    "language": {
+      "name": "Ngôn ngữ",
+      "ar": "Tiếng ả Rập",
+      "cs": "Tiếng Séc",
+      "da": "Tiếng Đan Mạch",
+      "de": "Tiếng Đức",
+      "el": "Tiếng Hy Lạp",
+      "en": "Tiếng Anh",
+      "esES": "Español",
+      "fr": "Tiếng Pháp",
+      "id": "Tiếng Indonesia",
+      "it": "Tiếng Ý",
+      "ja": "Tiếng Nhật",
+      "ko": "Tiếng Hàn Quốc",
+      "lt": "Tiếng Lithuania",
+      "nl": "Tiếng Hà Lan",
+      "ptBR": "Tiếng Bồ Đào Nha, Brazil",
+      "ptPT": "Tiếng Bồ Đào Nha",
+      "ru": "Tiếng Nga",
+      "sk": "Tiếng Slovakia",
+      "th": "Tiếng Thái",
+      "tl": "Tiếng Tagalog, Philippines",
+      "tr": "Tiếng Thổ Nhĩ Kỳ",
+      "ur-PK": "Tiếng Urdu (Pakistan)",
+      "vi": "Tiếng Việt",
+      "zh-CN": "Tiếng Trung (Giản thể)",
+      "zh-TW": "Tiếng Trung (Phồn Thể)"
+    },
+    "other": "Khác"
+  }
+}

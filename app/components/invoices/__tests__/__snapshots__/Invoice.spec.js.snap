@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders correctly to the DOM matches snapshot 1`] = `
+<div
+  className="col-lg-6"
+>
+  <div
+    className="Invoice__Wrapper-cjNJPS coWKLW"
+  >
+    <div
+      className="Invoice__StatusBar-jBWtSa joKiG"
+    />
+    <div
+      className="Invoice__Header-cGSpHV gmDFcR"
+    >
+      <div
+        className="Invoice__Status-fxIELu bbALRd"
+      >
+        <span>
+          <i
+            className="ion-loop"
+          />
+          Pending
+        </span>
+      </div>
+      <div
+        className="Invoice__ButtonsGroup-PwNbx emusdh"
+      >
+        <button
+          className="Button__ButtonLinkStyle-caVwCA imXwRc"
+          onClick={[Function]}
+        >
+          <i
+            className="ion-ios-copy"
+          />
+        </button>
+        <button
+          className="Button__ButtonLinkStyle-caVwCA imXwRc"
+          onClick={[Function]}
+        >
+          <i
+            className="ion-trash-a"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="Invoice__Body-eBItTh igYqzw"
+    >
+      <div
+        className="Invoice__Row-hFNBjq cQdnct"
+      >
+        <div
+          className="Invoice__Field-cZpgXH fDrpWO"
+        >
+          <label>
+            Pending
+          </label>
+          <h2>
+            Penelope Hettinger
+          </h2>
+        </div>
+      </div>
+      <div
+        className="Invoice__Row-hFNBjq cQdnct"
+      >
+        <div
+          className="Invoice__Field-cZpgXH fDrpWO"
+        >
+          <label>
+            Pending
+          </label>
+          <p>
+            37b2804e
+          </p>
+        </div>
+        <div
+          className="Invoice__Field-cZpgXH fDrpWO"
+        >
+          <label>
+            Pending
+          </label>
+          <p>
+             
+            3 843
+             
+            USD
+          </p>
+        </div>
+      </div>
+      <div
+        className="Invoice__Row-hFNBjq cQdnct"
+      >
+        <div
+          className="Invoice__Field-cZpgXH fDrpWO"
+        >
+          <label>
+            Pending
+          </label>
+          <p>
+            01/01/70
+          </p>
+        </div>
+        <div
+          className="Invoice__Field-cZpgXH fDrpWO"
+        >
+          <label>
+            Pending
+          </label>
+          <p />
+        </div>
+      </div>
+    </div>
+    <div
+      className="Invoice__Footer-dcHDEd cJiGTY"
+    >
+      <div>
+        <div
+          className="SplitButton__Wrapper-jsRMIo gVGdJM"
+        >
+          <div
+            className="SplitButton__ButtonsGroup-hdzsBq dhTQNh"
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+            >
+              Pending
+            </a>
+            <a
+              href="#"
+              onClick={[Function]}
+            >
+              <i
+                className="ion-arrow-down-b"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <button
+        className="Button__ButtonStyle-coFSWz coAhhp"
+        onClick={[Function]}
+      >
+        Pending
+      </button>
+      <button
+        className="Button__ButtonStyle-coFSWz coAhhp"
+        onClick={[Function]}
+      >
+        Pending
+      </button>
+    </div>
+  </div>
+</div>
+`;

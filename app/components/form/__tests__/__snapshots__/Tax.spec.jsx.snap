@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Note component matches snapshot 1`] = `
+<div
+  className="Section__SectionStyle-dgSKSv cwfAAu"
+>
+  <div
+    className="Section__HeaderStyle-chmDx gHBKbw"
+  >
+    <label
+      className="itemLabel"
+    />
+  </div>
+  <div
+    className="Part__PartStyle-kAWmVX iwwkMM"
+  >
+    <div
+      className="Part__RowStyle-nLRvo cGeXDT"
+    >
+      <div
+        className="Part__FieldStyle-dkcwja bIqrsv"
+      >
+        <label
+          className="itemLabel"
+        />
+        <div
+          className="Tax__TaxID-jmRTWe QNlQZ"
+        >
+          <input
+            name="tin"
+            onChange={[Function]}
+            placeholder={undefined}
+            type="text"
+            value="123-456-789"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="Part__RowStyle-nLRvo cGeXDT"
+    >
+      <div
+        className="Part__FieldStyle-dkcwja bIqrsv"
+      >
+        <label
+          className="itemLabel"
+        >
+           (%)
+        </label>
+        <div
+          className="Tax__TaxAmount-hmOePo dZzXEm"
+        >
+          <input
+            name="amount"
+            onChange={[Function]}
+            placeholder={undefined}
+            step="0.01"
+            type="number"
+            value={10}
+          />
+        </div>
+      </div>
+      <div
+        className="Part__FieldStyle-dkcwja bIqrsv"
+      >
+        <label
+          className="itemLabel"
+        />
+        <select
+          name="method"
+          onChange={[Function]}
+          value={undefined}
+        >
+          <option
+            value="default"
+          />
+          <option
+            value="reverse"
+          />
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+`;

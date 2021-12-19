@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Note component matches snapshot 1`] = `
+<div
+  className="Section__SectionStyle-dgSKSv cwfAAu"
+>
+  <div
+    className="ItemsList__ItemsListWrapper-iLTMUu Klbgt"
+  >
+    <div
+      className="ItemsList__ItemsListHeader-bCzTFW jphkkC"
+    >
+      <label
+        className="itemLabel"
+      >
+         *
+      </label>
+    </div>
+    <div
+      className="ItemsList__ItemsListDiv-dbHTJO fqQnDb"
+    >
+      <div />
+    </div>
+    <div
+      className="itemsListActions"
+    >
+      <button
+        className="ItemsList__ItemsListActionsBtn-fnweJK bouIBy Button__ButtonStyle-coFSWz drmiqa"
+        onClick={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+              Array [],
+              Array [],
+              Array [],
+              Array [],
+            ],
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

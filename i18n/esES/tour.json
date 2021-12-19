@@ -1,0 +1,29 @@
+{
+  "actions": {
+    "skip": "Omitir",
+    "next": "Siguiente",
+    "start": "Comenzar a facturar"
+  },
+  "slides": {
+    "welcome": {
+      "heading": "¡Hola 👋!",
+      "description": "Gracias por darme una oportunidad. Permítame mostrarle cómo crear facturas impresionantes con sólo 3 sencillos pasos"
+    },
+    "create": {
+      "heading": "Paso 1. Crear",
+      "description": "Invoncify cuenta con una interfaz de formulario flexible. Mantiene las cosas simples de manera predeterminada, pero usted siempre puede activar o desactivar campos adicionales si lo encuentra necesario."
+    },
+    "preview": {
+      "heading": "Paso 2. Personalizar",
+      "description": "Invoncify viene con plantillas de aspecto profesionales que pueden personalizarse aún más para que coincida con su estilo de marca."
+    },
+    "save": {
+      "heading": "Paso 3. Guardar",
+      "description": "Una vez satisfecho con el aspecto de la factura puedes guardarlo como PDF para su uso posterior. Imprímalo o envíelo por correo electrónico, ¡use Invoncify para impresionar a sus clientes ahora!"
+    },
+    "success": {
+      "heading": "¡Listo! ✋️",
+      "description": "Ahí lo tienes, los 3 simples pasos para crear impresionantes facturas con Invoncify. Recuerde actualizar el perfil y el logotipo de la empresa antes de utilizar realmente la factura."
+    }
+  }
+}

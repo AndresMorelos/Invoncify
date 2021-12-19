@@ -1,0 +1,99 @@
+{
+  "appUpdate" : {
+    "available": {
+      "title": "Nueva actualización disponible",
+      "message": "¿Deseas comenzar la actualización en segundo plano?"
+    },
+    "noUpdate": {
+      "title": "No hay actualizaciones disponibles",
+      "message": "Estás usando la versión más actualizada del aplicativo"
+    },
+    "error": {
+      "title": "Un error ha ocurrido"
+    },
+    "downloaded": {
+      "title": "Actualización descargada",
+      "message": "¿Deseas cerrar y actualizar el aplicativo ahora?",
+      "quitNow": "Cerrar ahora",
+      "later": "Luego"
+    }
+  },
+  "noAccess": {
+    "title": "No tienes acesos",
+    "message": "Por favor selecciona otra carpeta"
+  },
+  "errorBoundary": "Un error ha ocurrido",
+  "deleteInvoice": {
+    "title": "¿Borrar esta factura?",
+    "message": "La factura se eliminará permanentemente de la base de datos"
+  },
+  "deleteContact": {
+    "title": "¿Eliminar este contacto?",
+    "message": "El contacto se eliminará permanentemente de la base de datos"
+  },
+  "fileTypeErr": {
+    "title": "Por favor, seleccione otro archivo"
+  },
+  "validation": {
+    "invoiceID": {
+      "title": "Número de Factura no válido",
+      "message": "Hay que introducir un número de factura"
+    },
+    "recipient": {
+      "empty": {
+        "title": "Contacto no válido",
+        "message": "Contacto no puede quedar en blanco"
+      },
+      "requiredFields": {
+        "title": "Campos requeridos",
+        "message": "Por favor, llene todos los campos requeridos"
+      },
+      "email": {
+        "title": "La dirección de correo electrónico no es válida",
+        "message": "Por favor seleccione otro correo electrónico"
+      }
+    },
+
+    "rows": {
+      "emptyDescription": {
+        "title": "Descripción no válida",
+        "message": "La descripción no puede quedar en blanco"
+      },
+      "priceZero": {
+        "title": "Precio no válido",
+        "message": "El precio debe ser mayor que cero"
+      },
+      "qtyZero": {
+        "title": "Cantidad no válida",
+        "message": "La cantidad debe ser mayor que cero"
+      }
+    },
+
+    "dueDate": {
+      "title": "Fecha de vencimiento no válida",
+      "message": "Por favor, seleccione una fecha"
+    },
+
+    "currency": {
+      "fraction": {
+        "title": "Fracción no válida",
+        "message": "La fracción decimal debe ser igual o mayor que cero"
+      }
+    },
+
+    "discount": {
+      "title": "Descuento no válido",
+      "message": "El monto de descuento debe ser mayor que cero"
+    },
+
+    "tax": {
+      "title": "Impuesto no válido",
+      "message": "El monto de los impuestos debe ser mayor que cero"
+    },
+
+    "note": {
+      "title": "Nota no válida",
+      "message": "El contenido de la nota no puede quedar en blanco"
+    }
+  }
+}

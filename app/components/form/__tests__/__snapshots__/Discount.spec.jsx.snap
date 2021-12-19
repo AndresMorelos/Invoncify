@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders correctly to the DOM matches snapshot 1`] = `
+<div
+  className="Section__SectionStyle-dgSKSv cwfAAu"
+>
+  <div
+    className="Discount__DiscountWrapper-kWJKvg LseXW"
+  >
+    <label
+      className="itemLabel"
+    />
+    <div
+      className="Discount__DiscountContent-jCPLgI kgtKuP"
+    >
+      <div
+        className="Discount__DiscountAmount-biDXgd btUZyY"
+      >
+        <input
+          name="amount"
+          onChange={[Function]}
+          placeholder={undefined}
+          type="number"
+          value={100}
+        />
+      </div>
+      <div
+        className="Discount__DiscountType-gcYNnb jodsaL"
+      >
+        <div
+          className="radio"
+        >
+          <label>
+            <input
+              checked={false}
+              name="type"
+              onChange={[Function]}
+              type="radio"
+              value="percentage"
+            />
+          </label>
+        </div>
+        <div
+          className="radio"
+        >
+          <label>
+            <input
+              checked={true}
+              name="type"
+              onChange={[Function]}
+              type="radio"
+              value="flat"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

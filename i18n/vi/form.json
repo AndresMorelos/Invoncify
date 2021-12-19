@@ -1,0 +1,69 @@
+{
+  "header": {
+    "new": "Tạo một hóa đơn mới",
+    "edit": "Chỉnh sửa hoá đơn",
+    "btns": {
+      "clear": "Làm lại",
+      "update": "Lưu Thay Đổi",
+      "saveAndPreview": "Lưu và Hiển thị"
+    }
+  },
+  "settings": {
+    "name": "Thay Đổi Trường Thông Tin",
+    "hint": "Click để ẩn hoặc hiện các trường thông tin khác."
+  },
+  "fields": {
+    "items": {
+      "name": "Sản Phẩm/Dịch Vụ",
+      "description": "Mô Tả",
+      "price": "Giá",
+      "quantity": "Số Lượng",
+      "add": "Thêm mới"
+    },
+    "recipient": {
+      "name": "Người nhận",
+      "select": "Lựa Chọn",
+      "add": "Tạo mới"
+    },
+    "discount": {
+      "name": "Khuyễn mãi",
+      "percentage": "Phần trăm",
+      "flat": "Trừ thẳng"
+    },
+    "dueDate": {
+      "name": "Hạn thanh toán",
+      "placeHolder": "Chọn ngày",
+      "paymentTerms": {
+        "name": "Chọn một hạn thanh toán",
+        "net7": {
+          "label": "Net 7",
+          "description": "Thanh toán sau 7 ngày hoá đơn được tạo"
+        },
+        "net10": {
+          "label": "Net 10",
+          "description": "Thanh toán sau 10 ngày hoá đơn được tạo"
+        },
+        "net30": {
+          "label": "Net 30",
+          "description": "Thanh toán sau 30 ngày hoá đơn được tạo"
+        },
+        "net60": {
+          "label": "Net 60",
+          "description": "Thanh toán sau 60 ngày hoá đơn được tạo"
+        },
+        "net90": {
+          "label": "Net 90",
+          "description": "Thanh toán sau 90 ngày hoá đơn được tạo"
+        }
+      }
+    },
+    "tax": {
+      "name": "Thuế",
+      "id": "Mã Số Thuế",
+      "method": "Phương thức",
+      "reverse": "Đảo ngược phí"
+    },
+    "note": "Ghi chú",
+    "currency": "Tiền tệ"
+  }
+}
