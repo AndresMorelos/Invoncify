@@ -63,8 +63,8 @@ const Heading = styled.h1`
 
 // Component
 function Header({ t, invoice, profile, configs }) {
-  const { tax, recipient } = invoice;
-  const { language, accentColor, customAccentColor  } = configs;
+  const { tax, recipient, payment } = invoice;
+  const { language, accentColor, customAccentColor } = configs;
   return (
     <InvoiceHeader>
       <LeftColumn>
@@ -74,7 +74,8 @@ function Header({ t, invoice, profile, configs }) {
           <p>{profile.address}</p>
           <p>{profile.email}</p>
           <p>{profile.phone}</p>
-          { tax && <p>Tax ID: { tax.tin }</p> }
+          {tax && <p>Tax ID: {tax.tin}</p>}
+          {payment && payment.details && payment.details.split('\n').map((item, i) => <p key={i}>{item}</p>)}
         </Company>
 
         {configs.showRecipient && (
@@ -99,9 +100,9 @@ function Header({ t, invoice, profile, configs }) {
           {invoice.invoiceID
             ? invoice.invoiceID
             : truncate(invoice._id, {
-                length: 8,
-                omission: '',
-              })}
+              length: 8,
+              omission: '',
+            })}
         </h4>
         <p>
           {t('preview:common:created', { lng: language })}:{' '}
@@ -114,21 +115,20 @@ function Header({ t, invoice, profile, configs }) {
             {t('preview:common:due', { lng: language })}:{' '}
             {invoice.dueDate.useCustom
               ? moment(invoice.dueDate.selectedDate)
-                  .lang(language)
-                  .format(configs.dateFormat)
+                .lang(language)
+                .format(configs.dateFormat)
               : moment(
-                  calTermDate(invoice.created_at, invoice.dueDate.paymentTerm)
-                )
-                  .lang(language)
-                  .format(configs.dateFormat)}
+                calTermDate(invoice.created_at, invoice.dueDate.paymentTerm)
+              )
+                .lang(language)
+                .format(configs.dateFormat)}
           </p>,
           <p key="dueDateNote">
             {!invoice.dueDate.useCustom &&
               `
             (
               ${t(
-                `form:fields:dueDate:paymentTerms:${
-                  invoice.dueDate.paymentTerm
+                `form:fields:dueDate:paymentTerms:${invoice.dueDate.paymentTerm
                 }:description`
               )}
             )

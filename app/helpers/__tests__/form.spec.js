@@ -69,6 +69,7 @@ describe('getInvoiceData', () => {
       discount: {},
       tax: {},
       note: {},
+      payment: {},
       settings: {
         editMode: {
           active: false,
@@ -81,6 +82,7 @@ describe('getInvoiceData', () => {
           discount: false,
           tax: false,
           note: false,
+          payment: false,
         },
       },
       savedSettings: {
@@ -91,6 +93,7 @@ describe('getInvoiceData', () => {
           fraction: 2,
           separator: 'commaDot',
         },
+        payment: {},
         required_fields: {
           invoiceID: false,
           dueDate: false,
@@ -98,6 +101,7 @@ describe('getInvoiceData', () => {
           discount: false,
           tax: false,
           note: false,
+          payment: false,
         },
       },
     };
@@ -369,6 +373,7 @@ describe('validateFormData', () => {
           fraction: 2,
           separator: 'commaDot',
         },
+        payment: {},
         required_fields: {
           invoiceID: true,
           dueDate: true,
@@ -376,6 +381,7 @@ describe('validateFormData', () => {
           discount: true,
           tax: true,
           note: true,
+          payment: true
         },
       },
     };

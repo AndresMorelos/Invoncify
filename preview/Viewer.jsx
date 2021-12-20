@@ -68,7 +68,7 @@ class Viewer extends Component {
   }
 
   render() {
-    const {  t, invoice, configs, profile, UILang } = this.props;
+    const { t, invoice, configs, profile, UILang } = this.props;
     return (
       <Wrapper>
         <SideBar

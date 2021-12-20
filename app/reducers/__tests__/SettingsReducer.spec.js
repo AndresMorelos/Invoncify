@@ -30,12 +30,16 @@ const sampleSettings = {
       method: 'default',
       amount: 0,
     },
+    payment: {
+      details: null
+    },
     required_fields: {
       dueDate: false,
       currency: false,
       discount: false,
       tax: false,
       note: false,
+      payment: false,
     },
   },
   general: {

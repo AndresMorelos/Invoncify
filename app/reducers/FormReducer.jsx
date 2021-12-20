@@ -24,9 +24,10 @@ const initialState = {
   discount: {},
   note: {},
   invoiceID: "",
-  // Set default values for currency and tax
+  // Set default values for currency, tax, and payment
   currency: invoiceSettings.currency,
   tax: invoiceSettings.tax,
+  payment: invoiceSettings.payment,
   // Form current settings
   settings: {
     open: false,
@@ -38,6 +39,7 @@ const initialState = {
   // Saved settings, reserve for reference
   savedSettings: {
     tax: invoiceSettings.tax,
+    payment: invoiceSettings.payment,
     currency: invoiceSettings.currency,
     required_fields: invoiceSettings.required_fields,
   },
@@ -102,6 +104,7 @@ const FormReducer = handleActions(
         dueDate,
         discount,
         note,
+        payment,
         contacts,
       } = action.payload;
       return {
@@ -117,6 +120,7 @@ const FormReducer = handleActions(
         currency: currency !== undefined ? currency : state.currency,
         discount: discount !== undefined ? discount : state.discount,
         tax: tax !== undefined ? tax : state.tax,
+        payment: payment !== undefined ? payment : state.payment,
         dueDate: dueDate !== undefined ? dueDate : state.dueDate,
         note:
           note !== undefined
@@ -132,6 +136,7 @@ const FormReducer = handleActions(
             ...state.settings.required_fields, invoiceID: invoiceID !== undefined,
             currency: currency !== state.savedSettings.currency,
             tax: tax !== undefined,
+            payment: payment !== undefined,
             dueDate: dueDate !== undefined,
             discount: discount !== undefined,
             note: note !== undefined,
@@ -144,7 +149,9 @@ const FormReducer = handleActions(
       const invoiceSettings = action.payload;
       return {
         ...state, savedSettings: {
-          ...state.savedSettings, tax: invoiceSettings.tax,
+          ...state.savedSettings,
+          tax: invoiceSettings.tax,
+          payment: invoiceSettings.payment,
           currency: invoiceSettings.currency,
           required_fields: invoiceSettings.required_fields,
         },
@@ -157,6 +164,7 @@ const FormReducer = handleActions(
       currency: state.savedSettings.currency,
       // Reset to lastest saved settings
       tax: state.savedSettings.tax,
+      payment: state.savedSettings.payment,
       // Update current settings
       settings: {
         ...state.settings, open: false,

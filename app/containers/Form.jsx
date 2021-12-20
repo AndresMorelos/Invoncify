@@ -19,6 +19,7 @@ import Discount from '../components/form/Discount';
 import DueDate from '../components/form/DueDate';
 import Tax from '../components/form/Tax';
 import Note from '../components/form/Note';
+import Payment from '../components/form/Payment';
 import InvoiceID from '../components/form/InvoiceID';
 import Settings from '../components/form/Settings';
 import Button from '../components/shared/Button';
@@ -51,6 +52,7 @@ class Form extends PureComponent {
       discount,
       tax,
       note,
+      payment,
       invoiceID,
       settings,
       savedSettings,
@@ -62,7 +64,7 @@ class Form extends PureComponent {
       <PageWrapper>
         <PageHeader>
           <PageHeaderTitle>
-            { editMode.active
+            {editMode.active
               ? t('form:header:edit')
               : t('form:header:new')
             }
@@ -139,6 +141,15 @@ class Form extends PureComponent {
               updateFieldData={updateFieldData}
             />
           )}
+          {required_fields.payment && (
+            <Payment
+              t={t}
+              payment={payment}
+              updateFieldData={updateFieldData}
+              savedSettings={savedSettings.payment}
+              updateSavedSettings={updateSavedFormSettings}
+            />
+          )}
         </PageContent>
       </PageWrapper>
     );
@@ -167,14 +178,17 @@ Form.propTypes = {
     discount: PropTypes.object.isRequired,
     tax: PropTypes.object.isRequired,
     note: PropTypes.object.isRequired,
+    payment: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
   }).isRequired,
 };
 
 // Map state & dispatch to props
-const mapStateToProps = state => ({
-  currentInvoice: getCurrentInvoice(state),
-});
+const mapStateToProps = state => {
+  return ({
+    currentInvoice: getCurrentInvoice(state),
+  })
+};
 
 const mapDispatchToProps = dispatch => ({
   boundFormActionCreators: bindActionCreators(FormActions, dispatch),

@@ -19,6 +19,7 @@ const currentInvoice = {
   currency: {},
   discount: {},
   tax: {},
+  payment: {},
   note: {},
   settings: {
     open: false,
@@ -29,6 +30,7 @@ const currentInvoice = {
       discount: false,
       tax: false,
       note: false,
+      payment: false,
     },
   },
   savedSettings: {
@@ -41,6 +43,7 @@ const currentInvoice = {
       discount: false,
       tax: false,
       note: false,
+      payment: false,
     },
   },
 };
