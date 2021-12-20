@@ -73,7 +73,7 @@ autoUpdater.on('update-downloaded', info => {
 // Main Function
 function checkForUpdate() {
   // Only check for update in Production
-  if (!process.env.isDev === 'true') {
+  if (!(process.env.isDev === 'true')) {
     autoUpdater.checkForUpdates();
   }
 }
