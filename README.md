@@ -2,7 +2,6 @@
 
 This is a continuation of Manta App, I'm taking care about the maintenance and new features as I need it
 
-> Note: The **auto-update** for *Mac* is **disabled** for now, I just bought the Developer Program and I'm waiting to be activated.
 
 ![GitHub all releases](https://img.shields.io/github/downloads/AndresMorelos/Invoncify/total?style=for-the-badge)
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/AndresMorelos/Invoncify/latest/total?color=green&style=for-the-badge)
