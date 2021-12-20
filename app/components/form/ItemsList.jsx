@@ -72,7 +72,7 @@ export class ItemsList extends PureComponent {
     const { addItem, removeItem, updateItem } = this.props.boundActionCreators;
     // Item Rows
     const { t, rows } = this.props;
-    console.log(rows)
+    
     const rowsComponent = rows.map((item, index) => (
       <ItemRow
         key={item.id}

@@ -270,6 +270,9 @@ function setInitialValues() {
         method: 'default',
         amount: 0,
       },
+      payment: {
+        details: null
+      },
       currency: {
         code: 'USD',
         placement: 'before',
@@ -283,6 +286,7 @@ function setInitialValues() {
         discount: false,
         tax: false,
         note: false,
+        payment: false,
       },
     },
   };
@@ -318,8 +322,8 @@ function migrateData() {
         return configs;
       }
       // Update current configs
-      const migratedConfigs = Object.assign({}, configs, {
-        profile: info,
+      const migratedConfigs = {
+        ...configs, profile: info,
         general: {
           language: appSettings.language,
           sound: appSettings.sound,
@@ -335,15 +339,19 @@ function migrateData() {
             method: 'default',
             amount: 0,
           },
+          payment: {
+            details: null
+          },
           required_fields: {
             dueDate: false,
             currency: false,
             discount: false,
             tax: false,
             note: false,
+            payment: false,
           },
         },
-      });
+      };
       // Omit old keys
       return omit(migratedConfigs, [
         'info',
@@ -359,16 +367,18 @@ function migrateData() {
         return configs;
       }
       // Update current configs
-      return Object.assign({}, configs, {
-        invoice: Object.assign({}, configs.invoice, {
+      return {
+        ...configs,
+        invoice: {
+          ...configs.invoice,
           currency: {
             code: configs.invoice.currency,
             placement: 'before',
             separator: 'commaDot',
             fraction: 2,
           }
-        })
-      });
+        }
+      };
     },
 
     3: configs => {
@@ -378,9 +388,7 @@ function migrateData() {
         return configs;
       }
       // Remove checkUpdate and lastCheck
-      return Object.assign({}, configs, {
-        general: omit(configs.general, ['checkUpdate', 'lastCheck'])
-      });
+      return { ...configs, general: omit(configs.general, ['checkUpdate', 'lastCheck']) };
     },
   };
   // Get the current Config
@@ -516,7 +524,7 @@ function initialize() {
       message: url,
     })
   })
-  
+
   console.timeEnd('init');
 }
 

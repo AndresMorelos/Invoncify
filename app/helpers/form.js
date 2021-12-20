@@ -15,6 +15,7 @@ function validateFormData(formData) {
     discount,
     tax,
     note,
+    payment,
     settings,
   } = formData;
   // Required fields
@@ -27,6 +28,7 @@ function validateFormData(formData) {
   if (!validateDiscount(required_fields.discount, discount)) return false;
   if (!validateTax(required_fields.tax, tax)) return false;
   if (!validateNote(required_fields.note, note)) return false;
+  if (!validatePayment(required_fields.payment, payment)) return false;
   return true;
 }
 
@@ -40,6 +42,7 @@ function getInvoiceData(formData) {
     discount,
     tax,
     note,
+    payment,
     settings,
   } = formData;
   // Required fields
@@ -49,10 +52,10 @@ function getInvoiceData(formData) {
   // Set Recipient
   if (recipient.newRecipient) {
     // Add id & created_at so the invoice records will remembers
-    invoiceData.recipient = Object.assign({}, recipient.new, {
-      _id: uuidv4(),
+    invoiceData.recipient = {
+      ...recipient.new, _id: uuidv4(),
       created_at: Date.now(),
-    });
+    };
   } else {
     // TODO
     // Migh as well filter out _rev
@@ -74,18 +77,20 @@ function getInvoiceData(formData) {
   if (required_fields.tax) invoiceData.tax = tax;
   // Set Note
   if (required_fields.note) invoiceData.note = note.content;
-
+  // Set Payment
+  if (required_fields.payment) invoiceData.payment = payment;
+  
   // Return final value
-  return Object.assign({}, invoiceData, {
-    // Metadata
+  return {
+    ...invoiceData, // Metadata
     _id: editMode.active ? editMode.data._id : uuidv4(),
     _rev: editMode.active ? editMode.data._rev : null,
     created_at: editMode.active ? editMode.data.created_at : Date.now(),
-    status: editMode.active ? editMode.data.status: 'pending',
+    status: editMode.active ? editMode.data.status : 'pending',
     // Alway calculate subtotal & grandTotal
     subtotal: getInvoiceValue(invoiceData).subtotal,
     grandTotal: getInvoiceValue(invoiceData).grandTotal,
-  });
+  };
 }
 
 // VALIDATION RULES
@@ -168,7 +173,7 @@ function validateRows(rows) {
 }
 
 function validateDueDate(isRequired, dueDate) {
-  const { selectedDate,paymentTerm, useCustom } = dueDate;
+  const { selectedDate, paymentTerm, useCustom } = dueDate;
   if (isRequired) {
     // If use customDate
     if (useCustom) {
@@ -189,7 +194,7 @@ function validateDueDate(isRequired, dueDate) {
 
 function validateCurrency(isRequired, currency) {
   if (isRequired) {
-    if (currency.fraction < 0 ) {
+    if (currency.fraction < 0) {
       openDialog({
         type: 'warning',
         title: i18n.t('dialog:validation:currency:fraction:title'),
@@ -250,6 +255,23 @@ function validateNote(isRequired, note) {
   return true;
 }
 
+function validatePayment(isRequired, payment) {
+  const { details } = payment;
+  if (isRequired) {
+    if (!details || details === '') {
+      openDialog({
+        type: 'warning',
+        title: i18n.t('dialog:validation:payment:title'),
+        message: i18n.t('dialog:validation:payment:message'),
+      });
+      return false;
+    }
+    return true;
+  }
+  return true;
+}
+
+
 function validateInvoiceID(isRequired, invoiceID) {
   if (isRequired) {
     if (!invoiceID || invoiceID === '') {
@@ -292,5 +314,6 @@ export {
   validateDiscount,
   validateTax,
   validateNote,
+  validatePayment,
   setEditRecipient,
 };
