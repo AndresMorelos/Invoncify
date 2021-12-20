@@ -16,6 +16,7 @@ mac:
   category: public.app-category.business
   target:
     - zip
+    - dmg
 win:
   target:
     - target: nsis
