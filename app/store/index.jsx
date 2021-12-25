@@ -8,6 +8,7 @@ import rootReducer from '../reducers';
 import Logger from 'redux-logger';
 
 // Custom Middleware
+import LoginMW from '../middlewares/LoginMW';
 import MeasureMW from '../middlewares/MeasureMW';
 import FormMW from '../middlewares/FormMW';
 import ContactsMW from '../middlewares/ContactsMW';
@@ -16,7 +17,7 @@ import SettingsMW from '../middlewares/SettingsMW';
 import UIMiddleware from '../middlewares/UIMiddleware';
 
 // Default Middlewares
-const middlewares = [FormMW, ContactsMW, InvoicesMW, SettingsMW, UIMiddleware];
+const middlewares = [LoginMW, FormMW, ContactsMW, InvoicesMW, SettingsMW, UIMiddleware];
 
 // Dev Mode Middlewares
 if (process.env.isDev === 'true') {

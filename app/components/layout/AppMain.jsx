@@ -7,9 +7,11 @@ import Form from '../../containers/Form';
 import Invoices from '../../containers/Invoices';
 import Contacts from '../../containers/Contacts';
 import Settings from '../../containers/Settings';
+import Login from '../../containers/Login';
 
 // Layout
 import { AppMainContent } from '../shared/Layout';
+
 
 class AppMain extends Component {
   shouldComponentUpdate(nextProps) {

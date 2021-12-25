@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
+import Button from './shared/Button'
+
 const Wrapper = styled.div`
   height: 100%;
   overflow: hidden;
@@ -50,6 +52,11 @@ const Description = styled.p`
   margin: 0 auto 20px auto;
 `;
 
+
+const Input = styled.input`
+  width: 100%
+`
+
 function Slide(props) {
   const {
     inverted,
@@ -67,6 +74,10 @@ function Slide(props) {
         <Description>{description}</Description>
       </Text>
       <Image size={imgSize} src={imgSrc} />
+      <div>
+        <Input type='password' />
+        <Button>Ingress</Button>
+      </div>
     </Wrapper>
   );
 }

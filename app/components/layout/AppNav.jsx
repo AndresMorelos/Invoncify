@@ -38,7 +38,7 @@ const allTabs = [
     title: 'Settings',
     name: 'settings',
     icon: 'ion-ios-gear',
-  },
+  }
 ];
 
 // Styles

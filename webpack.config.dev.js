@@ -17,6 +17,7 @@ module.exports = {
     ],
     preview: ['react-hot-loader/patch', './preview/index.jsx'],
     modal: ['react-hot-loader/patch', './modal/index.jsx'],
+    login: ['react-hot-loader/patch', './login/index.jsx'],
   },
   devtool: 'source-map',
   output: {
@@ -85,6 +86,11 @@ module.exports = {
       template: path.resolve(__dirname, 'modal', 'modal.html'),
       filename: './modal.html',
       chunks: ['modal']
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'login', 'login.html'),
+      filename: './login.html',
+      chunks: ['login']
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css'
