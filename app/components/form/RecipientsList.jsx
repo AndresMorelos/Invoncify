@@ -21,7 +21,7 @@ export class RecipientsList extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { contacts, selectedContact } = this.props;
     if (isEmpty(selectedContact)) {
       this.updateSelectedRecipient(contacts[0]._id);

@@ -20,7 +20,7 @@ export class DueDateTerms extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.paymentTerm === null) {
       this.updateSelectedTerm(paymentTerms[0]);
     }

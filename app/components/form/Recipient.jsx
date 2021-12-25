@@ -29,7 +29,7 @@ export class Recipient extends Component {
   }
 
   // Handle Reset Form
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { recipient } = nextProps;
     if (
       isEmpty(recipient.new) &&

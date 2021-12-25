@@ -29,7 +29,7 @@ export class InvoiceID extends PureComponent {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.invoiceID === "") {
       this.setState({ invoiceID: "" });
     }

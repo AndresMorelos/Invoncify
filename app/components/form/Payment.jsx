@@ -31,7 +31,7 @@ export class Payment extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.payment.details === undefined) {
       this.setState({ details: '' }, () => {
         this.props.updateFieldData('payment', this.state);
