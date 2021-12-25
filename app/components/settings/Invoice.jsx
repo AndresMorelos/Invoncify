@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const ipc = require('electron').ipcRenderer;
 
 // Custom Libs
-const openDialog = require('../../renderers/dialog.js');
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 
 import Currency from './_partials/invoice/Currency';
@@ -12,6 +11,7 @@ import Fields from './_partials/invoice/Fields';
 import Other from './_partials/invoice/Other';
 import Tax from './_partials/invoice/Tax';
 import Payment from './_partials/invoice/Payment';
+const openDialog = require('../../renderers/dialog.js');
 
 // Component
 class Invoice extends Component {
@@ -62,9 +62,7 @@ class Invoice extends Component {
     const value = name === 'amount' ? parseFloat(target.value) : target.value;
     this.setState(
       {
-        tax: Object.assign({}, this.state.tax, {
-          [name]: value,
-        }),
+        tax: { ...this.state.tax, [name]: value,},
       },
       () => {
         this.props.updateSettings('invoice', this.state);
@@ -78,9 +76,7 @@ class Invoice extends Component {
     const value = name === 'fraction' ? parseInt(target.value, 10) : target.value;
     this.setState(
       {
-        currency: Object.assign({}, this.state.currency, {
-          [name]: value,
-        }),
+        currency: { ...this.state.currency, [name]: value,},
       },
       () => {
         this.props.updateSettings('invoice', this.state);
@@ -94,9 +90,7 @@ class Invoice extends Component {
     const value = target.value;
     this.setState(
       {
-        payment: Object.assign({}, this.state.payment, {
-          [name]: value,
-        }),
+        payment: { ...this.state.payment, [name]: value,},
       },
       () => {
         this.props.updateSettings('invoice', this.state);
@@ -110,9 +104,7 @@ class Invoice extends Component {
     const value = target.checked;
     this.setState(
       {
-        required_fields: Object.assign({}, this.state.required_fields, {
-          [name]: value,
-        }),
+        required_fields: { ...this.state.required_fields, [name]: value,},
       },
       () => {
         this.props.updateSettings('invoice', this.state);

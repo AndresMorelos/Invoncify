@@ -26,7 +26,7 @@ function sortCurrencies() {
   });
 }
 
-function Currency({ t, currency, handleCurrencyChange }) {
+const Currency = function({ t, currency, handleCurrencyChange }) {
   const { code, fraction, placement, separator } = currency;
   return [
     <label key="label" className="itemLabel">

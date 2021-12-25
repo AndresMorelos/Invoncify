@@ -17,19 +17,19 @@ import * as Actions from '../actions/settings';
 import { bindActionCreators } from 'redux';
 
 // Components
-import Profile from '../components/settings/Profile';
-import General from '../components/settings/General';
-import Invoice from '../components/settings/Invoice';
-import Button from '../components/shared/Button';
-import { Tab, Tabs, TabContent } from '../components/shared/Tabs';
+import Profile from '@components/settings/Profile';
+import General from '@components/settings/General';
+import Invoice from '@components/settings/Invoice';
+import Button from '@components/shared/Button';
+import { Tab, Tabs, TabContent } from '@components/shared/Tabs';
 import {
   PageWrapper,
   PageHeader,
   PageHeaderTitle,
   PageHeaderActions,
   PageContent,
-} from '../components/shared/Layout';
-import _withFadeInAnimation from '../components/shared/hoc/_withFadeInAnimation';
+} from '@components/shared/Layout';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 
 // Component
 class Settings extends Component {

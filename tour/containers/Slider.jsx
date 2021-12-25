@@ -9,11 +9,11 @@ const Content = styled.div`
   height: 100%;
 `;
 
-import Save from '../components/slides/Save'; // Save PDF & Send
-import Create from '../components/slides/Create'; // Explains how Form works
-import Welcome from '../components/slides/Welcome'; // Welcome Slide
-import Preview from '../components/slides/Preview'; // Preview & Customize Template
-import Success from '../components/slides/Success'; // Success
+import Save from '@components/slides/Save'; // Save PDF & Send
+import Create from '@components/slides/Create'; // Explains how Form works
+import Welcome from '@components/slides/Welcome'; // Welcome Slide
+import Preview from '@components/slides/Preview'; // Preview & Customize Template
+import Success from '@components/slides/Success'; // Success
 
 function Slider({ t, currentSlide }) {
   return (

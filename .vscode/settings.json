@@ -1,0 +1,4 @@
+{
+    "alias-resolver.type": "webpack",
+    "alias-resolver.accessPath": ""
+}

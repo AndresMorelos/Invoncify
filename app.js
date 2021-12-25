@@ -15,6 +15,7 @@ const { autoUpdater } = require('electron-updater');
 
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');
+const windowStateKeeper = require('./helpers/windowStateKeeper');
 
 // commmandline arguments
 const forceDevtools = process.argv.includes('--force-devtools');
@@ -38,7 +39,7 @@ let loginWindow = null;
 function createTourWindow() {
   const width = 700;
   const height = 600;
-
+  
   // Get X and Y coordinations on primary display
   const winPOS = centerOnPrimaryDisplay(width, height);
 
@@ -84,14 +85,16 @@ function createTourWindow() {
 }
 
 function createMainWindow() {
+  const width = 700;
+  const height = 600;
   // Get window state
   const mainWindownStateKeeper = windowStateKeeper('main');
   // Creating a new window
   mainWindow = new BrowserWindow({
     x: mainWindownStateKeeper.x,
     y: mainWindownStateKeeper.y,
-    width: mainWindownStateKeeper.width,
-    height: mainWindownStateKeeper.height,
+    width,
+    height,
     minWidth: 600,
     minHeight: 400,
     backgroundColor: '#2e2c29',
@@ -489,51 +492,6 @@ function addEventListeners() {
 function loadMainProcessFiles() {
   const files = glob.sync(path.join(__dirname, 'main/*.js'));
   files.forEach(file => require(file));
-}
-
-function windowStateKeeper(windowName) {
-  let window, windowState;
-
-  function setBounds() {
-    // Restore from appConfig
-    if (appConfig.hasSync(`windowState.${windowName}`)) {
-      windowState = appConfig.getSync(`windowState.${windowName}`);
-      return;
-    }
-    // Default
-    windowState = {
-      x: undefined,
-      y: undefined,
-      width: 1000,
-      height: 800,
-    };
-  }
-
-  function saveState() {
-    if (!windowState.isMaximized) {
-      windowState = window.getBounds();
-    }
-    windowState.isMaximized = window.isMaximized();
-    appConfig.setSync(`windowState.${windowName}`, windowState);
-  }
-
-  function track(win) {
-    window = win;
-    ['resize', 'move'].forEach(event => {
-      win.on(event, saveState);
-    });
-  }
-
-  setBounds();
-
-  return {
-    x: windowState.x,
-    y: windowState.y,
-    width: windowState.width,
-    height: windowState.height,
-    isMaximized: windowState.isMaximized,
-    track,
-  };
 }
 
 function initialize() {

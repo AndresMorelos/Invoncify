@@ -35,7 +35,7 @@ export class Discount extends Component {
     this.updateDiscountState = this.updateDiscountState.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { discount } = this.props;
     this.setState({
       amount: discount.amount ? discount.amount : '',
@@ -44,7 +44,7 @@ export class Discount extends Component {
   }
 
   // Handle Reset Form
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { discount } = nextProps;
     if (isEmpty(discount)) {
       this.setState({

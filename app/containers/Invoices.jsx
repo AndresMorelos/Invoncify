@@ -15,17 +15,17 @@ import { getInvoices } from '../reducers/InvoicesReducer';
 import { getDateFormat } from '../reducers/SettingsReducer';
 
 // Components
-import Invoice from '../components/invoices/Invoice';
-import Message from '../components/shared/Message';
-import Button, { ButtonsGroup } from '../components/shared/Button';
-import _withFadeInAnimation from '../components/shared/hoc/_withFadeInAnimation';
+import Invoice from '@components/invoices/Invoice';
+import Message from '@components/shared/Message';
+import Button, { ButtonsGroup } from '@components/shared/Button';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import {
   PageWrapper,
   PageHeader,
   PageHeaderTitle,
   PageHeaderActions,
   PageContent,
-} from '../components/shared/Layout';
+} from '@components/shared/Layout';
 
 export class Invoices extends PureComponent {
   constructor(props) {

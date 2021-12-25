@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 
 // Components
 import Slider from './containers/Slider';
-import Actions from './components/Actions';
+import Actions from '@components/Actions';
 
 class Tour extends Component {
   constructor(props) {

@@ -1,5 +1,6 @@
 // Node Libs
-const appConfig = require('@electron/remote').require('electron-settings');
+const { require: RemoteRequire } = require('@electron/remote')
+const appConfig = RemoteRequire('electron-settings');
 import { v4 as uuidv4 } from 'uuid';
 import i18n from '../../i18n/i18n';
 
@@ -15,11 +16,13 @@ import * as UIActions from '../actions/ui';
 
 // Helper
 import { getInvoiceData, validateFormData } from '../helpers/form';
+import { ipcRenderer } from 'electron';
 
 const FormMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case ACTION_TYPES.FORM_SAVE: {
       const currentFormData = getState().form;
+
       // Validate Form Data
       if (!validateFormData(currentFormData)) return;
       const currentInvoiceData = getInvoiceData(currentFormData);

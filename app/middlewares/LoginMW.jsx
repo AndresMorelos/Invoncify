@@ -10,15 +10,19 @@ const LoginMW = ({ dispatch, getState }) => next => action => {
             return secretKey
         }
         case ACTION_TYPES.LOGIN_SET_SECRET: {
-            const { secretKey } = action.payload;
-            sessionStorage.setItem('secretKey', secretKey)
+            sessionStorage.setItem('secretKey', action.payload)
             next({
                 type: ACTION_TYPES.LOGIN_SET_SECRET,
-                payload: {
-                    secretKey
-                }
+                payload: action.payload
             })
             break;
+        }
+        case ACTION_TYPES.LOGIN_DELETE_SECRET: {
+            sessionStorage.removeItem('secretKey')
+            next({
+                type: ACTION_TYPES.LOGIN_SET_SECRET,
+                payload: undefined
+            })
         }
         default: {
             return next(action);

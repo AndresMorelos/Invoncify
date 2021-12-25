@@ -1,6 +1,5 @@
 // Libraries
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Styles
 import styled from 'styled-components';
@@ -36,20 +35,22 @@ const CardSubtitleStyle = styled.h6`
 const CardTextStyle = styled.p``;
 
 // Components
-export const Card = props => <CardStyle>{props.children}</CardStyle>;
+export const Card = function ({ children }) {
+  return <CardStyle>{children}</CardStyle>
+}
 
-export const CardBody = props => (
-  <CardBodyStyle>{props.children}</CardBodyStyle>
-);
+export const CardBody = function ({ children }) {
+  return <CardBodyStyle>{children}</CardBodyStyle>
+}
 
-export const CardTitle = props => (
-  <CardTitleStyle>{props.children}</CardTitleStyle>
-);
+export const CardTitle = function ({ children }) {
+  return <CardTitleStyle>{children}</CardTitleStyle>
+}
 
-export const CardSubtitle = props => (
-  <CardSubtitleStyle>{props.children}</CardSubtitleStyle>
-);
+export const CardSubtitle = function ({ children }) {
+  return <CardSubtitleStyle>{children}</CardSubtitleStyle>
+}
 
-export const CardText = props => (
-  <CardTextStyle>{props.children}</CardTextStyle>
-);
+export const CardText = function ({ children }) {
+  return <CardTextStyle>{children}</CardTextStyle>
+}

@@ -12,11 +12,17 @@ import * as InvoicesActions from './actions/invoices';
 import * as ContactsActions from './actions/contacts';
 
 // Components
-import AppNav from './components/layout/AppNav';
-import AppMain from './components/layout/AppMain';
-import AppNoti from './components/layout/AppNoti';
-import AppUpdate from './components/layout/AppUpdate';
-import { AppWrapper } from './components/shared/Layout';
+import AppNav from '@components/layout/AppNav';
+import AppMain from '@components/layout/AppMain';
+import AppNoti from '@components/layout/AppNoti';
+import AppUpdate from '@components/layout/AppUpdate';
+import { AppWrapper, LoginWrapper } from '@components/shared/Layout';
+
+//Reducers
+import { getSecretKey } from './reducers/LoginReducer'
+import Login from './containers/Login';
+
+import windowStateKeeper from '../helpers/windowStateKeeper';
 
 // Components
 class App extends PureComponent {
@@ -97,14 +103,26 @@ class App extends PureComponent {
   }
 
   render() {
-    const { activeTab, notifications, checkUpdatesMessage } = this.props.ui;
+    const { ui, secretKey } = this.props
+    const { activeTab, notifications, checkUpdatesMessage } = ui;
+
+    if (secretKey) {
+      const { width, height } = windowStateKeeper('main');
+      ipc.send('rezie-main-window', width, height )
+      return (
+        <AppWrapper>
+          <AppNav activeTab={activeTab} changeTab={this.changeTab} />
+          <AppMain activeTab={activeTab} />
+          <AppNoti notifications={notifications} removeNoti={this.removeNoti} />
+        </AppWrapper>
+      );
+    }
+
     return (
-      <AppWrapper>
-        <AppNav activeTab={activeTab} changeTab={this.changeTab} />
-        <AppMain activeTab={activeTab} />
-        <AppNoti notifications={notifications} removeNoti={this.removeNoti} />
-      </AppWrapper>
-    );
+      <LoginWrapper>
+        <Login />
+      </LoginWrapper>
+    )
   }
 }
 
@@ -117,6 +135,9 @@ App.propTypes = {
   }).isRequired,
 };
 
-export default connect(state => ({
-  ui: state.ui,
-}))(App);
+const mapStateToProps = state => ({
+  secretKey: getSecretKey(state),
+  ui: state.ui
+})
+
+export default connect(mapStateToProps)(App);

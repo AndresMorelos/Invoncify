@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Row, Field, Part } from '../../../shared/Part';
 
-function Fields({ t, required_fields, handleVisibilityChange }) {
+const Fields = function({ t, required_fields, handleVisibilityChange }) {
   return [
     <label key="label" className="itemLabel">
       {t('settings:fields:requiredFields')}

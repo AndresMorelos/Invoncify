@@ -4,11 +4,9 @@ const appConfig = require('electron-settings');
 
 // Get Windows Instance
 const tourWindowID = appConfig.getSync('tourWindowID');
-const loginWindowID = appConfig.getSync('loginWindowID');
 const mainWindowID = appConfig.getSync('mainWindowID');
 const previewWindowID = appConfig.getSync('previewWindowID');
 const tourWindow = BrowserWindow.fromId(tourWindowID);
-const loginWindow = BrowserWindow.fromId(loginWindowID);
 const mainWindow = BrowserWindow.fromId(mainWindowID);
 const previewWindow = BrowserWindow.fromId(previewWindowID);
 
@@ -61,9 +59,9 @@ function showWindow(context) {
 
   if (tour.hasBeenTaken) {
     if (context === 'startup') {
-      loginWindow.once('ready-to-show', () => {
-        loginWindow.show();
-        loginWindow.focus();
+      mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+        mainWindow.focus();
       });
       return;
     }
@@ -76,21 +74,21 @@ function showWindow(context) {
 }
 
 function restoreWindows() {
-  const { isLoginWinVisible, isPreviewWinVisible } = appConfig.getSync(
+  const { isMainWinVisible, isPreviewWinVisible } = appConfig.getSync(
     'winsLastVisibleState'
   );
-  if (!isLoginWinVisible && !isPreviewWinVisible) {
-    loginWindow.show();
-    loginWindow.focus();
+  if (!isMainWinVisible && !isPreviewWinVisible) {
+    mainWindow.show();
+    mainWindow.focus();
     return;
   }
-  isLoginWinVisible && loginWindow.show();
+  isMainWinVisible && mainWindow.show();
   isPreviewWinVisible && previewWindow.show();
 }
 
 // HELPER FUNCTIONS
 function hideAllWindows() {
-  loginWindow.hide();
+  mainWindow.hide();
   mainWindow.hide();
   previewWindow.hide();
 }
@@ -99,7 +97,6 @@ function saveWinsVisibleState() {
   appConfig.setSync('winsLastVisibleState', {
     isMainWinVisible: mainWindow.isVisible(),
     isPreviewWinVisible: previewWindow.isVisible(),
-    isLoginWinVisible: loginWindow.isVisible(),
   });
 }
 

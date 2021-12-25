@@ -11,14 +11,14 @@ import * as ACTION_TYPES from '../constants/actions.jsx'
 import * as LoginActions from '../actions/login';
 
 // Components
-import Button from '../components/shared/Button';
-import _withFadeInAnimation from '../components/shared/hoc/_withFadeInAnimation';
+import LoginForm from '@components/login/Login.jsx';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import {
     PageWrapper,
     PageHeader,
     PageHeaderTitle,
     PageContent,
-} from '../components/shared/Layout';
+} from '@components/shared/Layout';
 import { bindActionCreators } from 'redux';
 
 
@@ -78,36 +78,21 @@ class Login extends PureComponent {
 
 
     render() {
-        const { t, boundLoginActionCreators } = this.props;
-        const { setSecretKey } = boundLoginActionCreators
-
+        const { t } = this.props;
         return (
-            <PageWrapper>
-                <PageHeader>
-                    <PageHeaderTitle>{t('contacts:header')}</PageHeaderTitle>
-                </PageHeader>
-                <PageContent>
-                    <Button onClick={setSecretKey}> Login</Button>
-                </PageContent>
-            </PageWrapper>
+            <LoginForm t={t} formAction={this.login} />
         );
     }
 }
 
 // PropTypes
 Login.propTypes = {
-    boundLoginActionCreators: PropTypes.shape({
-        setSecretKey: PropTypes.func.isRequired,
-    })
+    dispatch: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-    boundLoginActionCreators: bindActionCreators(LoginActions, dispatch)
-})
 
 
 export default compose(
-    connect(null, mapDispatchToProps),
-    withTranslation(),
-    _withFadeInAnimation
+    connect(),
+    withTranslation()
 )(Login);

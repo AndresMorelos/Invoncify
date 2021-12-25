@@ -9,7 +9,7 @@ const ExportDir = styled.div`
   display: flex;
 `;
 
-function Other({
+const Other = function ({
   dateFormat,
   exportDir,
   template,

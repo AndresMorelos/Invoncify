@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { isEmpty, findIndex } from 'lodash';
 
 // Animation
-import _withFadeInAnimation from '../../components/shared/hoc/_withFadeInAnimation';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 
 // Styles
 import styled from 'styled-components';

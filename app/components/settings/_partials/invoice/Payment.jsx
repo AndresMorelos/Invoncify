@@ -16,7 +16,7 @@ const PaymentContent = styled.textarea`
   font-size: 14px;
 `;
 
-function Payment({ t, payment, handlePaymentChange }) {
+const Payment = function ({ t, payment, handlePaymentChange }) {
   return [
     <label key="label" className="itemLabel">
       {t('settings:fields:paymentSettings')}

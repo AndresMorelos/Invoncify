@@ -14,10 +14,10 @@ const Wrapper = styled.div`
 `;
 
 // Component
-import Notification from '../../components/shared/Notification';
-import TransitionList from '../../components/shared/TransitionList';
+import Notification from '@components/shared/Notification';
+import TransitionList from '@components/shared/TransitionList';
 
-function AppNoti({ notifications, removeNoti }) {
+const AppNoti = function ({ notifications, removeNoti }) {
   const notificationsComponent = notifications.map(notification => (
     <Notification
       key={notification.id}

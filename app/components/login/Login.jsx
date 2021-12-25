@@ -1,17 +1,18 @@
 import React from 'react';
-import Login from '../Slide';
+import Slide from '../shared/Slide';
 import WelcomeImg from '@images/Welcome.svg'
 
-function Login({t}) {
+const Login = function({ t, formAction }) {
   return (
     <Slide
       inverted
-      fromColor="#CAD2E8"
-      toColor="#6979A4"
+      fromColor="#090979"
+      toColor="#00d4ff"
       heading={t('login:heading')}
       description={t('login:description')}
       imgSrc={WelcomeImg}
       imgSize="300px"
+      formAction={formAction}
     />
   );
 }

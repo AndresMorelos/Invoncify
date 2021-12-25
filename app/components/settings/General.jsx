@@ -12,7 +12,7 @@ class General extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState(this.props.general);
   }
 

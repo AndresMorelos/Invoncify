@@ -22,7 +22,7 @@ const ButtonStyle = styled.button`
   // Block Level Button
   ${props => props.block && `width: 100%;`}
   // Color
-  ${props => props.primary &&  `
+  ${props => props.primary && `
     background: #469fe5;
     color: white;
   `}
@@ -56,8 +56,8 @@ const ButtonLinkStyle = styled.button`
   padding: 0;
   margin: 0;
   ${props => props.primary && `color: #469fe5;`} ${props =>
-  props.success && `color: #6bbb69;`} ${props =>
-  props.danger && `color: #EC476E;`} &:hover {
+    props.success && `color: #6bbb69;`} ${props =>
+      props.danger && `color: #EC476E;`} &:hover {
     cursor: pointer;
   }
 `;
@@ -76,11 +76,12 @@ const ButtonsGroupStyle = styled.div`
   }
 `;
 
-function Button(props) {
-  return props.link ? (
-    <ButtonLinkStyle {...props}>{props.children}</ButtonLinkStyle>
+const Button = function (props) {
+  const { link, children } = props
+  return link ? (
+    <ButtonLinkStyle {...props}>{children}</ButtonLinkStyle>
   ) : (
-    <ButtonStyle {...props}>{props.children}</ButtonStyle>
+    <ButtonStyle {...props}>{children}</ButtonStyle>
   );
 }
 
@@ -99,8 +100,8 @@ Button.defaultProps = {
   danger: false,
 };
 
-export const ButtonsGroup = props => (
-  <ButtonsGroupStyle>{props.children}</ButtonsGroupStyle>
-);
+export const ButtonsGroup = function ({ children }) {
+  return <ButtonsGroupStyle>{children}</ButtonsGroupStyle>
+}
 
 export default Button;

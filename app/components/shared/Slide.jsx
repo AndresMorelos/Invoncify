@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import Button from './shared/Button'
+import Button from './Button'
 
 const Wrapper = styled.div`
   height: 100%;
+  widht: 100%;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -52,12 +53,20 @@ const Description = styled.p`
   margin: 0 auto 20px auto;
 `;
 
-
-const Input = styled.input`
-  width: 100%
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
 `
 
-function Slide(props) {
+const Input = styled.input`
+  width: 100%;
+  margin-bottom: 5px;
+`
+
+const Slide = function (props) {
+  const [password, setPassword] = useState(undefined);
   const {
     inverted,
     heading,
@@ -66,7 +75,20 @@ function Slide(props) {
     imgSize,
     fromColor,
     toColor,
+    formAction,
   } = props;
+
+  const buttonHandler = () => {
+    formAction(password)
+  }
+
+  const onKeyPressed = (event) => {
+    const key = event.keyCode || event.which;
+    if (key == 13) {
+      formAction(password)
+    }
+  }
+
   return (
     <Wrapper fromColor={fromColor} toColor={toColor}>
       <Text inverted={inverted}>
@@ -74,10 +96,16 @@ function Slide(props) {
         <Description>{description}</Description>
       </Text>
       <Image size={imgSize} src={imgSrc} />
-      <div>
-        <Input type='password' />
-        <Button>Ingress</Button>
-      </div>
+      <FormWrapper>
+        <Input
+          type='password'
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+          onKeyPress={onKeyPressed}
+        />
+        <Button onClick={buttonHandler}>Ingress</Button>
+      </FormWrapper>
     </Wrapper>
   );
 }
@@ -90,6 +118,7 @@ Slide.propTypes = {
   imgSrc: PropTypes.string.isRequired,
   inverted: PropTypes.bool,
   toColor: PropTypes.string.isRequired,
+  formAction: PropTypes.func.isRequired,
 };
 
 Slide.defaultProps = {

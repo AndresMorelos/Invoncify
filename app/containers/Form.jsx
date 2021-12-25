@@ -12,25 +12,25 @@ import * as SettingsActions from '../actions/settings';
 import { bindActionCreators } from 'redux';
 
 // Components
-import Recipient from '../components/form/Recipient';
-import ItemsList from '../components/form/ItemsList';
-import Currency from '../components/form/Currency';
-import Discount from '../components/form/Discount';
-import DueDate from '../components/form/DueDate';
-import Tax from '../components/form/Tax';
-import Note from '../components/form/Note';
-import Payment from '../components/form/Payment';
-import InvoiceID from '../components/form/InvoiceID';
-import Settings from '../components/form/Settings';
-import Button from '../components/shared/Button';
-import _withFadeInAnimation from '../components/shared/hoc/_withFadeInAnimation';
+import Recipient from '@components/form/Recipient';
+import ItemsList from '@components/form/ItemsList';
+import Currency from '@components/form/Currency';
+import Discount from '@components/form/Discount';
+import DueDate from '@components/form/DueDate';
+import Tax from '@components/form/Tax';
+import Note from '@components/form/Note';
+import Payment from '@components/form/Payment';
+import InvoiceID from '@components/form/InvoiceID';
+import Settings from '@components/form/Settings';
+import Button from '@components/shared/Button';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import {
   PageWrapper,
   PageHeader,
   PageHeaderTitle,
   PageHeaderActions,
   PageContent,
-} from '../components/shared/Layout';
+} from '@components/shared/Layout';
 
 // Component
 class Form extends PureComponent {
