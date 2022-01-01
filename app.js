@@ -35,7 +35,6 @@ let tourWindow = null;
 let mainWindow = null;
 let previewWindow = null;
 let modalWindow = null;
-let loginWindow = null;
 
 function createTourWindow() {
   const width = 700;
@@ -175,54 +174,6 @@ function createPreviewWindow() {
     event.preventDefault();
     if (isDev || forceDevtools) previewWindow.webContents.closeDevTools();
     previewWindow.hide();
-  });
-}
-
-function createLoginWindow() {
-  const width = 700;
-  const height = 600;
-
-  // Get X and Y coordinations on primary display
-  const winPOS = centerOnPrimaryDisplay(width, height);
-
-  // Creating a New Window
-  loginWindow = new BrowserWindow({
-    x: winPOS.x,
-    y: winPOS.y,
-    width,
-    height,
-    show: false,
-    frame: false,
-    resizable: false,
-    movable: false,
-    title: 'Login Window',
-    backgroundColor: '#F9FAFA',
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    }
-  });
-  // Register WindowID with appConfig
-  appConfig.setSync('loginWindowID', parseInt(loginWindow.id));
-  // Load Content
-  loginWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, 'entrypoint', 'login.html'),
-      protocol: 'file:',
-      slashes: true,
-    })
-  );
-
-  electronRemoteMain.enable(loginWindow.webContents)
-
-  // Add Event Listeners
-  loginWindow.on('show', event => {
-    if (isDev || forceDevtools) loginWindow.webContents.openDevTools({ mode: 'detach' });
-  });
-  loginWindow.on('close', event => {
-    event.preventDefault();
-    if (isDev || forceDevtools) loginWindow.webContents.closeDevTools();
-    loginWindow.hide();
   });
 }
 
@@ -510,7 +461,6 @@ function addEventListeners() {
       tourWindow.destroy();
       mainWindow.destroy();
       previewWindow.destroy();
-      loginWindow.destroy();
       // Start the quit and update sequence
       autoUpdater.quitAndInstall(false);
     })
@@ -528,7 +478,6 @@ function initialize() {
       app.setAsDefaultProtocolClient('invoncify');
     }
     createTourWindow();
-    createLoginWindow();
     createMainWindow();
     createPreviewWindow();
     setInitialValues();
@@ -552,7 +501,6 @@ function initialize() {
     if (tourWindow !== null) tourWindow.destroy();
     if (mainWindow !== null) mainWindow.destroy();
     if (previewWindow !== null) previewWindow.destroy();
-    if (loginWindow !== null) loginWindow.destroy();
   });
   app.on('open-url', (event, url) => {
     ipcMain.send('open-dialog', {
