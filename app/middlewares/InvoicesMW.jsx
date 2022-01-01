@@ -51,8 +51,23 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     }
 
     case ACTION_TYPES.INVOICE_ENCRYPT: {
-      // TODO: Make migration to encrypted [INVOICE]
-      return next(action)
+      return getAllDocs('invoices')
+        .then(allDocs => {
+          const secretKey = getState().login.secretKey
+          const allDocsEncrypted = encrypt({ docs: allDocs, secretKey })
+          allDocsEncrypted.forEach(doc => {
+            updateDoc('invoices', doc)
+          })
+        })
+        .catch(err => {
+          next({
+            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+            payload: {
+              type: 'warning',
+              message: err.message,
+            },
+          });
+        });
     }
 
     case ACTION_TYPES.INVOICE_SAVE: {

@@ -85,6 +85,7 @@ class App extends PureComponent {
     ipc.once('migrate-all-data', (event) => {
       dispatch(ContactsActions.encryptContacts())
       dispatch(InvoicesActions.encryptInvoices())
+      ipc.send('data-migrated');
     })
   }
 
