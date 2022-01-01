@@ -36,32 +36,8 @@ const ExportImportMW = ({ dispatch }) => next => action => {
         }
 
         case ACTION_TYPES.IMPORT_DATA: {
+            //TODO: Create Import logic
             break;
-            // return saveDoc('contacts', action.payload)
-            //     .then(newDocs => {
-            //         const secretKey = getState().login.secretKey
-            //         const allDocsDecrypted = decrypt({ docs: newDocs, secretKey })
-            //         next({
-            //             type: ACTION_TYPES.CONTACT_SAVE,
-            //             payload: allDocsDecrypted,
-            //         });
-            //         dispatch({
-            //             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            //             payload: {
-            //                 type: 'success',
-            //                 message: i18n.t('messages:contact:saved'),
-            //             },
-            //         });
-            //     })
-            //     .catch(err => {
-            //         next({
-            //             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            //             payload: {
-            //                 type: 'warning',
-            //                 message: err.message,
-            //             },
-            //         });
-            //     });
         }
 
         default: {
