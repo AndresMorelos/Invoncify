@@ -1,8 +1,32 @@
 const ipc = require('electron').ipcRenderer;
 
 function encrypt({ docs, secretKey }) {
+    if (Array.isArray(docs)) {
+        return docs.map(doc => {
+            if (doc.content) {
+                return doc
+            }
+
+            const docToReturn = {
+                _id: doc._id,
+                _rev: doc._rev,
+            }
+
+            delete doc._id
+            delete doc._rev
+
+            const contentEncrypted = ipc.sendSync('encrypt-data', { content: doc, secretKey })
+
+            Object.assign(docToReturn, {
+                content: contentEncrypted
+            })
+
+            return docToReturn
+        })
+    }
+
     return ipc.sendSync('encrypt-data', { message: JSON.stringify(docs), secretKey })
-}
+} 
 
 function decrypt({ docs, secretKey }) {
     if (Array.isArray(docs)) {
@@ -10,7 +34,7 @@ function decrypt({ docs, secretKey }) {
             const contentDecrypted = ipc.sendSync('decrypt-data', { content: doc.content, secretKey })
             if (!contentDecrypted) return null;
             delete doc.content
-    
+
 
             Object.assign(contentDecrypted, {
                 _id: doc._id,
@@ -33,7 +57,7 @@ function decrypt({ docs, secretKey }) {
 }
 
 function getSettings() {
-    return ipc.sendSync('encription-get-settings')
+    return ipc.sendSync('encryption-get-settings')
 }
 
 module.exports = { encrypt, decrypt, getSettings }

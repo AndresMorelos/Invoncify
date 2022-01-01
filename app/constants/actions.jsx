@@ -29,12 +29,14 @@ export const INVOICE_NEW_FROM_CONTACT = 'INVOICE_NEW_FROM_CONTACT';
 export const INVOICE_SET_STATUS = 'INVOICE_SET_STATUS';
 export const INVOICE_CONFIGS_SAVE = 'INVOICE_CONFIGS_SAVE';
 export const INVOICE_DUPLICATE = 'INVOICE_DUPLICATE';
+export const INVOICE_ENCRYPT = 'INVOICE_ENCRYPT'
 
 // CONTACTS
 // ===========================================================
 export const CONTACT_GET_ALL = 'CONTACT_GET_ALL';
 export const CONTACT_DELETE = 'CONTACT_DELETE';
 export const CONTACT_SAVE = 'CONTACT_SAVE';
+export const CONTACT_ENCRYPT = 'CONTACT_ENCRYPT';
 
 // SETTINGS
 // ===========================================================

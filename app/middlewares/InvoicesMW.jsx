@@ -10,7 +10,7 @@ import * as FormActions from '../actions/form';
 
 // Helpers
 import { getAllDocs, getSingleDoc, saveDoc, deleteDoc, updateDoc } from '../helpers/pouchDB';
-import { encrypt, decrypt } from '../helpers/encription'
+import { encrypt, decrypt } from '../helpers/encryption'
 
 const InvoicesMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -48,6 +48,11 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
             },
           });
         });
+    }
+
+    case ACTION_TYPES.INVOICE_ENCRYPT: {
+      // TODO: Make migration to encrypted [INVOICE]
+      return next(action)
     }
 
     case ACTION_TYPES.INVOICE_SAVE: {

@@ -4,7 +4,7 @@ import { getInvoiceValue } from './invoice';
 import { isEmpty, pick, includes } from 'lodash';
 import i18n from '../../i18n/i18n';
 import { v4 as uuidv4 } from 'uuid';
-import { encrypt } from './encription'
+import { encrypt } from './encryption'
 
 function validateFormData(formData) {
   const {

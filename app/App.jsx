@@ -81,6 +81,11 @@ class App extends PureComponent {
         ipc.send('reveal-file', options.location);
       };
     });
+
+    ipc.once('migrate-all-data', (event) => {
+      dispatch(ContactsActions.encryptContacts())
+      dispatch(InvoicesActions.encryptInvoices())
+    })
   }
 
   componentWillUnmount() {
@@ -97,7 +102,8 @@ class App extends PureComponent {
       'menu-form-toggle-settings',
       // Save template configs to invoice
       'save-configs-to-invoice',
-      'file-exported'
+      'file-exported',
+      'migrate-all-data'
     ]);
   }
 

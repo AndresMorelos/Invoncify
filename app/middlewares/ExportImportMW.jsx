@@ -4,7 +4,7 @@ import * as ACTION_TYPES from '../constants/actions.jsx';
 // Helpers
 import { getAllDocs } from '../helpers/pouchDB';
 import i18n from '../../i18n/i18n';
-import { getSettings } from '../helpers/encription.js';
+import { getSettings } from '../helpers/encryption.js';
 const ipc = require('electron').ipcRenderer;
 
 

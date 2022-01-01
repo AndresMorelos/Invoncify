@@ -1,11 +1,11 @@
 const crypto = require('crypto');
 const appConfig = require('electron-settings')
 const { ipcMain } = require('electron');
-const { encrypt, decrypt } = require('../helpers/encription');
+const { encrypt, decrypt } = require('../helpers/encryption');
 
 
 // eslint-disable-next-line prefer-const
-let { iv, salt, validation } = appConfig.getSync('encription');
+let { iv, salt, validation, dataMigrated } = appConfig.getSync('encryption');
 
 
 if (!Buffer.isBuffer(iv)) {
@@ -18,7 +18,7 @@ if (!Buffer.isBuffer(salt)) {
 ipcMain.on('secret-key-updated', (event, { secretKey }) => {
     if (validation === null) {
         const validationKeyContent = { pass: true }
-        appConfig.setSync('encription.validation',
+        appConfig.setSync('encryption.validation',
             encrypt({
                 secretKey,
                 salt,
@@ -26,6 +26,9 @@ ipcMain.on('secret-key-updated', (event, { secretKey }) => {
                 message: JSON.stringify(validationKeyContent)
             })
         )
+        if (!dataMigrated) {
+            event.sender.send('migrate-all-data');
+        }
         event.returnValue = validationKeyContent
         return;
     }
@@ -51,7 +54,12 @@ ipcMain.on('decrypt-data', (event, { content, secretKey }) => {
 });
 
 
-ipcMain.on('encription-get-settings', (event) => {
-    const { iv : ivHex, salt: saltHex } = appConfig.getSync('encription');
+ipcMain.on('encryption-get-settings', (event) => {
+    const { iv: ivHex, salt: saltHex } = appConfig.getSync('encryption');
     event.returnValue = { iv: ivHex, salt: saltHex, validation }
+})
+
+
+ipcMain.on('data-migrated', (event) => {
+    appConfig.setSync('encryption.dataMigrated', true);
 })

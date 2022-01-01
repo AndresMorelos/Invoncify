@@ -4,7 +4,7 @@ import * as ACTION_TYPES from '../constants/actions.jsx';
 // Helpers
 import { getAllDocs, saveDoc, deleteDoc } from '../helpers/pouchDB';
 import i18n from '../../i18n/i18n';
-import { decrypt } from '../helpers/encription.js';
+import { decrypt, encrypt } from '../helpers/encryption.js';
 
 const ContactsMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -27,7 +27,30 @@ const ContactsMW = ({ dispatch, getState }) => next => action => {
           });
         });
     }
-
+    case ACTION_TYPES.CONTACT_ENCRYPT: {
+      // TODO: Make migration to encrypted [CONTACTS]
+       return next(action)
+      // return getAllDocs('contacts')
+      //   .then(allDocs => {
+      //     const secretKey = getState().login.secretKey
+      //     const allDocsEncrypted = encrypt({ docs: allDocs, secretKey })
+      //     allDocsEncrypted.forEach(contact => {
+      //       next({
+      //         type: ACTION_TYPES.CONTACT_SAVE,
+      //         payload: contact,
+      //       })
+      //     });
+      //   })
+      //   .catch(err => {
+      //     next({
+      //       type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+      //       payload: {
+      //         type: 'warning',
+      //         message: err.message,
+      //       },
+      //     });
+      //   });
+    }
     case ACTION_TYPES.CONTACT_SAVE: {
       return saveDoc('contacts', action.payload)
         .then(newDocs => {

@@ -16,7 +16,7 @@ const { autoUpdater } = require('electron-updater');
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');
 const windowStateKeeper = require('./helpers/windowStateKeeper');
-const { generaterRandmBytes } = require('./helpers/encription');
+const { generaterRandmBytes } = require('./helpers/encryption');
 
 // commmandline arguments
 const forceDevtools = process.argv.includes('--force-devtools');
@@ -341,10 +341,11 @@ function setInitialValues() {
         payment: false,
       },
     },
-    encription: {
+    encryption: {
       iv: generaterRandmBytes(),
       salt: generaterRandmBytes(),
       validation: null,
+      dataMigrated: false,
     }
   };
 
@@ -451,17 +452,18 @@ function migrateData() {
 
     4: configs => {
       // Return current configs if this is the first time install
-      if (configs.encription !== undefined) {
+      if (configs.encryption !== undefined) {
         return configs
       }
 
       // Update current configs 
       return {
         ...configs,
-        encription: {
+        encryption: {
           iv: generaterRandmBytes(),
           salt: generaterRandmBytes(),
           validation: null,
+          dataMigrated: false,
         }
       }
 
