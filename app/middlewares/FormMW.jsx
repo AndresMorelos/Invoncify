@@ -16,16 +16,16 @@ import * as UIActions from '../actions/ui';
 
 // Helper
 import { getInvoiceData, validateFormData } from '../helpers/form';
-import { ipcRenderer } from 'electron';
 
 const FormMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case ACTION_TYPES.FORM_SAVE: {
       const currentFormData = getState().form;
+      const secretKey = getState().login.secretKey;
 
       // Validate Form Data
       if (!validateFormData(currentFormData)) return;
-      const currentInvoiceData = getInvoiceData(currentFormData);
+      const { currentInvoiceData, recipient } = getInvoiceData(currentFormData, secretKey);
       // UPDATE DOC
       if (currentFormData.settings.editMode.active) {
         // Update existing invoice
@@ -38,7 +38,7 @@ const FormMW = ({ dispatch, getState }) => next => action => {
       }
       // Save Contact to DB if it's a new one
       if (currentFormData.recipient.newRecipient) {
-        const newContactData = currentInvoiceData.recipient;
+        const newContactData = recipient;
         dispatch(ContactsActions.saveContact(newContactData));
       }
       // Clear The Form

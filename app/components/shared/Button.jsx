@@ -34,6 +34,10 @@ const ButtonStyle = styled.button`
     background: #EC476E;
     color: white;
   `}
+  ${props => props.warning && `
+    background: #F9D548;
+    color: white;
+  `}
   // Active state
   ${props => props.active && `
     background: #F2F3F4;

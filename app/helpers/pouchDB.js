@@ -161,13 +161,12 @@ const getSingleDoc = (dbName, docID) => new Promise((resolve, reject) => {
 });
 
 // Save a Document
-const saveDoc = (dbName, doc) =>
-  new Promise((resolve, reject) => {
-    setDB(dbName)
-      .then(db => db.put(doc))
-      .then(getAllDocs(dbName).then(newDocs => resolve(newDocs)))
-      .catch(err => reject(err));
-  });
+const saveDoc = (dbName, doc) => new Promise((resolve, reject) => {
+  setDB(dbName)
+    .then(db => db.put(doc))
+    .then(getAllDocs(dbName).then(newDocs => resolve(newDocs)))
+    .catch(err => reject(err));
+})
 
 // Delete A Document
 const deleteDoc = (dbName, doc) => new Promise((resolve, reject) => {

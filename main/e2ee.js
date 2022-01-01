@@ -1,43 +1,57 @@
 const crypto = require('crypto');
 const appConfig = require('electron-settings')
 const { ipcMain } = require('electron');
+const { encrypt, decrypt } = require('../helpers/encription');
 
 
-let iv;
-let salt;
-const algorithm = 'aes-256-ctr';
+// eslint-disable-next-line prefer-const
+let { iv, salt, validation } = appConfig.getSync('encription');
 
-iv = appConfig.getSync('encription.iv');
-salt = appConfig.getSync('encription.salt')
 
-if (!iv) {
-    iv = crypto.randomBytes(16);
-    appConfig.setSync('encription.iv', iv.toString('hex'))
-} else if (!Buffer.isBuffer(iv)) {
+if (!Buffer.isBuffer(iv)) {
     iv = Buffer.from(iv, 'hex')
 }
-
-if (!salt) {
-    salt = crypto.randomBytes(16);
-    appConfig.setSync('encription.salt', iv.toString('hex'))
-} else if (!Buffer.isBuffer(salt)) {
+if (!Buffer.isBuffer(salt)) {
     salt = Buffer.from(salt, 'hex')
 }
 
-function generateKey(secretKey) {
-    return crypto.scryptSync(secretKey, salt, 32);
-}
+ipcMain.on('secret-key-updated', (event, { secretKey }) => {
+    if (validation === null) {
+        const validationKeyContent = { pass: true }
+        appConfig.setSync('encription.validation',
+            encrypt({
+                secretKey,
+                salt,
+                iv,
+                message: JSON.stringify(validationKeyContent)
+            })
+        )
+        event.returnValue = validationKeyContent
+        return;
+    }
+    const validationResult = decrypt({ content: validation, secretKey, salt, iv })
+
+    if (!validationResult) {
+        event.sender.send('bad-secret-key')
+    }
+
+    event.returnValue = validationResult
+    return;
+});
+
 
 ipcMain.on('encrypt-data', (event, { message, secretKey }) => {
-    const cipher = crypto.createCipheriv(algorithm, generateKey(secretKey), iv);
-    const encrypted = Buffer.concat([cipher.update(message), cipher.final()]);
-    return encrypted.toString('hex')
+    event.returnValue = encrypt({ message, secretKey, iv, salt })
 })
 
 
 
 ipcMain.on('decrypt-data', (event, { content, secretKey }) => {
-    const decipher = crypto.createDecipheriv(algorithm, generateKey(secretKey), iv);
-    const decrpyted = Buffer.concat([decipher.update(Buffer.from(content, 'hex')), decipher.final()]);
-    return decrpyted.toString('utf-8')
+    event.returnValue = decrypt({ content, secretKey, salt, iv })
 });
+
+
+ipcMain.on('encription-get-settings', (event) => {
+    const { iv : ivHex, salt: saltHex } = appConfig.getSync('encription');
+    event.returnValue = { iv: ivHex, salt: saltHex, validation }
+})

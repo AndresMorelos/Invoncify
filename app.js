@@ -16,6 +16,7 @@ const { autoUpdater } = require('electron-updater');
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');
 const windowStateKeeper = require('./helpers/windowStateKeeper');
+const { generaterRandmBytes } = require('./helpers/encription');
 
 // commmandline arguments
 const forceDevtools = process.argv.includes('--force-devtools');
@@ -39,7 +40,7 @@ let loginWindow = null;
 function createTourWindow() {
   const width = 700;
   const height = 600;
-  
+
   // Get X and Y coordinations on primary display
   const winPOS = centerOnPrimaryDisplay(width, height);
 
@@ -340,6 +341,11 @@ function setInitialValues() {
         payment: false,
       },
     },
+    encription: {
+      iv: generaterRandmBytes(),
+      salt: generaterRandmBytes(),
+      validation: null,
+    }
   };
 
   // Set initial values conditionally work for 2 level depth key only,
@@ -374,7 +380,8 @@ function migrateData() {
       }
       // Update current configs
       const migratedConfigs = {
-        ...configs, profile: info,
+        ...configs,
+        profile: info,
         general: {
           language: appSettings.language,
           sound: appSettings.sound,
@@ -441,6 +448,24 @@ function migrateData() {
       // Remove checkUpdate and lastCheck
       return { ...configs, general: omit(configs.general, ['checkUpdate', 'lastCheck']) };
     },
+
+    4: configs => {
+      // Return current configs if this is the first time install
+      if (configs.encription !== undefined) {
+        return configs
+      }
+
+      // Update current configs 
+      return {
+        ...configs,
+        encription: {
+          iv: generaterRandmBytes(),
+          salt: generaterRandmBytes(),
+          validation: null,
+        }
+      }
+
+    }
   };
   // Get the current Config
   const configs = appConfig.getSync();
@@ -459,7 +484,8 @@ function migrateData() {
     configs
   );
   // Save the final config to DB
-  appConfig.unsetSync().setAll(migratedConfigs);
+  appConfig.unsetSync()
+  appConfig.setSync(migratedConfigs);
   // Update the latest config version
   appConfig.setSync('version', newMigrations[newMigrations.length - 1]);
 }

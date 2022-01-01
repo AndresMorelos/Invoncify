@@ -7,7 +7,7 @@ import Form from '../../containers/Form';
 import Invoices from '../../containers/Invoices';
 import Contacts from '../../containers/Contacts';
 import Settings from '../../containers/Settings';
-import Login from '../../containers/Login';
+import ExportImport from '../../containers/ExportImport';
 
 // Layout
 import { AppMainContent } from '../shared/Layout';
@@ -26,6 +26,7 @@ class AppMain extends Component {
         {activeTab === 'invoices' && <Invoices />}
         {activeTab === 'contacts' && <Contacts />}
         {activeTab === 'settings' && <Settings />}
+        {activeTab === 'export-import' && <ExportImport />}
       </AppMainContent>
     );
   }

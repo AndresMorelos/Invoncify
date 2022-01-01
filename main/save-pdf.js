@@ -30,7 +30,7 @@ ipcMain.on('save-pdf', (event, docId) => {
           shell.openPath(pdfPath);
         }
         // Show notification
-        win.webContents.send('pfd-exported',
+        win.webContents.send('pdf-exported',
           {
             title: 'PDF Exported',
             body: 'Click to reveal file.',

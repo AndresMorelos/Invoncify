@@ -1,0 +1,11 @@
+{
+    "header": "Export/Import",
+    "actions" : {
+        "export": "Export",
+        "import": "Import"
+    },
+    "information": {
+        "label": "Note:",
+        "info": "The export action will export your contact and invoices encrypted, also, the basic encryption settings will be exported"
+    }
+}

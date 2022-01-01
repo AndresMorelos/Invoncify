@@ -253,7 +253,7 @@ class Invoice extends PureComponent {
 
   render() {
     const { invoice, setInvoiceStatus, t } = this.props;
-    const { recipient, status, configs } = invoice;
+    const { recipient, status } = invoice;
     const dateFormat = invoice.configs ? invoice.configs.dateFormat : this.props.dateFormat;
     const statusActions = [
       {

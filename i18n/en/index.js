@@ -8,6 +8,7 @@ import preview from './preview.json';
 import settings from './settings.json';
 import tour from './tour.json';
 import login from './login.json'
+import exportImport from './exportImport.json'
 
 export default {
   common,
@@ -19,5 +20,6 @@ export default {
   preview,
   settings,
   tour,
-  login
+  login,
+  exportImport
 }

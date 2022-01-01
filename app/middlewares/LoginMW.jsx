@@ -11,10 +11,13 @@ const LoginMW = ({ dispatch, getState }) => next => action => {
         }
         case ACTION_TYPES.LOGIN_SET_SECRET: {
             sessionStorage.setItem('secretKey', action.payload)
-            next({
-                type: ACTION_TYPES.LOGIN_SET_SECRET,
-                payload: action.payload
-            })
+            const result= ipc.sendSync('secret-key-updated', { secretKey: action.payload });
+            if (result && result.pass) {
+                next({
+                    type: ACTION_TYPES.LOGIN_SET_SECRET,
+                    payload: action.payload
+                })
+            }
             break;
         }
         case ACTION_TYPES.LOGIN_DELETE_SECRET: {

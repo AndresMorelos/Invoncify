@@ -5,6 +5,7 @@ import InvoicesReducer from './InvoicesReducer';
 import ContactsReducer from './ContactsReducer';
 import SettingsReducer from './SettingsReducer';
 import LoginReducer from './LoginReducer';
+import exportImportReducer from './exportImportReducer';
 
 export default combineReducers({
   ui: UIReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   contacts: ContactsReducer,
   settings: SettingsReducer,
   login: LoginReducer,
+  exportImport: exportImportReducer,
 });

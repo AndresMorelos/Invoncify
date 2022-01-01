@@ -23,6 +23,8 @@ import { getSecretKey } from './reducers/LoginReducer'
 import Login from './containers/Login';
 
 import windowStateKeeper from '../helpers/windowStateKeeper';
+import resize from './helpers/rezise'
+import { Notify } from '../helpers/notify'
 
 // Components
 class App extends PureComponent {
@@ -35,8 +37,6 @@ class App extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     // Get All Data
-    dispatch(ContactsActions.getAllContacts());
-    dispatch(InvoicesActions.getInvoices());
     dispatch(SettingsActions.getInitalSettings());
     // Add Event Listener
     ipc.on('menu-change-tab', (event, tabName) => {
@@ -73,6 +73,14 @@ class App extends PureComponent {
     ipc.on('save-configs-to-invoice', (event, invoiceID, configs) => {
       dispatch(InvoicesActions.saveInvoiceConfigs(invoiceID, configs));
     });
+
+    ipc.on('file-exported', (event, options) => {
+      const noti = Notify(options);
+      // Handle click on notification
+      noti.onclick = () => {
+        ipc.send('reveal-file', options.location);
+      };
+    });
   }
 
   componentWillUnmount() {
@@ -88,7 +96,8 @@ class App extends PureComponent {
       'menu-form-toggle-note',
       'menu-form-toggle-settings',
       // Save template configs to invoice
-      'save-configs-to-invoice'
+      'save-configs-to-invoice',
+      'file-exported'
     ]);
   }
 
@@ -107,8 +116,12 @@ class App extends PureComponent {
     const { activeTab, notifications, checkUpdatesMessage } = ui;
 
     if (secretKey) {
+      const { dispatch } = this.props;
       const { width, height } = windowStateKeeper('main');
-      ipc.send('rezie-main-window', width, height )
+      ipc.send('rezie-main-window', width, height);
+      // Get Encrypted data
+      dispatch(InvoicesActions.getInvoices());
+      dispatch(ContactsActions.getAllContacts());
       return (
         <AppWrapper>
           <AppNav activeTab={activeTab} changeTab={this.changeTab} />
