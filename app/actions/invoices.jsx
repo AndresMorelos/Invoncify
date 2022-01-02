@@ -42,3 +42,6 @@ export const saveInvoiceConfigs = createAction(
   ACTION_TYPES.INVOICE_CONFIGS_SAVE,
   (invoiceID, configs) => ({ invoiceID, configs })
 );
+
+// Migration from not encrypted data
+export const encryptInvoices = createAction(ACTION_TYPES.INVOICE_ENCRYPT);

@@ -17,13 +17,17 @@
       "heading": "Paso 2. Personalizar",
       "description": "Invoncify viene con plantillas de aspecto profesionales que pueden personalizarse aún más para que coincida con su estilo de marca."
     },
+    "encryption": {
+      "heading": "Paso 3. Encriptación",
+      "description": "Invoncify viene con un cifrado de extremo a extremo que protege su información y además le brinda la capacidad de exportar o importar sus datos de forma segura"
+    },
     "save": {
-      "heading": "Paso 3. Guardar",
+      "heading": "Paso 4. Guardar",
       "description": "Una vez satisfecho con el aspecto de la factura puedes guardarlo como PDF para su uso posterior. Imprímalo o envíelo por correo electrónico, ¡use Invoncify para impresionar a sus clientes ahora!"
     },
     "success": {
       "heading": "¡Listo! ✋️",
-      "description": "Ahí lo tienes, los 3 simples pasos para crear impresionantes facturas con Invoncify. Recuerde actualizar el perfil y el logotipo de la empresa antes de utilizar realmente la factura."
+      "description": "Ahí lo tienes, los 4 simples pasos para crear impresionantes facturas con Invoncify. Recuerde actualizar el perfil y el logotipo de la empresa antes de utilizar realmente la factura."
     }
   }
 }

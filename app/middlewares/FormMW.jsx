@@ -1,7 +1,7 @@
 // Node Libs
-const appConfig = require('@electron/remote').require('electron-settings');
+const { require: RemoteRequire } = require('@electron/remote')
+const appConfig = RemoteRequire('electron-settings');
 import { v4 as uuidv4 } from 'uuid';
-import indexGenerator from '../helpers/indexGenerator';
 import i18n from '../../i18n/i18n';
 
 // Actions Verbs
@@ -21,9 +21,11 @@ const FormMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case ACTION_TYPES.FORM_SAVE: {
       const currentFormData = getState().form;
+      const secretKey = getState().login.secretKey;
+
       // Validate Form Data
       if (!validateFormData(currentFormData)) return;
-      const currentInvoiceData = getInvoiceData(currentFormData);
+      const { currentInvoiceData, recipient } = getInvoiceData(currentFormData, secretKey);
       // UPDATE DOC
       if (currentFormData.settings.editMode.active) {
         // Update existing invoice
@@ -36,7 +38,7 @@ const FormMW = ({ dispatch, getState }) => next => action => {
       }
       // Save Contact to DB if it's a new one
       if (currentFormData.recipient.newRecipient) {
-        const newContactData = currentInvoiceData.recipient;
+        const newContactData = recipient;
         dispatch(ContactsActions.saveContact(newContactData));
       }
       // Clear The Form

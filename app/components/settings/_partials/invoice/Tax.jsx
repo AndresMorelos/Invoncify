@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Row, Field, Part } from '../../../shared/Part';
 
-function Tax({ t, tax, handleTaxChange }) {
+const Tax = function ({ t, tax, handleTaxChange }) {
   return [
     <label key="label" className="itemLabel">
       {t('settings:fields:taxSettings')}

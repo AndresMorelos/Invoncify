@@ -15,3 +15,6 @@ export const deleteContact = createAction(
   ACTION_TYPES.CONTACT_DELETE,
   contactID => contactID
 );
+
+// Migration from no encrypted data
+export const encryptContacts = createAction(ACTION_TYPES.CONTACT_ENCRYPT)

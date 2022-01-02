@@ -1,7 +1,5 @@
 // Node Libs
 import { v4 as uuidv4 } from 'uuid';
-import currencies from '../../libs/currencies.json';
-const appConfig = require('@electron/remote').require('electron-settings');
 const ipc = require('electron').ipcRenderer;
 import i18n from '../../i18n/i18n';
 
@@ -11,8 +9,8 @@ import * as UIActions from '../actions/ui';
 import * as FormActions from '../actions/form';
 
 // Helpers
-import { getInvoiceValue } from '../helpers/invoice';
 import { getAllDocs, getSingleDoc, saveDoc, deleteDoc, updateDoc } from '../helpers/pouchDB';
+import { encrypt, decrypt } from '../helpers/encryption'
 
 const InvoicesMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -31,11 +29,37 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     }
 
     case ACTION_TYPES.INVOICE_GET_ALL: {
+      const secretKey = getState().login.secretKey
+      if (secretKey) {
+        return getAllDocs('invoices')
+          .then(allDocs => {
+            const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
+            next(
+              { ...action, payload: allDocsDecrypted, }
+            );
+
+          })
+          .catch(err => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
+          });
+      }
+      break;
+    }
+
+    case ACTION_TYPES.INVOICE_ENCRYPT: {
       return getAllDocs('invoices')
         .then(allDocs => {
-          next(
-            { ...action, payload: allDocs,}
-          );
+          const secretKey = getState().login.secretKey
+          const allDocsEncrypted = encrypt({ docs: allDocs, secretKey })
+          allDocsEncrypted.forEach(doc => {
+            updateDoc('invoices', doc)
+          })
         })
         .catch(err => {
           next({
@@ -52,9 +76,11 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
       // Save doc to db
       return saveDoc('invoices', action.payload)
         .then(newDocs => {
+          const secretKey = getState().login.secretKey
+          const allDocsDecrypted = decrypt({ docs: newDocs, secretKey })
           next({
             type: ACTION_TYPES.INVOICE_SAVE,
-            payload: newDocs,
+            payload: allDocsDecrypted,
           });
           dispatch({
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
@@ -63,8 +89,9 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
               message: i18n.t('messages:invoice:saved'),
             },
           });
+          const docDecrypted = decrypt({ docs: action.payload, secretKey })
           // Preview Window
-          ipc.send('preview-invoice', action.payload);
+          ipc.send('preview-invoice', docDecrypted);
         })
         .catch(err => {
           next({
@@ -82,7 +109,7 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
       return getAllDocs('contacts')
         .then(allDocs => {
           next(
-            { ...action, payload: { ...action.payload, contacts: allDocs}}
+            { ...action, payload: { ...action.payload, contacts: allDocs } }
           );
           // Change Tab to Form
           dispatch(UIActions.changeActiveTab('form'));
@@ -101,9 +128,11 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     case ACTION_TYPES.INVOICE_DELETE: {
       return deleteDoc('invoices', action.payload[0])
         .then(remainingDocs => {
+          const secretKey = getState().login.secretKey
+          const allDocsDecrypted = decrypt({ docs: remainingDocs, secretKey })
           next({
             type: ACTION_TYPES.INVOICE_DELETE,
-            payload: remainingDocs,
+            payload: allDocsDecrypted,
           });
           // Send Notification
           dispatch({
@@ -133,9 +162,15 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     }
 
     case ACTION_TYPES.INVOICE_DUPLICATE: {
-      const duplicateInvoice = { ...action.payload, created_at: Date.now(),
+      const secretKey = getState().login.secretKey
+      delete action.payload._id
+      delete action.payload._rev
+      const content = encrypt({ docs: { ...action.payload, created_at: Date.now() }, secretKey })
+      const duplicateInvoice = {
+        content,
         _id: uuidv4(),
-        _rev: null,}
+        _rev: null,
+      }
       return dispatch({
         type: ACTION_TYPES.INVOICE_SAVE,
         payload: duplicateInvoice,
@@ -143,11 +178,13 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     }
 
     case ACTION_TYPES.INVOICE_UPDATE: {
+      const secretKey = getState().login.secretKey;
       return updateDoc('invoices', action.payload)
         .then(docs => {
+          const allDocsDecrypted = decrypt({ docs, secretKey })
           next({
             type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: docs,
+            payload: allDocsDecrypted,
           });
           dispatch({
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
@@ -174,7 +211,7 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
         .then(doc => {
           dispatch({
             type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: { ...doc, configs}
+            payload: { ...doc, configs }
           })
         })
         .catch(err => {
@@ -189,12 +226,21 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     }
 
     case ACTION_TYPES.INVOICE_SET_STATUS: {
+      const secretKey = getState().login.secretKey;
       const { invoiceID, status } = action.payload;
+
       return getSingleDoc('invoices', invoiceID)
         .then(doc => {
+          const docDecrypted = decrypt({ docs: doc, secretKey })
+          const content = encrypt({ docs: { ...docDecrypted, status }, secretKey })
+          const updatedInvocie = {
+            _id: doc._id,
+            _rev: doc._rev,
+            content
+          }
           dispatch({
             type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: { ...doc, status}
+            payload: updatedInvocie
           })
         })
         .catch(err => {

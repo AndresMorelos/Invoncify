@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Animation
-import _withFadeInAnimation from '../../components/shared/hoc/_withFadeInAnimation';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 
 // Styles
 import styled from 'styled-components';

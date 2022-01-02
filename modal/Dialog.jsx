@@ -1,11 +1,11 @@
 // Libs
 import React, { PureComponent } from 'react';
+import styled from 'styled-components';
 const appConfig = require('@electron/remote').require('electron-settings');
 const BrowserWindow = require('@electron/remote').BrowserWindow;
 const ipc = require('electron').ipcRenderer;
 const mainWindow = BrowserWindow.fromId(appConfig.getSync('mainWindowID'));
 
-import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,8 +31,8 @@ const Type = styled.div`
     `
     i { color: #f0ad4e; }
   `} ${props =>
-      props.type === 'info' &&
-      `
+    props.type === 'info' &&
+    `
     i { color: #0275d8; }
   `};
 `;
@@ -58,8 +58,8 @@ const Title = styled.h4`
     `
     color: #f0ad4e;
   `} ${props =>
-      props.type === 'info' &&
-      `
+    props.type === 'info' &&
+    `
     color: #0275d8;
   `};
 `;
@@ -88,8 +88,8 @@ const Actions = styled.div`
     `
     border-top: 4px solid #f0ad4e;
   `} ${props =>
-      props.type === 'info' &&
-      `
+    props.type === 'info' &&
+    `
     border-top: 4px solid #0275d8;
   `} a {
     background: #ffffff;
@@ -162,14 +162,15 @@ class Dialog extends PureComponent {
   }
 
   rendersButtons() {
-    if (!this.state.buttons) {
+    const { buttons } = this.state
+    if (!buttons) {
       return (
         <a href="#" onClick={this.handleClick}>
           Ok
         </a>
       );
     }
-    return this.state.buttons.map((button, index) => (
+    return buttons.map((button, index) => (
       <a href="#" key={index} alt={index} onClick={this.handleClick}>
         {button}
       </a>
@@ -177,15 +178,15 @@ class Dialog extends PureComponent {
   }
 
   render() {
-    const { type } = this.state;
+    const { type, title, message } = this.state;
     return type !== undefined ? (
       <Wrapper>
         <Type type={type}>
           <i className={this.renderIconClass()} />
         </Type>
         <Content>
-          <Title type={type}>{this.state.title}</Title>
-          <Message>{this.state.message}</Message>
+          <Title type={type}>{title}</Title>
+          <Message>{message}</Message>
         </Content>
         <Actions type={type}>{this.rendersButtons()}</Actions>
       </Wrapper>

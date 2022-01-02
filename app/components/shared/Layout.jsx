@@ -4,6 +4,13 @@ import React from 'react';
 // Styles
 import styled from 'styled-components';
 
+const LoginWrapperStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+`;
+
 const AppWrapperStyle = styled.div`
   display: flex;
   flex-direction: row;
@@ -75,6 +82,8 @@ const PageFooterStyle = styled.div`
 `;
 
 // Components
+const LoginWrapper = props => <LoginWrapperStyle>{props.children}</LoginWrapperStyle>
+
 const AppWrapper = props => <AppWrapperStyle>{props.children}</AppWrapperStyle>;
 
 const AppMainContent = props => (
@@ -101,7 +110,9 @@ const PageContent = props => (
 
 const PageFooter = props => <PageFooterStyle>{props.children}</PageFooterStyle>;
 
+
 export {
+  LoginWrapper,
   AppWrapper,
   AppMainContent,
   PageWrapper,

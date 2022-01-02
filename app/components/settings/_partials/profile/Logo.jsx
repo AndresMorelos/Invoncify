@@ -6,17 +6,18 @@ import PropTypes from 'prop-types';
 import { NativeTypes, HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
-// Helpers
-import { processImg } from '../../../../helpers/image';
-
 // Node Libs
 import { ipcRenderer as ipc } from 'electron';
+
+// Styles
+import styled from 'styled-components';
+
+// Helpers
+import { processImg } from '../../../../helpers/image';
 
 // Component
 import TargetBox from './TargetBox';
 
-// Styles
-import styled from 'styled-components';
 
 const LogoContainer = styled.div`
   position: relative;

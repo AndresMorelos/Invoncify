@@ -24,21 +24,21 @@ ipcMain.on('save-pdf', (event, docId) => {
 
   win.webContents.printToPDF(printOptions)
     .then(data => {
-      fs.writeFileSync(pdfPath, data, (error) => {
-        if (appConfig.getSync('general.previewPDF')) {
-          // Open the PDF with default Reader
-          shell.openPath(pdfPath);
-        }
-        // Show notification
-        win.webContents.send('pfd-exported',
-          {
-            title: 'PDF Exported',
-            body: 'Click to reveal file.',
-            location: pdfPath,
-          });
-      });
+      fs.writeFileSync(pdfPath, data);
 
-    }).catch(err => {throw err; });
+      if (appConfig.getSync('general.previewPDF')) {
+        // Open the PDF with default Reader
+        shell.openPath(pdfPath);
+      }
+      // Show notification
+      event.sender.send('pdf-exported',
+        {
+          title: 'PDF Exported',
+          body: 'Click to reveal file.',
+          location: pdfPath,
+        });
+
+    }).catch(err => { throw err; });
 
 
 

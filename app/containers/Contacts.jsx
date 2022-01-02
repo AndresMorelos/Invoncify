@@ -12,16 +12,16 @@ import * as ContactsActions from '../actions/contacts';
 import * as InvoicesActions from '../actions/invoices';
 
 // Components
-import Contact from '../components/contacts/Contact';
-import Message from '../components/shared/Message';
-import { Table, THead, TBody, TH, TR } from '../components/shared/Table';
-import _withFadeInAnimation from '../components/shared/hoc/_withFadeInAnimation';
+import Contact from '@components/contacts/Contact';
+import Message from '@components/shared/Message';
+import { Table, THead, TBody, TH, TR } from '@components/shared/Table';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import {
   PageWrapper,
   PageHeader,
   PageHeaderTitle,
   PageContent,
-} from '../components/shared/Layout';
+} from '@components/shared/Layout';
 
 // Selectors
 import { getContacts } from '../reducers/ContactsReducer';

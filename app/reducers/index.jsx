@@ -4,6 +4,8 @@ import FormReducer from './FormReducer';
 import InvoicesReducer from './InvoicesReducer';
 import ContactsReducer from './ContactsReducer';
 import SettingsReducer from './SettingsReducer';
+import LoginReducer from './LoginReducer';
+import exportImportReducer from './exportImportReducer';
 
 export default combineReducers({
   ui: UIReducer,
@@ -11,4 +13,6 @@ export default combineReducers({
   invoices: InvoicesReducer,
   contacts: ContactsReducer,
   settings: SettingsReducer,
+  login: LoginReducer,
+  exportImport: exportImportReducer,
 });

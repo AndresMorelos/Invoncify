@@ -1,9 +1,9 @@
 import React from 'react';
-import path from 'path';
-import Slide from '../Slide';
-import SaveImg from '@images/Save.svg';
 
-function Save({t}) {
+import SaveImg from '@images/Save.svg';
+import Slide from '../Slide';
+
+const Save = function ({ t }) {
   return (
     <Slide
       fromColor="#FFD200"

@@ -1,9 +1,8 @@
 import React from 'react';
-import path from 'path';
-import Slide from '../Slide';
 import WelcomeImg from '@images/Welcome.svg'
+import Slide from '../Slide';
 
-function Welcome({t}) {
+const Welcome = function({t}) {
   return (
     <Slide
       inverted

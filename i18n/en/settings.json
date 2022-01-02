@@ -62,6 +62,15 @@
       "zh-CN": "Chinese (Simplified)",
       "zh-TW": "Chinese (Traditional)"
     },
+    "importExport": {
+      "name": "Import/Export",
+      "import": "Import",
+      "export": "Export",
+      "information": {
+        "label": "Note:",
+        "info": "The export action will export your contact and invoices encrypted, also, the basic encryption settings will be exported"
+      }
+    },
     "other": "Other"
   }
 }

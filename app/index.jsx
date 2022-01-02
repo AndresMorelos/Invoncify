@@ -8,7 +8,7 @@ import i18n from '../i18n/i18n';
 
 // Root Component
 import App from './App';
-import ErrorBoundary from './components/shared/ErrorBoundary';
+import ErrorBoundary from '@components/shared/ErrorBoundary';
 
 import '@styles/bootstrap.min.css'
 import '@styles/ionicons.min.css'

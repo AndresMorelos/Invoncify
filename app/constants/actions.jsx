@@ -29,12 +29,14 @@ export const INVOICE_NEW_FROM_CONTACT = 'INVOICE_NEW_FROM_CONTACT';
 export const INVOICE_SET_STATUS = 'INVOICE_SET_STATUS';
 export const INVOICE_CONFIGS_SAVE = 'INVOICE_CONFIGS_SAVE';
 export const INVOICE_DUPLICATE = 'INVOICE_DUPLICATE';
+export const INVOICE_ENCRYPT = 'INVOICE_ENCRYPT'
 
 // CONTACTS
 // ===========================================================
 export const CONTACT_GET_ALL = 'CONTACT_GET_ALL';
 export const CONTACT_DELETE = 'CONTACT_DELETE';
 export const CONTACT_SAVE = 'CONTACT_SAVE';
+export const CONTACT_ENCRYPT = 'CONTACT_ENCRYPT';
 
 // SETTINGS
 // ===========================================================
@@ -48,3 +50,15 @@ export const UI_TAB_CHANGE = 'UI_TAB_CHANGE';
 export const UI_NOTIFICATION_NEW = 'UI_NOTIFICATION_NEW';
 export const UI_NOTIFICATION_REMOVE = 'UI_NOTIFICATION_REMOVE';
 export const UI_CHECK_UPDATES_MESSAGE = 'UI_CHECK_UPDATES_MESSAGE';
+
+// LOGIN
+export const LOGIN_SET_SECRET = 'LOGIN_SET_SECRET';
+export const LOGIN_GET_SECRET = 'LOGIN_GET_SECRET';
+export const LOGIN_DELETE_SECRET = 'LOGIN_DELETE_SECRET';
+export const LOGIN_VALIDATE_SECRET = 'LOGIN_VALIDATE_SECRET';
+
+// EXPORT
+export const EXPORT_DATA = 'EXPORT_DATA';
+
+// IMPORT
+export const IMPORT_DATA = 'IMPORT_DATA';

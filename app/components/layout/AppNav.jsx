@@ -38,7 +38,7 @@ const allTabs = [
     title: 'Settings',
     name: 'settings',
     icon: 'ion-ios-gear',
-  },
+  }
 ];
 
 // Styles
@@ -95,7 +95,7 @@ export const ActiveIndicator = styled.div`
 
 import AppUpdate from './AppUpdate';
 
-function AppNav({ activeTab, changeTab }) {
+const AppNav = function ({ activeTab, changeTab }) {
   const marginTopValue = setMarginValue(activeTab);
   const allTabsComponent = allTabs.map(tab => (
     <Tab key={tab.name} href="#" onClick={() => changeTab(tab.name)}>

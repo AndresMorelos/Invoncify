@@ -30,6 +30,11 @@ module.exports = {
       '@images': [
         path.resolve(__dirname, 'static', 'imgs'),
         path.resolve(__dirname, 'tour', 'imgs')
+      ],
+      '@components': [
+        path.resolve(__dirname, "app", "components"),
+        path.resolve(__dirname, "preview", "components"),
+        path.resolve(__dirname, "tour", "components"),
       ]
     }
   },

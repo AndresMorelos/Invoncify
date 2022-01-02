@@ -65,7 +65,7 @@ export class ItemRow extends Component {
     this.removeRow = this.removeRow.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, description, quantity, price, subtotal } = this.props.item;
     const index = this.props.index;
     this.setState({

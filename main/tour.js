@@ -56,6 +56,7 @@ function showWindow(context) {
       return;
     }
   }
+
   if (tour.hasBeenTaken) {
     if (context === 'startup') {
       mainWindow.once('ready-to-show', () => {
@@ -87,6 +88,7 @@ function restoreWindows() {
 
 // HELPER FUNCTIONS
 function hideAllWindows() {
+  mainWindow.hide();
   mainWindow.hide();
   previewWindow.hide();
 }

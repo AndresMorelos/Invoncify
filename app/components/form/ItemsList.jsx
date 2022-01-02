@@ -11,7 +11,7 @@ import * as Actions from '../../actions/form.jsx';
 import { getRows } from '../../reducers/FormReducer';
 
 // DragNDrop
-import TransitionList from '../../components/shared/TransitionList';
+import TransitionList from '@components/shared/TransitionList';
 import _withDragNDrop from './hoc/_withDragNDrop';
 
 // Custom Component

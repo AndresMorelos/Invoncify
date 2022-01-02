@@ -12,11 +12,19 @@ import * as InvoicesActions from './actions/invoices';
 import * as ContactsActions from './actions/contacts';
 
 // Components
-import AppNav from './components/layout/AppNav';
-import AppMain from './components/layout/AppMain';
-import AppNoti from './components/layout/AppNoti';
-import AppUpdate from './components/layout/AppUpdate';
-import { AppWrapper } from './components/shared/Layout';
+import AppNav from '@components/layout/AppNav';
+import AppMain from '@components/layout/AppMain';
+import AppNoti from '@components/layout/AppNoti';
+import AppUpdate from '@components/layout/AppUpdate';
+import { AppWrapper, LoginWrapper } from '@components/shared/Layout';
+
+//Reducers
+import { getSecretKey } from './reducers/LoginReducer'
+import Login from './containers/Login';
+
+import windowStateKeeper from '../helpers/windowStateKeeper';
+import resize from './helpers/resize'
+import { Notify } from '../helpers/notify'
 
 // Components
 class App extends PureComponent {
@@ -24,13 +32,12 @@ class App extends PureComponent {
     super(props);
     this.changeTab = this.changeTab.bind(this);
     this.removeNoti = this.removeNoti.bind(this);
+    this.resizeWindow = this.resizeWindow.bind(this);
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     // Get All Data
-    dispatch(ContactsActions.getAllContacts());
-    dispatch(InvoicesActions.getInvoices());
     dispatch(SettingsActions.getInitalSettings());
     // Add Event Listener
     ipc.on('menu-change-tab', (event, tabName) => {
@@ -67,6 +74,20 @@ class App extends PureComponent {
     ipc.on('save-configs-to-invoice', (event, invoiceID, configs) => {
       dispatch(InvoicesActions.saveInvoiceConfigs(invoiceID, configs));
     });
+
+    ipc.on('file-exported', (event, options) => {
+      const noti = Notify(options);
+      // Handle click on notification
+      noti.onclick = () => {
+        ipc.send('reveal-file', options.location);
+      };
+    });
+
+    ipc.once('migrate-all-data', (event) => {
+      dispatch(ContactsActions.encryptContacts())
+      dispatch(InvoicesActions.encryptInvoices())
+      ipc.send('data-migrated');
+    })
   }
 
   componentWillUnmount() {
@@ -82,7 +103,9 @@ class App extends PureComponent {
       'menu-form-toggle-note',
       'menu-form-toggle-settings',
       // Save template configs to invoice
-      'save-configs-to-invoice'
+      'save-configs-to-invoice',
+      'file-exported',
+      'migrate-all-data'
     ]);
   }
 
@@ -96,15 +119,34 @@ class App extends PureComponent {
     dispatch(UIActions.removeNoti(id));
   }
 
+  resizeWindow() {
+    const { width, height } = windowStateKeeper('main');
+    ipc.send('resize-main-window', width, height);
+  }
+
   render() {
-    const { activeTab, notifications, checkUpdatesMessage } = this.props.ui;
+    const { ui, secretKey } = this.props
+    const { activeTab, notifications, checkUpdatesMessage } = ui;
+    if (secretKey) {
+      const { dispatch } = this.props;
+      this.resizeWindow();
+      // Get Encrypted data
+      dispatch(InvoicesActions.getInvoices());
+      dispatch(ContactsActions.getAllContacts());
+      return (
+        <AppWrapper>
+          <AppNav activeTab={activeTab} changeTab={this.changeTab} />
+          <AppMain activeTab={activeTab} />
+          <AppNoti notifications={notifications} removeNoti={this.removeNoti} />
+        </AppWrapper>
+      );
+    }
+
     return (
-      <AppWrapper>
-        <AppNav activeTab={activeTab} changeTab={this.changeTab} />
-        <AppMain activeTab={activeTab} />
-        <AppNoti notifications={notifications} removeNoti={this.removeNoti} />
-      </AppWrapper>
-    );
+      <LoginWrapper>
+        <Login />
+      </LoginWrapper>
+    )
   }
 }
 
@@ -117,6 +159,9 @@ App.propTypes = {
   }).isRequired,
 };
 
-export default connect(state => ({
-  ui: state.ui,
-}))(App);
+const mapStateToProps = state => ({
+  secretKey: getSecretKey(state),
+  ui: state.ui
+})
+
+export default connect(mapStateToProps)(App);

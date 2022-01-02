@@ -23,7 +23,7 @@ export class Tax extends PureComponent {
   }
 
   // Handle Form Clear
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // Already made changes but not saved
     if (this.state !== this.props.savedSettings) {
       // Reset to savedSettings if the below confition is met

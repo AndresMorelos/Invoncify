@@ -12,5 +12,9 @@
   },
   "settings": {
     "saved": "All settings have been saved successfully"
+  },
+  "login": {
+    "badSecret": "I wasn't able to confirm your identity",
+    "success": "I was able to confirm your identity"
   }
 }

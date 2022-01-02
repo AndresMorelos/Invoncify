@@ -1,12 +1,11 @@
 import React from 'react';
-import path from 'path';
-import Slide from '../Slide';
 import PreviewImg from '@images/Preview.svg'
+import Slide from '../Slide';
 
 const description = `
 `;
 
-function Preview({t}) {
+const Preview = function({ t }) {
   return (
     <Slide
       inverted

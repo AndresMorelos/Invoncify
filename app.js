@@ -15,6 +15,8 @@ const { autoUpdater } = require('electron-updater');
 
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');
+const windowStateKeeper = require('./helpers/windowStateKeeper');
+const { generaterRandmBytes } = require('./helpers/encryption');
 
 // commmandline arguments
 const forceDevtools = process.argv.includes('--force-devtools');
@@ -83,14 +85,16 @@ function createTourWindow() {
 }
 
 function createMainWindow() {
+  const width = 700;
+  const height = 600;
   // Get window state
   const mainWindownStateKeeper = windowStateKeeper('main');
   // Creating a new window
   mainWindow = new BrowserWindow({
     x: mainWindownStateKeeper.x,
     y: mainWindownStateKeeper.y,
-    width: mainWindownStateKeeper.width,
-    height: mainWindownStateKeeper.height,
+    width,
+    height,
     minWidth: 600,
     minHeight: 400,
     backgroundColor: '#2e2c29',
@@ -173,15 +177,6 @@ function createPreviewWindow() {
   });
 }
 
-function addDevToolsExtension() {
-  if (process.env.DEVTRON_DEV_TOOLS_PATH)
-    BrowserWindow.addDevToolsExtension(process.env.DEVTRON_DEV_TOOLS_PATH);
-  if (process.env.REACT_DEV_TOOLS_PATH)
-    BrowserWindow.addDevToolsExtension(process.env.REACT_DEV_TOOLS_PATH);
-  if (process.env.REDUX_DEV_TOOLS_PATH)
-    BrowserWindow.addDevToolsExtension(process.env.REDUX_DEV_TOOLS_PATH);
-}
-
 function createModalWindow(dialogOptions, returnChannel = '', ...rest) {
   const width = 450;
   const height = 220;
@@ -227,6 +222,14 @@ function createModalWindow(dialogOptions, returnChannel = '', ...rest) {
   });
 }
 
+function addDevToolsExtension() {
+  if (process.env.DEVTRON_DEV_TOOLS_PATH)
+    BrowserWindow.addDevToolsExtension(process.env.DEVTRON_DEV_TOOLS_PATH);
+  if (process.env.REACT_DEV_TOOLS_PATH)
+    BrowserWindow.addDevToolsExtension(process.env.REACT_DEV_TOOLS_PATH);
+  if (process.env.REDUX_DEV_TOOLS_PATH)
+    BrowserWindow.addDevToolsExtension(process.env.REDUX_DEV_TOOLS_PATH);
+}
 
 function setInitialValues() {
   // Default Logo
@@ -289,6 +292,12 @@ function setInitialValues() {
         payment: false,
       },
     },
+    encryption: {
+      iv: generaterRandmBytes(),
+      salt: generaterRandmBytes(),
+      validation: null,
+      dataMigrated: true,
+    }
   };
 
   // Set initial values conditionally work for 2 level depth key only,
@@ -323,7 +332,8 @@ function migrateData() {
       }
       // Update current configs
       const migratedConfigs = {
-        ...configs, profile: info,
+        ...configs,
+        profile: info,
         general: {
           language: appSettings.language,
           sound: appSettings.sound,
@@ -390,6 +400,25 @@ function migrateData() {
       // Remove checkUpdate and lastCheck
       return { ...configs, general: omit(configs.general, ['checkUpdate', 'lastCheck']) };
     },
+
+    4: configs => {
+      // Return current configs if this is the first time install
+      if (configs.encryption !== undefined) {
+        return configs
+      }
+
+      // Update current configs 
+      return {
+        ...configs,
+        encryption: {
+          iv: generaterRandmBytes(),
+          salt: generaterRandmBytes(),
+          validation: null,
+          dataMigrated: false,
+        }
+      }
+
+    }
   };
   // Get the current Config
   const configs = appConfig.getSync();
@@ -408,7 +437,8 @@ function migrateData() {
     configs
   );
   // Save the final config to DB
-  appConfig.unsetSync().setAll(migratedConfigs);
+  appConfig.unsetSync()
+  appConfig.setSync(migratedConfigs);
   // Update the latest config version
   appConfig.setSync('version', newMigrations[newMigrations.length - 1]);
 }
@@ -442,51 +472,6 @@ function loadMainProcessFiles() {
   files.forEach(file => require(file));
 }
 
-function windowStateKeeper(windowName) {
-  let window, windowState;
-
-  function setBounds() {
-    // Restore from appConfig
-    if (appConfig.hasSync(`windowState.${windowName}`)) {
-      windowState = appConfig.getSync(`windowState.${windowName}`);
-      return;
-    }
-    // Default
-    windowState = {
-      x: undefined,
-      y: undefined,
-      width: 1000,
-      height: 800,
-    };
-  }
-
-  function saveState() {
-    if (!windowState.isMaximized) {
-      windowState = window.getBounds();
-    }
-    windowState.isMaximized = window.isMaximized();
-    appConfig.setSync(`windowState.${windowName}`, windowState);
-  }
-
-  function track(win) {
-    window = win;
-    ['resize', 'move'].forEach(event => {
-      win.on(event, saveState);
-    });
-  }
-
-  setBounds();
-
-  return {
-    x: windowState.x,
-    y: windowState.y,
-    width: windowState.width,
-    height: windowState.height,
-    isMaximized: windowState.isMaximized,
-    track,
-  };
-}
-
 function initialize() {
   app.on('ready', () => {
     if (!app.isDefaultProtocolClient('invoncify')) {
@@ -500,7 +485,7 @@ function initialize() {
     if (isDev) addDevToolsExtension();
     addEventListeners();
     loadMainProcessFiles();
-    // Show Window
+    // Show Tour Window
     const { showWindow } = require('./main/tour');
     showWindow('startup');
   });

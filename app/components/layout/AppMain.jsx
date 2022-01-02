@@ -11,6 +11,7 @@ import Settings from '../../containers/Settings';
 // Layout
 import { AppMainContent } from '../shared/Layout';
 
+
 class AppMain extends Component {
   shouldComponentUpdate(nextProps) {
     return this.props.activeTab !== nextProps.activeTab;

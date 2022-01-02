@@ -1,9 +1,8 @@
 import React from 'react';
-import path from 'path';
-import Slide from '../Slide';
 import SuccessImg from '@images/Success.svg'
+import Slide from '../Slide';
 
-function Success({t}) {
+const Success = function ({ t }) {
   return (
     <Slide
       fromColor="#FFFFFF"

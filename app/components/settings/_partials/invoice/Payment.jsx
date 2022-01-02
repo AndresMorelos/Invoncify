@@ -16,14 +16,13 @@ const PaymentContent = styled.textarea`
   font-size: 14px;
 `;
 
-function Payment({ t, payment, handlePaymentChange }) {
+const Payment = function ({ t, payment, handlePaymentChange }) {
   return [
     <label key="label" className="itemLabel">
       {t('settings:fields:paymentSettings')}
     </label>,
     <Part key="part">
       <Row>
-        {/* ToDo: Add default payment term */}
         <Field>
           <label className="itemLabel">{t('common:details')}</label>
           <PaymentContent

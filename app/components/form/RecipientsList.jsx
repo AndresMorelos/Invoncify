@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { isEmpty, findIndex } from 'lodash';
 
 // Animation
-import _withFadeInAnimation from '../../components/shared/hoc/_withFadeInAnimation';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 
 // Styles
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ export class RecipientsList extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { contacts, selectedContact } = this.props;
     if (isEmpty(selectedContact)) {
       this.updateSelectedRecipient(contacts[0]._id);

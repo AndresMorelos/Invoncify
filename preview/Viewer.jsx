@@ -43,7 +43,7 @@ class Viewer extends Component {
       dispatch(ActionsCreator.updateProfile(newProfile));
     });
 
-    ipc.on('pfd-exported', (event, options) => {
+    ipc.on('pdf-exported', (event, options) => {
       const noti = Notify(options);
       // Handle click on notification
       noti.onclick = () => {
@@ -54,7 +54,7 @@ class Viewer extends Component {
 
   componentWillUnmount() {
     ipc.removeAllListeners([
-      'pfd-exported',
+      'pdf-exported',
       'update-preview',
       'update-preview-window',
     ]);

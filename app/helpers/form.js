@@ -4,6 +4,7 @@ import { getInvoiceValue } from './invoice';
 import { isEmpty, pick, includes } from 'lodash';
 import i18n from '../../i18n/i18n';
 import { v4 as uuidv4 } from 'uuid';
+import { encrypt } from './encryption'
 
 function validateFormData(formData) {
   const {
@@ -32,7 +33,7 @@ function validateFormData(formData) {
   return true;
 }
 
-function getInvoiceData(formData) {
+function getInvoiceData(formData, secretKey) {
   const {
     invoiceID,
     recipient,
@@ -79,17 +80,46 @@ function getInvoiceData(formData) {
   if (required_fields.note) invoiceData.note = note.content;
   // Set Payment
   if (required_fields.payment) invoiceData.payment = payment;
-  
+
   // Return final value
-  return {
-    ...invoiceData, // Metadata
+
+  const invoice = {
     _id: editMode.active ? editMode.data._id : uuidv4(),
     _rev: editMode.active ? editMode.data._rev : null,
-    created_at: editMode.active ? editMode.data.created_at : Date.now(),
-    status: editMode.active ? editMode.data.status : 'pending',
-    // Alway calculate subtotal & grandTotal
-    subtotal: getInvoiceValue(invoiceData).subtotal,
-    grandTotal: getInvoiceValue(invoiceData).grandTotal,
+  }
+
+  const content = encrypt({
+    docs: {
+      ...invoiceData, // Metadata
+      created_at: editMode.active ? editMode.data.created_at : Date.now(),
+      status: editMode.active ? editMode.data.status : 'pending',
+      // Alway calculate subtotal & grandTotal
+      subtotal: getInvoiceValue(invoiceData).subtotal,
+      grandTotal: getInvoiceValue(invoiceData).grandTotal,
+    },
+    secretKey
+  })
+
+  invoice.content = content;
+
+  const newRecipient = {
+    _id: invoiceData.recipient._id
+  }
+
+  delete invoiceData.recipient._id;
+
+  const recipientContent = encrypt({
+    docs: {
+      ...invoiceData.recipient
+    },
+    secretKey
+  })
+
+  newRecipient.content = recipientContent;
+
+  return {
+    currentInvoiceData: invoice,
+    recipient: newRecipient,
   };
 }
 

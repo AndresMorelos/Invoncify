@@ -13,12 +13,10 @@ const Wrapper = styled.div`
   padding: 0 40px;
   background: #f9fafa;
   ${props => `
-    background: -webkit-linear-gradient(to bottom, ${props.fromColor}, ${
-    props.toColor
-  });
-    background: linear-gradient(to bottom, ${props.fromColor}, ${
-    props.toColor
-  });
+    background: -webkit-linear-gradient(to bottom, ${props.fromColor}, ${props.toColor
+    });
+    background: linear-gradient(to bottom, ${props.fromColor}, ${props.toColor
+    });
   `} > * {
     flex: 1;
   }
