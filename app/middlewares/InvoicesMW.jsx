@@ -29,25 +29,27 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
     }
 
     case ACTION_TYPES.INVOICE_GET_ALL: {
-      return getAllDocs('invoices')
-        .then(allDocs => {
-          const secretKey = getState().login.secretKey
-          const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
+      const secretKey = getState().login.secretKey
+      if (secretKey) {
+        return getAllDocs('invoices')
+          .then(allDocs => {
+            const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
+            next(
+              { ...action, payload: allDocsDecrypted, }
+            );
 
-          next(
-            { ...action, payload: allDocsDecrypted, }
-          );
-
-        })
-        .catch(err => {
-          next({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: err.message,
-            },
+          })
+          .catch(err => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
           });
-        });
+      }
+      break;
     }
 
     case ACTION_TYPES.INVOICE_ENCRYPT: {

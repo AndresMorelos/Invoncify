@@ -11,7 +11,7 @@ const LoginMW = ({ dispatch, getState }) => next => action => {
         }
         case ACTION_TYPES.LOGIN_SET_SECRET: {
             sessionStorage.setItem('secretKey', action.payload)
-            const result= ipc.sendSync('secret-key-updated', { secretKey: action.payload });
+            const result = ipc.sendSync('secret-key-updated', { secretKey: action.payload });
             if (result && result.pass) {
                 next({
                     type: ACTION_TYPES.LOGIN_SET_SECRET,
@@ -26,6 +26,7 @@ const LoginMW = ({ dispatch, getState }) => next => action => {
                 type: ACTION_TYPES.LOGIN_SET_SECRET,
                 payload: undefined
             })
+            break;
         }
         default: {
             return next(action);

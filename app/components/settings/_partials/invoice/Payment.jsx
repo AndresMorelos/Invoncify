@@ -23,7 +23,6 @@ const Payment = function ({ t, payment, handlePaymentChange }) {
     </label>,
     <Part key="part">
       <Row>
-        {/* ToDo: Add default payment term */}
         <Field>
           <label className="itemLabel">{t('common:details')}</label>
           <PaymentContent

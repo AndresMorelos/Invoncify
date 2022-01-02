@@ -9,23 +9,26 @@ import { decrypt, encrypt } from '../helpers/encryption.js';
 const ContactsMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case ACTION_TYPES.CONTACT_GET_ALL: {
-      return getAllDocs('contacts')
-        .then(allDocs => {
-          const secretKey = getState().login.secretKey
-          const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
-          next(
-            { ...action, payload: allDocsDecrypted, }
-          );
-        })
-        .catch(err => {
-          next({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: err.message,
-            },
+      const secretKey = getState().login.secretKey
+      if (secretKey) {
+        return getAllDocs('contacts')
+          .then(allDocs => {
+
+            const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
+            next(
+              { ...action, payload: allDocsDecrypted, }
+            );
+          })
+          .catch(err => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
           });
-        });
+      }
     }
     case ACTION_TYPES.CONTACT_ENCRYPT: {
       return getAllDocs('contacts')

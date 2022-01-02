@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 // Custom Libs
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 
+// Shared Components
+import Button from '@components/shared/Button'
+
 // Component
 class General extends Component {
   constructor(props) {
@@ -26,7 +29,8 @@ class General extends Component {
   }
 
   render() {
-    const { t } = this.props;
+    const { t, exportData, importData } = this.props;
+    const { sound, muted, language, previewPDF } = this.state;
     return (
       <div>
         <div className="row">
@@ -35,7 +39,7 @@ class General extends Component {
               <label className="itemLabel">{t('settings:fields:sound')}</label>
               <select
                 name="sound"
-                value={this.state.sound}
+                value={sound}
                 onChange={this.handleInputChange}
               >
                 <option value="default">{t('common:default')}</option>
@@ -50,7 +54,7 @@ class General extends Component {
                 <input
                   name="muted"
                   type="checkbox"
-                  checked={this.state.muted}
+                  checked={muted}
                   onChange={this.handleInputChange}
                 />
                 <span className="slider round" />
@@ -64,7 +68,7 @@ class General extends Component {
               <label className="itemLabel">{t('settings:fields:language:name')}</label>
               <select
                 name="language"
-                value={this.state.language}
+                value={language}
                 onChange={this.handleInputChange}
               >
                 <option value="de">{t('settings:fields:language:de', { lng: 'de' })}</option>
@@ -87,11 +91,32 @@ class General extends Component {
                 <input
                   name="previewPDF"
                   type="checkbox"
-                  checked={this.state.previewPDF}
+                  checked={previewPDF}
                   onChange={this.handleInputChange}
                 />
                 <span className="slider round" />
               </label>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="pageItem">
+              <label className="itemLabel">{t('settings:fields:importExport:name')}</label>
+              <Button style={{ marginRigth: '1em' }} primary onClick={exportData}>
+                <b>
+                  {t('settings:fields:importExport:export')} <i className="ion-arrow-up-c" />
+                </b>
+              </Button>
+              <Button style={{ marginLeft: '1em' }} warning onClick={importData}>
+                <b>
+                  {t('settings:fields:importExport:import')} <i className="ion-arrow-down-c" />
+                </b>
+              </Button>
+              <p style={{ marginLeft: '.5em' }}>
+                <b style={{ color: '#6C7A89' }}>{t('settings:fields:importExport:information:label')}</b>
+                <span style={{ color: '#757D75' }}> {t('settings:fields:importExport:information:info')}</span>
+              </p>
             </div>
           </div>
         </div>
@@ -104,6 +129,8 @@ General.propTypes = {
   general: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   updateSettings: PropTypes.func.isRequired,
+  exportData: PropTypes.func.isRequired,
+  importData: PropTypes.func.isRequired,
 };
 
 export default _withFadeInAnimation(General);

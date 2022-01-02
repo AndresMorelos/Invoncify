@@ -5,6 +5,6 @@ const mainWindowID = appConfig.getSync('mainWindowID');
 const mainWindow = BrowserWindow.fromId(mainWindowID);
 
 
-ipcMain.on('rezie-main-window', (event, width, height) => {
+ipcMain.on('resize-main-window', (event, width, height) => {
     mainWindow.setSize(width, height, true)
 })

@@ -23,7 +23,7 @@ import { getSecretKey } from './reducers/LoginReducer'
 import Login from './containers/Login';
 
 import windowStateKeeper from '../helpers/windowStateKeeper';
-import resize from './helpers/rezise'
+import resize from './helpers/resize'
 import { Notify } from '../helpers/notify'
 
 // Components
@@ -32,6 +32,7 @@ class App extends PureComponent {
     super(props);
     this.changeTab = this.changeTab.bind(this);
     this.removeNoti = this.removeNoti.bind(this);
+    this.resizeWindow = this.resizeWindow.bind(this);
   }
 
   componentDidMount() {
@@ -118,14 +119,17 @@ class App extends PureComponent {
     dispatch(UIActions.removeNoti(id));
   }
 
+  resizeWindow() {
+    const { width, height } = windowStateKeeper('main');
+    ipc.send('resize-main-window', width, height);
+  }
+
   render() {
     const { ui, secretKey } = this.props
     const { activeTab, notifications, checkUpdatesMessage } = ui;
-
     if (secretKey) {
       const { dispatch } = this.props;
-      const { width, height } = windowStateKeeper('main');
-      ipc.send('rezie-main-window', width, height);
+      this.resizeWindow();
       // Get Encrypted data
       dispatch(InvoicesActions.getInvoices());
       dispatch(ContactsActions.getAllContacts());

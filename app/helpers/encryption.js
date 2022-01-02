@@ -60,4 +60,8 @@ function getSettings() {
     return ipc.sendSync('encryption-get-settings')
 }
 
-module.exports = { encrypt, decrypt, getSettings }
+function setSettings(iv, salt, validation) {
+    return ipc.sendSync('encryption-set-settings', { iv, salt, validation })
+}
+
+module.exports = { encrypt, decrypt, getSettings, setSettings }

@@ -19,7 +19,7 @@ import Actions from '@components/Actions';
 class Tour extends Component {
   constructor(props) {
     super(props);
-    this.state = { currentSlide: 1, totalSlide: 5 };
+    this.state = { currentSlide: 1, totalSlide: 6 };
     this.nextSlide = this.nextSlide.bind(this);
     this.endTour = this.endTour.bind(this);
   }

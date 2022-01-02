@@ -27,6 +27,7 @@ rules:
   # RULES THAT WE CONSCIOUSLY DISABLE
   radix: off
   func-names: off
+  jsx-a11y/label-has-associated-control: off
 
   # RULES THAT WE SHOULD INVESTIGATE AND PROBABLY ENABLE]
   react/jsx-props-no-spreading: off

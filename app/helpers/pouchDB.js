@@ -1,7 +1,7 @@
 // Setup PouchDB
 const PouchDB = require('pouchdb-browser').default;
-const contactsDB = new PouchDB('contacts');
-const invoicesDB = new PouchDB('invoices');
+let contactsDB = new PouchDB('contacts');
+let invoicesDB = new PouchDB('invoices');
 
 // Utility
 import { omit } from 'lodash';
@@ -196,4 +196,34 @@ const updateDoc = (dbName, updatedDoc) =>
       .catch(err => reject(err));
   });
 
-export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc };
+const recreateDatabase = (dbName) =>
+  new Promise((resolve, reject) => {
+    setDB(dbName)
+      .then(db =>
+        db
+          .destroy()
+          .then(response => {
+            if (dbName === 'contacts') {
+              contactsDB = new PouchDB('contacts');
+              resolve(contactsDB);
+            }
+            if (dbName === 'invoices') {
+              invoicesDB = new PouchDB('invoices');
+              resolve(invoicesDB);
+            }
+          })
+      ).catch(err => reject(err))
+  })
+
+const importData = (dbName, docs = []) =>
+  new Promise((resolve, reject) => {
+    recreateDatabase(dbName)
+      .then(db =>
+        Promise.all(docs.map(doc => db.put(doc)))
+          .then(values =>
+            getAllDocs(dbName)
+              .then(newDocs => resolve(newDocs)))
+      ).catch(err => reject(err))
+  })
+
+export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc, importData };

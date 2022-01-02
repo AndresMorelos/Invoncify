@@ -64,7 +64,9 @@ The following languages are currently being translated, if you would like to Man
 * 🎨  Custom designed & highly customizable templates.
 * 🏷 Custom statuses for invoices.
 * 📊 Export PDF for print or email.
-* 🔒Complete Privacy. You financial data stays where it belongs.
+* 🔒 Complete Privacy. You financial data stays where it belongs.
+* 🔒 end to end encryption. You financial data stays encripted.
+* 🔄 Export or Import your financial data (all encrypted).
 * 💯 Totally Free.
 
 #### Supported Platforms

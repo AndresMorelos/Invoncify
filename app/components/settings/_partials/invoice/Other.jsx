@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Row, Field, Part } from '../../../shared/Part';
+
 const moment = require('moment');
 
-import { Row, Field, Header, Part } from '../../../shared/Part';
-import styled from 'styled-components';
 
 const ExportDir = styled.div`
   display: flex;

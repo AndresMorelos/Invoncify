@@ -38,11 +38,6 @@ const allTabs = [
     title: 'Settings',
     name: 'settings',
     icon: 'ion-ios-gear',
-  },
-  {
-    title: 'Export/Import',
-    name: 'export-import',
-    icon: 'ion-arrow-swap'
   }
 ];
 

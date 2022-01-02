@@ -2,9 +2,9 @@
 import * as ACTION_TYPES from '../constants/actions.jsx';
 
 // Helpers
-import { getAllDocs } from '../helpers/pouchDB';
+import { getAllDocs, importData } from '../helpers/pouchDB';
 import i18n from '../../i18n/i18n';
-import { getSettings } from '../helpers/encryption.js';
+import { getSettings, setSettings } from '../helpers/encryption.js';
 const ipc = require('electron').ipcRenderer;
 
 
@@ -36,7 +36,28 @@ const ExportImportMW = ({ dispatch }) => next => action => {
         }
 
         case ACTION_TYPES.IMPORT_DATA: {
-            //TODO: Create Import logic
+            const { contacts = [], invoices = [], settings } = action.payload;
+            const { iv, salt, validation } = settings
+            Promise.all([importData('contacts', contacts), importData('invoices', invoices), setSettings(iv, salt, validation)])
+                .then(values => {
+                    next({
+                        type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+                        payload: {
+                            type: 'success',
+                            message: i18n.t('messages:settings:saved'),
+                        },
+                    })
+                    dispatch({ type: ACTION_TYPES.LOGIN_DELETE_SECRET })
+                })
+                .catch(err => {
+                    next({
+                        type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+                        payload: {
+                            type: 'warning',
+                            message: err.message,
+                        },
+                    })
+                })
             break;
         }
 

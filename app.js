@@ -296,7 +296,7 @@ function setInitialValues() {
       iv: generaterRandmBytes(),
       salt: generaterRandmBytes(),
       validation: null,
-      dataMigrated: false,
+      dataMigrated: true,
     }
   };
 
