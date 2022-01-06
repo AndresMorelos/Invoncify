@@ -22,12 +22,12 @@ A desktop application for creating invoices with beautiful and customizable temp
 
 <a href="#translation">Translation</a> •
 <a href="#features">Features</a> •
-<a href="#technologies">Technologies</a> •
-<a href="#why">Why?</a> •
-<a href="#goals">Goals</a> •
-<a href="#development">Development</a> •
-<a href="#faq">FAQ</a> •
-<a href="#acknowledgement">Acknowledgement</a>
+<a href="#development">Development</a>
+<!-- <a href="#technologies">Technologies</a> • -->
+<!-- <a href="#why">Why?</a> • -->
+<!-- <a href="#goals">Goals</a> • -->
+<!-- <a href="#faq">FAQ</a> • -->
+<!-- <a href="#acknowledgement">Acknowledgement</a> -->
 
 ### Translation
 
@@ -93,3 +93,18 @@ invoncify --disable-hardware-acceleration
 ```
 
 > Remember that doing this might lead to some degradation of the app's performance. This is why "the fix" is not included by default.
+
+
+### Development
+
+In order to run the app in dev mode you will need to run two commands in separated terminal:
+
+```bash
+# This command will pack the app with webpack
+yarn dev
+```
+
+```bash
+# This command will run electron loading the packed files previously
+yarn start:dev
+```
