@@ -1,11 +1,18 @@
 const fs = require('fs')
+const { decryptDataToImport } =  require('./encryption')
 
-function parseImportFile(filePath, callback) {
+
+function parseImportFile(filePath, secretKey, callback) {
     try {
-        const data = fs.readFileSync(filePath);
-        const parsedData = JSON.parse(data)
+        const fileData = fs.readFileSync(filePath);
+        
+        const parsedData = JSON.parse(fileData)
 
-        const { contacts, invoices } = parsedData;
+        const { data, settings } = parsedData;
+
+        const dataDecrypted = decryptDataToImport({ data, secretKey });
+
+        const { contacts, invoices } = dataDecrypted;
 
         const newContacts = contacts.map(doc => {
             delete doc._rev;
@@ -17,9 +24,7 @@ function parseImportFile(filePath, callback) {
             return doc
         })
 
-        Object.assign(parsedData, { contacts: newContacts, invoices: newInvoices })
-
-        callback(null, parsedData);
+        callback(null, { contacts: newContacts, invoices: newInvoices, settings});
         return;
     } catch (error) {
         callback(error, null);

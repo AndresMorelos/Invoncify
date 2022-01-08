@@ -32,6 +32,10 @@ import {
   getSavedSettings,
 } from '../reducers/SettingsReducer';
 
+import {
+  getSecretKey
+} from '../reducers/exportImportReducer'
+
 // Actions
 import * as SettingsActions from '../actions/settings';
 import * as ExportImportActions from '../actions/exportImport';
@@ -82,7 +86,8 @@ class Settings extends Component {
   }
 
   handleFileUpload(filePath) {
-    parseImportFile(filePath, (err, fileData) => {
+    const { secretKey } = this.props
+    parseImportFile(filePath, secretKey, (err, fileData) => {
       if (err) {
         return;
       }
@@ -182,6 +187,7 @@ Settings.propTypes = {
   }),
   currentSettings: PropTypes.object.isRequired,
   savedSettings: PropTypes.object.isRequired,
+  secretKey: PropTypes.string.isRequired,
 };
 
 // Map State & Dispatch to Props & Export
@@ -193,6 +199,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   currentSettings: getCurrentSettings(state),
   savedSettings: getSavedSettings(state),
+  secretKey: getSecretKey(state)
 });
 
 export default compose(

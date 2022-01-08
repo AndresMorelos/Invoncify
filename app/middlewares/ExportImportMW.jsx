@@ -4,22 +4,30 @@ import * as ACTION_TYPES from '../constants/actions.jsx';
 // Helpers
 import { getAllDocs, importData } from '../helpers/pouchDB';
 import i18n from '../../i18n/i18n';
-import { getSettings, setSettings } from '../helpers/encryption.js';
+import { getSettings, setSettings, encrypt } from '../helpers/encryption.js';
 const ipc = require('electron').ipcRenderer;
 
 
-const ExportImportMW = ({ dispatch }) => next => action => {
+const ExportImportMW = ({ dispatch, getState }) => next => action => {
     switch (action.type) {
         case ACTION_TYPES.EXPORT_DATA: {
             Promise.all([getAllDocs('contacts'), getAllDocs('invoices'), getSettings()])
                 .then(values => {
                     const [contacts, invoices, settings] = values;
+                    const secretKey = getState().login.secretKey;
+
+                    const dataToEncrypt = {
+                        contacts,
+                        invoices
+                    }
+
+                    const dataEncrypted = encrypt({ docs: dataToEncrypt, secretKey })
 
                     const docToExport = {
-                        contacts,
-                        invoices,
+                        data: dataEncrypted,
                         settings
                     }
+
                     ipc.send('export-data', docToExport);
 
                 })
