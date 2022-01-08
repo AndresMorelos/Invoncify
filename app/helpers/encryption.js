@@ -56,6 +56,13 @@ function decrypt({ docs, secretKey }) {
     return contentDecrypted;
 }
 
+function decryptDataToImport( { data , secretKey }) {
+    const contentDecrypted = ipc.sendSync('decrypt-data', { content: data, secretKey })
+    if(!contentDecrypted) return null;
+
+    return contentDecrypted;
+}
+
 function getSettings() {
     return ipc.sendSync('encryption-get-settings')
 }
@@ -64,4 +71,4 @@ function setSettings(iv, salt, validation) {
     return ipc.sendSync('encryption-set-settings', { iv, salt, validation })
 }
 
-module.exports = { encrypt, decrypt, getSettings, setSettings }
+module.exports = { encrypt, decrypt, decryptDataToImport, getSettings, setSettings }
