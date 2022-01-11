@@ -256,7 +256,7 @@ function validateDiscount(isRequired, discount) {
 function validateTax(isRequired, tax) {
   const { amount } = tax;
   if (isRequired) {
-    if (!amount || amount === '' || amount <= 0) {
+    if ([null, undefined, ''].includes(amount) || amount < 0) {
       openDialog({
         type: 'warning',
         title: i18n.t('dialog:validation:tax:title'),
