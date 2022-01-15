@@ -32,16 +32,13 @@ import {
   getSavedSettings,
 } from '../reducers/SettingsReducer';
 
-import {
-  getSecretKey
-} from '../reducers/exportImportReducer'
+import { getSecretKey } from '../reducers/exportImportReducer';
 
 // Actions
 import * as SettingsActions from '../actions/settings';
 import * as ExportImportActions from '../actions/exportImport';
 
 import { bindActionCreators } from 'redux';
-
 
 // Component
 class Settings extends Component {
@@ -55,12 +52,14 @@ class Settings extends Component {
 
   componentDidMount() {
     ipc.on('import-file-selected', (event, filePath) => {
-      this.handleFileUpload(filePath);
-    })
+      if (filePath) {
+        this.handleFileUpload(filePath);
+      }
+    });
   }
 
   componentWillUnmount() {
-    ipc.removeAllListeners(['import-file-selected'])
+    ipc.removeAllListeners(['import-file-selected']);
   }
 
   // Check if settings have been saved
@@ -86,22 +85,24 @@ class Settings extends Component {
   }
 
   handleFileUpload(filePath) {
-    const { secretKey } = this.props
+    const { secretKey } = this.props;
     parseImportFile(filePath, secretKey, (err, fileData) => {
       if (err) {
         return;
       }
-      this.importData(fileData)
-    })
+      this.importData(fileData);
+    });
   }
 
   importData(fileData) {
-    const { importData } = this.props.boundExportImportActionsCreators;
-    importData(fileData)
+    if (fileData) {
+      const { importData } = this.props.boundExportImportActionsCreators;
+      importData(fileData);
+    }
   }
 
   selectImportFile(fileData) {
-    ipc.send('open-import-file-dialog')
+    ipc.send('open-import-file-dialog');
   }
 
   // Render Main Content
@@ -148,10 +149,20 @@ class Settings extends Component {
           </Tabs>
           <TabContent>
             {this.state.visibleTab === 1 && (
-              <Profile t={t} profile={profile} updateSettings={updateSettings} setSavable={this.setSavable} />
+              <Profile
+                t={t}
+                profile={profile}
+                updateSettings={updateSettings}
+                setSavable={this.setSavable}
+              />
             )}
             {this.state.visibleTab === 2 && (
-              <Invoice t={t} invoice={invoice} updateSettings={updateSettings} setSavable={this.setSavable} />
+              <Invoice
+                t={t}
+                invoice={invoice}
+                updateSettings={updateSettings}
+                setSavable={this.setSavable}
+              />
             )}
             {this.state.visibleTab === 3 && (
               <General
@@ -183,7 +194,7 @@ Settings.propTypes = {
   }).isRequired,
   boundExportImportActionsCreators: PropTypes.shape({
     exportData: PropTypes.func.isRequired,
-    importData: PropTypes.func.isRequired
+    importData: PropTypes.func.isRequired,
   }),
   currentSettings: PropTypes.object.isRequired,
   savedSettings: PropTypes.object.isRequired,
@@ -191,15 +202,18 @@ Settings.propTypes = {
 };
 
 // Map State & Dispatch to Props & Export
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   boundActionCreators: bindActionCreators(SettingsActions, dispatch),
-  boundExportImportActionsCreators: bindActionCreators(ExportImportActions, dispatch)
+  boundExportImportActionsCreators: bindActionCreators(
+    ExportImportActions,
+    dispatch
+  ),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentSettings: getCurrentSettings(state),
   savedSettings: getSavedSettings(state),
-  secretKey: getSecretKey(state)
+  secretKey: getSecretKey(state),
 });
 
 export default compose(
