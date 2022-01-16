@@ -1,7 +1,7 @@
 // Libraries
 import React, { PureComponent } from 'react';
-import openDialog from '../../renderers/dialog';
 import { Circle } from 'rc-progress';
+import openDialog from '../../renderers/dialog';
 import i18n from '../../../i18n/i18n';
 import { Notify } from '../../../helpers/notify';
 const ipc = require('electron').ipcRenderer

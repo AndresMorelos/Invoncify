@@ -2,13 +2,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
-import { Notify } from '../helpers/notify';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-const ipc = require('electron').ipcRenderer;
 
 // Style
 import styled from 'styled-components';
+import { Notify } from '../helpers/notify';
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
@@ -23,6 +22,7 @@ import * as ActionsCreator from './actions';
 
 // Selectors
 import { getConfigs, getInvoice, getProfile, getUILang } from './reducers';
+const ipc = require('electron').ipcRenderer;
 
 // Components
 class Viewer extends Component {

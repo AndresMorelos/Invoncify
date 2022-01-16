@@ -10,7 +10,7 @@ const Invoice = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 80px 120px;
-  ${props =>
+  ${(props) =>
     props.baseFontSize &&
     `
     font-size: ${props.baseFontSize};
@@ -43,15 +43,16 @@ import Main from './components/Main.jsx';
 import Footer from './components/Footer.jsx';
 
 // Component
-function Minimal(props) {
+const Minimal = function (props) {
+  const { configs } = props;
   return (
-    <Invoice baseFontSize={setBaseFontSize(props.configs.fontSize)}>
+    <Invoice baseFontSize={setBaseFontSize(configs.fontSize)}>
       <Header {...props} />
       <Main {...props} />
       <Footer {...props} />
     </Invoice>
   );
-}
+};
 
 Minimal.propTypes = {
   invoice: PropTypes.object.isRequired,

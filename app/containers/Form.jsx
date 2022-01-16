@@ -3,12 +3,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { getCurrentInvoice } from '../reducers/FormReducer';
 import { withTranslation } from 'react-i18next';
 
 // Actions
-import * as FormActions from '../actions/form';
-import * as SettingsActions from '../actions/settings';
 import { bindActionCreators } from 'redux';
 
 // Components
@@ -31,12 +28,20 @@ import {
   PageHeaderActions,
   PageContent,
 } from '@components/shared/Layout';
+import * as SettingsActions from '../actions/settings';
+import * as FormActions from '../actions/form';
+import { getCurrentInvoice } from '../reducers/FormReducer';
 
 // Component
 class Form extends PureComponent {
   render() {
+    const {
+      boundSettingsActionCreators,
+      boundFormActionCreators,
+      currentInvoice,
+    } = this.props;
     // Form & Settings Actions
-    const { updateSettings } = this.props.boundSettingsActionCreators;
+    const { updateSettings } = boundSettingsActionCreators;
     const {
       clearForm,
       toggleField,
@@ -44,7 +49,7 @@ class Form extends PureComponent {
       updateFieldData,
       toggleFormSettings,
       updateSavedFormSettings,
-    } = this.props.boundFormActionCreators;
+    } = boundFormActionCreators;
     // Form Value
     const {
       dueDate,
@@ -56,7 +61,7 @@ class Form extends PureComponent {
       invoiceID,
       settings,
       savedSettings,
-    } = this.props.currentInvoice;
+    } = currentInvoice;
     const { required_fields, open, editMode } = settings;
     // Translation
     const { t } = this.props;
@@ -64,10 +69,7 @@ class Form extends PureComponent {
       <PageWrapper>
         <PageHeader>
           <PageHeaderTitle>
-            {editMode.active
-              ? t('form:header:edit')
-              : t('form:header:new')
-            }
+            {editMode.active ? t('form:header:edit') : t('form:header:new')}
           </PageHeaderTitle>
           <PageHeaderActions>
             <Button danger onClick={clearForm}>
@@ -135,11 +137,7 @@ class Form extends PureComponent {
             />
           )}
           {required_fields.note && (
-            <Note
-              t={t}
-              note={note}
-              updateFieldData={updateFieldData}
-            />
+            <Note t={t} note={note} updateFieldData={updateFieldData} />
           )}
           {required_fields.payment && (
             <Payment
@@ -184,13 +182,11 @@ Form.propTypes = {
 };
 
 // Map state & dispatch to props
-const mapStateToProps = state => {
-  return ({
-    currentInvoice: getCurrentInvoice(state),
-  })
-};
+const mapStateToProps = (state) => ({
+  currentInvoice: getCurrentInvoice(state),
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   boundFormActionCreators: bindActionCreators(FormActions, dispatch),
   boundSettingsActionCreators: bindActionCreators(SettingsActions, dispatch),
 });

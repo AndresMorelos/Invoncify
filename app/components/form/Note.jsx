@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Custom Components
+import styled from 'styled-components';
 import { Section } from '../shared/Section';
 
 // Animation
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 
 // Styles
-import styled from 'styled-components';
 const NoteContent = styled.textarea`
   min-height: 36px;
   border-radius: 4px;

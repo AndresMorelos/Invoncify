@@ -7,11 +7,12 @@ import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import TransitionList from '@components/shared/TransitionList';
+import styled from 'styled-components';
 import * as Actions from '../../actions/form.jsx';
 import { getRows } from '../../reducers/FormReducer';
 
 // DragNDrop
-import TransitionList from '@components/shared/TransitionList';
 import _withDragNDrop from './hoc/_withDragNDrop';
 
 // Custom Component
@@ -20,7 +21,6 @@ import { Section } from '../shared/Section';
 import ItemRow from './ItemRow.jsx';
 
 // Styled Components
-import styled from 'styled-components';
 
 const ItemsListWrapper = styled.div`
   position: relative;

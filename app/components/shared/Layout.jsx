@@ -56,15 +56,19 @@ const PageHeaderActionsStyle = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  button {  margin-left: 10px; }
-  i { margin-right: 10px; }
+  button {
+    margin-left: 10px;
+  }
+  i {
+    margin-right: 10px;
+  }
 `;
 
 const PageContentStyle = styled.div`
   // flex: 1;
   // overflow: hidden;
   margin: 90px 40px 40px 40px;
-  ${props =>
+  ${(props) =>
     !props.bare &&
     `
     border: 1px solid rgba(0,0,0,.1);
@@ -82,34 +86,50 @@ const PageFooterStyle = styled.div`
 `;
 
 // Components
-const LoginWrapper = props => <LoginWrapperStyle>{props.children}</LoginWrapperStyle>
+const LoginWrapper = function (props) {
+  const { children } = props;
+  return <LoginWrapperStyle>{children}</LoginWrapperStyle>;
+};
 
-const AppWrapper = props => <AppWrapperStyle>{props.children}</AppWrapperStyle>;
+const AppWrapper = function (props) {
+  const { children } = props;
+  return <AppWrapperStyle>{children}</AppWrapperStyle>;
+};
 
-const AppMainContent = props => (
-  <AppMainContentStyle>{props.children}</AppMainContentStyle>
-);
+const AppMainContent = function (props) {
+  const { children } = props;
+  return <AppMainContentStyle>{children}</AppMainContentStyle>;
+};
 
-const PageWrapper = props => (
-  <PageWrapperStyle>{props.children}</PageWrapperStyle>
-);
+const PageWrapper = function (props) {
+  const { children } = props;
+  return <PageWrapperStyle>{children}</PageWrapperStyle>;
+};
 
-const PageHeader = props => <PageHeaderStyle>{props.children}</PageHeaderStyle>;
+const PageHeader = function (props) {
+  const { children } = props;
+  return <PageHeaderStyle>{children}</PageHeaderStyle>;
+};
 
-const PageHeaderTitle = props => (
-  <PageHeaderTitleStyle>{props.children}</PageHeaderTitleStyle>
-);
+const PageHeaderTitle = function (props) {
+  const { children } = props;
+  return <PageHeaderTitleStyle>{children}</PageHeaderTitleStyle>;
+};
 
-const PageHeaderActions = props => (
-  <PageHeaderActionsStyle>{props.children}</PageHeaderActionsStyle>
-);
+const PageHeaderActions = function (props) {
+  const { children } = props;
+  return <PageHeaderActionsStyle>{children}</PageHeaderActionsStyle>;
+};
 
-const PageContent = props => (
-  <PageContentStyle bare={props.bare}>{props.children}</PageContentStyle>
-);
+const PageContent = function (props) {
+  const { children, bare } = props;
+  return <PageContentStyle bare={bare}>{children}</PageContentStyle>;
+};
 
-const PageFooter = props => <PageFooterStyle>{props.children}</PageFooterStyle>;
-
+const PageFooter = function (props) {
+  const { children } = props;
+  return <PageFooterStyle>{children}</PageFooterStyle>;
+};
 
 export {
   LoginWrapper,

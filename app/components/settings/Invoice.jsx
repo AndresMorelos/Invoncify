@@ -1,7 +1,6 @@
 // Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-const ipc = require('electron').ipcRenderer;
 
 // Custom Libs
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
@@ -11,6 +10,8 @@ import Fields from './_partials/invoice/Fields';
 import Other from './_partials/invoice/Other';
 import Tax from './_partials/invoice/Tax';
 import Payment from './_partials/invoice/Payment';
+
+const ipc = require('electron').ipcRenderer;
 const openDialog = require('../../renderers/dialog.js');
 
 // Component
@@ -26,7 +27,7 @@ class Invoice extends Component {
   }
 
   componentDidMount() {
-    const { t } = this.props;
+    const { t, updateSettings } = this.props;
     ipc.on('no-access-directory', (event, message) => {
       openDialog({
         type: 'warning',
@@ -37,7 +38,7 @@ class Invoice extends Component {
 
     ipc.on('confirmed-export-directory', (event, path) => {
       this.setState({ exportDir: path }, () => {
-        this.props.updateSettings('invoice', this.state);
+        updateSettings('invoice', this.state);
       });
     });
   }
@@ -51,8 +52,9 @@ class Invoice extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+    const { updateSettings } = this.props;
     this.setState({ [name]: value }, () => {
-      this.props.updateSettings('invoice', this.state);
+      updateSettings('invoice', this.state);
     });
   }
 
@@ -60,12 +62,14 @@ class Invoice extends Component {
     const target = event.target;
     const name = target.name;
     const value = name === 'amount' ? parseFloat(target.value) : target.value;
+    const { updateSettings } = this.props;
+    const { tax } = this.state;
     this.setState(
       {
-        tax: { ...this.state.tax, [name]: value,},
+        tax: { ...tax, [name]: value },
       },
       () => {
-        this.props.updateSettings('invoice', this.state);
+        updateSettings('invoice', this.state);
       }
     );
   }
@@ -73,13 +77,16 @@ class Invoice extends Component {
   handleCurrencyChange(event) {
     const target = event.target;
     const name = target.name;
-    const value = name === 'fraction' ? parseInt(target.value, 10) : target.value;
+    const value =
+      name === 'fraction' ? parseInt(target.value, 10) : target.value;
+    const { updateSettings } = this.props;
+    const { currency } = this.state;
     this.setState(
       {
-        currency: { ...this.state.currency, [name]: value,},
+        currency: { ...currency, [name]: value },
       },
       () => {
-        this.props.updateSettings('invoice', this.state);
+        updateSettings('invoice', this.state);
       }
     );
   }
@@ -88,12 +95,14 @@ class Invoice extends Component {
     const target = event.target;
     const name = target.name;
     const value = target.value;
+    const { updateSettings } = this.props;
+    const { payment } = this.state;
     this.setState(
       {
-        payment: { ...this.state.payment, [name]: value,},
+        payment: { ...payment, [name]: value },
       },
       () => {
-        this.props.updateSettings('invoice', this.state);
+        updateSettings('invoice', this.state);
       }
     );
   }
@@ -102,12 +111,14 @@ class Invoice extends Component {
     const target = event.target;
     const name = target.name;
     const value = target.checked;
+    const { updateSettings } = this.props;
+    const { required_fields } = this.state;
     this.setState(
       {
-        required_fields: { ...this.state.required_fields, [name]: value,},
+        required_fields: { ...required_fields, [name]: value },
       },
       () => {
-        this.props.updateSettings('invoice', this.state);
+        updateSettings('invoice', this.state);
       }
     );
   }
@@ -160,7 +171,7 @@ class Invoice extends Component {
         handleInputChange={this.handleInputChange}
         selectExportDir={this.selectExportDir}
         t={t}
-      />
+      />,
     ];
   }
 }

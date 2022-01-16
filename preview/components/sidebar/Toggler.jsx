@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section, Label } from '../shared';
 
-function Toggler({ t, configs, handleInputChange, UILang }) {
+const Toggler = function({ t, configs, handleInputChange, UILang }) {
   const { showLogo, useSymbol, showRecipient, customAccentColor } = configs;
   return (
     <Section>

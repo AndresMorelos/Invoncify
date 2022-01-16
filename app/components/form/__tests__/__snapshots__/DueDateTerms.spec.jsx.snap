@@ -2,7 +2,7 @@
 
 exports[`Renders correctly to the DOM matches snapshot 1`] = `
 <div
-  className="DueDateTerms__Container-grvKkj cHwqdm"
+  className="DueDateTerms__Container-sc-16ftn9h-0 eNCVA"
 >
   <select
     onChange={[Function]}

@@ -12,9 +12,6 @@ function encrypt({ docs, secretKey }) {
                 _rev: doc._rev,
             }
 
-            delete doc._id
-            delete doc._rev
-
             const contentEncrypted = ipc.sendSync('encrypt-data', { message: JSON.stringify(doc), secretKey })
 
             Object.assign(docToReturn, {
@@ -33,8 +30,6 @@ function decrypt({ docs, secretKey }) {
         return docs.map(doc => {
             const contentDecrypted = ipc.sendSync('decrypt-data', { content: doc.content, secretKey })
             if (!contentDecrypted) return null;
-            delete doc.content
-
 
             Object.assign(contentDecrypted, {
                 _id: doc._id,
@@ -46,8 +41,6 @@ function decrypt({ docs, secretKey }) {
 
     const contentDecrypted = ipc.sendSync('decrypt-data', { content: docs.content, secretKey })
     if (!contentDecrypted) return null;
-
-    delete docs.content
 
     Object.assign(contentDecrypted, {
         _id: docs._id,

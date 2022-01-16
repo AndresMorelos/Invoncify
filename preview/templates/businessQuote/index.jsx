@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Styles
+import styled from 'styled-components';
 // Helper
 import { setBaseFontSize } from '../../helper';
 
-// Styles
-import styled from 'styled-components';
 const Invoice = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,9 +58,10 @@ import Main from './components/Main';
 import Footer from './components/Footer';
 
 // Component
-function BusinessQuote(props) {
+const BusinessQuote = function(props) {
+  const { configs } = props
   return (
-    <Invoice baseFontSize={setBaseFontSize(props.configs.fontSize)}>
+    <Invoice baseFontSize={setBaseFontSize(configs.fontSize)}>
       <Logo {...props} />
       <Header {...props} />
       <Main {...props} />

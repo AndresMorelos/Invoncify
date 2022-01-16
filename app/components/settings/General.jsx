@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Custom Libs
+import Button from '@components/shared/Button'
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 
 // Shared Components
-import Button from '@components/shared/Button'
 
 // Component
 class General extends Component {

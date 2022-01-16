@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import styled from 'styled-components';
 import { Row, Field, Part } from '../../../shared/Part';
 
-import styled from 'styled-components';
 
 const PaymentContent = styled.textarea`
   min-height: 36px;

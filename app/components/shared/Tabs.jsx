@@ -39,10 +39,19 @@ const TabContentStyle = styled.div`
 `;
 
 // Components
-const Tab = props => <TabStyle {...props}>{props.children}</TabStyle>;
+const Tab = function (props) {
+  const { children } = props;
+  return <TabStyle {...props}>{children}</TabStyle>;
+};
 
-const TabContent = props => <TabContentStyle>{props.children}</TabContentStyle>;
+const TabContent = function (props) {
+  const { children } = props;
+  return <TabContentStyle>{children}</TabContentStyle>;
+};
 
-const Tabs = props => <TabsStyle>{props.children}</TabsStyle>;
+const Tabs = function (props) {
+  const { children } = props;
+  return <TabsStyle>{children}</TabsStyle>;
+};
 
 export { Tab, Tabs, TabContent };

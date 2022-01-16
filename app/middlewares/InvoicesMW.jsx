@@ -1,7 +1,4 @@
-// Node Libs
 import { v4 as uuidv4 } from 'uuid';
-const ipc = require('electron').ipcRenderer;
-import i18n from '../../i18n/i18n';
 
 // Actions & Verbs
 import * as ACTION_TYPES from '../constants/actions.jsx';
@@ -11,6 +8,10 @@ import * as FormActions from '../actions/form';
 // Helpers
 import { getAllDocs, getSingleDoc, saveDoc, deleteDoc, updateDoc } from '../helpers/pouchDB';
 import { encrypt, decrypt } from '../helpers/encryption'
+
+// Node Libs
+import i18n from '../../i18n/i18n';
+const ipc = require('electron').ipcRenderer;
 
 const InvoicesMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -145,7 +146,7 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
           // Clear form if this invoice is being editted
           const { editMode } = getState().form.settings;
           if (editMode.active) {
-            if (editMode.data._id === action.payload) {
+            if (editMode.data._id === action.payload[0]) {
               dispatch({ type: ACTION_TYPES.FORM_CLEAR });
             }
           }
@@ -231,7 +232,10 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
 
       return getSingleDoc('invoices', invoiceID)
         .then(doc => {
+          
           const docDecrypted = decrypt({ docs: doc, secretKey })
+          delete docDecrypted._id
+          delete docDecrypted._rev
           const content = encrypt({ docs: { ...docDecrypted, status }, secretKey })
           const updatedInvocie = {
             _id: doc._id,

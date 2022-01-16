@@ -1,9 +1,9 @@
 // Libs
+import 'jsdom-global/register';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import currencies from '../../../../libs/currencies.json';
-const appConfig = require('@electron/remote').require('electron-settings');
 
 // Component
 import { Currency } from '../Currency';
@@ -59,36 +59,28 @@ describe('Renders correctly to the DOM', () => {
     const selectEl = wrapper.find('select').first();
     selectEl.simulate('change', { target: { name: 'code', value: 'VND' } });
     expect(updateFieldData).toHaveBeenCalled();
-    expect(updateFieldData).toHaveBeenCalledWith('currency', Object.assign({}, currency, {
-      code: 'VND'
-    }));
+    expect(updateFieldData).toHaveBeenCalledWith('currency', { ...currency, code: 'VND'});
   });
 
   it('handle change sign placement correctly', () => {
     const selectEl = wrapper.find('select').first();
     selectEl.simulate('change', { target: { name: 'placement', value: 'after' } });
     expect(updateFieldData).toHaveBeenCalled();
-    expect(updateFieldData).toHaveBeenCalledWith('currency', Object.assign({}, currency, {
-      placement: 'after'
-    }));
+    expect(updateFieldData).toHaveBeenCalledWith('currency', { ...currency, placement: 'after'});
   });
 
   it('handle change fraction correctly', () => {
     const selectEl = wrapper.find('select').first();
     selectEl.simulate('change', { target: { name: 'fraction', value: 3 } });
     expect(updateFieldData).toHaveBeenCalled();
-    expect(updateFieldData).toHaveBeenCalledWith('currency', Object.assign({}, currency, {
-      fraction: 3
-    }));
+    expect(updateFieldData).toHaveBeenCalledWith('currency', { ...currency, fraction: 3});
   });
 
   it('handle change separator correctly', () => {
     const selectEl = wrapper.find('select').first();
     selectEl.simulate('change', { target: { name: 'separator', value: 'spaceDot' } });
     expect(updateFieldData).toHaveBeenCalled();
-    expect(updateFieldData).toHaveBeenCalledWith('currency', Object.assign({}, currency, {
-      separator: 'spaceDot'
-    }));
+    expect(updateFieldData).toHaveBeenCalledWith('currency', { ...currency, separator: 'spaceDot'});
   });
 
   it('matches snapshot', () => {

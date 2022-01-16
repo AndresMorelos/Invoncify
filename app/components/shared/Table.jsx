@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const TableStyle = styled.table`
   width: 100%;
-  ${props =>
+  ${(props) =>
     props.hasBorders &&
     `
     tr {
@@ -16,9 +16,9 @@ const TableStyle = styled.table`
       }
     }
   `};
-  ${props => props.sm && `tr { height: 36px }`};
-  ${props => props.md && `tr { height: 42px }`};
-  ${props => props.bg && `tr { height: 56px }`};
+  ${(props) => props.sm && `tr { height: 36px }`};
+  ${(props) => props.md && `tr { height: 42px }`};
+  ${(props) => props.bg && `tr { height: 56px }`};
 `;
 
 const THeadStyle = styled.thead`
@@ -44,7 +44,7 @@ const THStyle = styled.th`
   letter-spacing: 1px;
   font-weight: 600;
   flex: 1;
-  ${props =>
+  ${(props) =>
     props.actions &&
     `
     flex: none;
@@ -68,13 +68,13 @@ const TDStyle = styled.td`
   height: 100%;
   display: flex;
   align-items: center;
-  ${props => props.bold && `font-weight: 600;`};
-  ${props => props.success && `color: #6BBB69;`};
-  ${props => props.primary && `color: #469FE5;`};
-  ${props => props.warning && `color: #F9D548;`};
-  ${props => props.danger && `color: #EC476E;`};
-  ${props => props.muted && `color: #B4B7BA;`};
-  ${props =>
+  ${(props) => props.bold && `font-weight: 600;`};
+  ${(props) => props.success && `color: #6BBB69;`};
+  ${(props) => props.primary && `color: #469FE5;`};
+  ${(props) => props.warning && `color: #F9D548;`};
+  ${(props) => props.danger && `color: #EC476E;`};
+  ${(props) => props.muted && `color: #B4B7BA;`};
+  ${(props) =>
     props.actions &&
     `
     flex: none;
@@ -84,16 +84,34 @@ const TDStyle = styled.td`
 `;
 
 // Components
-const Table = props => <TableStyle {...props}>{props.children}</TableStyle>;
+const Table = function (props) {
+  const { children } = props;
+  return <TableStyle {...props}>{children}</TableStyle>;
+};
 
-const THead = props => <THeadStyle {...props}>{props.children}</THeadStyle>;
+const THead = function (props) {
+  const { children } = props;
+  return <THeadStyle {...props}>{children}</THeadStyle>;
+};
 
-const TBody = props => <TBodyStyle {...props}>{props.children}</TBodyStyle>;
+const TBody = function (props) {
+  const { children } = props;
+  return <TBodyStyle {...props}>{children}</TBodyStyle>;
+};
 
-const TH = props => <THStyle {...props}>{props.children}</THStyle>;
+const TH = function (props) {
+  const { children } = props;
+  return <THStyle {...props}>{children}</THStyle>;
+};
 
-const TR = props => <TRStyle {...props}>{props.children}</TRStyle>;
+const TR = function (props) {
+  const { children } = props;
+  return <TRStyle {...props}>{children}</TRStyle>;
+};
 
-const TD = props => <TDStyle {...props}>{props.children}</TDStyle>;
+const TD = function (props) {
+  const { children } = props;
+  return <TDStyle {...props}>{children}</TDStyle>;
+};
 
 export { Table, THead, TBody, TH, TR, TD };

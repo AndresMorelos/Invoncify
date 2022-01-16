@@ -1,8 +1,8 @@
 // Libs
 import React, { Component } from 'react';
 const openDialog = require('../../renderers/dialog');
-import Message from './Message';
 import styled from 'styled-components';
+import Message from './Message';
 const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,6 +34,7 @@ class ErrorBoundary extends Component {
     super(props);
     this.state = { hasError: false };
   }
+
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
     openDialog({
@@ -42,6 +43,7 @@ class ErrorBoundary extends Component {
       message: info.componentStack,
     });
   }
+
   render() {
     if (this.state.hasError) {
       return (

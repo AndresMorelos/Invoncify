@@ -1,10 +1,10 @@
-const openDialog = require('../renderers/dialog');
-const appConfig = require('@electron/remote').require('electron-settings');
-import { getInvoiceValue } from './invoice';
 import { isEmpty, pick, includes } from 'lodash';
-import i18n from '../../i18n/i18n';
 import { v4 as uuidv4 } from 'uuid';
+import i18n from '../../i18n/i18n';
+import { getInvoiceValue } from './invoice';
 import { encrypt } from './encryption'
+const appConfig = require('@electron/remote').require('electron-settings');
+const openDialog = require('../renderers/dialog');
 
 function validateFormData(formData) {
   const {

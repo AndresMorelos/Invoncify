@@ -4,7 +4,7 @@ let contactsDB = new PouchDB('contacts');
 let invoicesDB = new PouchDB('invoices');
 
 // Utility
-import { omit } from 'lodash';
+const { omit } = require('lodash');
 
 // Handle Data Migration
 async function runMigration(db, version, migrations, done) {

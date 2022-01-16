@@ -33,8 +33,8 @@ const Page = styled.div`
   min-width: 21cm;
   margin-left: auto;
   margin-right: auto;
-  background: #FFFFFF;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   border-radius: 4px;
 `;
@@ -42,16 +42,17 @@ const Page = styled.div`
 // Components
 import Minimal from '../templates/minimal';
 import Business from '../templates/business';
-import BusinessQuote from '../templates/businessQuote'
+import BusinessQuote from '../templates/businessQuote';
 
 class MainContent extends Component {
   renderTemplate() {
-    switch (this.props.configs.template) {
+    const { configs } = this.props;
+    switch (configs.template) {
       case 'business': {
         return <Business {...this.props} />;
       }
       case 'businessQuote': {
-        return <BusinessQuote {...this.props} />
+        return <BusinessQuote {...this.props} />;
       }
       default: {
         return <Minimal {...this.props} />;
@@ -60,14 +61,12 @@ class MainContent extends Component {
   }
 
   render() {
-    const { t, invoice  } = this.props;
+    const { t, invoice } = this.props;
     return (
       <Wrapper>
         {invoice._id ? (
           <div className="print-area">
-            <Page>
-              {this.renderTemplate()}
-            </Page>
+            <Page>{this.renderTemplate()}</Page>
           </div>
         ) : (
           <Message>{t('preview:common:chooseInvoiceToPreview')}</Message>

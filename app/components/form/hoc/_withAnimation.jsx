@@ -5,7 +5,7 @@ import React from 'react';
 import { Motion, spring } from 'react-motion';
 
 // HOC Component
-const _withAnimation = ComposedComponent => props => {
+const _withAnimation = ComposedComponent => function(props) {
   const { index } = props;
   return (
     <Motion

@@ -5,16 +5,16 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
   className="col-lg-6"
 >
   <div
-    className="Invoice__Wrapper-cjNJPS coWKLW"
+    className="Invoice__Wrapper-sc-igsenw-0 hfzbZB"
   >
     <div
-      className="Invoice__StatusBar-jBWtSa joKiG"
+      className="Invoice__StatusBar-sc-igsenw-2 cjPjZW"
     />
     <div
-      className="Invoice__Header-cGSpHV gmDFcR"
+      className="Invoice__Header-sc-igsenw-1 dGLtjB"
     >
       <div
-        className="Invoice__Status-fxIELu bbALRd"
+        className="Invoice__Status-sc-igsenw-3 xZltb"
       >
         <span>
           <i
@@ -24,10 +24,10 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
         </span>
       </div>
       <div
-        className="Invoice__ButtonsGroup-PwNbx emusdh"
+        className="Invoice__ButtonsGroup-sc-igsenw-4 dRRChM"
       >
         <button
-          className="Button__ButtonLinkStyle-caVwCA imXwRc"
+          className="Button__ButtonLinkStyle-sc-lvp9e-1 xbxJF"
           onClick={[Function]}
         >
           <i
@@ -35,7 +35,7 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
           />
         </button>
         <button
-          className="Button__ButtonLinkStyle-caVwCA imXwRc"
+          className="Button__ButtonLinkStyle-sc-lvp9e-1 xbxJF"
           onClick={[Function]}
         >
           <i
@@ -45,13 +45,13 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="Invoice__Body-eBItTh igYqzw"
+      className="Invoice__Body-sc-igsenw-5 fTjVXF"
     >
       <div
-        className="Invoice__Row-hFNBjq cQdnct"
+        className="Invoice__Row-sc-igsenw-7 ggPAQb"
       >
         <div
-          className="Invoice__Field-cZpgXH fDrpWO"
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
         >
           <label>
             Pending
@@ -62,10 +62,10 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
         </div>
       </div>
       <div
-        className="Invoice__Row-hFNBjq cQdnct"
+        className="Invoice__Row-sc-igsenw-7 ggPAQb"
       >
         <div
-          className="Invoice__Field-cZpgXH fDrpWO"
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
         >
           <label>
             Pending
@@ -75,7 +75,7 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
           </p>
         </div>
         <div
-          className="Invoice__Field-cZpgXH fDrpWO"
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
         >
           <label>
             Pending
@@ -89,20 +89,20 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
         </div>
       </div>
       <div
-        className="Invoice__Row-hFNBjq cQdnct"
+        className="Invoice__Row-sc-igsenw-7 ggPAQb"
       >
         <div
-          className="Invoice__Field-cZpgXH fDrpWO"
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
         >
           <label>
             Pending
           </label>
           <p>
-            01/01/70
+            01/16/22
           </p>
         </div>
         <div
-          className="Invoice__Field-cZpgXH fDrpWO"
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
         >
           <label>
             Pending
@@ -112,14 +112,14 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="Invoice__Footer-dcHDEd cJiGTY"
+      className="Invoice__Footer-sc-igsenw-6 kKfCkU"
     >
       <div>
         <div
-          className="SplitButton__Wrapper-jsRMIo gVGdJM"
+          className="SplitButton__Wrapper-sc-1j4u7fk-0 bLWRFA"
         >
           <div
-            className="SplitButton__ButtonsGroup-hdzsBq dhTQNh"
+            className="SplitButton__ButtonsGroup-sc-1j4u7fk-1 cFBIKp"
           >
             <a
               href="#"
@@ -139,13 +139,13 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
         </div>
       </div>
       <button
-        className="Button__ButtonStyle-coFSWz coAhhp"
+        className="Button__ButtonStyle-sc-lvp9e-0 dmuXOt"
         onClick={[Function]}
       >
         Pending
       </button>
       <button
-        className="Button__ButtonStyle-coFSWz coAhhp"
+        className="Button__ButtonStyle-sc-lvp9e-0 dmuXOt"
         onClick={[Function]}
       >
         Pending

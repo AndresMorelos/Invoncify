@@ -2,20 +2,14 @@
 
 exports[`Recipient component matches snapshot 1`] = `
 <div
-  className="Section__SectionStyle-dgSKSv cwfAAu"
+  className="Section__SectionStyle-sc-15esd4o-0 eIfPOJ"
 >
   <label
     className="itemLabel"
   >
      *
   </label>
-  <div
-    style={
-      Object {
-        "height": "100%",
-      }
-    }
-  >
+  <div>
     <div
       style={
         Object {
@@ -25,13 +19,13 @@ exports[`Recipient component matches snapshot 1`] = `
       }
     >
       <div
-        className="Part__PartStyle-kAWmVX iwwkMM"
+        className="Part__PartStyle-sc-w1a2bb-0 emgBFP"
       >
         <div
-          className="Part__RowStyle-nLRvo cGeXDT"
+          className="Part__RowStyle-sc-w1a2bb-1 klLhcz"
         >
           <div
-            className="Part__FieldStyle-dkcwja bIqrsv"
+            className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
           >
             <label
               className="itemLabel"
@@ -46,7 +40,7 @@ exports[`Recipient component matches snapshot 1`] = `
             />
           </div>
           <div
-            className="Part__FieldStyle-dkcwja bIqrsv"
+            className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
           >
             <label
               className="itemLabel"
@@ -60,10 +54,10 @@ exports[`Recipient component matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="Part__RowStyle-nLRvo cGeXDT"
+          className="Part__RowStyle-sc-w1a2bb-1 klLhcz"
         >
           <div
-            className="Part__FieldStyle-dkcwja bIqrsv"
+            className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
           >
             <label
               className="itemLabel"
@@ -78,13 +72,30 @@ exports[`Recipient component matches snapshot 1`] = `
             />
           </div>
           <div
-            className="Part__FieldStyle-dkcwja bIqrsv"
+            className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
           >
             <label
               className="itemLabel"
             />
             <input
               name="phone"
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="Part__RowStyle-sc-w1a2bb-1 klLhcz"
+        >
+          <div
+            className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
+          >
+            <label
+              className="itemLabel"
+            />
+            <input
+              name="address"
               onChange={[Function]}
               type="text"
               value=""

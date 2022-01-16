@@ -1,13 +1,12 @@
-const crypto = require('crypto');
+/* eslint-disable no-param-reassign */
 const appConfig = require('electron-settings')
 const { ipcMain } = require('electron');
 const { encrypt, decrypt } = require('../helpers/encryption');
 
 
-
-
 function getEncryptionSettings() {
 
+    // eslint-disable-next-line prefer-const
     let { iv, salt, validation, dataMigrated } = appConfig.getSync('encryption');
 
 
@@ -47,7 +46,7 @@ ipcMain.on('secret-key-updated', (event, { secretKey }) => {
     }
 
     event.returnValue = validationResult
-    return;
+    
 });
 
 
@@ -65,8 +64,7 @@ ipcMain.on('decrypt-data', (event, { content, secretKey }) => {
 
 
 ipcMain.on('encryption-get-settings', (event) => {
-    const { iv, salt, validation } = getEncryptionSettings()
-    const { iv: ivHex, salt: saltHex } = appConfig.getSync('encryption');
+    const { iv: ivHex, salt: saltHex, validation } = appConfig.getSync('encryption');
     event.returnValue = { iv: ivHex, salt: saltHex, validation }
 })
 

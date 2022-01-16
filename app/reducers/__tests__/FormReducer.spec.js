@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
+import faker from 'faker';
+import { pick } from 'lodash';
 import FormReducer, {
   getCurrentInvoice,
   getRows,
@@ -6,9 +9,6 @@ import FormReducer, {
 import * as ACTION_TYPES from '../../constants/actions.jsx';
 import currencies from '../../../libs/currencies.json';
 
-import { v4 as uuidv4 } from 'uuid';
-import faker from 'faker';
-import { pick } from 'lodash';
 
 describe('Form Reducer should handle', () => {
   let currentState;
@@ -461,9 +461,7 @@ describe('Form Reducer should handle Invoice Edit', () => {
   });
 
   it('should populate recipient field data correctly', () => {
-    const invoiceData2 = Object.assign({}, invoiceData, {
-      recipient: invoiceData.contacts[0]
-    })
+    const invoiceData2 = { ...invoiceData, recipient: invoiceData.contacts[0]}
     const newState2 = FormReducer(currentState, {
       type: ACTION_TYPES.INVOICE_EDIT,
       payload: invoiceData2,

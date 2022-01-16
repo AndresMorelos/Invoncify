@@ -1,8 +1,8 @@
 import * as ACTION_TYPES from '../../constants/actions';
 import * as actions from '../settings';
 
-it('getInitalSettings should create GET_INITIAL_SETTINGS action', () => {
-  expect(actions.getInitalSettings()).toEqual({
+it('getInitialSettings should create GET_INITIAL_SETTINGS action', () => {
+  expect(actions.getInitialSettings()).toEqual({
     type: ACTION_TYPES.SETTINGS_GET_INITIAL,
   });
 });

@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
-const moment = require('moment');
+import styled from 'styled-components';
 import { calTermDate } from '../../../../helpers/date';
+const moment = require('moment');
 
 // Styles
-import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -43,7 +43,7 @@ const Logo = styled.div`
 `;
 
 // Component
-function Header({ t, invoice, profile, configs }) {
+const Header = function({ t, invoice, profile, configs }) {
   const { language, logoSize, accentColor, customAccentColor } = configs;
   const { dueDate } = invoice;
   return (

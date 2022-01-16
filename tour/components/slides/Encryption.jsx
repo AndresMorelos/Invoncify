@@ -1,5 +1,5 @@
 import React from 'react';
-import EncryptionImg from '@images/Encryption.svg'
+import EncryptionImg from '@images/encryption.svg'
 import Slide from '../Slide';
 
 const Encryption = function ({ t }) {

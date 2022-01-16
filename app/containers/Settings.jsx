@@ -25,6 +25,7 @@ import {
 import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 
 // Helpers
+import { bindActionCreators } from 'redux';
 import { parseImportFile } from '../helpers/importFile';
 // Selectors
 import {
@@ -37,8 +38,6 @@ import { getSecretKey } from '../reducers/exportImportReducer';
 // Actions
 import * as SettingsActions from '../actions/settings';
 import * as ExportImportActions from '../actions/exportImport';
-
-import { bindActionCreators } from 'redux';
 
 // Component
 class Settings extends Component {
@@ -96,7 +95,8 @@ class Settings extends Component {
 
   importData(fileData) {
     if (fileData) {
-      const { importData } = this.props.boundExportImportActionsCreators;
+      const { boundExportImportActionsCreators } = this.props;
+      const { importData } = boundExportImportActionsCreators;
       importData(fileData);
     }
   }
@@ -107,15 +107,21 @@ class Settings extends Component {
 
   // Render Main Content
   renderSettingsContent() {
-    const { t } = this.props;
-    const { updateSettings } = this.props.boundActionCreators;
-    const { exportData } = this.props.boundExportImportActionsCreators;
-    const { profile, general, invoice } = this.props.currentSettings;
+    const {
+      t,
+      boundActionCreators,
+      boundExportImportActionsCreators,
+      currentSettings,
+    } = this.props;
+    const { canSave, visibleTab } = this.state;
+    const { updateSettings } = boundActionCreators;
+    const { exportData } = boundExportImportActionsCreators;
+    const { profile, general, invoice } = currentSettings;
     return (
       <PageWrapper>
         <PageHeader>
           <PageHeaderTitle>{t('settings:header')}</PageHeaderTitle>
-          {!this.settingsSaved() && this.state.canSave && (
+          {!this.settingsSaved() && canSave && (
             <PageHeaderActions>
               <Button primary onClick={this.saveSettingsState}>
                 {t('common:save')}
@@ -127,28 +133,28 @@ class Settings extends Component {
           <Tabs>
             <Tab
               href="#"
-              className={this.state.visibleTab === 1 ? 'active' : ''}
+              className={visibleTab === 1 ? 'active' : ''}
               onClick={() => this.changeTab(1)}
             >
               {t('settings:tabs:profile')}
             </Tab>
             <Tab
               href="#"
-              className={this.state.visibleTab === 2 ? 'active' : ''}
+              className={visibleTab === 2 ? 'active' : ''}
               onClick={() => this.changeTab(2)}
             >
               {t('settings:tabs:invoice')}
             </Tab>
             <Tab
               href="#"
-              className={this.state.visibleTab === 3 ? 'active' : ''}
+              className={visibleTab === 3 ? 'active' : ''}
               onClick={() => this.changeTab(3)}
             >
               {t('settings:tabs:general')}
             </Tab>
           </Tabs>
           <TabContent>
-            {this.state.visibleTab === 1 && (
+            {visibleTab === 1 && (
               <Profile
                 t={t}
                 profile={profile}
@@ -156,7 +162,7 @@ class Settings extends Component {
                 setSavable={this.setSavable}
               />
             )}
-            {this.state.visibleTab === 2 && (
+            {visibleTab === 2 && (
               <Invoice
                 t={t}
                 invoice={invoice}
@@ -164,7 +170,7 @@ class Settings extends Component {
                 setSavable={this.setSavable}
               />
             )}
-            {this.state.visibleTab === 3 && (
+            {visibleTab === 3 && (
               <General
                 t={t}
                 general={general}
@@ -181,14 +187,15 @@ class Settings extends Component {
   }
 
   render() {
-    return this.props.currentSettings ? this.renderSettingsContent() : null;
+    const { currentSettings } = this.props;
+    return currentSettings ? this.renderSettingsContent() : null;
   }
 }
 
 // PropTypes Validation
 Settings.propTypes = {
   boundActionCreators: PropTypes.shape({
-    getInitalSettings: PropTypes.func.isRequired,
+    getInitialSettings: PropTypes.func.isRequired,
     updateSettings: PropTypes.func.isRequired,
     saveSettings: PropTypes.func.isRequired,
   }).isRequired,

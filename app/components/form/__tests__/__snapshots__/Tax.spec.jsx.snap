@@ -2,34 +2,33 @@
 
 exports[`Note component matches snapshot 1`] = `
 <div
-  className="Section__SectionStyle-dgSKSv cwfAAu"
+  className="Section__SectionStyle-sc-15esd4o-0 eIfPOJ"
 >
   <div
-    className="Section__HeaderStyle-chmDx gHBKbw"
+    className="Section__HeaderStyle-sc-15esd4o-1 bgDfBd"
   >
     <label
       className="itemLabel"
     />
   </div>
   <div
-    className="Part__PartStyle-kAWmVX iwwkMM"
+    className="Part__PartStyle-sc-w1a2bb-0 emgBFP"
   >
     <div
-      className="Part__RowStyle-nLRvo cGeXDT"
+      className="Part__RowStyle-sc-w1a2bb-1 klLhcz"
     >
       <div
-        className="Part__FieldStyle-dkcwja bIqrsv"
+        className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
       >
         <label
           className="itemLabel"
         />
         <div
-          className="Tax__TaxID-jmRTWe QNlQZ"
+          className="Tax__TaxID-sc-13qlq98-0"
         >
           <input
             name="tin"
             onChange={[Function]}
-            placeholder={undefined}
             type="text"
             value="123-456-789"
           />
@@ -37,10 +36,10 @@ exports[`Note component matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="Part__RowStyle-nLRvo cGeXDT"
+      className="Part__RowStyle-sc-w1a2bb-1 klLhcz"
     >
       <div
-        className="Part__FieldStyle-dkcwja bIqrsv"
+        className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
       >
         <label
           className="itemLabel"
@@ -48,12 +47,11 @@ exports[`Note component matches snapshot 1`] = `
            (%)
         </label>
         <div
-          className="Tax__TaxAmount-hmOePo dZzXEm"
+          className="Tax__TaxAmount-sc-13qlq98-1 hrmTkW"
         >
           <input
             name="amount"
             onChange={[Function]}
-            placeholder={undefined}
             step="0.01"
             type="number"
             value={10}
@@ -61,7 +59,7 @@ exports[`Note component matches snapshot 1`] = `
         </div>
       </div>
       <div
-        className="Part__FieldStyle-dkcwja bIqrsv"
+        className="Part__FieldStyle-sc-w1a2bb-2 mKSJE"
       >
         <label
           className="itemLabel"
@@ -69,7 +67,6 @@ exports[`Note component matches snapshot 1`] = `
         <select
           name="method"
           onChange={[Function]}
-          value={undefined}
         >
           <option
             value="default"

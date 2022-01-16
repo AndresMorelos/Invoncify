@@ -2,10 +2,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 
 // Root Reducer
+import Logger from 'redux-logger';
 import rootReducer from '../reducers';
 
 // 3rd Party MWs
-import Logger from 'redux-logger';
 
 // Custom Middleware
 import LoginMW from '../middlewares/LoginMW';
@@ -35,12 +35,5 @@ export default function configureStore(initialState) {
     initialState,
     composeEnhancers(applyMiddleware(...middlewares))
   );
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers/index').default;
-      store.replaceReducer(nextReducer);
-    });
-  }
   return store;
 }

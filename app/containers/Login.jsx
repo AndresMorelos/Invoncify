@@ -3,17 +3,17 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-const ipc = require('electron').ipcRenderer;
 import { withTranslation } from 'react-i18next';
-const openDialog = require('../renderers/dialog');
 
 // Actions
+import LoginForm from '@components/login/Login.jsx';
+import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import * as ACTION_TYPES from '../constants/actions.jsx'
 import * as LoginActions from '../actions/login';
 
 // Components
-import LoginForm from '@components/login/Login.jsx';
-import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
+const ipc = require('electron').ipcRenderer;
+const openDialog = require('../renderers/dialog');
 
 // Component
 class Login extends PureComponent {

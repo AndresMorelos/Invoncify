@@ -1,6 +1,5 @@
 // Libraries
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Styles
 import styled from 'styled-components';
@@ -25,9 +24,20 @@ const FieldStyle = styled.div`
 
 const HeaderStyle = styled.h2``;
 
-
 // Components
-export const Part = props => <PartStyle>{props.children}</PartStyle>;
-export const Header = props => <HeaderStyle>{props.children}</HeaderStyle>;
-export const Field = props => <FieldStyle>{props.children}</FieldStyle>;
-export const Row = props => <RowStyle>{props.children}</RowStyle>;
+export const Part = function (props) {
+  const { children } = props;
+  return <PartStyle>{children}</PartStyle>;
+};
+export const Header = function (props) {
+  const { children } = props;
+  return <HeaderStyle>{children}</HeaderStyle>;
+};
+export const Field = function (props) {
+  const { children } = props;
+  return <FieldStyle>{children}</FieldStyle>;
+};
+export const Row = function (props) {
+  const { children } = props;
+  return <RowStyle>{children}</RowStyle>;
+};

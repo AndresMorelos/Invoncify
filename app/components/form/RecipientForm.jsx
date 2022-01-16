@@ -9,7 +9,7 @@ import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import styled from 'styled-components';
 import { Part, Row, Field } from '../shared/Part';
 
-export function RecipientForm({ t, formData, updateRecipientForm }) {
+export var RecipientForm = function({ t, formData, updateRecipientForm }) {
   const { fullname, company, email, phone, address } = formData;
   return (
     <Part>

@@ -28,7 +28,7 @@ function parseImportFile(filePath, secretKey, callback) {
         return;
     } catch (error) {
         callback(error, null);
-        return;
+        
     }
 
 }

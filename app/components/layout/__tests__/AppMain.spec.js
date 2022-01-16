@@ -1,4 +1,5 @@
 // Libs
+import 'jsdom-global/register';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
@@ -6,6 +7,6 @@ import { shallow, mount } from 'enzyme';
 // import AppMain from '../AppMain';
 
 describe('Renders correctly to the DOM', () => {
-  it('render only one component at a time');
-  it('render correct component based on prop');
+  test.todo('render only one component at a time');
+  test.todo('render correct component based on prop');
 });

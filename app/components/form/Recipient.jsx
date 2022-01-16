@@ -5,13 +5,13 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 
 // Redux & Selectors
+import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 import { getContacts } from '../../reducers/ContactsReducer';
 import { getRecipient } from '../../reducers/FormReducer';
-import { connect } from 'react-redux';
 import * as FormActions from '../../actions/form';
 
 // Other Libs
-import { isEmpty } from 'lodash';
 
 // Custom Components
 import RecipientForm from './RecipientForm';
@@ -36,13 +36,12 @@ export class Recipient extends Component {
       isEmpty(recipient.select) &&
       recipient.newRecipient === true
     ) {
-      this.setState(
-        Object.assign({}, this.state, {
-          newRecipient: true,
-          new: {},
-          select: {},
-        })
-      );
+      this.setState((prevState) => ({
+        ...prevState,
+        newRecipient: true,
+        new: {},
+        select: {},
+      }));
     }
   }
 
@@ -64,7 +63,7 @@ export class Recipient extends Component {
     const value = event.target.value;
     this.setState(
       {
-        new: Object.assign({}, this.state.new, { [name]: value }),
+        new: { ...this.state.new, [name]: value },
       },
       () => {
         this.updateRecipientData(this.state);
@@ -166,12 +165,9 @@ Recipient.propTypes = {
 };
 
 // Map state to props & Export
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   contacts: getContacts(state),
   recipient: getRecipient(state),
 });
 
-export default compose(
-  connect(mapStateToProps),
-  withTranslation(),
-)(Recipient);
+export default compose(connect(mapStateToProps), withTranslation())(Recipient);

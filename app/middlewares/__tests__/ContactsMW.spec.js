@@ -1,25 +1,33 @@
+/* eslint-disable import/named */
+import faker from 'faker';
 import * as ACTION_TYPES from '../../constants/actions.jsx';
 import * as Actions from '../../actions/contacts';
 import ContactsMW from '../ContactsMW';
-import faker from 'faker';
 import i18n from '../../../i18n/i18n';
+import { encryptData } from '../../../test/helper.js';
 
 // Mocks
 import {
   saveDoc,
   deleteDoc,
   getAllDocs,
-  mockData, // eslint-disable-line import/named
+  mockData,
+  mockDataDecrypted,
 } from '../../helpers/pouchDB';
 jest.mock('../../helpers/pouchDB');
 Date.now = jest.fn(() => 'now');
 
 describe('Contacts Middleware', () => {
-  let next, dispatch, middleware;
+  let next, dispatch, getState, middleware;
   beforeEach(() => {
     next = jest.fn();
     dispatch = jest.fn();
-    middleware = ContactsMW({ dispatch })(next);
+    getState = jest.fn(() => ({
+      login: {
+        secretKey: 'secret',
+      },
+    }));
+    middleware = ContactsMW({ dispatch, getState })(next);
   });
 
   describe('should handle CONTACT_GET_ALL action', () => {
@@ -38,17 +46,16 @@ describe('Contacts Middleware', () => {
 
     it('calls next after the promised is returned', () => {
       const action = Actions.getAllContacts();
-      middleware(action).then(() => {
+      return middleware(action).then(() => {
         // Never call dispatch
         expect(dispatch.mock.calls.length).toBe(0);
         // Calling next with resolved data
-        return getAllDocs('contacts').then(data => {
+        return getAllDocs('contacts').then((data) => {
           expect(next.mock.calls.length).toBe(1);
-          expect(next).toHaveBeenCalledWith(
-            Object.assign({}, action, {
-              payload: data,
-            })
-          );
+          expect(next).toHaveBeenCalledWith({
+            ...action,
+            payload: [mockDataDecrypted.contactsRecords[0]],
+          });
         });
       });
     });
@@ -58,7 +65,7 @@ describe('Contacts Middleware', () => {
       getAllDocs.mockImplementationOnce(() => getAllDocs('random-string'));
       const expectedError = new Error('Incorrect database!');
       // Execute
-      middleware(Actions.getAllContacts()).then(() => {
+      return middleware(Actions.getAllContacts()).then(() => {
         expect(next).toHaveBeenCalled();
         expect(next).toHaveBeenCalledWith({
           type: ACTION_TYPES.UI_NOTIFICATION_NEW,
@@ -73,8 +80,8 @@ describe('Contacts Middleware', () => {
     it('handle unknown error correctly', () => {
       const unknownError = new Error('Something broke');
       getAllDocs.mockImplementationOnce(() => Promise.reject(unknownError));
-      middleware(Actions.getAllContacts()).then(() =>
-        getAllDocs().catch(err => {
+      return middleware(Actions.getAllContacts()).then(() =>
+        getAllDocs().catch((err) => {
           expect(next).toHaveBeenCalled();
           expect(next).toHaveBeenCalledWith({
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
@@ -109,8 +116,8 @@ describe('Contacts Middleware', () => {
         email: faker.internet.email(),
       };
       // Execute
-      middleware(Actions.saveContact(newContact)).then(() =>
-        saveDoc('contacts', newContact).then(data => {
+      return middleware(Actions.saveContact(newContact)).then(() =>
+        saveDoc('contacts', newContact).then((data) => {
           // Expect
           expect(data).toEqual([...mockData.contactsRecords, newContact]);
         })
@@ -120,33 +127,41 @@ describe('Contacts Middleware', () => {
     it('should call next and dispatch notification ', () => {
       // Setup
       const newContact = {
-        _id: 'id-string',
         created_at: 'now',
         fullname: faker.name.findName(),
         email: faker.internet.email(),
       };
-      const action = Actions.saveContact(newContact);
+
+      const newContactEncrypted = {
+        _id: 'id-string',
+        content: encryptData({ message: JSON.stringify(newContact) }),
+      };
+      
+      const action = Actions.saveContact(newContactEncrypted);
 
       // Execute
-      middleware(action).then(() =>
-        saveDoc('contacts', newContact).then(data => {
+      return middleware(action).then(() =>
+        saveDoc('contacts', newContact).then((data) => {
           // Expect calling next
           expect(next.mock.calls.length).toBe(1);
-          expect(next).toHaveBeenCalledWith(
-            Object.assign({}, action, {
-              payload: [
-                ...mockData.contactsRecords,
-                newContact
-              ],
-            })
-          );
+          expect(next).toHaveBeenCalledWith({
+            ...action,
+            payload: [
+              ...mockDataDecrypted.contactsRecords,
+              {
+                _id: 'id-string',
+                _rev: undefined,
+                ...newContact,
+              },
+            ],
+          });
           // Dispatch success notification
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch).toHaveBeenCalledWith({
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
             payload: {
               type: 'success',
-              message: i18n.t('messages:contact:saved')
+              message: i18n.t('messages:contact:saved'),
             },
           });
         })
@@ -158,7 +173,7 @@ describe('Contacts Middleware', () => {
         fullname: faker.name.findName(),
         email: faker.internet.email(),
       };
-      middleware(Actions.saveContact(newContact)).then(() => {
+      return middleware(Actions.saveContact(newContact)).then(() => {
         const dbError = new Error('No database found!');
         const docError = new Error('No doc found!');
         expect(saveDoc()).rejects.toEqual(dbError);
@@ -175,7 +190,7 @@ describe('Contacts Middleware', () => {
       const expectedError = new Error('Something Broken!');
       saveDoc.mockImplementationOnce(() => Promise.reject(expectedError));
       // Execute
-      middleware(Actions.saveContact(newContact)).then(() => {
+      return middleware(Actions.saveContact(newContact)).then(() => {
         // Expect
         expect(next).toHaveBeenCalled();
         expect(next).toHaveBeenCalledWith({
@@ -193,10 +208,10 @@ describe('Contacts Middleware', () => {
     it('should remove record from DB correctly', () => {
       // Setup
       const contactID = 'jon-snow';
-      const action = Actions.deleteContact(contactID);
+      const action = Actions.deleteContact([contactID]);
       // Execute
-      middleware(action).then(() =>
-        deleteDoc('contacts', contactID).then(data => {
+      return middleware(action).then(() =>
+        deleteDoc('contacts', contactID).then((data) => {
           expect(data).toEqual([]);
         })
       );
@@ -205,16 +220,14 @@ describe('Contacts Middleware', () => {
     it('should call next and dispatch notification ', () => {
       // Setup
       const contactID = 'jon-snow';
-      const action = Actions.deleteContact(contactID);
+      const action = Actions.deleteContact([contactID]);
       // Execute
-      middleware(action).then(() =>
-        deleteDoc('contacts', contactID).then(data => {
+      return middleware(action).then(() =>
+        deleteDoc('contacts', contactID).then((data) => {
           // Call next after the promised is returned
           expect(next.mock.calls.length).toBe(1);
           expect(next).toHaveBeenCalledWith(
-            Object.assign({}, action, {
-              payload: [],
-            })
+            { ...action, payload: [],}
           );
           // Dispatch success notification
           expect(dispatch.mock.calls.length).toBe(1);
@@ -222,7 +235,7 @@ describe('Contacts Middleware', () => {
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
             payload: {
               type: 'success',
-              message: i18n.t('messages:contact:deleted')
+              message: i18n.t('messages:contact:deleted'),
             },
           });
         })
@@ -235,7 +248,7 @@ describe('Contacts Middleware', () => {
       const expectedError = new Error('No contact found!');
 
       // Execute
-      middleware(Actions.deleteContact(contactID)).then(() => {
+      return middleware(Actions.deleteContact([contactID])).then(() => {
         // Expect
         expect(next).toHaveBeenCalled();
         expect(next).toHaveBeenCalledWith({

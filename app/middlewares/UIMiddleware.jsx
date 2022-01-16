@@ -1,6 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import * as ACTION_TYPES from '../constants/actions.jsx';
 import sounds from '../../libs/sounds';
-import { v4 as uuidv4 } from 'uuid';
 
 const UIMiddleware = ({ getState }) => next => action => {
   switch (action.type) {
@@ -30,11 +30,7 @@ const UIMiddleware = ({ getState }) => next => action => {
       }
       // Create a new ID for the notification
       return next(
-        Object.assign({}, action, {
-          payload: Object.assign({}, action.payload, {
-            id: uuidv4(),
-          }),
-        })
+        { ...action, payload: { ...action.payload, id: uuidv4(),},}
       );
     }
 

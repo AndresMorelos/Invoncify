@@ -1,14 +1,17 @@
-// Node Libs
-const appConfig = require('@electron/remote').require('electron-settings');
-import sounds from '../../libs/sounds';
-const ipc = require('electron').ipcRenderer;
-import i18n from '../../i18n/i18n';
 
 // Actions Verbs
 import * as ACTION_TYPES from '../constants/actions.jsx';
 
 // Helper
 import { validateTax, validateCurrency } from '../helpers/form';
+
+// Node Libs
+import sounds from '../../libs/sounds';
+import i18n from '../../i18n/i18n';
+const appConfig = require('@electron/remote').require('electron-settings');
+const ipc = require('electron').ipcRenderer;
+
+
 
 const SettingsMW = ({ dispatch }) => next => action => {
   switch (action.type) {
@@ -19,12 +22,10 @@ const SettingsMW = ({ dispatch }) => next => action => {
         general: appConfig.getSync('general'),
       };
       return next(
-        Object.assign({}, action, {
-          payload: {
+        { ...action, payload: {
             current: savedSettings,
             saved: savedSettings,
-          },
-        })
+          },}
       );
     }
 

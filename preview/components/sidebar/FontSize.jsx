@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section, Label, Range } from '../shared';
 
-function FontSize({ t, fontSize, handleInputChange, UILang }) {
+const FontSize = function({ t, fontSize, handleInputChange, UILang }) {
   return (
     <Section>
       <Label>

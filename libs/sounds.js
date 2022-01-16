@@ -1,5 +1,5 @@
 // 3rd Party Libs
-let appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = require('@electron/remote').require('electron-settings');
 
 // Sound Themes
 const cs_sounds = require('../static/sounds/cs/index.js');

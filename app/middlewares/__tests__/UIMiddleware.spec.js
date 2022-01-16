@@ -48,11 +48,7 @@ describe('UI Middleware', () => {
       expect(next.mock.calls.length).toBe(1);
       // Add id field with uuidv4 string to payload
       expect(next).toHaveBeenCalledWith(
-        Object.assign({}, action, {
-          payload: Object.assign({}, action.payload, {
-            id: 'id-string',
-          }),
-        })
+        { ...action, payload: { ...action.payload, id: 'id-string',},}
       );
       // Test Sound
       expect(sounds.play).toBeCalledWith('SUCCESS');
@@ -65,11 +61,7 @@ describe('UI Middleware', () => {
       expect(next.mock.calls.length).toBe(1);
       // Add id field with uuidv4 string to payload
       expect(next).toHaveBeenCalledWith(
-        Object.assign({}, action, {
-          payload: Object.assign({}, action.payload, {
-            id: 'id-string',
-          }),
-        })
+        { ...action, payload: { ...action.payload, id: 'id-string',},}
       );
       // Test Sound
       expect(sounds.play).toBeCalledWith('WARNING');

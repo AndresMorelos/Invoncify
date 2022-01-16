@@ -16,7 +16,7 @@ import Preview from '@components/slides/Preview'; // Preview & Customize Templat
 import Encryption from '@components/slides/Encryption';
 import Success from '@components/slides/Success'; // Success
 
-function Slider({ t, currentSlide }) {
+const Slider = function({ t, currentSlide }) {
   return (
     <Content>
       {currentSlide === 1 && <Welcome t={t} />}

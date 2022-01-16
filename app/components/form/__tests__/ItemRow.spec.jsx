@@ -1,4 +1,5 @@
 // Libs
+import 'jsdom-global/register';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
@@ -12,6 +13,7 @@ const addItem = jest.fn();
 const hasHandler = true;
 const item = {
   id: '638fd7e3-217b-4a29-87f7-5ec539f73af9',
+  index: 1,
   description: 'iPhone X',
   price: 999,
   quantity: 1,
@@ -27,6 +29,7 @@ describe('Renders correctly to the DOM', () => {
     wrapper = mount(
       <ItemRow
         t={t}
+        index={1}
         actions={actions}
         addItem={addItem}
         hasHandler={hasHandler}
@@ -66,6 +69,7 @@ describe('Renders correctly to the DOM', () => {
     const wrap = mount(
       <ItemRow
         t={t}
+        index={1}
         actions={actions}
         addItem={addItem}
         hasHandler={hasHandler}
@@ -92,6 +96,7 @@ describe('Renders correctly to the DOM', () => {
     const wrap = mount(
       <ItemRow
         t={t}
+        index={1}
         actions={actions}
         addItem={addItem}
         hasHandler={hasHandler}
@@ -120,6 +125,7 @@ describe('Renders correctly to the DOM', () => {
     const wrap = mount(
       <ItemRow
         t={t}
+        index={1}
         actions={actions}
         addItem={addItem}
         hasHandler={hasHandler}
@@ -144,6 +150,7 @@ describe('Renders correctly to the DOM', () => {
     const wrap = mount(
       <ItemRow
         t={t}
+        index={1}
         actions={actions}
         addItem={addItem}
         hasHandler={hasHandler}
@@ -178,6 +185,7 @@ describe('Renders correctly to the DOM', () => {
       .create(
         <ItemRow
           t={t}
+          index={1}
           actions={actions}
           addItem={addItem}
           hasHandler={hasHandler}

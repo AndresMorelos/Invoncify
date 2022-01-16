@@ -1,9 +1,10 @@
 // Libs
+import 'jsdom-global/register';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 // Component
-import AppNav, { SideBar, Tab, Icon, ActiveIndicator } from '../AppNav';
+import AppNav  from '../AppNav';
 
 // Mocks
 const changeTab = jest.fn();
@@ -27,5 +28,5 @@ describe('Renders correctly to the DOM', () => {
   //   const sideBar = shallow(<ActiveIndicator/>);
   //   expect(wrapper.contains(sideBar)).toEqual(true);
   });
-  it('shows active indicator at the correct position');
+  test.todo('shows active indicator at the correct position');
 });

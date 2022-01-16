@@ -15,7 +15,6 @@ function decrypt({ content, secretKey, salt, iv }) {
     let returnValue;
     const decipher = crypto.createDecipheriv(algorithm, generateKey(secretKey, salt), iv);
     const decrpyted = Buffer.concat([decipher.update(Buffer.from(content, 'hex')), decipher.final()]);
-
     try {
         returnValue = JSON.parse(decrpyted.toString('utf-8'))
     } catch (error) {

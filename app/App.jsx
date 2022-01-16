@@ -2,9 +2,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-const ipc = require('electron').ipcRenderer;
 
 // Actions
+import AppNav from '@components/layout/AppNav';
+import AppMain from '@components/layout/AppMain';
+import AppNoti from '@components/layout/AppNoti';
+import AppUpdate from '@components/layout/AppUpdate';
+import { AppWrapper, LoginWrapper } from '@components/shared/Layout';
 import * as UIActions from './actions/ui';
 import * as FormActions from './actions/form';
 import * as SettingsActions from './actions/settings';
@@ -12,19 +16,15 @@ import * as InvoicesActions from './actions/invoices';
 import * as ContactsActions from './actions/contacts';
 
 // Components
-import AppNav from '@components/layout/AppNav';
-import AppMain from '@components/layout/AppMain';
-import AppNoti from '@components/layout/AppNoti';
-import AppUpdate from '@components/layout/AppUpdate';
-import { AppWrapper, LoginWrapper } from '@components/shared/Layout';
 
-//Reducers
+// Reducers
 import { getSecretKey } from './reducers/LoginReducer'
 import Login from './containers/Login';
 
 import windowStateKeeper from '../helpers/windowStateKeeper';
 import resize from './helpers/resize'
 import { Notify } from '../helpers/notify'
+const ipc = require('electron').ipcRenderer;
 
 // Components
 class App extends PureComponent {
@@ -38,7 +38,7 @@ class App extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     // Get All Data
-    dispatch(SettingsActions.getInitalSettings());
+    dispatch(SettingsActions.getInitialSettings());
     // Add Event Listener
     ipc.on('menu-change-tab', (event, tabName) => {
       this.changeTab(tabName);

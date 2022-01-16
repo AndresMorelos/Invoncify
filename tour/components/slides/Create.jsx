@@ -1,9 +1,9 @@
 import React from 'react';
 import path from 'path';
-import Slide from '../Slide';
 import CreateImg from '@images/Create.svg'
+import Slide from '../Slide';
 
-function Create({t}) {
+const Create = function({t}) {
   return (
     <Slide
       fromColor="#85E5A9"

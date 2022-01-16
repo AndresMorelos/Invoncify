@@ -16,6 +16,7 @@ class DragNDrop extends PureComponent {
     const { moveRow } = this.props.boundActionCreators;
     moveRow(result.source.index, result.destination.index);
   }
+
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -38,11 +39,11 @@ DragNDrop.propTypes = {
 };
 
 // Real HOC
-const _withDragNDrop = ComposedComponent => props => (
-  <DragNDrop {...props}>
+const _withDragNDrop = ComposedComponent => function(props) {
+  return <DragNDrop {...props}>
     <ComposedComponent {...props} />
   </DragNDrop>
-);
+};
 
 // Export the HOC
 export default _withDragNDrop;
