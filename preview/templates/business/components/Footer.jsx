@@ -17,7 +17,7 @@ const InvoiceFooter = styled.div`
 `;
 
 // Component
-function Footer({ t, invoice, configs }) {
+const Footer = function({ t, invoice, configs }) {
   const { language, accentColor, customAccentColor  } = configs;
   return invoice.note ? (
     <InvoiceFooter

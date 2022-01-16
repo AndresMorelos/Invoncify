@@ -1,6 +1,6 @@
 import React from 'react';
-import Slide from '../shared/Slide';
 import WelcomeImg from '@images/Welcome.svg'
+import Slide from '../shared/Slide';
 
 const Login = function({ t, formAction }) {
   return (

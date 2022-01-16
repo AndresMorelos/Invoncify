@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
 // Custom Components
+import styled from 'styled-components';
 import { Section, Header } from '../shared/Section';
 
 // Animation
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 
 // Styles
-import styled from 'styled-components';
 const PaymentContent = styled.textarea`
   min-height: 36px;
   border-radius: 4px;

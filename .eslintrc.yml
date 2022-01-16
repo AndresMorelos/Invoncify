@@ -28,6 +28,7 @@ rules:
   radix: off
   func-names: off
   jsx-a11y/label-has-associated-control: off
+  no-param-reassign: off
 
   # RULES THAT WE SHOULD INVESTIGATE AND PROBABLY ENABLE]
   react/jsx-props-no-spreading: off
@@ -69,3 +70,5 @@ rules:
   react/jsx-filename-extension: off
   jsx-a11y/label-has-for: off
   jsx-a11y/anchor-is-valid: off
+settings:
+  import/resolver: webpack

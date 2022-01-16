@@ -1,4 +1,5 @@
 // Libs
+import 'jsdom-global/register';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
@@ -38,7 +39,7 @@ const duplicateInvoice = jest.fn();
 const setInvoiceStatus = jest.fn();
 const dateFormat = 'MM/DD/YY';
 const currencyPlacement = 'before';
-Date.now = jest.genMockFunction().mockReturnValue(0);
+
 
 const t = jest.fn(status => {
   switch (status) {
@@ -115,7 +116,7 @@ describe('Renders correctly to the DOM', () => {
     ).toEqual('Pending');
 
     // Paid Invoice
-    const paidInvoice = Object.assign({}, invoice, { status: 'paid' });
+    const paidInvoice = { ...invoice, status: 'paid'};
     const paidInvoiceWapper = shallow(
       <Invoice
         t={t}
@@ -138,9 +139,7 @@ describe('Renders correctly to the DOM', () => {
     ).toEqual('Paid');
 
     // Cancelled Invoice
-    const cancelledInvoice = Object.assign({}, invoice, {
-      status: 'cancelled',
-    });
+    const cancelledInvoice = { ...invoice, status: 'cancelled',};
     const cancelledInvoiceWapper = shallow(
       <Invoice
         t={t}
@@ -163,7 +162,7 @@ describe('Renders correctly to the DOM', () => {
     ).toEqual('Cancelled');
 
     // Refunded Invoice
-    const refundedInvoice = Object.assign({}, invoice, { status: 'refunded' });
+    const refundedInvoice = { ...invoice, status: 'refunded'};
     const refundedInvoiceWapper = shallow(
       <Invoice
         t={t}

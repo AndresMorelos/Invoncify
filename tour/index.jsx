@@ -1,5 +1,5 @@
 // Prevent window to open dropped file
-require('../libs/dragNdrop.js');
+import '../libs/dragNdrop';
 
 // Libraries
 import React from 'react';
@@ -21,6 +21,3 @@ render(
   </AppContainer>,
   document.getElementById('root')
 );
-
-// Accepting Hot Updates
-module.hot && module.hot.accept();

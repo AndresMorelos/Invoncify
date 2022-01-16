@@ -3,10 +3,9 @@ import * as Actions from '../../actions/settings';
 import * as ACTION_TYPES from '../../constants/actions.jsx';
 import SettingsMW from '../SettingsMW';
 import i18n from '../../../i18n/i18n';
-const sounds = require('../../../libs/sounds');
-const ipc = require('electron').ipcRenderer;
-const openDialog = require('../../renderers/dialog');
 import { validateCurrency, validateTax } from '../../helpers/form.js';
+const ipc = require('electron').ipcRenderer;
+const sounds = require('../../../libs/sounds');
 
 // Mocking
 jest.mock('../../../libs/sounds');
@@ -26,17 +25,15 @@ describe('Settings Middleware', () => {
       invoice: 'someSettings',
       general: 'someSettings',
     };
-    const action = Actions.getInitalSettings();
+    const action = Actions.getInitialSettings();
     middleware(action);
     expect(dispatch.mock.calls.length).toBe(0);
     expect(next.mock.calls.length).toBe(1);
     expect(next).toHaveBeenCalledWith(
-      Object.assign({}, action, {
-        payload: {
+      { ...action, payload: {
           current: savedSettings,
           saved: savedSettings,
-        },
-      })
+        },}
     );
   });
 

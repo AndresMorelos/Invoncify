@@ -1,8 +1,6 @@
 // Libs
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-const ipc = require('electron').ipcRenderer;
-import i18n from '../../i18n/i18n';
 
 // Style
 import styled from 'styled-components';
@@ -39,6 +37,8 @@ import LogoSize from '@components/sidebar/LogoSize';
 import Language from '@components/sidebar/Language';
 import Template from '@components/sidebar/Template';
 import Toggler from '@components/sidebar/Toggler';
+import i18n from '../../i18n/i18n';
+const ipc = require('electron').ipcRenderer;
 
 class SideBar extends Component {
   constructor(props) {
@@ -50,20 +50,22 @@ class SideBar extends Component {
   }
 
   handleInputChange(event) {
+    const { updateConfigs } = this.props;
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    this.props.updateConfigs({ name, value });
+    updateConfigs({ name, value });
   }
 
   handleAccentColorChange(color) {
-    this.props.updateConfigs({ name: 'accentColor', value: color });
+    const { updateConfigs } = this.props;
+    updateConfigs({ name: 'accentColor', value: color });
   }
 
   savePDF() {
-    const invoiceID = this.props.invoice._id;
-    ipc.send('save-pdf', invoiceID);
-    // Always save template configs to invocie when export to PDF
+    const { invoice } = this.props;
+    ipc.send('save-pdf', invoice._id);
+    // Always save template configs to invoice when export to PDF
     this.saveConfigs();
   }
 
@@ -120,7 +122,7 @@ class SideBar extends Component {
             fontSize={fontSize}
             handleInputChange={this.handleInputChange}
           />
-          { showLogo && (
+          {showLogo && (
             <LogoSize
               t={t}
               UILang={UILang}
@@ -134,7 +136,7 @@ class SideBar extends Component {
             configs={configs}
             handleInputChange={this.handleInputChange}
           />
-          { customAccentColor && (
+          {customAccentColor && (
             <AccentColor
               t={t}
               UILang={UILang}

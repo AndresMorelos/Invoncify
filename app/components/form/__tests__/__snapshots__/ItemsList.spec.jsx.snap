@@ -2,13 +2,13 @@
 
 exports[`Note component matches snapshot 1`] = `
 <div
-  className="Section__SectionStyle-dgSKSv cwfAAu"
+  className="Section__SectionStyle-sc-15esd4o-0 eIfPOJ"
 >
   <div
-    className="ItemsList__ItemsListWrapper-iLTMUu Klbgt"
+    className="ItemsList__ItemsListWrapper-sc-zexjdz-0 bQEZJE"
   >
     <div
-      className="ItemsList__ItemsListHeader-bCzTFW jphkkC"
+      className="ItemsList__ItemsListHeader-sc-zexjdz-1 fnXZQr"
     >
       <label
         className="itemLabel"
@@ -17,7 +17,7 @@ exports[`Note component matches snapshot 1`] = `
       </label>
     </div>
     <div
-      className="ItemsList__ItemsListDiv-dbHTJO fqQnDb"
+      className="ItemsList__ItemsListDiv-sc-zexjdz-3 wqQNs"
     >
       <div />
     </div>
@@ -25,7 +25,7 @@ exports[`Note component matches snapshot 1`] = `
       className="itemsListActions"
     >
       <button
-        className="ItemsList__ItemsListActionsBtn-fnweJK bouIBy Button__ButtonStyle-coFSWz drmiqa"
+        className="Button__ButtonStyle-sc-lvp9e-0 gVmMSJ ItemsList__ItemsListActionsBtn-sc-zexjdz-2 eEliWY"
         onClick={
           [MockFunction] {
             "calls": Array [
@@ -34,6 +34,28 @@ exports[`Note component matches snapshot 1`] = `
               Array [],
               Array [],
               Array [],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
             ],
           }
         }

@@ -11,7 +11,8 @@ class AccentColor extends Component {
   }
 
   handleChange(color) {
-    this.props.handleAccentColorChange(color.hex);
+    const { handleAccentColorChange } = this.props;
+    handleAccentColorChange(color.hex);
   }
 
   render() {

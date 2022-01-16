@@ -1,8 +1,8 @@
+import i18n from '../../i18n/i18n';
 const Jimp = require('jimp').default;
 const fs = require('fs');
 const isSvg = require('is-svg');
 const openDialog = require('../renderers/dialog');
-import i18n from '../../i18n/i18n';
 
 function detectSVG(filePath) {
   const data = fs.readFileSync(filePath);

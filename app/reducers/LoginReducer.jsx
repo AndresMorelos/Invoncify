@@ -1,7 +1,7 @@
-import * as ACTION_TYPES from '../constants/actions.jsx';
 
 import { handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
+import * as ACTION_TYPES from '../constants/actions.jsx';
 
 const initialState = {
     secretKey: null,

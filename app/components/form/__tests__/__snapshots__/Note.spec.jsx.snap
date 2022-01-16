@@ -2,16 +2,15 @@
 
 exports[`Note component matches snapshot 1`] = `
 <div
-  className="Section__SectionStyle-dgSKSv cwfAAu"
+  className="Section__SectionStyle-sc-15esd4o-0 eIfPOJ"
 >
   <label
     className="itemLabel"
   />
   <textarea
-    className="Note__NoteContent-enQLsi haIqin"
+    className="Note__NoteContent-sc-lrsj0b-0 grnQHw"
     cols="50"
     onChange={[Function]}
-    placeholder={undefined}
     rows="4"
     value="something"
   />

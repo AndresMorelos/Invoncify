@@ -13,7 +13,6 @@ const ContactsMW = ({ dispatch, getState }) => next => action => {
       if (secretKey) {
         return getAllDocs('contacts')
           .then(allDocs => {
-
             const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
             next(
               { ...action, payload: allDocsDecrypted, }

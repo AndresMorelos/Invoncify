@@ -1,10 +1,11 @@
+import faker from 'faker';
+import { v4 as uuidv4 } from 'uuid';
+import { ipcRenderer } from 'electron';
 import * as ACTION_TYPES from '../../constants/actions.jsx';
 import * as Actions from '../../actions/invoices';
 import InvoicesMW from '../InvoicesMW';
-import faker from 'faker';
-import { v4 as uuidv4 } from 'uuid';
 import i18n from '../../../i18n/i18n';
-
+import { encryptData } from '../../../test/helper.js';
 // Mock Functions
 const {
   getAllDocs,
@@ -13,9 +14,8 @@ const {
   deleteDoc,
   updateDoc,
   mockData,
+  mockDataDecrypted,
 } = require('../../helpers/pouchDB');
-import { getInvoiceValue } from '../../helpers/invoice';
-import { ipcRenderer } from 'electron';
 jest.mock('../../helpers/pouchDB');
 jest.mock('../../helpers/invoice');
 Date.now = jest.fn(() => 'now');
@@ -27,7 +27,8 @@ describe('Invoices Middleware', () => {
     next = jest.fn();
     dispatch = jest.fn();
     getState = jest.fn(() => ({
-      form: { settings: { editMode: { active: false } } }
+      form: { settings: { editMode: { active: false } } },
+      login: { secretKey: 'secret' },
     }));
     middleware = InvoicesMW({ dispatch, getState })(next);
   });
@@ -47,17 +48,32 @@ describe('Invoices Middleware', () => {
 
     it('calls next after the promised is returned', () => {
       const action = Actions.getInvoices();
-      middleware(action).then(() => {
+      return middleware(action).then(() => {
         // Never call dispatch
         expect(dispatch.mock.calls.length).toBe(0);
         // Call next with resolved data
-        return getAllDocs('invoices').then(data => {
-          expect(next.mock.calls.length).toBe(1);
-          expect(next).toHaveBeenCalledWith(
-            Object.assign({}, action, {
-              payload: data,
-            })
-          );
+        expect(next.mock.calls.length).toBe(1);
+        expect(next).toHaveBeenCalledWith({
+          ...action,
+          payload: [
+            {
+              id: 'jon-invoice',
+              recipient: {
+                fullname: 'Jon Snow',
+                email: 'jon@hbo.com',
+              },
+              rows: [
+                {
+                  id: 'id-string',
+                  description: 'Dragons',
+                  price: '100',
+                  quantity: '3',
+                },
+              ],
+              _id: 'id-string',
+              _rev: 'id-string',
+            },
+          ],
         });
       });
     });
@@ -67,7 +83,7 @@ describe('Invoices Middleware', () => {
       getAllDocs.mockImplementationOnce(() => getAllDocs('random-string'));
       const expectedError = new Error('Incorrect database!');
       // Execute
-      middleware(Actions.getInvoices()).then(() => {
+      return middleware(Actions.getInvoices()).then(() => {
         // Calling next & send new notification
         expect(next).toHaveBeenCalled();
         expect(next).toHaveBeenCalledWith({
@@ -83,8 +99,8 @@ describe('Invoices Middleware', () => {
     it('handle unknown error correctly', () => {
       const unknownError = new Error('Something broke');
       getAllDocs.mockImplementationOnce(() => Promise.reject(unknownError));
-      middleware(Actions.getInvoices()).then(() =>
-        getAllDocs().catch(err => {
+      return middleware(Actions.getInvoices()).then(() =>
+        getAllDocs().catch((err) => {
           expect(next).toHaveBeenCalled();
           expect(next).toHaveBeenCalledWith({
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
@@ -111,15 +127,25 @@ describe('Invoices Middleware', () => {
             id: uuidv4(),
             description: faker.commerce.productName(),
             price: faker.commerce.price(),
-            quantity: faker.random.number(10),
+            quantity: faker.datatype.number(10),
           },
         ],
       };
+
+      const newInvoiceEncrypted = {
+        _id: 'id-string',
+        _rev: 'id-string',
+        content: encryptData({ message: JSON.stringify(newInvoice) }),
+      };
+
       // Execute
-      middleware(Actions.saveInvoice(newInvoice)).then(() =>
-        saveDoc('invoices', newInvoice).then(data => {
+      return middleware(Actions.saveInvoice(newInvoiceEncrypted)).then(() =>
+        saveDoc('invoices', newInvoiceEncrypted).then((data) => {
           // Expect
-          expect(data).toEqual([...mockData.invoicesRecords, newInvoice]);
+          expect(data).toEqual([
+            ...mockData.invoicesRecords,
+            newInvoiceEncrypted,
+          ]);
         })
       );
     });
@@ -141,25 +167,30 @@ describe('Invoices Middleware', () => {
             id: uuidv4(),
             description: faker.commerce.productName(),
             price: faker.commerce.price(),
-            quantity: faker.random.number(10),
+            quantity: faker.datatype.number(10),
           },
         ],
       };
 
+      const newInvoiceEncrypted = {
+        _id: 'id-string',
+        _rev: 'id-string',
+        content: encryptData({ message: JSON.stringify(newInvoice) }),
+      };
+
       // Execute
-      const action = Actions.saveInvoice(newInvoice);
-      middleware(action).then(() =>
-        saveDoc('invoices', newInvoice).then(data => {
+      const action = Actions.saveInvoice(newInvoiceEncrypted);
+      return middleware(action).then(() =>
+        saveDoc('invoices', newInvoiceEncrypted).then((data) => {
           // Call next after the promised is returned
           expect(next.mock.calls.length).toBe(1);
-          expect(next).toHaveBeenCalledWith(
-            Object.assign({}, action, {
-              payload: [
-                ...mockData.invoicesRecords,
-                newInvoice
-              ],
-            })
-          );
+          expect(next).toHaveBeenCalledWith({
+            ...action,
+            payload: [
+              ...mockDataDecrypted.invoicesRecords,
+              { _id: 'id-string', _rev: 'id-string', ...newInvoice },
+            ],
+          });
           // Dispatch success notification
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch).toHaveBeenCalledWith({
@@ -190,12 +221,19 @@ describe('Invoices Middleware', () => {
             id: uuidv4(),
             description: faker.commerce.productName(),
             price: faker.commerce.price(),
-            quantity: faker.random.number(10),
+            quantity: faker.datatype.number(10),
           },
         ],
+        _id: 'id-string',
+        _rev: 'id-string',
       };
-      middleware(Actions.saveInvoice(newInvoice)).then(() =>
-        saveDoc('invoices', newInvoice).then(data => {
+      const newInvoiceEncrypted = {
+        content: encryptData({ message: JSON.stringify(newInvoice) }),
+        _id: 'id-string',
+        _rev: 'id-string',
+      };
+      return middleware(Actions.saveInvoice(newInvoiceEncrypted)).then(() =>
+        saveDoc('invoices', newInvoiceEncrypted).then((data) => {
           // ipc to main process
           expect(ipcRenderer.send).toHaveBeenCalled();
           expect(ipcRenderer.send).toHaveBeenCalledWith(
@@ -233,7 +271,7 @@ describe('Invoices Middleware', () => {
       saveDoc.mockImplementationOnce(() => Promise.reject(expectedError));
 
       // Execute
-      middleware(Actions.saveInvoice(newInvoice)).then(() => {
+      return middleware(Actions.saveInvoice(newInvoice)).then(() => {
         // Expect
         expect(next).toHaveBeenCalled();
         expect(next).toHaveBeenCalledWith({
@@ -264,36 +302,32 @@ describe('Invoices Middleware', () => {
             id: uuidv4(),
             description: faker.commerce.productName(),
             price: faker.commerce.price(),
-            quantity: faker.random.number(10),
+            quantity: faker.datatype.number(10),
           },
         ],
       };
       // Execute
       const action = Actions.editInvoice(currentInvoice);
-      middleware(action).then(() => {
+      return middleware(action).then(() => {
         // Call next
         expect(next.mock.calls.length).toBe(1);
         expect(next).toHaveBeenCalledWith(
-          Object.assign({}, action, {
-            payload: Object.assign({}, action.payload, {
-              contacts: mockData.contactsRecords
-            })
-          })
+          { ...action, payload: { ...action.payload, contacts: mockData.contactsRecords,},}
         );
         // Dispatch change Tab action
         expect(dispatch.mock.calls.length).toBe(1);
         expect(dispatch).toHaveBeenCalledWith({
           type: ACTION_TYPES.UI_TAB_CHANGE,
-          payload: 'form'
+          payload: 'form',
         });
-      })
+      });
     });
-  })
+  });
 
   describe('should handle INVOICE_UPDATE action', () => {
-    let currentInvoice;
+    let currentInvoice, currentInvoiceEncrypted;
     beforeEach(() => {
-      currentInvoice = {
+      (currentInvoice = {
         recipient: {
           fullname: faker.name.findName(),
           email: faker.internet.email(),
@@ -307,92 +341,93 @@ describe('Invoices Middleware', () => {
             id: uuidv4(),
             description: faker.commerce.productName(),
             price: faker.commerce.price(),
-            quantity: faker.random.number(10),
+            quantity: faker.datatype.number(10),
           },
         ],
-      };
+      }),
+        (currentInvoiceEncrypted = {
+          _id: 'id-string',
+          _rev: 'id-string',
+          content: JSON.stringify(currentInvoice),
+        });
     });
 
-    it('should update the invoice', () => {
-      middleware(Actions.updateInvoice(currentInvoice)).then(() =>
-        updateDoc('invoices', currentInvoice).then(data => {
-          expect(data).toEqual(mockData.invoicesRecords);
-        })
-      );
-    });
+    it('should update the invoice', () => middleware(Actions.updateInvoice(currentInvoiceEncrypted)).then(
+        () =>
+          updateDoc('invoices', currentInvoiceEncrypted).then((data) => {
+            expect(data).toEqual(mockData.invoicesRecords);
+          })
+      ));
 
-    it('should call next and dispatch notification', () => {
-      middleware(Actions.updateInvoice(currentInvoice)).then(() =>
-        updateDoc('invoices', currentInvoice).then(data => {
-          // Call next after the promised is returned
-          expect(next.mock.calls.length).toBe(1);
-          expect(next).toHaveBeenCalledWith({
-            type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: mockData.invoicesRecords,
-          });
-          // Dispatch success notification
-          expect(dispatch.mock.calls.length).toBe(1);
-          expect(dispatch).toHaveBeenCalledWith({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'success',
-              message: i18n.t('messages:invoice:updated'),
-            },
-          });
-        })
-      );
-    });
+    it('should call next and dispatch notification', () => middleware(Actions.updateInvoice(currentInvoiceEncrypted)).then(
+        () =>
+          updateDoc('invoices', currentInvoiceEncrypted).then((data) => {
+            // Call next after the promised is returned
+            expect(next.mock.calls.length).toBe(1);
+            expect(next).toHaveBeenCalledWith({
+              type: ACTION_TYPES.INVOICE_UPDATE,
+              payload: mockDataDecrypted.invoicesRecords,
+            });
+            // Dispatch success notification
+            expect(dispatch.mock.calls.length).toBe(1);
+            expect(dispatch).toHaveBeenCalledWith({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'success',
+                message: i18n.t('messages:invoice:updated'),
+              },
+            });
+          })
+      ));
 
-    it('should handle syntax error correctly', () => {
-      middleware(Actions.updateInvoice(currentInvoice)).then(() => {
-        const dbError = new Error('No database found!');
-        const docError = new Error('No doc found!');
-        expect(updateDoc()).rejects.toEqual(dbError);
-        expect(updateDoc('invoices')).rejects.toEqual(docError);
-      });
-    });
+    it('should handle syntax error correctly', () => middleware(Actions.updateInvoice(currentInvoiceEncrypted)).then(
+        () => {
+          const dbError = new Error('No database found!');
+          const docError = new Error('No doc found!');
+          expect(updateDoc()).rejects.toEqual(dbError);
+          expect(updateDoc('invoices')).rejects.toEqual(docError);
+        }
+      ));
 
     it('should handle unkown error correctly', () => {
       const expectedError = new Error('Something Broken!');
       updateDoc.mockImplementationOnce(() => Promise.reject(expectedError));
-      middleware(Actions.updateInvoice(currentInvoice)).then(() => {
-        expect(next).toHaveBeenCalled();
-        expect(next).toHaveBeenCalledWith({
-          type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-          payload: {
-            type: 'warning',
-            message: expectedError.message,
-          },
-        });
-      });
+      return middleware(Actions.updateInvoice(currentInvoiceEncrypted)).then(
+        () => {
+          expect(next).toHaveBeenCalled();
+          expect(next).toHaveBeenCalledWith({
+            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+            payload: {
+              type: 'warning',
+              message: expectedError.message,
+            },
+          });
+        }
+      );
     });
-  })
+  });
 
   describe('should handle INVOICE_DELETE action', () => {
     it('should remove record from DB correctly', () => {
       const invoiceID = 'jon-invoice';
-      middleware(Actions.deleteInvoice(invoiceID)).then(() =>
-        deleteDoc('invoices', invoiceID).then(data => {
+      return middleware(Actions.deleteInvoice([invoiceID])).then(() =>
+        deleteDoc('invoices', invoiceID).then((data) => {
           // Correctly resolves
           expect(data).toEqual([]);
         })
       );
     });
 
-    it('should call next and dispatch notification ', () => {
+    it('should call next and dispatch notification', () => {
       // Setup
       const invoiceID = 'jon-invoice';
-      const action = Actions.deleteInvoice(invoiceID);
+      const action = Actions.deleteInvoice([invoiceID]);
       // Execute
-      middleware(action).then(() =>
-        deleteDoc('invoices', invoiceID).then(data => {
+      return middleware(action).then(() =>
+        deleteDoc('invoices', invoiceID).then((data) => {
           // Call next after the promised is returned
           expect(next.mock.calls.length).toBe(1);
-          expect(next).toHaveBeenCalledWith(
-            Object.assign({}, action, {
-              payload: [],
-            })
-          );
+          expect(next).toHaveBeenCalledWith({ ...action, payload: [] });
           // Dispatch success notification
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch).toHaveBeenCalledWith({
@@ -412,17 +447,21 @@ describe('Invoices Middleware', () => {
           settings: {
             editMode: {
               active: true,
-              data: { _id: 'jon-invoice' }
-            }
-          }
-        }
+              data: { _id: 'jon-invoice' },
+            },
+          },
+        },
+        login: {
+          secretKey: 'secret',
+        },
       }));
       const middleware = InvoicesMW({ dispatch, getState })(next);
       const invoiceID = 'jon-invoice';
       // Execute
-      middleware(Actions.deleteInvoice(invoiceID)).then(() =>
-        deleteDoc('invoices', invoiceID).then(data => {
+      return middleware(Actions.deleteInvoice([invoiceID])).then(() =>
+        deleteDoc('invoices', invoiceID).then((data) => {
           expect(dispatch.mock.calls.length).toBe(2);
+
           // Dispatch success notification
           expect(dispatch.mock.calls[0][0]).toEqual({
             type: ACTION_TYPES.UI_NOTIFICATION_NEW,
@@ -433,18 +472,18 @@ describe('Invoices Middleware', () => {
           });
           // Dispatch clear Form action
           expect(dispatch.mock.calls[1][0]).toEqual({
-            type: ACTION_TYPES.FORM_CLEAR
+            type: ACTION_TYPES.FORM_CLEAR,
           });
         })
       );
-    })
+    });
 
     it('handle error correctly', () => {
       // Setup
       const invoiceID = 'ned-stark';
       const expectedError = new Error('No invoice found!');
       // Execute
-      middleware(Actions.deleteInvoice(invoiceID)).then(() => {
+      return middleware(Actions.deleteInvoice([invoiceID])).then(() => {
         // Expect
         expect(next).toHaveBeenCalled();
         expect(next).toHaveBeenCalledWith({
@@ -464,34 +503,35 @@ describe('Invoices Middleware', () => {
         _id: 'a-random-string',
         _rev: 'another-random-string',
         created_at: 'yesterday',
-      }
+      };
       // Action
       middleware(Actions.duplicateInvoice(invoiceData));
       // Expect
       expect(dispatch.mock.calls.length).toBe(1);
       expect(dispatch).toHaveBeenCalledWith({
         type: ACTION_TYPES.INVOICE_SAVE,
-        payload: Object.assign({}, invoiceData, {
+        payload: {
           _id: 'id-string',
           _rev: null,
-          created_at: 'now',
-        }),
+          content: '7d53325a9253ee88bc0337b5cb186c9eed35e978',
+        },
       });
     });
-  })
+  });
 
   describe('should handle INVOICE_CONFIGS_SAVE action correctly', () => {
     it('get the doc, merge with config object and dispatch a new action', () => {
       const invoiceID = 'id-string';
       const configs = { color: 'red' };
-      middleware(Actions.saveInvoiceConfigs(invoiceID, configs)).then(() =>
-        getSingleDoc('invoices', invoiceID).then(doc => {
-          expect(dispatch.mock.calls.length).toBe(1);
-          expect(dispatch).toHaveBeenCalledWith({
-            type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: Object.assign({}, doc, { configs }),
-          });
-        })
+      return middleware(Actions.saveInvoiceConfigs(invoiceID, configs)).then(
+        () =>
+          getSingleDoc('invoices', invoiceID).then((doc) => {
+            expect(dispatch.mock.calls.length).toBe(1);
+            expect(dispatch).toHaveBeenCalledWith({
+              type: ACTION_TYPES.INVOICE_UPDATE,
+              payload: { ...doc, configs},
+            });
+          })
       );
     });
 
@@ -501,32 +541,49 @@ describe('Invoices Middleware', () => {
       const configs = { color: 'red' };
       const expectedError = new Error('No invoice found!');
       // Execute
-      middleware(Actions.saveInvoiceConfigs(invoiceID, configs)).then(() => {
-        getSingleDoc('test', invoiceID).then(() => {
-          // Expect
-          expect(next).toHaveBeenCalled();
-          expect(next).toHaveBeenCalledWith({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: expectedError.message,
-            },
+      return middleware(Actions.saveInvoiceConfigs(invoiceID, configs)).then(
+        () => {
+          getSingleDoc('test', invoiceID).then(() => {
+            // Expect
+            expect(next).toHaveBeenCalled();
+            expect(next).toHaveBeenCalledWith({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: expectedError.message,
+              },
+            });
           });
-        })
-      });
+        }
+      );
     });
-  })
+  });
 
   describe('should handle INVOICE_SET_STATUS action', () => {
     it('get the doc, merge with status object and dispatch a new action', () => {
       const invoiceID = 'id-string';
       const status = 'paid';
-      middleware(Actions.setInvoiceStatus(invoiceID, status)).then(() =>
-        getSingleDoc('invoices', invoiceID).then(doc => {
+      return middleware(Actions.setInvoiceStatus(invoiceID, status)).then(() =>
+        getSingleDoc('invoices', invoiceID).then((doc) => {
+          const invoiceContent = mockDataDecrypted.invoicesRecords[0];
+
+          const content = encryptData({
+            message: JSON.stringify({
+              id: invoiceContent.id,
+              recipient: invoiceContent.recipient,
+              rows: invoiceContent.rows,
+              status
+            }),
+          });
+
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch).toHaveBeenCalledWith({
             type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: Object.assign({}, doc, { status }),
+            payload: {
+              content,
+              _id: 'id-string',
+              _rev: 'id-string',
+            },
           });
         })
       );
@@ -538,19 +595,21 @@ describe('Invoices Middleware', () => {
       const status = 'paid';
       const expectedError = new Error('No invoice found!');
       // Execute
-      middleware(Actions.setInvoiceStatus(invoiceID, status)).then(() => {
-        getSingleDoc('test', invoiceID).then(() => {
-          // Expect
-          expect(next).toHaveBeenCalled();
-          expect(next).toHaveBeenCalledWith({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: expectedError.message,
-            },
+      return middleware(Actions.setInvoiceStatus(invoiceID, status)).then(
+        () => {
+          getSingleDoc('test', invoiceID).then(() => {
+            // Expect
+            expect(next).toHaveBeenCalled();
+            expect(next).toHaveBeenCalledWith({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: expectedError.message,
+              },
+            });
           });
-        })
-      });
+        }
+      );
     });
   });
 
@@ -585,5 +644,4 @@ describe('Invoices Middleware', () => {
     middleware(action);
     expect(next).toHaveBeenCalledWith(action);
   });
-
 });

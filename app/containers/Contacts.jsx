@@ -3,13 +3,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-const openDialog = require('../renderers/dialog.js');
-const ipc = require('electron').ipcRenderer;
 import { withTranslation } from 'react-i18next';
 
 // Actions
-import * as ContactsActions from '../actions/contacts';
-import * as InvoicesActions from '../actions/invoices';
 
 // Components
 import Contact from '@components/contacts/Contact';
@@ -22,9 +18,13 @@ import {
   PageHeaderTitle,
   PageContent,
 } from '@components/shared/Layout';
+import * as InvoicesActions from '../actions/invoices';
+import * as ContactsActions from '../actions/contacts';
 
 // Selectors
 import { getContacts } from '../reducers/ContactsReducer';
+const ipc = require('electron').ipcRenderer;
+const openDialog = require('../renderers/dialog.js');
 
 // Component
 class Contacts extends PureComponent {

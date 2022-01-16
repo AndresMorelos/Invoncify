@@ -2,28 +2,28 @@
 
 exports[`Renders correctly to the DOM matches snapshot 1`] = `
 <tr
-  className="Table__TRStyle-gHmqLx BngTM"
+  className="Table__TRStyle-sc-vcm0yz-4 fRFFvW"
 >
   <td
-    className="Table__TDStyle-cAmfHP hlnQVD"
+    className="Table__TDStyle-sc-vcm0yz-5 diKbJX"
   >
     Jon Snow
   </td>
   <td
-    className="Table__TDStyle-cAmfHP jrRCak"
+    className="Table__TDStyle-sc-vcm0yz-5 gCUxXq"
   >
     jon@snow.hbo
   </td>
   <td
-    className="Table__TDStyle-cAmfHP jrRCak"
+    className="Table__TDStyle-sc-vcm0yz-5 gCUxXq"
   >
     000-000-000
   </td>
   <td
-    className="Table__TDStyle-cAmfHP evw"
+    className="Table__TDStyle-sc-vcm0yz-5 VeXuP"
   >
     <button
-      className="Button__ButtonLinkStyle-caVwCA lhMtRH"
+      className="Button__ButtonLinkStyle-sc-lvp9e-1 bwiUrL"
       onClick={[Function]}
     >
       <i
@@ -31,7 +31,7 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
       />
     </button>
     <button
-      className="Button__ButtonLinkStyle-caVwCA gvxXrI"
+      className="Button__ButtonLinkStyle-sc-lvp9e-1 jxxsjo"
       onClick={[Function]}
     >
       <i

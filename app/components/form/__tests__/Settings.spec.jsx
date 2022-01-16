@@ -1,4 +1,5 @@
 // Libs
+import 'jsdom-global/register';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
@@ -77,8 +78,8 @@ describe('Settings component', () => {
 
   // RENDER
   it('renders necessary element', () => {
-    expect(wrapper.find('label')).toHaveLength(13);
-    expect(wrapper.find(Switch)).toHaveLength(6);
+    expect(wrapper.find('label')).toHaveLength(15);
+    expect(wrapper.find(Switch)).toHaveLength(7);
   });
 
   // LIFE CYCLE EVENTS

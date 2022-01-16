@@ -56,12 +56,12 @@ const Slider = styled.span`
   `};
 `;
 
-export const Switch = props => (
-  <SwitchStyle>
+const Switch = function(props) {
+  return <SwitchStyle>
     <Input type="checkbox" {...props} />
     <Slider rounded />
   </SwitchStyle>
-);
+}
 
 Switch.propTypes = {
   checked: PropTypes.bool.isRequired,

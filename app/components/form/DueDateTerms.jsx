@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Styles
-import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 import styled from 'styled-components';
+import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 const Container = styled.div`
   display: flex;
   margin-bottom: 20px;

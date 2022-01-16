@@ -13,8 +13,8 @@ const Wrapper = styled.div`
 `;
 
 // Components
-import Slider from './containers/Slider';
 import Actions from '@components/Actions';
+import Slider from './containers/Slider';
 
 class Tour extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Tour extends Component {
   }
 
   nextSlide() {
-    this.setState({ currentSlide: this.state.currentSlide + 1 });
+    this.setState((prevState) => ({ currentSlide: prevState.currentSlide + 1 }));
   }
 
   endTour() {
@@ -40,13 +40,14 @@ class Tour extends Component {
 
   render() {
     const { t } = this.props;
+    const { currentSlide, totalSlide } = this.state;
     return (
       <Wrapper>
-        <Slider t={t} currentSlide={this.state.currentSlide} />
+        <Slider t={t} currentSlide={currentSlide} />
         <Actions
           t={t}
-          totalSlide={this.state.totalSlide}
-          currentSlide={this.state.currentSlide}
+          totalSlide={totalSlide}
+          currentSlide={currentSlide}
           nextSlide={this.nextSlide}
           endTour={this.endTour}
         />

@@ -50,7 +50,7 @@ const Description = styled.p`
   margin: 0 auto 20px auto;
 `;
 
-function Slide(props) {
+const Slide = function(props) {
   const {
     inverted,
     heading,

@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section, Label } from '../shared';
 
-function Alignment({ t, alignItems, handleInputChange, UILang }) {
+const Alignment = function({ t, alignItems, handleInputChange, UILang }) {
   return (
     <Section>
       <Label>{t('preview:sidebar:alignment:name', { lng: UILang })}</Label>

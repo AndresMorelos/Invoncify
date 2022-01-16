@@ -1,5 +1,5 @@
-import * as ACTION_TYPES from '../constants/actions.jsx';
 import { createAction } from 'redux-actions';
+import * as ACTION_TYPES from '../constants/actions.jsx';
 
 // Recipient
 export const updateRecipient = createAction(

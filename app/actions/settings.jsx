@@ -1,8 +1,8 @@
-import * as ACTION_TYPES from '../constants/actions.jsx';
 import { createAction } from 'redux-actions';
+import * as ACTION_TYPES from '../constants/actions.jsx';
 
 // Get Initial Settings
-export const getInitalSettings = createAction(
+export const getInitialSettings = createAction(
   ACTION_TYPES.SETTINGS_GET_INITIAL
 );
 

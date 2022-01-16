@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 // Custom Components
+import styled from 'styled-components';
 import { Section } from '../shared/Section';
 
 // Animation
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 
 // Styles
-import styled from 'styled-components';
 const DiscountWrapper = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,13 +1,16 @@
 // Actions Verbs
-import * as ACTION_TYPES from '../constants/actions.jsx';
 // Libs
 import { handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
+import * as ACTION_TYPES from '../constants/actions.jsx';
+
+// Helper
+import { setEditRecipient } from '../helpers/form';
+
 // Retrive settings
 const appConfig = require('@electron/remote').require('electron-settings');
 const invoiceSettings = appConfig.getSync('invoice');
-// Helper
-import { setEditRecipient } from '../helpers/form';
+
 
 const initialState = {
   recipient: {

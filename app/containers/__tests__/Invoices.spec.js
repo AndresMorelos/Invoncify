@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import React from 'react';
 import { render, shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
@@ -34,13 +35,13 @@ const invoices = [
     status: 'cancelled',
   },
 ];
-jest.mock('../../components/invoices/Invoice', () => () => (
-  <div className="invoice" />
-));
+jest.mock('../../components/invoices/Invoice', () => function() {
+  return <div className="invoice" />
+});
 
-jest.mock('../../components/shared/Message', () => () => (
-  <div className="message" />
-));
+jest.mock('../../components/shared/Message', () => function() {
+  return <div className="message" />
+});
 
 describe('render component correctly', () => {
   let wrapper;

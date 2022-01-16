@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 `;
 
 // Component
-function Logo({ profile, configs }) {
+const Logo = function({ profile, configs }) {
   const { showLogo, logoSize } = configs;
   return showLogo ? (
     <Wrapper logoSize={logoSize}>

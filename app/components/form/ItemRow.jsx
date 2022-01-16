@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 
 // HOCs
+import styled from 'styled-components';
 import _withDraggable from './hoc/_withDraggable';
 
 // Styles
-import styled from 'styled-components';
 
 const ItemDiv = styled.div`
   position: relative;

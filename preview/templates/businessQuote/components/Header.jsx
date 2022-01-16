@@ -2,13 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
-const moment = require('moment');
-
-// Helper
-import { calTermDate } from '../../../../helpers/date';
-
 // Styles
 import styled from 'styled-components';
+// Helper
+import { calTermDate } from '../../../../helpers/date';
+const moment = require('moment');
 
 const InvoiceHeader = styled.div`
   flex: 1;
@@ -62,7 +60,7 @@ const Heading = styled.h1`
 `;
 
 // Component
-function Header({ t, invoice, profile, configs }) {
+const Header = function({ t, invoice, profile, configs }) {
   const { tax, recipient, payment } = invoice;
   const { language, accentColor, customAccentColor  } = configs;
   return (

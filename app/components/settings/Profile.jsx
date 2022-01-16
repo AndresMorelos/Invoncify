@@ -27,8 +27,9 @@ class Profile extends Component {
   handleInputChange(event) {
     const name = event.target.name;
     const value = event.target.value;
+    const { updateSettings } = this.props;
     this.setState({ [name]: value }, () => {
-      this.props.updateSettings('profile', this.state);
+      updateSettings('profile', this.state);
     });
   }
 
@@ -39,20 +40,20 @@ class Profile extends Component {
   }
 
   updateProfileState() {
-    this.props.updateSettings('profile', this.state);
+    const { updateSettings } = this.props;
+    updateSettings('profile', this.state);
   }
 
   render() {
-   const { t } = this.props;
+    const { t } = this.props;
+    const { logo, fullname, company, address, email, phone, website } =
+      this.state;
     return (
       <div>
         <div className="pageItem">
           <label className="itemLabel">{t('settings:fields:logo:name')}</label>
           <Hint>{t('settings:fields:logo:hint')}</Hint>
-          <Logo
-            logo={this.state.logo}
-            handleLogoChange={this.handleLogoChange}
-          />
+          <Logo logo={logo} handleLogoChange={this.handleLogoChange} />
         </div>
         <div className="row">
           <div className="pageItem col-md-6">
@@ -60,7 +61,7 @@ class Profile extends Component {
             <input
               name="fullname"
               type="text"
-              value={this.state.fullname}
+              value={fullname}
               onChange={this.handleInputChange}
             />
           </div>
@@ -70,7 +71,7 @@ class Profile extends Component {
             <input
               name="company"
               type="text"
-              value={this.state.company}
+              value={company}
               onChange={this.handleInputChange}
             />
           </div>
@@ -82,7 +83,7 @@ class Profile extends Component {
             <input
               name="address"
               type="text"
-              value={this.state.address}
+              value={address}
               onChange={this.handleInputChange}
             />
           </div>
@@ -92,7 +93,7 @@ class Profile extends Component {
             <input
               name="email"
               type="text"
-              value={this.state.email}
+              value={email}
               onChange={this.handleInputChange}
             />
           </div>
@@ -104,7 +105,7 @@ class Profile extends Component {
             <input
               name="phone"
               type="text"
-              value={this.state.phone}
+              value={phone}
               onChange={this.handleInputChange}
             />
           </div>
@@ -114,7 +115,7 @@ class Profile extends Component {
             <input
               name="website"
               type="text"
-              value={this.state.website}
+              value={website}
               onChange={this.handleInputChange}
             />
           </div>

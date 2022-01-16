@@ -2,30 +2,29 @@
 
 exports[`Renders correctly to the DOM matches snapshot 1`] = `
 <div
-  className="Section__SectionStyle-dgSKSv cwfAAu"
+  className="Section__SectionStyle-sc-15esd4o-0 eIfPOJ"
 >
   <div
-    className="Discount__DiscountWrapper-kWJKvg LseXW"
+    className="Discount__DiscountWrapper-sc-1fm84tz-0 keGdiY"
   >
     <label
       className="itemLabel"
     />
     <div
-      className="Discount__DiscountContent-jCPLgI kgtKuP"
+      className="Discount__DiscountContent-sc-1fm84tz-1 hgQojf"
     >
       <div
-        className="Discount__DiscountAmount-biDXgd btUZyY"
+        className="Discount__DiscountAmount-sc-1fm84tz-2 doOhcK"
       >
         <input
           name="amount"
           onChange={[Function]}
-          placeholder={undefined}
           type="number"
           value={100}
         />
       </div>
       <div
-        className="Discount__DiscountType-gcYNnb jodsaL"
+        className="Discount__DiscountType-sc-1fm84tz-3 eoQwqz"
       >
         <div
           className="radio"

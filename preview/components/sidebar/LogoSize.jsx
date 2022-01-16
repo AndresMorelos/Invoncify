@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section, Label, Range } from '../shared';
 
-function LogoSize({ t, logoSize, handleInputChange, UILang }) {
+const LogoSize = function({ t, logoSize, handleInputChange, UILang }) {
   return (
     <Section>
       <Label>

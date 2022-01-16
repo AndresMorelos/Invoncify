@@ -35,7 +35,7 @@ const Dot = styled.div`
 
 import Button from '../../app/components/shared/Button';
 
-function Actions({ t, endTour, nextSlide, currentSlide, totalSlide }) {
+const Actions = function({ t, endTour, nextSlide, currentSlide, totalSlide }) {
   const indicators = [];
   for (let i = 0; i < totalSlide; i++) {
     indicators.push(<Dot key={uuidv4()} active={i + 1 === currentSlide} />);

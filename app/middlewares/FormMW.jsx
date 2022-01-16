@@ -1,8 +1,4 @@
-// Node Libs
-const { require: RemoteRequire } = require('@electron/remote')
-const appConfig = RemoteRequire('electron-settings');
 import { v4 as uuidv4 } from 'uuid';
-import i18n from '../../i18n/i18n';
 
 // Actions Verbs
 import * as ACTION_TYPES from '../constants/actions.jsx';
@@ -14,8 +10,14 @@ import * as ContactsActions from '../actions/contacts';
 import * as SettingsActions from '../actions/settings';
 import * as UIActions from '../actions/ui';
 
+
 // Helper
 import { getInvoiceData, validateFormData } from '../helpers/form';
+
+// Node Libs
+import i18n from '../../i18n/i18n';
+const { require: RemoteRequire } = require('@electron/remote')
+const appConfig = RemoteRequire('electron-settings');
 
 const FormMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -81,7 +83,7 @@ const FormMW = ({ dispatch, getState }) => next => action => {
       });
       // Reload app settings so that
       // Settings tab will have up-to-date information
-      dispatch(SettingsActions.getInitalSettings());
+      dispatch(SettingsActions.getInitialSettings());
       break;
     }
 

@@ -1,7 +1,7 @@
-import InvoicesReducer, { getInvoices } from '../InvoicesReducer';
-import * as ACTION_TYPES from '../../constants/actions.jsx';
 import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
+import InvoicesReducer, { getInvoices } from '../InvoicesReducer';
+import * as ACTION_TYPES from '../../constants/actions.jsx';
 
 const initialState = [];
 

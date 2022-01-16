@@ -25,7 +25,7 @@ const Column = styled.div`
 `;
 
 // Component
-function Footer({ t, invoice, profile, configs }) {
+const Footer = function({ t, invoice, profile, configs }) {
   const currentLanguage = configs.language;
   const { tax, recipient, payment } = invoice;
   return (

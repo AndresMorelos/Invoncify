@@ -25,5 +25,11 @@ const HeaderStyle = styled.div`
 `;
 
 // Components
-export const Section = props => <SectionStyle>{props.children}</SectionStyle>;
-export const Header = props => <HeaderStyle>{props.children}</HeaderStyle>;
+export const Section = function (props) {
+  const { children } = props;
+  return <SectionStyle>{children}</SectionStyle>;
+};
+export const Header = function (props) {
+  const { children } = props;
+  return <HeaderStyle>{children}</HeaderStyle>;
+};

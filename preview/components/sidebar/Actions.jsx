@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../../app/components/shared/Button';
 import styled from 'styled-components';
+import Button from '../../../app/components/shared/Button';
 
 const StickySection = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const ButtonsGroup = styled.div`
  }
 `;
 
-function Actions({ saveConfigs, savePDF, t, UILang }) {
+const Actions = function({ saveConfigs, savePDF, t, UILang }) {
   return (
     <StickySection>
       <ButtonsGroup>

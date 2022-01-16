@@ -1,10 +1,10 @@
+const { expect } = require('chai');
 const testhelper = require('./helper.js');
 const app = testhelper.initializeSpectron();
-const { expect } = require('chai');
 
 describe('Application launch', () => {
-  before(() => app.start());
-  after(() => {
+  beforeAll(() => app.start());
+  afterAll(() => {
     if (app && app.isRunning()) {
       return app.stop();
     }

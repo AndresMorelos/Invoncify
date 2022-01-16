@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // Styling
 import { Section, Label } from '../shared';
 
-function Template({ t, template, handleInputChange, UILang }) {
+const Template = function({ t, template, handleInputChange, UILang }) {
   return (
     <Section>
       <Label>

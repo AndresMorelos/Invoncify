@@ -14,10 +14,11 @@ const Noti = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${props =>
-    props.type === 'warning' && `border-top: 4px solid #F9D548;`} ${props =>
-      props.type === 'success' && `border-top: 4px solid #6BBB69;`} ${props =>
-      props.type === 'danger' && `border-top: 4px solid #EC476E;`};
+  ${(props) => props.type === 'warning' && `border-top: 4px solid #F9D548;`} ${(
+    props
+  ) => props.type === 'success' && `border-top: 4px solid #6BBB69;`} ${(
+    props
+  ) => props.type === 'danger' && `border-top: 4px solid #EC476E;`};
 `;
 
 const Message = styled.p`
@@ -40,7 +41,8 @@ class Notification extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.notification !== nextProps.notification;
+    const { notification } = this.props;
+    return notification !== nextProps.notification;
   }
 
   componentWillUnmount() {

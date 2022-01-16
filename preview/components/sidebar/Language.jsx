@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section, Label } from '../shared';
 
-function Language({ t, language, handleInputChange, UILang }) {
+const Language = function({ t, language, handleInputChange, UILang }) {
   return (
     <Section>
       <Label>

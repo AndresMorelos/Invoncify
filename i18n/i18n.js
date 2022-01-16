@@ -1,10 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-const appConfig = require('@electron/remote').require('electron-settings');
-const defaultLanguage = appConfig.getSync('general.language');
-const moment = require('moment');
-
 // Language Files
 import de from './de';
 import en from './en';
@@ -16,6 +12,10 @@ import esES from './esES'
 import urPK from './ur-PK';
 import vi from './vi';
 import zhCN from './zh-CN';
+const moment = require('moment');
+const appConfig = require('@electron/remote').require('electron-settings');
+
+const defaultLanguage = appConfig.getSync('general.language');
 
 i18n.use(initReactI18next).init({
   lng: defaultLanguage,

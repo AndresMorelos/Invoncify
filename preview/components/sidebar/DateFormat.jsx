@@ -1,12 +1,12 @@
 // Libs
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Section, Label } from '../shared';
 const moment = require('moment');
 
 // Styling
-import { Section, Label } from '../shared';
 
-function DateFormat({ t, dateFormat, handleInputChange, language, UILang }) {
+const DateFormat = function({ t, dateFormat, handleInputChange, language, UILang }) {
   return (
     <Section>
       <Label>

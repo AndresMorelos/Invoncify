@@ -3,11 +3,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 // Custom Components
+import styled from 'styled-components';
 import { Section, Header } from '../shared/Section';
 // Animation
 import _withFadeInAnimation from '../shared/hoc/_withFadeInAnimation';
 // Styles
-import styled from 'styled-components';
 import { Part, Row, Field } from '../shared/Part';
 const TaxID = styled.div``;
 const TaxAmount = styled.div`flex: 1;`;

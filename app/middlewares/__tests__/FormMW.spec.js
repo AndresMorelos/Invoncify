@@ -18,20 +18,23 @@ describe('Form Middleware', () => {
         form: {
           validation: true,
           recipient: {
-            newRecipient: true
+            newRecipient: true,
           },
           settings: {
             editMode: {
               active: false,
-            }
-          }
+            },
+          },
+        },
+        login: {
+          secretKey: 'secret',
         },
       }));
       const middleware = FormMW({ dispatch, getState })(next);
       // Action
       middleware(Actions.saveFormData());
       // Expect
-      expect(getState.mock.calls.length).toBe(1);
+      expect(getState.mock.calls.length).toBe(2);
       // Save the Invoice, Save new contact & Clear the Form
       expect(dispatch.mock.calls.length).toBe(3);
       // No Calling Next
@@ -47,8 +50,11 @@ describe('Form Middleware', () => {
           settings: {
             editMode: {
               active: false,
-            }
-          }
+            },
+          },
+        },
+        login: {
+          secretKey: 'secret',
         },
       }));
       const middleware = FormMW({ dispatch, getState })(next);
@@ -58,7 +64,7 @@ describe('Form Middleware', () => {
       middleware(action);
 
       // Expect
-      expect(getState.mock.calls.length).toBe(1);
+      expect(getState.mock.calls.length).toBe(2);
       // Save the Invoice & Clear the Form
       expect(dispatch.mock.calls.length).toBe(2);
       // No Calling Next
@@ -74,9 +80,12 @@ describe('Form Middleware', () => {
           settings: {
             editMode: {
               active: true,
-              data: { _id: 'invoice-uuid' }
-            }
-          }
+              data: { _id: 'invoice-uuid' },
+            },
+          },
+        },
+        login: {
+          secretKey: 'secret',
         },
       }));
       const middleware = FormMW({ dispatch, getState })(next);
@@ -84,7 +93,7 @@ describe('Form Middleware', () => {
       // Action
       middleware(action);
       // Expect
-      expect(getState.mock.calls.length).toBe(1);
+      expect(getState.mock.calls.length).toBe(2);
       // Update the Invoice, Save new contact, Clear the Form & Change Tab
       expect(dispatch.mock.calls.length).toBe(4);
       // No Calling Next
@@ -100,9 +109,12 @@ describe('Form Middleware', () => {
           settings: {
             editMode: {
               active: true,
-              data: { _id: 'invoice-uuid' }
-            }
-          }
+              data: { _id: 'invoice-uuid' },
+            },
+          },
+        },
+        login: {
+          secretKey: 'secret',
         },
       }));
       const middleware = FormMW({ dispatch, getState })(next);
@@ -112,7 +124,7 @@ describe('Form Middleware', () => {
       middleware(action);
 
       // Expect
-      expect(getState.mock.calls.length).toBe(1);
+      expect(getState.mock.calls.length).toBe(2);
       // Update the Invoice, Clear the Form and Switch Tab
       expect(dispatch.mock.calls.length).toBe(3);
       // No Calling Next
@@ -124,6 +136,9 @@ describe('Form Middleware', () => {
     // Setup
     getState = jest.fn(() => ({
       form: { validation: false },
+      login: {
+        secretKey: 'secret',
+      },
     }));
     const middleware = FormMW({ dispatch, getState })(next);
 
@@ -132,7 +147,7 @@ describe('Form Middleware', () => {
     middleware(action);
 
     // Expect
-    expect(getState.mock.calls.length).toBe(1);
+    expect(getState.mock.calls.length).toBe(2);
     // No calling to Dispatch or Next since it failed validation
     expect(dispatch.mock.calls.length).toBe(0);
     expect(next.mock.calls.length).toBe(0);
@@ -151,11 +166,7 @@ describe('Form Middleware', () => {
     expect(getState.mock.calls.length).toBe(0);
     expect(next.mock.calls.length).toBe(1);
     expect(next).toHaveBeenCalledWith(
-      Object.assign({}, action, {
-        payload: Object.assign({}, action.payload, {
-          id: 'id-string',
-        }),
-      })
+      { ...action, payload: { ...action.payload, id: 'id-string',},}
     );
   });
 

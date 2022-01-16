@@ -95,19 +95,21 @@ class SplitButton extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.showOptions !== nextState.showOptions) {
+    const { showOptions } = this.state;
+    if (showOptions !== nextState.showOptions) {
       return true;
     }
     return false;
   }
 
   handleClick() {
-    if (!this.state.showOptions) {
+    const { showOptions } = this.state;
+    if (!showOptions) {
       document.addEventListener('click', this.handleOutsideClick, false);
     } else {
       document.removeEventListener('click', this.handleOutsideClick, false);
     }
-    this.setState({ showOptions: !this.state.showOptions });
+    this.setState((prevState) => ({ showOptions: !prevState.showOptions }));
   }
 
   handleOutsideClick(e) {
@@ -118,14 +120,15 @@ class SplitButton extends Component {
   }
 
   handleMainAction(e) {
+    const { mainButton } = this.props;
     this.setState({ showOptions: false }, () => {
-      this.props.mainButton.action();
+      mainButton.action();
     });
   }
 
   renderListItems() {
     const { options } = this.props;
-    return options.map(option => (
+    return options.map((option) => (
       <a
         key={option.label.toString()}
         href="#"
@@ -140,18 +143,20 @@ class SplitButton extends Component {
   }
 
   render() {
+    const { mainButton } = this.props;
+    const { showOptions } = this.state;
     return (
-      <div ref={node => (this.node = node)}>
+      <div ref={(node) => (this.node = node)}>
         <Wrapper>
           <ButtonsGroup>
             <a href="#" onClick={this.handleMainAction}>
-              {this.props.mainButton.label}
+              {mainButton.label}
             </a>
             <a href="#" onClick={this.handleClick}>
               <i className="ion-arrow-down-b" />
             </a>
           </ButtonsGroup>
-          {this.state.showOptions && <Addon>{this.renderListItems()}</Addon>}
+          {showOptions && <Addon>{this.renderListItems()}</Addon>}
         </Wrapper>
       </div>
     );

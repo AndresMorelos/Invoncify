@@ -148,7 +148,8 @@ class Dialog extends PureComponent {
   }
 
   renderIconClass() {
-    switch (this.state.type) {
+    const { type } = this.state;
+    switch (type) {
       case 'info': {
         return 'ion-alert';
       }

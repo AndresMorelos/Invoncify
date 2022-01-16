@@ -1,8 +1,9 @@
 // Libs
 import faker from 'faker';
 import { v4 as uuidv4 } from 'uuid';
-import i18n from '../../../i18n/i18n';
 import omit from 'lodash';
+import i18n from '../../../i18n/i18n';
+import { decryptData } from '../../../test/helper';
 
 // Helpers to test
 import {
@@ -46,13 +47,13 @@ describe('getInvoiceData', () => {
           id: uuidv4(),
           description: faker.commerce.productName(),
           price: faker.commerce.price(),
-          quantity: faker.random.number(100),
+          quantity: faker.datatype.number(100),
         },
         {
           id: uuidv4(),
           description: faker.commerce.productName(),
           price: faker.commerce.price(),
-          quantity: faker.random.number(100),
+          quantity: faker.datatype.number(100),
         },
       ],
       dueDate: {
@@ -109,12 +110,13 @@ describe('getInvoiceData', () => {
 
   it('Should return correct data shape', () => {
     const invoiceData = getInvoiceData(formData);
+
     // Include custom invoiceID
     expect(invoiceData).not.toHaveProperty('invoiceID');
     // Include Rows & Recipient Data
-    expect(invoiceData).toHaveProperty('rows');
+    expect(invoiceData).toHaveProperty('currentInvoiceData');
     expect(invoiceData).toHaveProperty('recipient');
-    expect(invoiceData).toHaveProperty('currency');
+
     // Not include non-required data
     expect(invoiceData).not.toHaveProperty('dueDate');
     expect(invoiceData).not.toHaveProperty('discount');
@@ -126,35 +128,41 @@ describe('getInvoiceData', () => {
 
   it('Should return rows data correctly', () => {
     const invoiceData = getInvoiceData(formData);
-    expect(invoiceData.rows.length).toEqual(2);
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.rows.length).toEqual(2);
   });
 
   it('should return correct recipient data', () => {
     let invoiceData = getInvoiceData(formData);
+    let recipient = decryptData({ content: invoiceData.recipient.content });
+
     // Filter out data
-    expect(invoiceData.recipient).not.toHaveProperty('new');
-    expect(invoiceData.recipient).not.toHaveProperty('select');
-    expect(invoiceData.recipient).not.toHaveProperty('newRecipient');
+    expect(recipient).not.toHaveProperty('new');
+    expect(recipient).not.toHaveProperty('select');
+    expect(recipient).not.toHaveProperty('newRecipient');
 
     // Choose new contact data
-    expect(invoiceData.recipient).toHaveProperty('fullname');
-    expect(invoiceData.recipient).toHaveProperty('email');
-    expect(invoiceData.recipient).not.toHaveProperty('company');
-    expect(invoiceData.recipient).not.toHaveProperty('phone');
+    expect(recipient).toHaveProperty('fullname');
+    expect(recipient).toHaveProperty('email');
+    expect(recipient).not.toHaveProperty('company');
+    expect(recipient).not.toHaveProperty('phone');
 
     // Choose selected contact data
     (formData.recipient.newRecipient = false),
       (invoiceData = getInvoiceData(formData));
-    expect(invoiceData.recipient).toHaveProperty('fullname');
-    expect(invoiceData.recipient).toHaveProperty('email');
-    expect(invoiceData.recipient).toHaveProperty('company');
-    expect(invoiceData.recipient).toHaveProperty('phone');
-    expect(invoiceData.recipient).toHaveProperty('id');
+    recipient = decryptData({ content: invoiceData.recipient.content });
+
+    expect(recipient).toHaveProperty('fullname');
+    expect(recipient).toHaveProperty('email');
+    expect(recipient).toHaveProperty('company');
+    expect(recipient).toHaveProperty('phone');
+    expect(recipient).toHaveProperty('id');
   });
 
   it('should return dueDate data when required', () => {
-    const newFormData = Object.assign({}, formData, {
-      dueDate: {
+    const newFormData = { ...formData, dueDate: {
         selectedDate: {
           date: 20,
           months: 9,
@@ -163,14 +171,12 @@ describe('getInvoiceData', () => {
         useCustom: true,
         paymentTerm: null,
       },
-      settings: Object.assign({}, formData.settings, {
-        required_fields: Object.assign({}, formData.settings.required_fields, {
-          dueDate: true,
-        }),
-      }),
-    });
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, dueDate: true,},},};
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData.dueDate).toEqual({
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.dueDate).toEqual({
       selectedDate: {
         date: 20,
         months: 9,
@@ -179,7 +185,7 @@ describe('getInvoiceData', () => {
       useCustom: true,
       paymentTerm: null,
     });
-    expect(invoiceData.dueDate).not.toEqual({
+    expect(currentInvoiceData.dueDate).not.toEqual({
       date: 2,
       months: 10,
       years: 2016,
@@ -187,22 +193,19 @@ describe('getInvoiceData', () => {
   });
 
   it('should return currency data when required', () => {
-    const newFormData = Object.assign({}, formData, {
-      settings: Object.assign({}, formData.settings, {
-        required_fields: Object.assign({}, formData.settings.required_fields, {
-          currency: true,
-        }),
-      }),
-    });
+    const newFormData = { ...formData, settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, currency: true,},},};
 
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData.currency).toEqual({
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.currency).toEqual({
       code: 'USD',
       placement: 'before',
       fraction: 2,
       separator: 'commaDot',
     });
-    expect(invoiceData.dueDate).not.toEqual({
+    expect(currentInvoiceData.dueDate).not.toEqual({
       code: 'VND',
       placement: 'after',
       fraction: 0,
@@ -211,97 +214,79 @@ describe('getInvoiceData', () => {
   });
 
   it('should return tax data when required', () => {
-    const newFormData = Object.assign({}, formData, {
-      tax: {
-        amount: faker.random.number(20),
+    const newFormData = { ...formData, tax: {
+        amount: faker.datatype.number(20),
         method: 'reverse',
         tin: '123-456-789',
       },
-      settings: Object.assign({}, formData.settings, {
-        required_fields: Object.assign({}, formData.settings.required_fields, {
-          tax: true,
-        }),
-      }),
-    });
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, tax: true,},},};
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData.tax).toEqual(newFormData.tax);
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.tax).toEqual(newFormData.tax);
   });
 
   it('should return discount when required', () => {
-    const newFormData = Object.assign({}, formData, {
-      discount: {
-        amount: faker.random.number(20),
+    const newFormData = { ...formData, discount: {
+        amount: faker.datatype.number(20),
         type: 'flat',
       },
-      settings: Object.assign({}, formData.settings, {
-        required_fields: Object.assign({}, formData.settings.required_fields, {
-          discount: true,
-        }),
-      }),
-    });
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, discount: true,},},};
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData.discount).toEqual({
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.discount).toEqual({
       type: newFormData.discount.type,
       amount: newFormData.discount.amount,
     });
   });
 
   it('should return note data when required', () => {
-    const newFormData = Object.assign({}, formData, {
-      note: {
+    const newFormData = { ...formData, note: {
         content: faker.lorem.paragraph(),
       },
-      settings: Object.assign({}, formData.settings, {
-        required_fields: Object.assign({}, formData.settings.required_fields, {
-          note: true,
-        }),
-      }),
-    });
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, note: true,},},};
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData.note).toEqual(newFormData.note.content);
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.note).toEqual(newFormData.note.content);
   });
 
   it('should return invoiceID data when required', () => {
-    const newFormData = Object.assign({}, formData, {
-      settings: Object.assign({}, formData.settings, {
-        required_fields: Object.assign({}, formData.settings.required_fields, {
-          invoiceID: true,
-        }),
-      }),
-    });
+    const newFormData = { ...formData, settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, invoiceID: true,},},};
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData.invoiceID).toEqual('Invoice: 123-456-789');
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    expect(currentInvoiceData.invoiceID).toEqual('Invoice: 123-456-789');
   });
 
   it('should return correct metadata on editMode', () => {
     const invoiceID = uuidv4();
     const invoiceRev = uuidv4();
     const createdDate = Date.now();
-    const newFormData = Object.assign({}, formData, {
-      settings: Object.assign({}, formData.settings, {
-        editMode: Object.assign({}, formData.settings.editMode, {
-          active: true,
-          data: Object.assign({}, omit(formData, ['settings, savedSettings']),
-            {
-              _id: invoiceID,
-              _rev: invoiceRev,
-              created_at: createdDate
-            }
-          )
-        }),
-      }),
-    });
+    const newFormData = { ...formData, settings: { ...formData.settings, editMode: { ...formData.settings.editMode, active: true,
+          data: { ...omit(formData, ['settings, savedSettings']), _id: invoiceID,
+            _rev: invoiceRev,
+            created_at: createdDate,},},},};
     const invoiceData = getInvoiceData(newFormData);
-    expect(invoiceData._id).toEqual(invoiceID);
-    expect(invoiceData._rev).toEqual(invoiceRev);
-    expect(invoiceData.created_at).toEqual(createdDate);
+    const currentInvoiceData = decryptData({
+      content: invoiceData.currentInvoiceData.content,
+    });
+    
+    expect(invoiceData.currentInvoiceData._id).toEqual(invoiceID);
+    expect(invoiceData.currentInvoiceData._rev).toEqual(invoiceRev);
+    expect(currentInvoiceData.created_at).toEqual(createdDate);
   });
 
   // TODO
-  it('set status as pending when creating a new invoice');
-  it('always generate _id when creating a new invoice');
-  it('does not include _rev when creating a new invoice');
-  it('always recalculate subTotal and grandTotal');
+  test.todo('set status as pending when creating a new invoice');
+  test.todo('always generate _id when creating a new invoice');
+  test.todo('does not include _rev when creating a new invoice');
+  test.todo('always recalculate subTotal and grandTotal');
 });
 
 describe('validateFormData', () => {
@@ -324,7 +309,7 @@ describe('validateFormData', () => {
           id: uuidv4(),
           description: faker.commerce.productName(),
           price: faker.commerce.price(),
-          quantity: faker.random.number(100),
+          quantity: faker.datatype.number(100),
         },
       ],
       dueDate: {
@@ -361,6 +346,7 @@ describe('validateFormData', () => {
           note: true,
         },
       },
+      payment: {},
       savedSettings: {
         tax: {
           amount: 10,
@@ -381,7 +367,7 @@ describe('validateFormData', () => {
           discount: true,
           tax: true,
           note: true,
-          payment: true
+          payment: true,
         },
       },
     };
@@ -393,11 +379,7 @@ describe('validateFormData', () => {
   });
 
   it('should NOT pass with INCORRECT recipient data', () => {
-    const newFormData = Object.assign({}, formData, {
-      recipient: Object.assign({}, formData.recipient, {
-        new: {},
-      }),
-    });
+    const newFormData = { ...formData, recipient: { ...formData.recipient, new: {},},};
     const validation = validateFormData(newFormData);
     expect(validation).toEqual(false);
   });
@@ -419,7 +401,7 @@ describe('validateFormData', () => {
       code: 'USD',
       fraction: -1,
       separator: 'commaDot',
-      placement: 'before'
+      placement: 'before',
     };
     const validation = validateFormData(formData);
     expect(validation).toEqual(false);
@@ -432,7 +414,7 @@ describe('validateFormData', () => {
   });
 
   it('should NOT pass with INCORRECT tax data', () => {
-    formData.tax.amount = 0;
+    formData.tax.amount = '';
     const validation = validateFormData(formData);
     expect(validation).toEqual(false);
   });
@@ -587,7 +569,7 @@ describe('validateRows', () => {
       {
         description: faker.commerce.productName(),
         price: faker.commerce.price(),
-        quantity: faker.random.number(100),
+        quantity: faker.datatype.number(100),
       },
     ];
     const validation = validateRows(rows);
@@ -634,7 +616,7 @@ describe('validateCurrency', () => {
       code: 'USD',
       fraction: -1,
       separator: 'commaDot',
-      placement: 'before'
+      placement: 'before',
     };
     const validation = validateCurrency(true, currency);
     expect(validation).toEqual(false);
@@ -700,7 +682,7 @@ describe('validateTax', () => {
     const tax2 = { amount: '' };
     const tax3 = { amount: -1 };
     const validation1 = validateTax(true, tax1);
-    expect(validation1).toEqual(false);
+    expect(validation1).toEqual(true);
     expect(openDialog).toBeCalledWith({
       type: 'warning',
       title: i18n.t('dialog:validation:tax:title'),

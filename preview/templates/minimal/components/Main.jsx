@@ -2,12 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { padStart } from 'lodash';
+import styled from 'styled-components';
 import { formatNumber } from '../../../../helpers/formatNumber';
 import { getInvoiceValue } from '../../../../app/helpers/invoice';
 import currencies from '../../../../libs/currencies.json';
 
 // Styles
-import styled from 'styled-components';
 
 const Table = styled.table`
   flex: 1;
@@ -113,7 +113,7 @@ function setAlignItems(configs) {
 }
 
 // Component
-function Main({ invoice, configs, t }) {
+const Main = function({ invoice, configs, t }) {
   // Get currentLanguage
   const currentLanguage = configs.language;
   // Destructuring values

@@ -1,2 +1,2 @@
-import Settings from '../Settings';
-it('placeholder');
+// import Settings from '../Settings';
+test.todo('placeholder');
