@@ -7,6 +7,7 @@ import Form from '../../containers/Form';
 import Invoices from '../../containers/Invoices';
 import Contacts from '../../containers/Contacts';
 import Settings from '../../containers/Settings';
+import Statistics from '../../containers/Statistics';
 
 // Layout
 import { AppMainContent } from '../shared/Layout';
@@ -14,7 +15,8 @@ import { AppMainContent } from '../shared/Layout';
 
 class AppMain extends Component {
   shouldComponentUpdate(nextProps) {
-    return this.props.activeTab !== nextProps.activeTab;
+    const { activeTab } = this.props;
+    return activeTab !== nextProps.activeTab;
   }
 
   render() {
@@ -24,6 +26,7 @@ class AppMain extends Component {
         {activeTab === 'form' && <Form />}
         {activeTab === 'invoices' && <Invoices />}
         {activeTab === 'contacts' && <Contacts />}
+        {activeTab === 'statistics' && <Statistics />}
         {activeTab === 'settings' && <Settings />}
       </AppMainContent>
     );

@@ -15,8 +15,8 @@ describe('Renders correctly to the DOM', () => {
     wrapper = mount(<AppNav activeTab="form" changeTab={changeTab} />);
   });
 
-  it('renders 4 tabs', () => {
-    expect(wrapper.find('a')).toHaveLength(4);
+  it('renders 5 tabs', () => {
+    expect(wrapper.find('a')).toHaveLength(5);
   });
 
   it('has correct porps', () => {
