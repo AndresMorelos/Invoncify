@@ -105,7 +105,12 @@ class Statistics extends PureComponent {
       calendarDataInvoices
     );
 
-    const pieData = processPieData('status', invoices);
+    const pieDataInvoices = invoices.map((invoice) => ({
+      ...invoice,
+      status: t(`invoices:status:${invoice.status}`),
+    }));
+
+    const pieData = processPieData('status', pieDataInvoices);
 
     return (
       <PageWrapper>
