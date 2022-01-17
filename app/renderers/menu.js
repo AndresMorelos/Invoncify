@@ -138,6 +138,13 @@ const goMenu = {
       },
     },
     {
+      label: 'Statistics',
+      accelerator: 'CmdOrCtrl+Shift+G',
+      click() {
+        mainWindow.webContents.send('menu-change-tab', 'statistics');
+      },
+    },
+    {
       label: 'Settings',
       accelerator: 'CmdOrCtrl+Shift+S',
       click() {
