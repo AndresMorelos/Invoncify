@@ -2,7 +2,7 @@
   "name": "invoncify",
   "homepage": "https://invoncify.andresmorelos.me",
   "productName": "Invoncify",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "license": "GPL-3.0",
   "description": "Flexible invoicing desktop app with beautiful & customizable templates",
   "author": {
@@ -33,6 +33,10 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.1",
+    "@nivo/calendar": "^0.79.1",
+    "@nivo/core": "^0.79.0",
+    "@nivo/line": "^0.79.1",
+    "@nivo/pie": "^0.79.1",
     "dotenv": "10.0.0",
     "electron-is-dev": "2.0.0",
     "electron-settings": "4.0.2",

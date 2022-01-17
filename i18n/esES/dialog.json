@@ -19,7 +19,7 @@
     }
   },
   "noAccess": {
-    "title": "No tienes acesos",
+    "title": "No tienes acceso",
     "message": "Por favor selecciona otra carpeta"
   },
   "errorBoundary": "Un error ha ocurrido",

@@ -92,6 +92,7 @@ function getInvoiceData(formData, secretKey) {
     docs: {
       ...invoiceData, // Metadata
       created_at: editMode.active ? editMode.data.created_at : Date.now(),
+      updated_at: Date.now(),
       status: editMode.active ? editMode.data.status : 'pending',
       // Alway calculate subtotal & grandTotal
       subtotal: getInvoiceValue(invoiceData).subtotal,
