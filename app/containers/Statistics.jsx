@@ -95,10 +95,18 @@ class Statistics extends PureComponent {
       cancelledInvoices
     );
 
-    const calendarDataInvoices = invoices.map((invoice) => ({
-      ...invoice,
-      updated_at: formatDate(new Date(invoice.updated_at)),
-    }));
+    const calendarDataInvoices = invoices.map((invoice) => {
+      if(invoice.updated_at) {
+        return {
+          ...invoice,
+          updated_at: formatDate(new Date(invoice.updated_at)),
+        }
+      }
+      return {
+        ...invoice,
+        updated_at: formatDate(new Date(invoice.created_at)),
+      }
+    });
 
     const calendarData = processCalendarData(
       'updated_at',

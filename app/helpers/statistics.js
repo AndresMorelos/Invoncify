@@ -31,7 +31,14 @@ function processData(name, invoices = []) {
   const currentData = dataDaysByMonth();
 
   invoices.forEach((invoice) => {
-    const date = new Date(invoice.updated_at);
+    let date;
+
+    if (invoice.updated_at) {
+      date = new Date(invoice.updated_at);
+    } else {
+      date = new Date(invoice.created_at);
+    }
+
     for (const object of currentData) {
       if (object.x === formatDate(date)) {
         object.y += invoice.grandTotal;
@@ -53,26 +60,26 @@ function groupBy(key, invoices = []) {
 }
 
 function processCalendarData(key, invoices = []) {
-  const data = groupBy(key, invoices)
+  const data = groupBy(key, invoices);
   return Object.entries(data).map((item) => ({
     value: item[1].length,
     day: item[0],
   }));
 }
 
-function processPieData(key, invoices){
-  const data = groupBy(key, invoices)
-  
+function processPieData(key, invoices) {
+  const data = groupBy(key, invoices);
+
   return Object.entries(data).map((item) => ({
     id: item[0],
     label: item[0],
-    value: item[1].length
-  }))
+    value: item[1].length,
+  }));
 }
 
 module.exports = {
   processData,
   processCalendarData,
   formatDate,
-  processPieData
+  processPieData,
 };
