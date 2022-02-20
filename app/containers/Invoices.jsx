@@ -24,7 +24,7 @@ import {
 import { getDateFormat } from '../reducers/SettingsReducer';
 import { getInvoices } from '../reducers/InvoicesReducer';
 import * as Actions from '../actions/invoices';
-const ipc = require('electron').ipcRenderer;
+const invoncify = window.invoncify;
 const openDialog = require('../renderers/dialog.js');
 
 export class Invoices extends PureComponent {
@@ -41,17 +41,13 @@ export class Invoices extends PureComponent {
   // Load Invoices & add event listeners
   componentDidMount() {
     // Add Event Listener
-    ipc.on('confirmed-delete-invoice', (event, index, invoiceId) => {
+    invoncify.receive('confirmed-delete-invoice', (event, index, invoiceId) => {
       if (index === 0) {
         this.confirmedDeleteInvoice(invoiceId);
       }
     });
   }
 
-  // Remove all IPC listeners when unmounted
-  componentWillUnmount() {
-    ipc.removeAllListeners('confirmed-delete-invoice');
-  }
 
   // Open Confirm Dialog
   deleteInvoice(invoiceId) {

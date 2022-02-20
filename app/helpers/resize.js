@@ -1,5 +1,5 @@
 const { BrowserWindow, ipcMain } = require('@electron/remote');
-const appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = window.invoncify.appConfig
 
 const mainWindowID = appConfig.getSync('mainWindowID');
 const mainWindow = BrowserWindow.fromId(mainWindowID);

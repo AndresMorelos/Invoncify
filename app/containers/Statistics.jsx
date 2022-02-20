@@ -33,8 +33,7 @@ import {
 
 // Selectors
 import { getInvoices } from '../reducers/InvoicesReducer';
-const ipc = require('electron').ipcRenderer;
-const openDialog = require('../renderers/dialog.js');
+
 
 const ContainerDiv = styled.div`
   display: grid;

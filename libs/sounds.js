@@ -1,9 +1,5 @@
-// 3rd Party Libs
-const appConfig = require('@electron/remote').require('electron-settings');
-
 // Sound Themes
-const cs_sounds = require('../static/sounds/cs/index.js');
-const default_sounds = require('../static/sounds/default/index.js');
+const {cs_sounds, default_sounds } = window.invoncify.sounds
 
 let cache;
 function preload() {
@@ -21,7 +17,7 @@ function preload() {
 
 let sounds;
 function setSounds() {
-  const soundTheme = appConfig.getSync('general.sound');
+  const soundTheme = window.invoncify.appConfig.getSync('general.sound');
   switch (soundTheme) {
     case 'cs': {
       sounds = cs_sounds;
@@ -35,7 +31,7 @@ function setSounds() {
 }
 
 function play(name) {
-  const appMute = appConfig.getSync('general.muted');
+  const appMute = window.invoncify.appConfig.getSync('general.muted');
   if (!appMute) {
     let audio = cache[name];
     if (!audio) {

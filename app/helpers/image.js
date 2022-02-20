@@ -1,5 +1,5 @@
 import i18n from '../../i18n/i18n';
-const Jimp = require('jimp').default;
+const Jimp =  window.invoncify.Jimp;
 const fs = require('fs');
 const isSvg = require('is-svg');
 const openDialog = require('../renderers/dialog');

@@ -3,7 +3,7 @@ let appConfig;
 if (process.type === 'browser') {
   appConfig = require('electron-settings');
 } else {
-  appConfig = require('@electron/remote').require('electron-settings');
+  appConfig = window.invoncify.appConfig
 }
 
 function windowStateKeeper(windowName) {

@@ -3,8 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
 import styled from 'styled-components';
-const moment = require('moment');
-const ipc = require('electron').ipcRenderer;
+import moment from 'moment';
 
 // Helper
 import { formatNumber } from '../../../helpers/formatNumber';
@@ -39,10 +38,11 @@ const StatusBar = styled.div`
   width: 100%;
   height: 6px;
   border-radius: 4px 4px 0 0;
-  ${props => props.status === 'pending' && `background: #469FE5;`} ${props =>
-    props.status === 'paid' && `background: #6BBB69;`} ${props =>
-      props.status === 'refunded' && `background: #4F555C;`} ${props =>
-        props.status === 'cancelled' && `background: #EC476E;`};
+  ${(props) => props.status === 'pending' && `background: #469FE5;`} ${(
+    props
+  ) => props.status === 'paid' && `background: #6BBB69;`} ${(props) =>
+    props.status === 'refunded' && `background: #4F555C;`} ${(props) =>
+    props.status === 'cancelled' && `background: #EC476E;`};
 `;
 
 const Status = styled.div`
@@ -50,10 +50,10 @@ const Status = styled.div`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  ${props => props.status === 'pending' && `color: #469FE5;`} ${props =>
-    props.status === 'paid' && `color: #6BBB69;`} ${props =>
-      props.status === 'refunded' && `color: #4F555C;`} ${props =>
-        props.status === 'cancelled' && `color: #EC476E;`} span {
+  ${(props) => props.status === 'pending' && `color: #469FE5;`} ${(props) =>
+    props.status === 'paid' && `color: #6BBB69;`} ${(props) =>
+    props.status === 'refunded' && `color: #4F555C;`} ${(props) =>
+    props.status === 'cancelled' && `color: #EC476E;`} span {
     display: flex;
     align-items: center;
     i {
@@ -189,7 +189,7 @@ class Invoice extends PureComponent {
   }
 
   viewInvoice() {
-    ipc.send('preview-invoice', this.props.invoice);
+    window.invoncify.invoice.previewInvoice(this.props.invoice);
   }
 
   displayStatus() {
@@ -254,7 +254,9 @@ class Invoice extends PureComponent {
   render() {
     const { invoice, setInvoiceStatus, t } = this.props;
     const { recipient, status } = invoice;
-    const dateFormat = invoice.configs ? invoice.configs.dateFormat : this.props.dateFormat;
+    const dateFormat = invoice.configs
+      ? invoice.configs.dateFormat
+      : this.props.dateFormat;
     const statusActions = [
       {
         label: t('invoices:status:pending'),
@@ -299,22 +301,20 @@ class Invoice extends PureComponent {
                   {invoice.invoiceID
                     ? invoice.invoiceID
                     : truncate(invoice._id, {
-                      length: 8,
-                      omission: '',
-                    })}
+                        length: 8,
+                        omission: '',
+                      })}
                 </p>
               </Field>
               <Field>
                 <label>{t('invoices:fields:total')}</label>
                 <p>
-                  {currencyBefore ? invoice.currency.code : null}
-                  {' '}
+                  {currencyBefore ? invoice.currency.code : null}{' '}
                   {formatNumber(
                     invoice.grandTotal,
                     invoice.currency.fraction,
-                    invoice.currency.separator)
-                  }
-                  {' '}
+                    invoice.currency.separator
+                  )}{' '}
                   {currencyBefore ? null : invoice.currency.code}
                 </p>
               </Field>
@@ -326,9 +326,7 @@ class Invoice extends PureComponent {
               </Field>
               <Field>
                 <label>{t('invoices:fields:dueDate')}</label>
-                <p>
-                  {invoice.dueDate && this.renderDueDate()}
-                </p>
+                <p>{invoice.dueDate && this.renderDueDate()}</p>
               </Field>
             </Row>
           </Body>

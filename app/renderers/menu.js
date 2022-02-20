@@ -1,7 +1,7 @@
 // Libs
 const { Menu, BrowserWindow } = require('@electron/remote');
-const appConfig = require('@electron/remote').require('electron-settings');
-const ipc = require('electron').ipcRenderer;
+const appConfig = window.invoncify.appConfig
+const invoncify = window.invoncify;
 
 // Get mainWindow Object
 const mainWindowID = appConfig.getSync('mainWindowID');
@@ -16,7 +16,7 @@ const aboutMenu = {
       label: 'Check For Updates',
       accelerator: 'CmdOrCtrl+U',
       click() {
-        ipc.send('check-for-updates');
+        invoncify.settings.checkForUpdates()
       },
     },
 
@@ -31,7 +31,7 @@ const aboutMenu = {
       label: 'Quit App',
       accelerator: 'CmdOrCtrl+Q',
       click() {
-        ipc.send('quit-app');
+       invoncify.settings.quitApp();
       },
     },
   ]
@@ -191,7 +191,7 @@ const helpMenu = {
       label: 'Show Tutorial',
       accelerator: 'CmdOrCtrl+T',
       click() {
-        ipc.send('start-tour');
+        invoncify.settings.startTour()
       },
     },
     {
@@ -212,7 +212,7 @@ if (process.platform !== 'darwin') {
       label: 'Quit App',
       accelerator: 'CmdOrCtrl+Q',
       click() {
-        ipc.send('quit-app');
+        invoncify.settings.quitApp()
       },
     },
   );
@@ -221,7 +221,7 @@ if (process.platform !== 'darwin') {
     label: 'Check For Updates',
     accelerator: 'CmdOrCtrl+U',
     click() {
-      ipc.send('check-for-updates');
+      invoncify.settings.checkForUpdates()
     },
   });
 }

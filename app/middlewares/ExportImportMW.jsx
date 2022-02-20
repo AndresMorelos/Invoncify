@@ -5,7 +5,7 @@ import * as ACTION_TYPES from '../constants/actions.jsx';
 import { getAllDocs, importData } from '../helpers/pouchDB';
 import i18n from '../../i18n/i18n';
 import { getSettings, setSettings, encrypt } from '../helpers/encryption.js';
-const ipc = require('electron').ipcRenderer;
+import { Notify } from '../../helpers/notify'
 
 
 const ExportImportMW = ({ dispatch, getState }) => next => action => {
@@ -28,8 +28,15 @@ const ExportImportMW = ({ dispatch, getState }) => next => action => {
                         settings
                     }
 
-                    ipc.send('export-data', docToExport);
+                    const { err, options } = window.invoncify.exportData(docToExport)
 
+                    if(!err) {
+                        const noti = Notify(options);
+                        // Handle click on notification
+                        noti.onclick = () => {
+                          window.invoncify.revealFile(options.location);
+                        };
+                    }
                 })
                 .catch(err => {
                     next({

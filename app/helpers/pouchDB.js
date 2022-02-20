@@ -1,5 +1,5 @@
 // Setup PouchDB
-const PouchDB = require('pouchdb-browser').default;
+const PouchDB = window.invoncify.PouchDB;
 let contactsDB = new PouchDB('contacts');
 let invoicesDB = new PouchDB('invoices');
 

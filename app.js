@@ -102,7 +102,8 @@ function createMainWindow() {
     title: 'Main Window',
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
+      contextIsolation: true,
+      preload: path.resolve(__dirname, 'preload.js')
     }
   });
   // Register WindowID

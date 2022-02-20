@@ -16,8 +16,7 @@ import { getInvoiceData, validateFormData } from '../helpers/form';
 
 // Node Libs
 import i18n from '../../i18n/i18n';
-const { require: RemoteRequire } = require('@electron/remote')
-const appConfig = RemoteRequire('electron-settings');
+const appConfig = window.invoncify.appConfig;
 
 const FormMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {

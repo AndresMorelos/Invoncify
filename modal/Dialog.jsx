@@ -1,7 +1,7 @@
 // Libs
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-const appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = window.invoncify.appConfig
 const BrowserWindow = require('@electron/remote').BrowserWindow;
 const ipc = require('electron').ipcRenderer;
 const mainWindow = BrowserWindow.fromId(appConfig.getSync('mainWindowID'));

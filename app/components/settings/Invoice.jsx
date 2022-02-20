@@ -11,7 +11,7 @@ import Other from './_partials/invoice/Other';
 import Tax from './_partials/invoice/Tax';
 import Payment from './_partials/invoice/Payment';
 
-const ipc = require('electron').ipcRenderer;
+const invoncify = window.invoncify;
 const openDialog = require('../../renderers/dialog.js');
 
 // Component
@@ -28,7 +28,7 @@ class Invoice extends Component {
 
   componentDidMount() {
     const { t, updateSettings } = this.props;
-    ipc.on('no-access-directory', (event, message) => {
+    invoncify.receive('no-access-directory', (event, message) => {
       openDialog({
         type: 'warning',
         title: t('dialog:noAccess:title'),
@@ -36,17 +36,13 @@ class Invoice extends Component {
       });
     });
 
-    ipc.on('confirmed-export-directory', (event, path) => {
+    invoncify.receive('confirmed-export-directory', (event, path) => {
       this.setState({ exportDir: path }, () => {
         updateSettings('invoice', this.state);
       });
     });
   }
 
-  componentWillUnmount() {
-    ipc.removeAllListeners('no-access-directory');
-    ipc.removeAllListeners('confirmed-export-directory');
-  }
 
   handleInputChange(event) {
     const target = event.target;
@@ -124,7 +120,7 @@ class Invoice extends Component {
   }
 
   selectExportDir() {
-    ipc.send('select-export-directory');
+    invoncify.settings.selectExportDirectory()
   }
 
   render() {

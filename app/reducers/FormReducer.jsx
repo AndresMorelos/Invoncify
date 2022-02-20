@@ -8,7 +8,7 @@ import * as ACTION_TYPES from '../constants/actions.jsx';
 import { setEditRecipient } from '../helpers/form';
 
 // Retrive settings
-const appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = window.invoncify.appConfig
 const invoiceSettings = appConfig.getSync('invoice');
 
 

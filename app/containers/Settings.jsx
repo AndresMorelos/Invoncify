@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { withTranslation } from 'react-i18next';
 
-// Node Libs
-import { ipcRenderer as ipc } from 'electron';
-
 // Components
 import Profile from '@components/settings/Profile';
 import General from '@components/settings/General';
@@ -39,6 +36,8 @@ import { getSecretKey } from '../reducers/exportImportReducer';
 import * as SettingsActions from '../actions/settings';
 import * as ExportImportActions from '../actions/exportImport';
 
+const invoncify = window.invoncify
+
 // Component
 class Settings extends Component {
   constructor(props) {
@@ -50,16 +49,13 @@ class Settings extends Component {
   }
 
   componentDidMount() {
-    ipc.on('import-file-selected', (event, filePath) => {
+    invoncify.receive('import-file-selected', (event, filePath) => {
       if (filePath) {
         this.handleFileUpload(filePath);
       }
     });
   }
 
-  componentWillUnmount() {
-    ipc.removeAllListeners(['import-file-selected']);
-  }
 
   // Check if settings have been saved
   settingsSaved() {
@@ -102,7 +98,7 @@ class Settings extends Component {
   }
 
   selectImportFile(fileData) {
-    ipc.send('open-import-file-dialog');
+    invoncify.settings.openImportFileDialog();
   }
 
   // Render Main Content

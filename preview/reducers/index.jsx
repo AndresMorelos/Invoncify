@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect';
 import { handleActions } from 'redux-actions';
 import * as ACTION_TYPES from '../constants/actions';
-const appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = window.invoncify.appConfig
 const invoiceSettings = appConfig.getSync('invoice');
 const profileSettings = appConfig.getSync('profile');
 const generalSettings = appConfig.getSync('general');

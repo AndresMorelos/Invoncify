@@ -6,9 +6,6 @@ import PropTypes from 'prop-types';
 import { NativeTypes, HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
-// Node Libs
-import { ipcRenderer as ipc } from 'electron';
-
 // Styles
 import styled from 'styled-components';
 
@@ -18,6 +15,7 @@ import { processImg } from '../../../../helpers/image';
 // Component
 import TargetBox from './TargetBox';
 
+const invoncify = window.invoncify;
 
 const LogoContainer = styled.div`
   position: relative;
@@ -90,7 +88,7 @@ class Logo extends Component {
   }
 
   componentDidMount() {
-    ipc.on('file-selected', (event, filePath) => {
+    invoncify.receive('file-selected', (event, filePath) => {
       this.handleFileUpload(filePath);
     });
   }
@@ -99,9 +97,6 @@ class Logo extends Component {
     return this.props.logo !== nextProps.logo;
   }
 
-  componentWillUnmount() {
-    ipc.removeAllListeners('file-selected');
-  }
 
   handleFileUpload(filePath) {
     processImg(filePath, imgSrcString => {
@@ -118,7 +113,7 @@ class Logo extends Component {
   }
 
   selectLogo() {
-    ipc.send('open-file-dialog');
+    invoncify.settings.openFileDialog();
   }
 
   removeLogo() {

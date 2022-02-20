@@ -99,7 +99,7 @@ export const ActiveIndicator = styled.div`
   }
 `;
 
-import AppUpdate from './AppUpdate';
+// import AppUpdate from './AppUpdate';
 
 const AppNav = function ({ activeTab, changeTab }) {
   const marginTopValue = setMarginValue(activeTab);
@@ -125,7 +125,7 @@ const AppNav = function ({ activeTab, changeTab }) {
         </Motion>
         {allTabsComponent}
       </div>
-      <AppUpdate />
+      
     </SideBar>
   );
 }

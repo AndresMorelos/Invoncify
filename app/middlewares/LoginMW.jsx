@@ -1,6 +1,6 @@
 import * as ACTION_TYPES from '../constants/actions.jsx'
 
-const ipc = require('electron').ipcRenderer;
+const encryption = window.invoncify.encryption
 
 
 const LoginMW = ({ dispatch, getState }) => next => action => {
@@ -11,7 +11,7 @@ const LoginMW = ({ dispatch, getState }) => next => action => {
         }
         case ACTION_TYPES.LOGIN_SET_SECRET: {
             sessionStorage.setItem('secretKey', action.payload)
-            const result = ipc.sendSync('secret-key-updated', { secretKey: action.payload });
+            const result = encryption.validateSecret({ secretKey: action.payload });
             if (result && result.pass) {
                 next({
                     type: ACTION_TYPES.LOGIN_SET_SECRET,

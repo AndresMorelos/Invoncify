@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import i18n from '../../i18n/i18n';
 import { getInvoiceValue } from './invoice';
 import { encrypt } from './encryption'
-const appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = window.invoncify.appConfig
 const openDialog = require('../renderers/dialog');
 
 function validateFormData(formData) {

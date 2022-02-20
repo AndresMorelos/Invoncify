@@ -21,7 +21,7 @@ import ExportImportMW from '../middlewares/ExportImportMW';
 const middlewares = [LoginMW, FormMW, ContactsMW, InvoicesMW, SettingsMW, UIMiddleware, ExportImportMW];
 
 // Dev Mode Middlewares
-if (process.env.isDev === 'true') {
+if (window.invoncify.isDev === 'true') {
   middlewares.unshift(MeasureMW);
   middlewares.push(Logger);
 }

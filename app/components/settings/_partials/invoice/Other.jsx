@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 import { Row, Field, Part } from '../../../shared/Part';
-
-const moment = require('moment');
 
 
 const ExportDir = styled.div`

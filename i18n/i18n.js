@@ -13,14 +13,14 @@ import urPK from './ur-PK';
 import vi from './vi';
 import zhCN from './zh-CN';
 const moment = require('moment');
-const appConfig = require('@electron/remote').require('electron-settings');
+const appConfig = window.invoncify.appConfig;
 
 const defaultLanguage = appConfig.getSync('general.language');
 
 i18n.use(initReactI18next).init({
   lng: defaultLanguage,
   fallbackLng: 'en',
-  debug: process.env.isDev === 'true',
+  debug: window.invoncify.isDev === 'true',
   defaultNS: 'form',
   resources: {
     de,

@@ -44,6 +44,12 @@ ipcMain.on('save-pdf', (event, docId) => {
 
 });
 
-ipcMain.on('reveal-file', (event, location) => {
+
+function revealFile (location) {
   shell.showItemInFolder(location);
-});
+}
+
+
+module.exports = {
+  revealFile
+}

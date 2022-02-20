@@ -11,7 +11,6 @@ import { encrypt, decrypt } from '../helpers/encryption'
 
 // Node Libs
 import i18n from '../../i18n/i18n';
-const ipc = require('electron').ipcRenderer;
 
 const InvoicesMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -92,7 +91,7 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
           });
           const docDecrypted = decrypt({ docs: action.payload, secretKey })
           // Preview Window
-          ipc.send('preview-invoice', docDecrypted);
+          window.invoncify.invoice.previewInvoice(docDecrypted);
         })
         .catch(err => {
           next({

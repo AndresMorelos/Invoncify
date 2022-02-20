@@ -23,7 +23,7 @@ import * as ContactsActions from '../actions/contacts';
 
 // Selectors
 import { getContacts } from '../reducers/ContactsReducer';
-const ipc = require('electron').ipcRenderer;
+const invoncify = window.invoncify;
 const openDialog = require('../renderers/dialog.js');
 
 // Component
@@ -35,15 +35,11 @@ class Contacts extends PureComponent {
   }
 
   componentDidMount() {
-    ipc.on('confirmed-delete-contact', (event, index, contactId) => {
+    invoncify.receive('confirmed-delete-contact', (event, index, contactId) => {
       if (index === 0) {
         this.confirmedDeleteContact(contactId);
       }
     });
-  }
-
-  componentWillUnmount() {
-    ipc.removeAllListeners('confirmed-delete-contact');
   }
 
   newInvoice(contact) {

@@ -4,7 +4,7 @@ import { Circle } from 'rc-progress';
 import openDialog from '../../renderers/dialog';
 import i18n from '../../../i18n/i18n';
 import { Notify } from '../../../helpers/notify';
-const ipc = require('electron').ipcRenderer
+const invoncify = window.invoncify;
 
 // Styled Components
 import styled, { keyframes } from 'styled-components';
@@ -43,27 +43,24 @@ class AppUpdate extends PureComponent {
   }
 
   componentDidMount() {
-    ipc.on('update-checking', () => {
+    invoncify.receive('update-checking', () => {
       this.setState({ checking: true });
     });
 
-    ipc.on('update-available', () => {
+    invoncify.receive('update-available', () => {
       this.hideIndicator();
       openDialog(
         {
           type: 'info',
           title: i18n.t('dialog:appUpdate:available:title'),
           message: i18n.t('dialog:appUpdate:available:message'),
-          buttons: [
-            i18n.t('common:yes'),
-            i18n.t('common:noThanks')
-          ],
+          buttons: [i18n.t('common:yes'), i18n.t('common:noThanks')],
         },
         'update-download-confirmed'
       );
     });
 
-    ipc.on('update-not-available', () => {
+    invoncify.receive('update-not-available', () => {
       openDialog({
         type: 'info',
         title: i18n.t('dialog:appUpdate:noUpdate:title'),
@@ -72,7 +69,7 @@ class AppUpdate extends PureComponent {
       this.hideIndicator();
     });
 
-    ipc.on('update-error', (event, error) => {
+    invoncify.receive('update-error', (event, error) => {
       openDialog({
         type: 'warning',
         title: i18n.t('dialog:appUpdate:error:title'),
@@ -81,7 +78,7 @@ class AppUpdate extends PureComponent {
       this.hideIndicator();
     });
 
-    ipc.on('update-download-confirmed', (event, index) => {
+    invoncify.receive('update-download-confirmed', (event, index) => {
       // Cancel the download
       if (index === 1) {
         this.hideIndicator();
@@ -93,18 +90,18 @@ class AppUpdate extends PureComponent {
           {
             downloading: true,
           },
-          ipc.send('update-download-started')
+          invoncify.settings.updateDownloadStarted()
         );
       }
     });
 
-    ipc.on('update-download-progress', (event, percentage) => {
+    invoncify.receive('update-download-progress', (event, percentage) => {
       this.setState({
         progress: percentage,
       });
     });
 
-    ipc.on('update-downloaded', () => {
+    invoncify.receive('update-downloaded', () => {
       // Send notification
       Notify({
         title: i18n.t('dialog:appUpdate:downloaded:title'),
@@ -118,7 +115,7 @@ class AppUpdate extends PureComponent {
           message: i18n.t('dialog:appUpdate:downloaded:message'),
           buttons: [
             i18n.t('dialog:appUpdate:downloaded:quitNow'),
-            i18n.t('dialog:appUpdate:downloaded:later')
+            i18n.t('dialog:appUpdate:downloaded:later'),
           ],
         },
         'upgrade-confirmed'
@@ -126,24 +123,11 @@ class AppUpdate extends PureComponent {
       this.hideIndicator();
     });
 
-    ipc.on('upgrade-confirmed', (event, index) => {
+    invoncify.receive('upgrade-confirmed', (event, index) => {
       if (index === 0) {
-        ipc.send('quit-and-install');
+       invoncify.settings.quitAndInstall()
       }
     });
-  }
-
-  componentWillUnmount() {
-    ipc.removeAllListeners([
-      'update-checking',
-      'update-available',
-      'update-not-available',
-      'update-error',
-      'update-download-confirmed',
-      'update-download-progress',
-      'update-downloaded',
-      'upgade-confirmed',
-    ]);
   }
 
   hideIndicator() {

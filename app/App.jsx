@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import AppNav from '@components/layout/AppNav';
 import AppMain from '@components/layout/AppMain';
 import AppNoti from '@components/layout/AppNoti';
-import AppUpdate from '@components/layout/AppUpdate';
+// import AppUpdate from '@components/layout/AppUpdate';
 import { AppWrapper, LoginWrapper } from '@components/shared/Layout';
 import * as UIActions from './actions/ui';
 import * as FormActions from './actions/form';
@@ -23,8 +23,7 @@ import Login from './containers/Login';
 
 import windowStateKeeper from '../helpers/windowStateKeeper';
 import resize from './helpers/resize'
-import { Notify } from '../helpers/notify'
-const ipc = require('electron').ipcRenderer;
+const invoncify = window.invoncify
 
 // Components
 class App extends PureComponent {
@@ -40,73 +39,46 @@ class App extends PureComponent {
     // Get All Data
     dispatch(SettingsActions.getInitialSettings());
     // Add Event Listener
-    ipc.on('menu-change-tab', (event, tabName) => {
+    invoncify.receive('menu-change-tab', (event, tabName) => {
       this.changeTab(tabName);
     });
-    ipc.on('menu-form-save', () => {
+    invoncify.receive('menu-form-save', () => {
       dispatch(FormActions.saveFormData());
     });
-    ipc.on('menu-form-clear', () => {
+    invoncify.receive('menu-form-clear', () => {
       dispatch(FormActions.clearForm());
     });
-    ipc.on('menu-form-add-item', () => {
+    invoncify.receive('menu-form-add-item', () => {
       dispatch(FormActions.addItem());
     });
-    ipc.on('menu-form-toggle-dueDate', () => {
+    invoncify.receive('menu-form-toggle-dueDate', () => {
       dispatch(FormActions.toggleField('dueDate'));
     });
-    ipc.on('menu-form-toggle-currency', () => {
+    invoncify.receive('menu-form-toggle-currency', () => {
       dispatch(FormActions.toggleField('currency'));
     });
-    ipc.on('menu-form-toggle-vat', () => {
+    invoncify.receive('menu-form-toggle-vat', () => {
       dispatch(FormActions.toggleField('vat'));
     });
-    ipc.on('menu-form-toggle-discount', () => {
+    invoncify.receive('menu-form-toggle-discount', () => {
       dispatch(FormActions.toggleField('discount'));
     });
-    ipc.on('menu-form-toggle-note', () => {
+    invoncify.receive('menu-form-toggle-note', () => {
       dispatch(FormActions.toggleField('note'));
     });
-    ipc.on('menu-form-toggle-settings', () => {
+    invoncify.receive('menu-form-toggle-settings', () => {
       dispatch(FormActions.toggleFormSettings());
     });
     // Save configs to invoice
-    ipc.on('save-configs-to-invoice', (event, invoiceID, configs) => {
+    invoncify.receive('save-configs-to-invoice', (event, invoiceID, configs) => {
       dispatch(InvoicesActions.saveInvoiceConfigs(invoiceID, configs));
     });
 
-    ipc.on('file-exported', (event, options) => {
-      const noti = Notify(options);
-      // Handle click on notification
-      noti.onclick = () => {
-        ipc.send('reveal-file', options.location);
-      };
-    });
-
-    ipc.once('migrate-all-data', (event) => {
+    invoncify.receivece('migrate-all-data', (event) => {
       dispatch(ContactsActions.encryptContacts())
       dispatch(InvoicesActions.encryptInvoices())
-      ipc.send('data-migrated');
+      invoncify.settings.dataMigrated()
     })
-  }
-
-  componentWillUnmount() {
-    ipc.removeAllListeners([
-      'menu-change-tab',
-      'menu-form-save',
-      'menu-form-clear',
-      'menu-form-add-item',
-      'menu-form-toggle-dueDate',
-      'menu-form-toggle-currency',
-      'menu-form-toggle-discount',
-      'menu-form-toggle-vat',
-      'menu-form-toggle-note',
-      'menu-form-toggle-settings',
-      // Save template configs to invoice
-      'save-configs-to-invoice',
-      'file-exported',
-      'migrate-all-data'
-    ]);
   }
 
   changeTab(tabName) {
@@ -121,7 +93,7 @@ class App extends PureComponent {
 
   resizeWindow() {
     const { width, height } = windowStateKeeper('main');
-    ipc.send('resize-main-window', width, height);
+    invoncify.settings.resizeMainWindow(width, height);
   }
 
   render() {

@@ -7,13 +7,11 @@ import { withTranslation } from 'react-i18next';
 
 // Actions
 import LoginForm from '@components/login/Login.jsx';
-import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
-import * as ACTION_TYPES from '../constants/actions.jsx'
 import * as LoginActions from '../actions/login';
 
 // Components
-const ipc = require('electron').ipcRenderer;
-const openDialog = require('../renderers/dialog');
+const invoncify = window.invoncify;
+import openDialog from '../renderers/dialog';
 
 // Component
 class Login extends PureComponent {
@@ -24,16 +22,9 @@ class Login extends PureComponent {
     }
 
     componentDidMount() {
-        ipc.on('bad-secret-key', (event) => {
+        invoncify.receive('bad-secret-key', (event) => {
             this.badSecretKey();
         })
-    }
-
-    componentWillUnmount() {
-        ipc.removeAllListeners([
-            'bad-secret-key'
-        ]);
-
     }
 
     login(secretKey) {

@@ -12,7 +12,7 @@ module.exports = {
       'react-hot-loader/patch',
       './app/renderers/startup.js',
       './app/renderers/dialog.js',
-      './app/renderers/menu.js',
+      // './app/renderers/menu.js',
       './app/index.jsx',
     ],
     preview: ['react-hot-loader/patch', './preview/index.jsx'],
@@ -36,6 +36,10 @@ module.exports = {
         path.resolve(__dirname, "preview", "components"),
         path.resolve(__dirname, "tour", "components"),
       ]
+    },
+    fallback: {
+      'pouchdb-browser': require.resolve('pouchdb-browser'),
+      'events': require.resolve('events')
     }
   },
   mode: 'development',
@@ -104,5 +108,5 @@ module.exports = {
     hints: 'warning',
     maxEntrypointSize: 100000,
     maxAssetSize: 450000,
-  }
+  },
 }
