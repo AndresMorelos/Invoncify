@@ -44,6 +44,7 @@ class General extends Component {
               >
                 <option value="default">{t('common:default')}</option>
                 <option value="cs">Counter Strike</option>
+                <option value="minecraft">Minecraft</option>
               </select>
             </div>
           </div>
