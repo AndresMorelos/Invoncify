@@ -34,7 +34,7 @@ const aboutMenu = {
         ipc.send('quit-app');
       },
     },
-  ]
+  ],
 };
 
 const invoiceMenu = {
@@ -116,7 +116,15 @@ const invoiceMenu = {
           },
         },
       ],
-    }
+    },
+    { type: 'separator' },
+    {
+      label: 'Quit App',
+      accelerator: 'CmdOrCtrl+Q',
+      click() {
+        ipc.send('quit-app');
+      },
+    },
   ],
 };
 
@@ -197,7 +205,9 @@ const helpMenu = {
     {
       label: 'Learn More',
       click() {
-        require('electron').shell.openExternal('http://invoncify.andresmorelos.me');
+        require('electron').shell.openExternal(
+          'http://invoncify.andresmorelos.me'
+        );
       },
     },
   ],
@@ -205,17 +215,6 @@ const helpMenu = {
 
 // Add additional menu item on Windows & Linux
 if (process.platform !== 'darwin') {
-  // Add Quit to invoiceMenu
-  invoiceMenu.submenu.push(
-    { type: 'separator' },
-    {
-      label: 'Quit App',
-      accelerator: 'CmdOrCtrl+Q',
-      click() {
-        ipc.send('quit-app');
-      },
-    },
-  );
   // Add check for update to helpMenu
   helpMenu.submenu.unshift({
     label: 'Check For Updates',
@@ -226,13 +225,7 @@ if (process.platform !== 'darwin') {
   });
 }
 // Base menu
-const menuTemplate = [
-  invoiceMenu,
-  goMenu,
-  editMenu,
-  windowsMenu,
-  helpMenu,
-];
+const menuTemplate = [invoiceMenu, goMenu, editMenu, windowsMenu, helpMenu];
 // Add About menu on Mac
 if (process.platform === 'darwin') {
   menuTemplate.unshift(aboutMenu);
