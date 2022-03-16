@@ -9,11 +9,13 @@ const ipc = require('electron').ipcRenderer;
 const mainWindowID = appConfig.getSync('mainWindowID');
 const mainWindow = BrowserWindow.fromId(mainWindowID);
 
+let tray = null;
+
 const trayMenu = [
   {
     label: 'New Invoice',
     click() {
-      mainWindow.show()
+      mainWindow.show();
       mainWindow.webContents.send('menu-change-tab', 'form');
     },
   },
@@ -24,7 +26,7 @@ const trayMenu = [
     label: 'Go to Invoices',
     accelerator: 'CmdOrCtrl+Shift+A',
     click() {
-      mainWindow.show()
+      mainWindow.show();
       mainWindow.webContents.send('menu-change-tab', 'invoices');
     },
   },
@@ -32,7 +34,7 @@ const trayMenu = [
     label: 'Go to Contacts',
     accelerator: 'CmdOrCtrl+Shift+D',
     click() {
-      mainWindow.show()
+      mainWindow.show();
       mainWindow.webContents.send('menu-change-tab', 'contacts');
     },
   },
@@ -40,7 +42,7 @@ const trayMenu = [
     label: 'Go to Statistics',
     accelerator: 'CmdOrCtrl+Shift+G',
     click() {
-      mainWindow.show()
+      mainWindow.show();
       mainWindow.webContents.send('menu-change-tab', 'statistics');
     },
   },
@@ -48,7 +50,7 @@ const trayMenu = [
     label: 'Go to Settings',
     accelerator: 'CmdOrCtrl+Shift+S',
     click() {
-      mainWindow.show()
+      mainWindow.show();
       mainWindow.webContents.send('menu-change-tab', 'settings');
     },
   },
@@ -57,7 +59,6 @@ const trayMenu = [
     label: 'Quit App',
     accelerator: 'CmdOrCtrl+Q',
     click() {
-      mainWindow.show()
       ipc.send('quit-app');
     },
   },
@@ -76,7 +77,7 @@ const pathImg = path.resolve(
 
 const image = nativeImage.createFromPath(pathImg);
 
-const tray = new Tray(image.resize({ width: 16, height: 16 }));
+tray = new Tray(image.resize({ width: 16, height: 16 }));
 
 if (process.platform === 'win32') {
   tray.on('click', tray.popUpContextMenu);
