@@ -28,8 +28,8 @@ if (process.argv.includes('--disable-hardware-acceleration')) {
 const appConfig = require('electron-settings');
 require('dotenv').config();
 
-const electronRemoteMain = require('@electron/remote/main')
-electronRemoteMain.initialize()
+const electronRemoteMain = require('@electron/remote/main');
+electronRemoteMain.initialize();
 
 let tourWindow = null;
 let mainWindow = null;
@@ -58,7 +58,7 @@ function createTourWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   });
   // Register WindowID with appConfig
   appConfig.setSync('tourWindowID', parseInt(tourWindow.id));
@@ -71,13 +71,14 @@ function createTourWindow() {
     })
   );
 
-  electronRemoteMain.enable(tourWindow.webContents)
+  electronRemoteMain.enable(tourWindow.webContents);
 
   // Add Event Listeners
-  tourWindow.on('show', event => {
-    if (isDev || forceDevtools) tourWindow.webContents.openDevTools({ mode: 'detach' });
+  tourWindow.on('show', (event) => {
+    if (isDev || forceDevtools)
+      tourWindow.webContents.openDevTools({ mode: 'detach' });
   });
-  tourWindow.on('close', event => {
+  tourWindow.on('close', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) tourWindow.webContents.closeDevTools();
     tourWindow.hide();
@@ -118,19 +119,23 @@ function createMainWindow() {
       slashes: true,
     })
   );
-  electronRemoteMain.enable(mainWindow.webContents)
+  electronRemoteMain.enable(mainWindow.webContents);
   // Add Event Listeners
-  mainWindow.on('show', event => {
-    if (isDev || forceDevtools) mainWindow.webContents.openDevTools({ mode: 'detach' });
+  mainWindow.on('show', (event) => {
+    if (isDev || forceDevtools)
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
   });
-  mainWindow.on('close', event => {
-    if (process.platform === 'darwin') {
-      event.preventDefault();
-      if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
-      mainWindow.hide();
-    } else {
-      app.quit();
-    }
+
+  mainWindow.on('minimize', (event) => {
+    event.preventDefault();
+    if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
+    mainWindow.hide();
+  });
+  
+  mainWindow.on('close', (event) => {
+    event.preventDefault();
+    if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
+    mainWindow.hide();
   });
 }
 
@@ -151,7 +156,7 @@ function createPreviewWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   });
   // Register WindowID
   appConfig.setSync('previewWindowID', parseInt(previewWindow.id));
@@ -166,12 +171,13 @@ function createPreviewWindow() {
     })
   );
 
-  electronRemoteMain.enable(previewWindow.webContents)
+  electronRemoteMain.enable(previewWindow.webContents);
   // Add Event Listener
-  previewWindow.on('show', event => {
-    if (isDev || forceDevtools) previewWindow.webContents.openDevTools({ mode: 'detach' });
+  previewWindow.on('show', (event) => {
+    if (isDev || forceDevtools)
+      previewWindow.webContents.openDevTools({ mode: 'detach' });
   });
-  previewWindow.on('close', event => {
+  previewWindow.on('close', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) previewWindow.webContents.closeDevTools();
     previewWindow.hide();
@@ -196,7 +202,7 @@ function createModalWindow(dialogOptions, returnChannel = '', ...rest) {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   });
   modalWindow.loadURL(
     url.format({
@@ -206,7 +212,7 @@ function createModalWindow(dialogOptions, returnChannel = '', ...rest) {
     })
   );
 
-  electronRemoteMain.enable(modalWindow.webContents)
+  electronRemoteMain.enable(modalWindow.webContents);
 
   modalWindow.on('close', () => (modalWindow = null));
   modalWindow.webContents.on('did-finish-load', () => {
@@ -275,7 +281,7 @@ function setInitialValues() {
         amount: 0,
       },
       payment: {
-        details: null
+        details: null,
       },
       currency: {
         code: 'USD',
@@ -298,7 +304,7 @@ function setInitialValues() {
       salt: generaterRandmBytes(),
       validation: null,
       dataMigrated: true,
-    }
+    },
   };
 
   // Set initial values conditionally work for 2 level depth key only,
@@ -311,9 +317,14 @@ function setInitialValues() {
       }
       // Add level 2 key if not exist
       for (const childKey in defaultOptions[key]) {
-        if (Object.prototype.hasOwnProperty.call(defaultOptions[key], childKey)) {
+        if (
+          Object.prototype.hasOwnProperty.call(defaultOptions[key], childKey)
+        ) {
           if (!appConfig.hasSync(`${key}.${childKey}`)) {
-            appConfig.setSync(`${key}.${childKey}`, defaultOptions[key][childKey]);
+            appConfig.setSync(
+              `${key}.${childKey}`,
+              defaultOptions[key][childKey]
+            );
           }
         }
       }
@@ -324,7 +335,7 @@ function setInitialValues() {
 function migrateData() {
   // Migration scheme
   const migrations = {
-    1: configs => {
+    1: (configs) => {
       // Get the current configs
       const { info, appSettings } = configs;
       // Return current configs if this is the first time install
@@ -351,7 +362,7 @@ function migrateData() {
             amount: 0,
           },
           payment: {
-            details: null
+            details: null,
           },
           required_fields: {
             dueDate: false,
@@ -372,7 +383,7 @@ function migrateData() {
       ]);
     },
 
-    2: configs => {
+    2: (configs) => {
       // Return current configs if this is the first time install
       if (configs.invoice.currency.placement !== undefined) {
         return configs;
@@ -387,28 +398,31 @@ function migrateData() {
             placement: 'before',
             separator: 'commaDot',
             fraction: 2,
-          }
-        }
+          },
+        },
       };
     },
 
-    3: configs => {
+    3: (configs) => {
       // Return current configs if checkUpdate and lastCheck do not exist
       const { checkUpdate, lastCheck } = configs.general;
       if (checkUpdate === undefined || lastCheck === undefined) {
         return configs;
       }
       // Remove checkUpdate and lastCheck
-      return { ...configs, general: omit(configs.general, ['checkUpdate', 'lastCheck']) };
+      return {
+        ...configs,
+        general: omit(configs.general, ['checkUpdate', 'lastCheck']),
+      };
     },
 
-    4: configs => {
+    4: (configs) => {
       // Return current configs if this is the first time install
       if (configs.encryption !== undefined) {
-        return configs
+        return configs;
       }
 
-      // Update current configs 
+      // Update current configs
       return {
         ...configs,
         encryption: {
@@ -416,10 +430,9 @@ function migrateData() {
           salt: generaterRandmBytes(),
           validation: null,
           dataMigrated: false,
-        }
-      }
-
-    }
+        },
+      };
+    },
   };
   // Get the current Config
   const configs = appConfig.getSync();
@@ -427,7 +440,7 @@ function migrateData() {
   const version = configs.version || 0;
   // Handle migration
   const newMigrations = Object.keys(migrations)
-    .filter(k => k > version)
+    .filter((k) => k > version)
     .sort();
   // Exit if there's no migration to run
   if (!newMigrations.length) return;
@@ -438,7 +451,7 @@ function migrateData() {
     configs
   );
   // Save the final config to DB
-  appConfig.unsetSync()
+  appConfig.unsetSync();
   appConfig.setSync(migratedConfigs);
   // Update the latest config version
   appConfig.setSync('version', newMigrations[newMigrations.length - 1]);
@@ -446,8 +459,8 @@ function migrateData() {
 
 function addEventListeners() {
   ipcMain.on('open-dialog', (event, dialogOptions, returnChannel, ...rest) => {
-    createModalWindow(dialogOptions, returnChannel, rest)
-  })
+    createModalWindow(dialogOptions, returnChannel, rest);
+  });
 
   ipcMain.on('quit-app', () => {
     app.quit();
@@ -457,20 +470,20 @@ function addEventListeners() {
   ipcMain.on('quit-and-install', () => {
     setImmediate(() => {
       // Remove this listener
-      app.removeAllListeners("window-all-closed");
+      app.removeAllListeners('window-all-closed');
       // Force close all windows
       tourWindow.destroy();
       mainWindow.destroy();
       previewWindow.destroy();
       // Start the quit and update sequence
       autoUpdater.quitAndInstall(false);
-    })
+    });
   });
 }
 
 function loadMainProcessFiles() {
   const files = glob.sync(path.join(__dirname, 'main/*.js'));
-  files.forEach(file => require(file));
+  files.forEach((file) => require(file));
 }
 
 function initialize() {
@@ -508,8 +521,8 @@ function initialize() {
       type: 'warning',
       title: 'Example',
       message: url,
-    })
-  })
+    });
+  });
 
   console.timeEnd('init');
 }

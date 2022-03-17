@@ -1,5 +1,7 @@
 // Sound Themes
-const {cs_sounds, default_sounds } = window.invoncify.sounds
+const cs_sounds = require('../static/sounds/cs/index.js');
+const default_sounds = require('../static/sounds/default/index.js');
+const minecraft_sounds = require('../static/sounds/minecraft/index.js');
 
 let cache;
 function preload() {
@@ -21,6 +23,10 @@ function setSounds() {
   switch (soundTheme) {
     case 'cs': {
       sounds = cs_sounds;
+      break;
+    }
+    case 'minecraft': {
+      sounds =  minecraft_sounds;
       break;
     }
     default: {
