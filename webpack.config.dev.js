@@ -13,7 +13,6 @@ module.exports = {
       './app/renderers/startup.js',
       './app/renderers/dialog.js',
       './app/renderers/menu.js',
-      './app/renderers/tray.js',
       './app/index.jsx',
     ],
     preview: ['react-hot-loader/patch', './preview/index.jsx'],

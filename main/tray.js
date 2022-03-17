@@ -1,8 +1,7 @@
 const path = require('path');
 // Libs
-const { Menu, BrowserWindow, Tray } = require('@electron/remote');
-const { nativeImage } = require('electron');
-const appConfig = require('@electron/remote').require('electron-settings');
+const { app, nativeImage, Menu, Tray, BrowserWindow } = require('electron');
+const appConfig = require('electron-settings');
 const ipc = require('electron').ipcRenderer;
 
 // Get mainWindow Object
@@ -14,6 +13,7 @@ let tray = null;
 const trayMenu = [
   {
     label: 'New Invoice',
+    accelerator: 'CmdOrCtrl+N',
     click() {
       mainWindow.show();
       mainWindow.webContents.send('menu-change-tab', 'form');
@@ -59,28 +59,30 @@ const trayMenu = [
     label: 'Quit App',
     accelerator: 'CmdOrCtrl+Q',
     click() {
-      ipc.send('quit-app');
+      app.quit();
     },
   },
 ];
 
-// Build the menu
-const menu = Menu.buildFromTemplate(trayMenu);
+app.whenReady().then(() => {
+  // Build the menu
+  const menu = Menu.buildFromTemplate(trayMenu);
 
-const pathImg = path.resolve(
-  __dirname,
-  '..',
-  'static',
-  'imgs',
-  'tray_icon.png'
-);
+  const pathImg = path.resolve(
+    __dirname,
+    '..',
+    'static',
+    'imgs',
+    'tray_icon.png'
+  );
 
-const image = nativeImage.createFromPath(pathImg);
+  const image = nativeImage.createFromPath(pathImg);
 
-tray = new Tray(image.resize({ width: 16, height: 16 }));
+  tray = new Tray(image.resize({ width: 16, height: 16 }));
 
-if (process.platform === 'win32') {
-  tray.on('click', tray.popUpContextMenu);
-}
+  if (process.platform === 'win32') {
+    tray.on('click', tray.popUpContextMenu);
+  }
 
-tray.setContextMenu(menu);
+  tray.setContextMenu(menu);
+});
