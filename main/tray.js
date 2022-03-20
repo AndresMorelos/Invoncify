@@ -8,7 +8,6 @@ const ipc = require('electron').ipcRenderer;
 const mainWindowID = appConfig.getSync('mainWindowID');
 const mainWindow = BrowserWindow.fromId(mainWindowID);
 
-let tray = null;
 
 const trayMenu = [
   {
