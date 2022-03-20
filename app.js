@@ -35,6 +35,7 @@ let tourWindow = null;
 let mainWindow = null;
 let previewWindow = null;
 let modalWindow = null;
+let tray = null;
 
 function createTourWindow() {
   const width = 700;
