@@ -129,12 +129,22 @@ function createMainWindow() {
   mainWindow.on('minimize', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
+    if (process.platform !== 'darwin') {
+      app.setSkipTaskbar(true);
+    } else {
+      app.dock.hide();
+    }
     mainWindow.hide();
   });
-  
+
   mainWindow.on('close', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
+    if (process.platform !== 'darwin') {
+      app.setSkipTaskbar(true);
+    } else {
+      app.dock.hide();
+    }
     mainWindow.hide();
   });
 }
