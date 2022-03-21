@@ -31,6 +31,7 @@ import {
 import * as SettingsActions from '../actions/settings';
 import * as FormActions from '../actions/form';
 import { getCurrentInvoice } from '../reducers/FormReducer';
+import CreatedAt from '../components/form/CreatedAt';
 
 // Component
 class Form extends PureComponent {
@@ -52,6 +53,7 @@ class Form extends PureComponent {
     } = boundFormActionCreators;
     // Form Value
     const {
+      created_at,
       dueDate,
       currency,
       discount,
@@ -62,6 +64,7 @@ class Form extends PureComponent {
       settings,
       savedSettings,
     } = currentInvoice;
+
     const { required_fields, open, editMode } = settings;
     // Translation
     const { t } = this.props;
@@ -104,6 +107,13 @@ class Form extends PureComponent {
           )}
           <Recipient />
           <ItemsList />
+          {editMode.active && (
+            <CreatedAt
+              t={t}
+              created_at={created_at}
+              updateFieldData={updateFieldData}
+            />
+          )}
           {required_fields.dueDate && (
             <DueDate
               t={t}
@@ -178,6 +188,7 @@ Form.propTypes = {
     note: PropTypes.object.isRequired,
     payment: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
+    created_at: PropTypes.number,
   }).isRequired,
 };
 

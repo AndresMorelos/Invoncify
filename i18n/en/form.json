@@ -30,6 +30,10 @@
       "percentage": "Percentage",
       "flat": "Flat Rate"
     },
+    "createAtDate": {
+      "name": "Creation Date",
+      "placeHolder": "Select a custom date"
+    },
     "dueDate": {
       "name": "Due Date",
       "placeHolder": "Select a custom date",

@@ -2,7 +2,7 @@ import { isEmpty, pick, includes } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import i18n from '../../i18n/i18n';
 import { getInvoiceValue } from './invoice';
-import { encrypt } from './encryption'
+import { encrypt } from './encryption';
 const appConfig = require('@electron/remote').require('electron-settings');
 const openDialog = require('../renderers/dialog');
 
@@ -45,6 +45,7 @@ function getInvoiceData(formData, secretKey) {
     note,
     payment,
     settings,
+    created_at,
   } = formData;
   // Required fields
   const { editMode, required_fields } = settings;
@@ -54,7 +55,8 @@ function getInvoiceData(formData, secretKey) {
   if (recipient.newRecipient) {
     // Add id & created_at so the invoice records will remembers
     invoiceData.recipient = {
-      ...recipient.new, _id: uuidv4(),
+      ...recipient.new,
+      _id: uuidv4(),
       created_at: Date.now(),
     };
   } else {
@@ -86,35 +88,44 @@ function getInvoiceData(formData, secretKey) {
   const invoice = {
     _id: editMode.active ? editMode.data._id : uuidv4(),
     _rev: editMode.active ? editMode.data._rev : null,
+  };
+
+  let createdAtToUpdate = Date.now();
+
+  if (editMode.active) {
+    createdAtToUpdate =
+      created_at.created_at !== editMode.data.created_at
+        ? created_at.created_at
+        : editMode.data.created_at;
   }
 
   const content = encrypt({
     docs: {
       ...invoiceData, // Metadata
-      created_at: editMode.active ? editMode.data.created_at : Date.now(),
+      created_at: createdAtToUpdate,
       updated_at: Date.now(),
       status: editMode.active ? editMode.data.status : 'pending',
       // Alway calculate subtotal & grandTotal
       subtotal: getInvoiceValue(invoiceData).subtotal,
       grandTotal: getInvoiceValue(invoiceData).grandTotal,
     },
-    secretKey
-  })
+    secretKey,
+  });
 
   invoice.content = content;
 
   const newRecipient = {
-    _id: invoiceData.recipient._id
-  }
+    _id: invoiceData.recipient._id,
+  };
 
   delete invoiceData.recipient._id;
 
   const recipientContent = encrypt({
     docs: {
-      ...invoiceData.recipient
+      ...invoiceData.recipient,
     },
-    secretKey
-  })
+    secretKey,
+  });
 
   newRecipient.content = recipientContent;
 
@@ -151,7 +162,8 @@ function validateRecipient(recipient) {
       return false;
     }
     // Is email address valid?
-    const regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    const regex =
+      /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!regex.test(recipient.new.email)) {
       openDialog({
         type: 'warning',
@@ -302,7 +314,6 @@ function validatePayment(isRequired, payment) {
   return true;
 }
 
-
 function validateInvoiceID(isRequired, invoiceID) {
   if (isRequired) {
     if (!invoiceID || invoiceID === '') {
@@ -321,7 +332,7 @@ function validateInvoiceID(isRequired, invoiceID) {
 // SET RECIPIENT INFORMATION IN EDIT MODE
 function setEditRecipient(allContacts, currentContact) {
   if (allContacts.length) {
-    const contactIDs = allContacts.map(contact => contact._id);
+    const contactIDs = allContacts.map((contact) => contact._id);
     if (includes(contactIDs, currentContact._id)) {
       return {
         newRecipient: false,
@@ -331,7 +342,13 @@ function setEditRecipient(allContacts, currentContact) {
   }
   return {
     newRecipient: true,
-    new: pick(currentContact, ['fullname', 'company', 'phone', 'email', 'address']),
+    new: pick(currentContact, [
+      'fullname',
+      'company',
+      'phone',
+      'email',
+      'address',
+    ]),
   };
 }
 
