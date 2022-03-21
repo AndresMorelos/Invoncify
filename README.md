@@ -6,16 +6,11 @@ This is a continuation of Manta App, I'm taking care about the maintenance and n
 ![GitHub all releases](https://img.shields.io/github/downloads/AndresMorelos/Invoncify/total?style=for-the-badge)
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/AndresMorelos/Invoncify/latest/total?color=green&style=for-the-badge)
 [![Crowdin](https://badges.crowdin.net/invoncify/localized.svg)](https://crowdin.com/project/invoncify)
-
-## Why I change the name?
-
-I really want to continue with the **Manta** Name but there could be a name conflict in the App review and they would reject the app.
-
-Ref: https://developer.apple.com/forums/thread/70708
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://makeapullrequest.com)
 
 ---------
 
-## Invoncify
+# Invoncify
 
 
 A desktop application for creating invoices with beautiful and customizable templates.
@@ -33,8 +28,8 @@ A desktop application for creating invoices with beautiful and customizable temp
 
 Do you speak multiple languages? We need your help!
 
-If you're interested in translating Invoncify, please see the [detailed instruction here](https://github.com/AndresMorelos/InvoncifyReleases/wiki/Translating-Invoncify).
-The following languages are currently being translated, if you would like to Manta to support another language, [please submit your request here](https://github.com/AndresMorelos/InvoncifyReleases/issues/1).
+If you're interested in translating Invoncify, please see the [detailed instruction here](https://github.com/AndresMorelos/Invoncify/discussions/31).
+The following languages are currently being translated, if you would like to Manta to support another language, [please submit your request here]https://github.com/AndresMorelos/Invoncify/discussions/31).
 
 * [🇨🇳 中文 (Chinese Simplified)](https://crowdin.com/project/invoncify/zh-CN)
 * [🇨🇳 中文 (Chinese Traditional)](https://crowdin.com/project/invoncify/zh-TW)
@@ -65,7 +60,7 @@ The following languages are currently being translated, if you would like to Man
 * 🏷 Custom statuses for invoices.
 * 📊 Export PDF for print or email.
 * 🔒 Complete Privacy. You financial data stays where it belongs.
-* 🔒 end to end encryption. You financial data stays encripted.
+* 🔒 end to end encryption. You financial data stays encrypted.
 * 🔄 Export or Import your financial data (all encrypted).
 * 💯 Totally Free.
 
@@ -86,7 +81,7 @@ Windows 7 and later are supported
 
 [More information](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms).
 
-Note that on Linux, some users might experience a GPU bug where the select options rendered as a black box, see [issue #128 of Invoncify](https://github.com/hql287/Manta/pull/128) and [issue #4322 of Electron](https://github.com/electron/electron/issues/4322). This can be fixed by disabling hardware acceleration like so:
+Note that on Linux, some users might experience a GPU bug where the select options rendered as a black box, see [issue #128 of Manta](https://github.com/hql287/Manta/pull/128) and [issue #4322 of Electron](https://github.com/electron/electron/issues/4322). This can be fixed by disabling hardware acceleration like so:
 
 ```sh
 invoncify --disable-hardware-acceleration
@@ -108,3 +103,10 @@ yarn dev
 # This command will run electron loading the packed files previously
 yarn start:dev
 ```
+
+---
+## Why I change the name?
+
+I really want to continue with the **Manta** Name but there could be a name conflict in the App review and they would reject the app.
+
+Ref: https://developer.apple.com/forums/thread/70708
