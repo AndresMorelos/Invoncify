@@ -30,6 +30,10 @@
       "percentage": "Porcentaje",
       "flat": "Tarifa Plana"
     },
+    "createAtDate": {
+      "name": "Fecha de creación",
+      "placeHolder": "Selecciona una fecha"
+    },
     "dueDate": {
       "name": "Fecha de vencimiento",
       "placeHolder": "Selecciona una fecha",

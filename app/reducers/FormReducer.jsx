@@ -11,7 +11,6 @@ import { setEditRecipient } from '../helpers/form';
 const appConfig = require('@electron/remote').require('electron-settings');
 const invoiceSettings = appConfig.getSync('invoice');
 
-
 const initialState = {
   recipient: {
     newRecipient: true,
@@ -26,7 +25,7 @@ const initialState = {
   },
   discount: {},
   note: {},
-  invoiceID: "",
+  invoiceID: '',
   // Set default values for currency, tax, and payment
   currency: invoiceSettings.currency,
   tax: invoiceSettings.tax,
@@ -46,23 +45,30 @@ const initialState = {
     currency: invoiceSettings.currency,
     required_fields: invoiceSettings.required_fields,
   },
+  created_at: new Date().getTime(),
 };
 
 const FormReducer = handleActions(
   {
-    [ACTION_TYPES.FORM_RECIPIENT_UPDATE]: (state, action) =>
-      ({ ...state, recipient: action.payload, }),
+    [ACTION_TYPES.FORM_RECIPIENT_UPDATE]: (state, action) => ({
+      ...state,
+      recipient: action.payload,
+    }),
 
-    [ACTION_TYPES.FORM_ITEM_ADD]: (state, action) =>
-      ({ ...state, rows: [...state.rows, action.payload], }),
+    [ACTION_TYPES.FORM_ITEM_ADD]: (state, action) => ({
+      ...state,
+      rows: [...state.rows, action.payload],
+    }),
 
-    [ACTION_TYPES.FORM_ITEM_REMOVE]: (state, action) =>
-      ({ ...state, rows: state.rows.filter(item => item.id !== action.payload), }),
+    [ACTION_TYPES.FORM_ITEM_REMOVE]: (state, action) => ({
+      ...state,
+      rows: state.rows.filter((item) => item.id !== action.payload),
+    }),
 
-    [ACTION_TYPES.FORM_ITEM_UPDATE]: (state, action) =>
-    ({
-      ...state, rows: state.rows.map(
-        item => (item.id !== action.payload.id ? item : action.payload)
+    [ACTION_TYPES.FORM_ITEM_UPDATE]: (state, action) => ({
+      ...state,
+      rows: state.rows.map((item) =>
+        item.id !== action.payload.id ? item : action.payload
       ),
     }),
 
@@ -72,14 +78,15 @@ const FormReducer = handleActions(
       const newRows = state.rows;
       newRows.splice(dragIndex, 1);
       newRows.splice(hoverIndex, 0, dragRow);
-      return { ...state, rows: newRows, };
+      return { ...state, rows: newRows };
     },
 
     [ACTION_TYPES.FORM_FIELD_UPDATE_DATA]: (state, action) => {
       const { field, data } = action.payload;
       if (typeof data === 'object') {
         return {
-          ...state, [field]: {
+          ...state,
+          [field]: {
             ...state[field],
             ...data,
           },
@@ -88,14 +95,26 @@ const FormReducer = handleActions(
       return { ...state, [field]: data };
     },
 
-    [ACTION_TYPES.FORM_FIELD_TOGGLE]: (state, action) =>
-      ({ ...state, settings: { ...state.settings, required_fields: { ...state.settings.required_fields, [action.payload]: !state.settings.required_fields[action.payload], }, }, }),
+    [ACTION_TYPES.FORM_FIELD_TOGGLE]: (state, action) => ({
+      ...state,
+      settings: {
+        ...state.settings,
+        required_fields: {
+          ...state.settings.required_fields,
+          [action.payload]: !state.settings.required_fields[action.payload],
+        },
+      },
+    }),
 
-    [ACTION_TYPES.FORM_SETTING_TOGGLE]: state =>
-      ({ ...state, settings: { ...state.settings, open: !state.settings.open, }, }),
+    [ACTION_TYPES.FORM_SETTING_TOGGLE]: (state) => ({
+      ...state,
+      settings: { ...state.settings, open: !state.settings.open },
+    }),
 
-    [ACTION_TYPES.FORM_SETTING_CLOSE]: state =>
-      ({ ...state, settings: { ...state.settings, open: false, }, }),
+    [ACTION_TYPES.FORM_SETTING_CLOSE]: (state) => ({
+      ...state,
+      settings: { ...state.settings, open: false },
+    }),
 
     [ACTION_TYPES.INVOICE_EDIT]: (state, action) => {
       const {
@@ -109,13 +128,13 @@ const FormReducer = handleActions(
         note,
         payment,
         contacts,
+        created_at,
       } = action.payload;
       return {
         ...state, // Populate data
         recipient: {
-
           ...state.recipient,
-          ...setEditRecipient(contacts, recipient)
+          ...setEditRecipient(contacts, recipient),
         },
         rows,
         // Optional Data
@@ -126,17 +145,17 @@ const FormReducer = handleActions(
         payment: payment !== undefined ? payment : state.payment,
         dueDate: dueDate !== undefined ? dueDate : state.dueDate,
         note:
-          note !== undefined
-            ? ({ ...state.note, content: note, })
-            : state.note,
+          note !== undefined ? { ...state.note, content: note } : state.note,
         // Update settings
         settings: {
-          ...state.settings, editMode: {
+          ...state.settings,
+          editMode: {
             active: true,
             data: action.payload,
           },
           required_fields: {
-            ...state.settings.required_fields, invoiceID: invoiceID !== undefined,
+            ...state.settings.required_fields,
+            invoiceID: invoiceID !== undefined,
             currency: currency !== state.savedSettings.currency,
             tax: tax !== undefined,
             payment: payment !== undefined,
@@ -145,13 +164,15 @@ const FormReducer = handleActions(
             note: note !== undefined,
           },
         },
+        created_at: created_at !== undefined ? created_at : state.created_at,
       };
     },
 
     [ACTION_TYPES.SAVED_FORM_SETTING_UPDATE]: (state, action) => {
       const invoiceSettings = action.payload;
       return {
-        ...state, savedSettings: {
+        ...state,
+        savedSettings: {
           ...state.savedSettings,
           tax: invoiceSettings.tax,
           payment: invoiceSettings.payment,
@@ -161,8 +182,7 @@ const FormReducer = handleActions(
       };
     },
 
-    [ACTION_TYPES.FORM_CLEAR]: state =>
-    ({
+    [ACTION_TYPES.FORM_CLEAR]: (state) => ({
       ...initialState, // Reset to lastest saved settings
       currency: state.savedSettings.currency,
       // Reset to lastest saved settings
@@ -170,7 +190,8 @@ const FormReducer = handleActions(
       payment: state.savedSettings.payment,
       // Update current settings
       settings: {
-        ...state.settings, open: false,
+        ...state.settings,
+        open: false,
         editMode: {
           active: false,
         },
@@ -186,20 +207,20 @@ const FormReducer = handleActions(
 export default FormReducer;
 
 // Selector Input
-const getFormState = state => state.form;
+const getFormState = (state) => state.form;
 
 // Selectors
 export const getCurrentInvoice = createSelector(
   getFormState,
-  formState => formState
+  (formState) => formState
 );
 
 export const getRows = createSelector(
   getFormState,
-  formState => formState.rows
+  (formState) => formState.rows
 );
 
 export const getRecipient = createSelector(
   getFormState,
-  formState => formState.recipient
+  (formState) => formState.recipient
 );
