@@ -2,19 +2,50 @@ const path = require('path');
 // Libs
 const { app, nativeImage, Menu, Tray, BrowserWindow } = require('electron');
 const appConfig = require('electron-settings');
-const ipc = require('electron').ipcRenderer;
 
 // Get mainWindow Object
 const mainWindowID = appConfig.getSync('mainWindowID');
 const mainWindow = BrowserWindow.fromId(mainWindowID);
 
+function showApp() {
+  if (process.platform !== 'darwin') {
+    app.setSkipTaskbar(false);
+  } else {
+    app.dock.show();
+  }
+  mainWindow.show();
+}
+
+function hideApp() {
+  if (process.platform !== 'darwin') {
+    app.setSkipTaskbar(true);
+  } else {
+    app.dock.hide();
+  }
+  mainWindow.hide();
+}
 
 const trayMenu = [
+  {
+    label: 'Open/Hide Invoncify',
+    click() {
+      if ([null, undefined, true].includes(app.isHidden)) {
+        app.isHidden = false;
+        hideApp();
+      } else {
+        app.isHidden = true;
+        showApp();
+      }
+    },
+  },
+  {
+    type: 'separator',
+  },
   {
     label: 'New Invoice',
     accelerator: 'CmdOrCtrl+N',
     click() {
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'form');
     },
   },
@@ -25,7 +56,7 @@ const trayMenu = [
     label: 'Go to Invoices',
     accelerator: 'CmdOrCtrl+Shift+A',
     click() {
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'invoices');
     },
   },
@@ -33,7 +64,7 @@ const trayMenu = [
     label: 'Go to Contacts',
     accelerator: 'CmdOrCtrl+Shift+D',
     click() {
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'contacts');
     },
   },
@@ -41,7 +72,7 @@ const trayMenu = [
     label: 'Go to Statistics',
     accelerator: 'CmdOrCtrl+Shift+G',
     click() {
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'statistics');
     },
   },
@@ -49,7 +80,7 @@ const trayMenu = [
     label: 'Go to Settings',
     accelerator: 'CmdOrCtrl+Shift+S',
     click() {
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'settings');
     },
   },
