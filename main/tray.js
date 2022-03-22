@@ -56,12 +56,7 @@ const trayMenu = [
     label: 'Go to Invoices',
     accelerator: 'CmdOrCtrl+Shift+A',
     click() {
-      if (process.platform !== 'darwin') {
-        app.setSkipTaskbar(false);
-      } else {
-        app.dock.show();
-      }
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'invoices');
     },
   },
@@ -69,12 +64,7 @@ const trayMenu = [
     label: 'Go to Contacts',
     accelerator: 'CmdOrCtrl+Shift+D',
     click() {
-      if (process.platform !== 'darwin') {
-        app.setSkipTaskbar(false);
-      } else {
-        app.dock.show();
-      }
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'contacts');
     },
   },
@@ -82,12 +72,7 @@ const trayMenu = [
     label: 'Go to Statistics',
     accelerator: 'CmdOrCtrl+Shift+G',
     click() {
-      if (process.platform !== 'darwin') {
-        app.setSkipTaskbar(false);
-      } else {
-        app.dock.show();
-      }
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'statistics');
     },
   },
@@ -95,12 +80,7 @@ const trayMenu = [
     label: 'Go to Settings',
     accelerator: 'CmdOrCtrl+Shift+S',
     click() {
-      if (process.platform !== 'darwin') {
-        app.setSkipTaskbar(false);
-      } else {
-        app.dock.show();
-      }
-      mainWindow.show();
+      showApp();
       mainWindow.webContents.send('menu-change-tab', 'settings');
     },
   },
