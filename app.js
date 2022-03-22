@@ -131,7 +131,7 @@ function createMainWindow() {
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
     mainWindow.hide();
   });
-  
+
   mainWindow.on('close', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
@@ -526,5 +526,11 @@ function initialize() {
 
   console.timeEnd('init');
 }
+
+// Auto-Start
+app.setLoginItemSettings({
+  openAtLogin: true,
+  enabled: true,
+});
 
 initialize();
