@@ -497,50 +497,50 @@ function loadMainProcessFiles() {
 }
 
 function initialize() {
-  app.on('ready', () => {
-    if (!app.isDefaultProtocolClient('invoncify')) {
-      app.setAsDefaultProtocolClient('invoncify');
-    }
-    createTourWindow();
-    createMainWindow();
-    createPreviewWindow();
-    setInitialValues();
-    migrateData();
-    if (isDev) addDevToolsExtension();
-    addEventListeners();
-    loadMainProcessFiles();
-    // Show Tour Window
-    const { showWindow } = require('./main/tour');
-    showWindow('startup');
-  });
-  // Reactivate the app
-  app.on('activate', () => {
-    const { showWindow } = require('./main/tour');
-    showWindow('activate');
-  });
-  // Close all windows before quit the app
-  app.on('before-quit', () => {
-    // Use condition in case quit sequence is initiated by autoUpdater
-    // which will destroy all there windows already before emitting this event
-    if (tourWindow !== null) tourWindow.destroy();
-    if (mainWindow !== null) mainWindow.destroy();
-    if (previewWindow !== null) previewWindow.destroy();
-  });
-  app.on('open-url', (event, url) => {
-    ipcMain.send('open-dialog', {
-      type: 'warning',
-      title: 'Example',
-      message: url,
-    });
-  });
+  const gotTheLock = app.requestSingleInstanceLock();
 
-  console.timeEnd('init');
+  if (!gotTheLock) {
+    app.quit();
+  } else {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+      // Someone tried to run a second instance, we should focus our window.
+      if (mainWindow) {
+        if (mainWindow.isMinimized()) mainWindow.restore();
+        mainWindow.focus();
+      }
+    });
+
+    app.on('ready', () => {
+      if (!app.isDefaultProtocolClient('invoncify')) {
+        app.setAsDefaultProtocolClient('invoncify');
+      }
+      createTourWindow();
+      createMainWindow();
+      createPreviewWindow();
+      setInitialValues();
+      migrateData();
+      if (isDev) addDevToolsExtension();
+      addEventListeners();
+      loadMainProcessFiles();
+      // Show Tour Window
+      const { showWindow } = require('./main/tour');
+      showWindow('startup');
+    });
+    // Reactivate the app
+    app.on('activate', () => {
+      const { showWindow } = require('./main/tour');
+      showWindow('activate');
+    });
+    // Close all windows before quit the app
+    app.on('before-quit', () => {
+      // Use condition in case quit sequence is initiated by autoUpdater
+      // which will destroy all there windows already before emitting this event
+      if (tourWindow !== null) tourWindow.destroy();
+      if (mainWindow !== null) mainWindow.destroy();
+      if (previewWindow !== null) previewWindow.destroy();
+    });
+    console.timeEnd('init');
+  }
 }
 
-// Auto-Start
-app.setLoginItemSettings({
-  openAtLogin: true,
-  enabled: true,
-});
-
-initialize();
+initialize()
