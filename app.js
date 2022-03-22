@@ -537,4 +537,10 @@ function initialize() {
   console.timeEnd('init');
 }
 
+// Auto-Start
+app.setLoginItemSettings({
+  openAtLogin: true,
+  enabled: true,
+});
+
 initialize();
