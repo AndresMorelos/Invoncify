@@ -95,5 +95,9 @@
       "title": "Nota no válida",
       "message": "El contenido de la nota no puede quedar en blanco"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

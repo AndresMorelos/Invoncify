@@ -89,5 +89,9 @@
       "title": "Nota non valida",
       "message": "Il campo Nota non può essere vuoto"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

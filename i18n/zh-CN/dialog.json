@@ -89,5 +89,9 @@
       "title": "无效的备注",
       "message": "备注内容不能为空"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

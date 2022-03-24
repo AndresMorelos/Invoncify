@@ -89,5 +89,9 @@
       "title": "Catatan tidak sah",
       "message": "Konten catatan tidak boleh kosong"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

@@ -89,5 +89,9 @@
       "title": "Chú thích không hợp lệ",
       "message": "Nội dung chú thích không được để trống"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

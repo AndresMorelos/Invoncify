@@ -89,5 +89,9 @@
       "title": "Neplatná poznámka",
       "message": "Obsah poznámky nemôže byť prázdny"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }
