@@ -89,5 +89,9 @@
       "title": "غلط نوٹ",
       "message": "نوٹ کا مواد خالی نہیں ہو سکتا"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

@@ -18,6 +18,7 @@ import '@styles/form.css'
 import '@styles/contact.css'
 import '@styles/items.css'
 import '@styles/date-picker.css'
+import '@styles/tooltip.css'
 
 // Store
 const store = configureStore();

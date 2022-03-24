@@ -89,5 +89,9 @@
       "title": "Ungültige Notiz",
       "message": "Feld Notiz darf nicht leer sein"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

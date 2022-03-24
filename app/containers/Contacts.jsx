@@ -80,6 +80,7 @@ class Contacts extends PureComponent {
         key={contact._id}
         contact={contact}
         index={index}
+        t={t}
         deleteContact={this.deleteContact}
         newInvoice={this.newInvoice}
       />

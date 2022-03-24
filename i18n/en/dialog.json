@@ -99,5 +99,9 @@
       "title": "Invalid payment details",
       "message": "Payment details can not be blank"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }

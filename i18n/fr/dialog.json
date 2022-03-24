@@ -89,5 +89,9 @@
       "title": "Remarque non valide",
       "message": "Le contenu des remarques ne peut pas être vide"
     }
+  },
+  "events": {
+    "clickToCopy": "Click to copy",
+    "copied": "Copied!!"
   }
 }
