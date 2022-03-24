@@ -3,7 +3,7 @@ const VOLUME = 0.5;
 
 module.exports = {
   STARTUP: {
-    url: path.resolve(__dirname, '../static/sounds/minecraft/evocation.wav'),
+    url: path.resolve(__dirname, '../static/sounds/minecraft/opendoor.wav'),
     volume: VOLUME * 2,
   },
 
