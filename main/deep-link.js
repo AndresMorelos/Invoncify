@@ -25,6 +25,7 @@ app.on('open-url', (event, url) => {
       }
       case 'invoices': {
         mainWindow.webContents.send('menu-change-tab', 'invoices');
+        break;
       }
       case 'contacts': {
         mainWindow.webContents.send('menu-change-tab', 'contacts');

@@ -8,6 +8,7 @@ const mainWindowID = appConfig.getSync('mainWindowID');
 const mainWindow = BrowserWindow.fromId(mainWindowID);
 
 function showApp() {
+  app.isHidden = false;
   if (process.platform !== 'darwin') {
     app.setSkipTaskbar(false);
   } else {
@@ -17,6 +18,7 @@ function showApp() {
 }
 
 function hideApp() {
+  app.isHidden = true;
   if (process.platform !== 'darwin') {
     app.setSkipTaskbar(true);
   } else {
@@ -29,12 +31,10 @@ const trayMenu = [
   {
     label: 'Open/Hide Invoncify',
     click() {
-      if ([null, undefined, true].includes(app.isHidden)) {
-        app.isHidden = false;
-        hideApp();
-      } else {
-        app.isHidden = true;
+      if (app.isHidden === true) {
         showApp();
+      } else {
+        hideApp();
       }
     },
   },
