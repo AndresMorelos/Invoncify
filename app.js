@@ -129,6 +129,7 @@ function createMainWindow() {
   mainWindow.on('minimize', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
+    app.isHidden = true;
     if (process.platform !== 'darwin') {
       app.setSkipTaskbar(true);
     } else {
@@ -140,6 +141,7 @@ function createMainWindow() {
   mainWindow.on('close', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
+    app.isHidden = true;
     if (process.platform !== 'darwin') {
       app.setSkipTaskbar(true);
     } else {
