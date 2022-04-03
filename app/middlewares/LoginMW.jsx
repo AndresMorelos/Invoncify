@@ -13,6 +13,7 @@ const LoginMW = ({ dispatch, getState }) => next => action => {
             sessionStorage.setItem('secretKey', action.payload)
             const result = ipc.sendSync('secret-key-updated', { secretKey: action.payload });
             if (result && result.pass) {
+                ipc.send('check-for-updates');
                 next({
                     type: ACTION_TYPES.LOGIN_SET_SECRET,
                     payload: action.payload
