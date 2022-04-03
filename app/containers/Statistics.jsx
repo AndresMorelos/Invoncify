@@ -33,8 +33,6 @@ import {
 
 // Selectors
 import { getInvoices } from '../reducers/InvoicesReducer';
-const ipc = require('electron').ipcRenderer;
-const openDialog = require('../renderers/dialog.js');
 
 const ContainerDiv = styled.div`
   display: grid;
@@ -96,16 +94,16 @@ class Statistics extends PureComponent {
     );
 
     const calendarDataInvoices = invoices.map((invoice) => {
-      if(invoice.updated_at) {
+      if (invoice.updated_at) {
         return {
           ...invoice,
           updated_at: formatDate(new Date(invoice.updated_at)),
-        }
+        };
       }
       return {
         ...invoice,
         updated_at: formatDate(new Date(invoice.created_at)),
-      }
+      };
     });
 
     const calendarData = processCalendarData(

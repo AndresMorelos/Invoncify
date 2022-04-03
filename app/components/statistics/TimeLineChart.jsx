@@ -29,7 +29,7 @@ class TimeLineChart extends PureComponent {
           type: 'linear',
           stacked: false,
         }}
-        yFormat=" >-$.2f"
+        yFormat=">-.2f"
         axisLeft={{
           legend: yLegend,
           legendOffset: -60,
