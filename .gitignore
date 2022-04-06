@@ -6,3 +6,4 @@
 /monitor
 .DS_Store
 /entrypoint
+.electron-symbols
