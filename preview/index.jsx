@@ -8,6 +8,9 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import Logger from 'redux-logger';
+// eslint-disable-next-line import/no-unresolved
+import * as Sentry from '@sentry/electron/renderer';
+import { BrowserTracing } from '@sentry/tracing';
 import i18n from '../i18n/i18n';
 import ErrorBoundary from '../app/components/shared/ErrorBoundary';
 
@@ -23,6 +26,12 @@ import '@styles/general.css'
 import '@styles/preview/font.css'
 import '@styles/preview/print.css'
 
+
+Sentry.init({
+  dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 0.2
+});
 
 // Middleware
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -15,9 +15,9 @@ let silentMode = true;
 
 // HANDLING IPC
 // Check for updates manually
-ipcMain.on('check-for-updates', event => {
+ipcMain.on('check-for-updates', (event, { silent }) => {
   // Turn off silent mode first
-  silentMode = false;
+  silentMode = silent || false;
   checkForUpdate();
 });
 
@@ -36,7 +36,7 @@ autoUpdater.on('checking-for-update', () => {
 });
 
 // Update Available
-autoUpdater.on('update-available', info => {
+autoUpdater.on('update-available', (info) => {
   mainWindow.send('update-available', info);
 });
 
@@ -49,24 +49,24 @@ autoUpdater.on('update-not-available', () => {
 });
 
 // Update Error
-autoUpdater.on('error', error => {
+autoUpdater.on('error', (error) => {
   let errMessage;
   if (error == null) {
     errMessage = 'Unknown Error';
   } else {
     errMessage = error.message;
-  };
+  }
   mainWindow.send('update-error', errMessage);
 });
 
 // DOWNLOADING UPDATE EVENTS
 // Download Progress
-autoUpdater.on('download-progress', progressObj => {
+autoUpdater.on('download-progress', (progressObj) => {
   mainWindow.send('update-download-progress', progressObj.percent);
 });
 
 // Update Downloaded
-autoUpdater.on('update-downloaded', info => {
+autoUpdater.on('update-downloaded', (info) => {
   mainWindow.send('update-downloaded', info);
 });
 

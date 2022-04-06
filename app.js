@@ -8,11 +8,25 @@ const path = require('path');
 const glob = require('glob');
 const isDev = require('electron-is-dev');
 const omit = require('lodash').omit;
+// eslint-disable-next-line import/no-unresolved
+const Sentry = require('@sentry/electron/main');
 
 // Electron Libs
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
 
+// 3rd Party Libs
+const appConfig = require('electron-settings');
+require('dotenv').config();
+
+
+const electronRemoteMain = require('@electron/remote/main');
+electronRemoteMain.initialize();
+
+Sentry.init({
+  environment: !(process.env.isDev === 'true') ? 'production' : 'development',
+  dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
+});
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');
 const windowStateKeeper = require('./helpers/windowStateKeeper');
@@ -24,12 +38,6 @@ if (process.argv.includes('--disable-hardware-acceleration')) {
   app.disableHardwareAcceleration();
 }
 
-// 3rd Party Libs
-const appConfig = require('electron-settings');
-require('dotenv').config();
-
-const electronRemoteMain = require('@electron/remote/main');
-electronRemoteMain.initialize();
 
 let tourWindow = null;
 let mainWindow = null;
@@ -545,4 +553,4 @@ function initialize() {
   }
 }
 
-initialize()
+initialize();
