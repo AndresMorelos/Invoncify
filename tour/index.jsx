@@ -20,7 +20,7 @@ import '@styles/general.css'
 Sentry.init({
   dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
   integrations: [new BrowserTracing()],
-  tracesSampleRate: 0.2
+  tracesSampleRate: 0.5
 });
 
 
