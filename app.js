@@ -19,10 +19,13 @@ const { autoUpdater } = require('electron-updater');
 const appConfig = require('electron-settings');
 require('dotenv').config();
 
+const { enableMetrics = true } = appConfig.getSync('general');
+
 const electronRemoteMain = require('@electron/remote/main');
 electronRemoteMain.initialize();
 
 Sentry.init({
+  enabled: enableMetrics,
   environment: !(process.env.isDev === 'true') ? 'production' : 'development',
   dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
 });
@@ -289,6 +292,7 @@ function setInitialValues() {
       tayIconL: true,
       checkUpdate: 'daily',
       lastCheck: Date.now(),
+      enableMetrics: true,
     },
     invoice: {
       exportDir: os.homedir(),
@@ -455,8 +459,8 @@ function migrateData() {
 
     5: (configs) => {
       // Return current configs if this is the first time install
-      const { trayIcon } = configs.general;
-      if (trayIcon !== undefined) {
+      const { trayIcon, enableMetrics } = configs.general;
+      if (trayIcon !== undefined && enableMetrics !== undefined) {
         return configs;
       }
 
@@ -466,6 +470,7 @@ function migrateData() {
         general: {
           ...configs.general,
           trayIcon: true,
+          enableMetrics: true,
         },
       };
     },

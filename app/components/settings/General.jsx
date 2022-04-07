@@ -30,7 +30,7 @@ class General extends Component {
 
   render() {
     const { t, exportData, importData } = this.props;
-    const { sound, muted, language, previewPDF, trayIcon } = this.state;
+    const { sound, muted, language, previewPDF, trayIcon, enableMetrics } = this.state;
     return (
       <div>
         <div className="row">
@@ -121,19 +121,38 @@ class General extends Component {
             </div>
           </div>
           <div className="col-md-6">
-          <div className="pageItem">
-            <label className="itemLabel">{t('settings:fields:trayIcon')}</label>
-            <label className="switch">
-              <input
-                name="trayIcon"
-                type="checkbox"
-                checked={trayIcon}
-                onChange={this.handleInputChange}
-              />
-              <span className="slider round" />
-            </label>
+            <div className="pageItem">
+              <label className="itemLabel">{t('settings:fields:trayIcon')}</label>
+              <label className="switch">
+                <input
+                  name="trayIcon"
+                  type="checkbox"
+                  checked={trayIcon}
+                  onChange={this.handleInputChange}
+                />
+                <span className="slider round" />
+              </label>
+            </div>
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="pageItem" />
+          </div>
+          <div className="col-md-6">
+            <div className="pageItem">
+              <label className="itemLabel">{t('settings:fields:sendMetricsAnon')}</label>
+              <label className="switch">
+                <input
+                  name="enableMetrics"
+                  type="checkbox"
+                  checked={enableMetrics}
+                  onChange={this.handleInputChange}
+                />
+                <span className="slider round" />
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     );
