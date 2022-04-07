@@ -1,0 +1,23 @@
+{
+  "header": {
+    "name": "Све фактуре"
+  },
+  "fields": {
+    "client": "Клијент",
+    "invoiceID": "ID фактуре",
+    "createdDate": "Креирано",
+    "dueDate": "Датум валуте",
+    "total": "Укупна вредност"
+  },
+  "status": {
+    "pending": "На чекању",
+    "paid": "Плаћено",
+    "refunded": "Рефундирано",
+    "cancelled": "Отказано"
+  },
+  "btns": {
+    "view": "Преглед",
+    "edit": "Уреди",
+    "markAsPaid": "Означи као плаћено"
+  }
+}

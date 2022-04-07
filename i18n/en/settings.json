@@ -61,7 +61,8 @@
       "ur-PK": "Urdu (Pakistan)",
       "vi": "Vietnamese",
       "zh-CN": "Chinese (Simplified)",
-      "zh-TW": "Chinese (Traditional)"
+      "zh-TW": "Chinese (Traditional)",
+      "sr": "Serbian (Cyrillic)"
     },
     "importExport": {
       "name": "Import/Export",
