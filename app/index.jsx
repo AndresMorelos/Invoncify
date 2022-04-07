@@ -13,6 +13,8 @@ import i18n from '../i18n/i18n';
 // Root Component
 import App from './App';
 
+const appConfig = require('@electron/remote').require('electron-settings');
+
 import '@styles/bootstrap.min.css';
 import '@styles/ionicons.min.css';
 import '@styles/general.css';
@@ -24,9 +26,10 @@ import '@styles/date-picker.css';
 import '@styles/tooltip.css';
 
 Sentry.init({
+  enabled: appConfig.getSync('general.enableMetrics'),
   dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
   integrations: [new BrowserTracing()],
-  tracesSampleRate: 0.5
+  tracesSampleRate: 0.5,
 });
 
 // Store
