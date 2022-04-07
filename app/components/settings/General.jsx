@@ -82,6 +82,7 @@ class General extends Component {
                 <option value="ur-PK">{t('settings:fields:language:ur-PK', { lng: 'ur-PK' })}</option>
                 <option value="vi">{t('settings:fields:language:vi', { lng: 'vi' })}</option>
                 <option value="zh-CN">{t('settings:fields:language:zh-CN', { lng: 'zh-CN' })}</option>
+                <option value="sr">{t('settings:fields:language:sr', { lng: 'sr' })}</option>
               </select>
             </div>
           </div>

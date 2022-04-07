@@ -1,0 +1,43 @@
+{
+  "sidebar": {
+    "template": "Шаблон",
+    "alignment": {
+      "name": "Поравнавање",
+      "top": "Врх",
+      "middle": "Средина",
+      "bottom": "Дно"
+    },
+    "fontSize": "Величина фонта",
+    "logoSize": "Величина логотипа",
+    "toggle": {
+      "name": "Укључи/Искључи",
+      "logo": "Лого",
+      "symbol": "Симбол",
+      "recipient": "Прималац"
+    },
+    "accentColor": {
+      "name": "Боја за наглашавање",
+      "useCustom": "Користи сопствено"
+    },
+    "actions": {
+      "name": "Радње",
+      "savePDF": "Извези PDF",
+      "saveConfigs": "Сачувај конфигурацију"
+    }
+  },
+  "common": {
+    "billedTo": "Плаћа",
+    "chooseInvoiceToPreview": "Одаберите фактуру за преглед",
+    "created": "Креирано",
+    "due": "Рок",
+    "invoice": "Фактура",
+    "quote": "Понуда",
+    "itemDescription": "Опис Ставке",
+    "notice": "Напомена",
+    "order": "Не",
+    "price": "Цена",
+    "qty": "Количина",
+    "subtotal": "Међузбир",
+    "total": "Укупно"
+  }
+}

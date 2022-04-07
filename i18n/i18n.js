@@ -12,6 +12,7 @@ import esES from './esES'
 import urPK from './ur-PK';
 import vi from './vi';
 import zhCN from './zh-CN';
+import sr from './sr';
 const moment = require('moment');
 const appConfig = require('@electron/remote').require('electron-settings');
 
@@ -32,7 +33,8 @@ i18n.use(initReactI18next).init({
     esES,
     "ur-PK": urPK,
     vi,
-    "zh-CN": zhCN
+    "zh-CN": zhCN,
+    sr
   },
   interpolation: {
     function(value, format, lng) {
