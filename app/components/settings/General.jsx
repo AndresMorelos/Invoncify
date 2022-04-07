@@ -30,7 +30,7 @@ class General extends Component {
 
   render() {
     const { t, exportData, importData } = this.props;
-    const { sound, muted, language, previewPDF } = this.state;
+    const { sound, muted, language, previewPDF, trayIcon } = this.state;
     return (
       <div>
         <div className="row">
@@ -101,7 +101,7 @@ class General extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-6">
             <div className="pageItem">
               <label className="itemLabel">{t('settings:fields:importExport:name')}</label>
               <Button style={{ marginRigth: '1em' }} primary onClick={exportData}>
@@ -120,6 +120,20 @@ class General extends Component {
               </p>
             </div>
           </div>
+          <div className="col-md-6">
+          <div className="pageItem">
+            <label className="itemLabel">{t('settings:fields:trayIcon')}</label>
+            <label className="switch">
+              <input
+                name="trayIcon"
+                type="checkbox"
+                checked={trayIcon}
+                onChange={this.handleInputChange}
+              />
+              <span className="slider round" />
+            </label>
+          </div>
+        </div>
         </div>
       </div>
     );
