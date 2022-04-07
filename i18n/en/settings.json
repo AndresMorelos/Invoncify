@@ -17,6 +17,7 @@
     "pdfExportDir": "PDF Export Directory",
     "requiredFields": "Required Fields",
     "sound": "Sound",
+    "trayIcon": "Menu Bar Icon",
     "mute": "Mute",
     "autoCheckUpdate": {
       "name": "Auto Check for Update",

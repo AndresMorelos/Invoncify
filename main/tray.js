@@ -1,7 +1,17 @@
+/* eslint-disable no-undef */
 const path = require('path');
 // Libs
-const { app, nativeImage, Menu, Tray, BrowserWindow } = require('electron');
+const {
+  app,
+  nativeImage,
+  Menu,
+  Tray,
+  BrowserWindow,
+  ipcMain,
+} = require('electron');
 const appConfig = require('electron-settings');
+
+const { trayIcon } = appConfig.getSync('general');
 
 // Get mainWindow Object
 const mainWindowID = appConfig.getSync('mainWindowID');
@@ -94,7 +104,7 @@ const trayMenu = [
   },
 ];
 
-app.whenReady().then(() => {
+function buildTray() {
   // Build the menu
   const menu = Menu.buildFromTemplate(trayMenu);
 
@@ -115,4 +125,22 @@ app.whenReady().then(() => {
   }
 
   tray.setContextMenu(menu);
+}
+
+if (trayIcon) {
+  app.whenReady().then(() => {
+    buildTray();
+  });
+}
+
+ipcMain.on('destroy-tray', () => {
+  try {
+    tray.destroy();
+  } catch (error) {
+    console.error('Error destroying tray');
+  }
+});
+
+ipcMain.on('show-tray', () => {
+  buildTray();
 });
