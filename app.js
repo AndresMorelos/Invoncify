@@ -19,7 +19,6 @@ const { autoUpdater } = require('electron-updater');
 const appConfig = require('electron-settings');
 require('dotenv').config();
 
-
 const electronRemoteMain = require('@electron/remote/main');
 electronRemoteMain.initialize();
 
@@ -37,7 +36,6 @@ const forceDevtools = process.argv.includes('--force-devtools');
 if (process.argv.includes('--disable-hardware-acceleration')) {
   app.disableHardwareAcceleration();
 }
-
 
 let tourWindow = null;
 let mainWindow = null;
@@ -288,6 +286,7 @@ function setInitialValues() {
       sound: 'default',
       muted: false,
       previewPDF: true,
+      tayIconL: true,
       checkUpdate: 'daily',
       lastCheck: Date.now(),
     },
@@ -450,6 +449,23 @@ function migrateData() {
           salt: generaterRandmBytes(),
           validation: null,
           dataMigrated: false,
+        },
+      };
+    },
+
+    5: (configs) => {
+      // Return current configs if this is the first time install
+      const { trayIcon } = configs.general;
+      if (trayIcon !== undefined) {
+        return configs;
+      }
+
+      // Update current configs
+      return {
+        ...configs,
+        general: {
+          ...configs.general,
+          trayIcon: true,
         },
       };
     },
