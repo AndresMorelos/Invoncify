@@ -24,7 +24,7 @@
       "weekly": "Сваке недеље"
     },
     "currency": {
-      "placement": "Место за потпис",
+      "placement": "Место за ознаку валуте",
       "afterAmount": "После износа",
       "beforeAmount": "Пре износа",
       "fraction": "Децимални зарез",
