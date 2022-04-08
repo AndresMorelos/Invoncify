@@ -15,7 +15,7 @@ let silentMode = true;
 
 // HANDLING IPC
 // Check for updates manually
-ipcMain.on('check-for-updates', (event, { silent }) => {
+ipcMain.on('check-for-updates', (event, { silent = false }) => {
   // Turn off silent mode first
   silentMode = silent || false;
   checkForUpdate();

@@ -16,7 +16,7 @@ const aboutMenu = {
       label: 'Check For Updates',
       accelerator: 'CmdOrCtrl+U',
       click() {
-        ipc.send('check-for-updates');
+        ipc.send('check-for-updates', { silent: false });
       },
     },
 
@@ -220,7 +220,7 @@ if (process.platform !== 'darwin') {
     label: 'Check For Updates',
     accelerator: 'CmdOrCtrl+U',
     click() {
-      ipc.send('check-for-updates');
+      ipc.send('check-for-updates', { silent: false });
     },
   });
 }
