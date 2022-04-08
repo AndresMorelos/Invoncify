@@ -20,7 +20,7 @@ const mainWindow = BrowserWindow.fromId(mainWindowID);
 function showApp() {
   app.isHidden = false;
   if (process.platform !== 'darwin') {
-    app.setSkipTaskbar(false);
+    mainWindow.setSkipTaskbar(false);
   } else {
     app.dock.show();
   }
@@ -30,7 +30,7 @@ function showApp() {
 function hideApp() {
   app.isHidden = true;
   if (process.platform !== 'darwin') {
-    app.setSkipTaskbar(true);
+    mainWindow.setSkipTaskbar(true);
   } else {
     app.dock.hide();
   }

@@ -19,13 +19,16 @@ const { autoUpdater } = require('electron-updater');
 const appConfig = require('electron-settings');
 require('dotenv').config();
 
-const { enableMetrics = true } = appConfig.getSync('general');
+const generalConfig = appConfig.getSync('general');
 
 const electronRemoteMain = require('@electron/remote/main');
 electronRemoteMain.initialize();
 
 Sentry.init({
-  enabled: enableMetrics,
+  enabled:
+    generalConfig && generalConfig.enableMetrics
+      ? generalConfig.enableMetrics
+      : true,
   environment: !(process.env.isDev === 'true') ? 'production' : 'development',
   dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
 });
@@ -140,7 +143,7 @@ function createMainWindow() {
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
     app.isHidden = true;
     if (process.platform !== 'darwin') {
-      app.setSkipTaskbar(true);
+      mainWindow.setSkipTaskbar(true);
     } else {
       app.dock.hide();
     }
@@ -152,7 +155,7 @@ function createMainWindow() {
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
     app.isHidden = true;
     if (process.platform !== 'darwin') {
-      app.setSkipTaskbar(true);
+      mainWindow.setSkipTaskbar(true);
     } else {
       app.dock.hide();
     }
@@ -545,11 +548,11 @@ function initialize() {
       if (!app.isDefaultProtocolClient('invoncify')) {
         app.setAsDefaultProtocolClient('invoncify');
       }
+      setInitialValues();
+      migrateData();
       createTourWindow();
       createMainWindow();
       createPreviewWindow();
-      setInitialValues();
-      migrateData();
       if (isDev) addDevToolsExtension();
       addEventListeners();
       loadMainProcessFiles();
