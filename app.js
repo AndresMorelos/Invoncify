@@ -31,6 +31,7 @@ Sentry.init({
       : true,
   environment: !(process.env.isDev === 'true') ? 'production' : 'development',
   dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
+  normalizeDepth: 100,
 });
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');

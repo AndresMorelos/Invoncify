@@ -17,8 +17,19 @@ import SettingsMW from '../middlewares/SettingsMW';
 import UIMiddleware from '../middlewares/UIMiddleware';
 import ExportImportMW from '../middlewares/ExportImportMW';
 
+// Enhancers
+import sentryReduxEnhancer from './enhancer';
+
 // Default Middlewares
-const middlewares = [LoginMW, FormMW, ContactsMW, InvoicesMW, SettingsMW, UIMiddleware, ExportImportMW];
+const middlewares = [
+  LoginMW,
+  FormMW,
+  ContactsMW,
+  InvoicesMW,
+  SettingsMW,
+  UIMiddleware,
+  ExportImportMW,
+];
 
 // Dev Mode Middlewares
 if (process.env.isDev === 'true') {
@@ -33,7 +44,7 @@ export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(applyMiddleware(...middlewares))
+    composeEnhancers(applyMiddleware(...middlewares), sentryReduxEnhancer)
   );
   return store;
 }
