@@ -105,37 +105,44 @@ const trayMenu = [
 ];
 
 function buildTray() {
-  // Build the menu
-  const menu = Menu.buildFromTemplate(trayMenu);
+  if ([null, undefined, false].includes(app.isTrayCreated)) {
+    // Build the menu
+    const menu = Menu.buildFromTemplate(trayMenu);
 
-  const pathImg = path.resolve(
-    __dirname,
-    '..',
-    'static',
-    'imgs',
-    'tray_icon.png'
-  );
+    const pathImg = path.resolve(
+      __dirname,
+      '..',
+      'static',
+      'imgs',
+      'tray_icon.png'
+    );
 
-  const image = nativeImage.createFromPath(pathImg);
+    const image = nativeImage.createFromPath(pathImg);
 
-  tray = new Tray(image.resize({ width: 16, height: 16 }));
+    tray = new Tray(image.resize({ width: 16, height: 16 }));
 
-  if (process.platform === 'win32') {
-    tray.on('click', tray.popUpContextMenu);
+    if (process.platform === 'win32') {
+      tray.on('click', tray.popUpContextMenu);
+    }
+
+    tray.setContextMenu(menu);
+
+    app.isTrayCreated = true;
   }
-
-  tray.setContextMenu(menu);
 }
 
 if (trayIcon) {
   app.whenReady().then(() => {
     buildTray();
   });
+} else {
+  app.isTrayCreated = false;
 }
 
 ipcMain.on('destroy-tray', () => {
   try {
     tray.destroy();
+    app.isTrayCreated = false;
   } catch (error) {
     console.error('Error destroying tray');
   }
