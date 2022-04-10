@@ -12,11 +12,11 @@ const LoginMW =
         return secretKey;
       }
       case ACTION_TYPES.LOGIN_SET_SECRET: {
-        sessionStorage.setItem('secretKey', action.payload);
         const result = ipc.sendSync('secret-key-updated', {
           secretKey: action.payload,
         });
         if (result && result.pass) {
+          sessionStorage.setItem('secretKey', action.payload);
           ipc.send('check-for-updates', { silent: true });
           next({
             type: ACTION_TYPES.LOGIN_SET_SECRET,
