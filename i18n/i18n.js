@@ -8,11 +8,12 @@ import fr from './fr';
 import id from './id';
 import it from './it';
 import sk from './sk';
-import esES from './esES'
+import esES from './esES';
 import urPK from './ur-PK';
 import vi from './vi';
 import zhCN from './zh-CN';
 import sr from './sr';
+import nl from './nl';
 const moment = require('moment');
 const appConfig = require('@electron/remote').require('electron-settings');
 
@@ -31,10 +32,11 @@ i18n.use(initReactI18next).init({
     it,
     sk,
     esES,
-    "ur-PK": urPK,
+    'ur-PK': urPK,
     vi,
-    "zh-CN": zhCN,
-    sr
+    'zh-CN': zhCN,
+    sr,
+    nl,
   },
   interpolation: {
     function(value, format, lng) {
@@ -50,7 +52,7 @@ i18n.use(initReactI18next).init({
   },
 });
 
-i18n.on('languageChanged', currentLang => {
+i18n.on('languageChanged', (currentLang) => {
   moment.locale(currentLang);
 });
 

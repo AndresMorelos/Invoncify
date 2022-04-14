@@ -1,0 +1,78 @@
+{
+  "header": {
+    "new": "Nieuwe factuur aanmaken",
+    "edit": "Factuur bewerken",
+    "btns": {
+      "clear": "Wissen",
+      "update": "Bijwerken",
+      "saveAndPreview": "Sla op en toon het voorbeeld"
+    }
+  },
+  "settings": {
+    "name": "Formulierinstellingen",
+    "hint": "Selecteer alle velden om verplicht te maken"
+  },
+  "fields": {
+    "items": {
+      "name": "Product/dienst",
+      "description": "Beschrijving",
+      "price": "Prijs",
+      "quantity": "Aantal",
+      "add": "Nieuw item toevoegen"
+    },
+    "recipient": {
+      "name": "Ontvanger",
+      "select": "Selecteer",
+      "add": "Nieuwe aanmaken"
+    },
+    "discount": {
+      "name": "Korting",
+      "percentage": "Percentage",
+      "flat": "Vast tarief"
+    },
+    "createAtDate": {
+      "name": "Gemaakt op",
+      "placeHolder": "Selecteer een datum"
+    },
+    "dueDate": {
+      "name": "Vervaldatum",
+      "placeHolder": "Selecteer een datum",
+      "paymentTerms": {
+        "name": "Selecteer een betalingstermijn",
+        "net7": {
+          "label": "Netto 7",
+          "description": "Betaling zeven dagen na factuurdatum"
+        },
+        "net10": {
+          "label": "Netto 10",
+          "description": "Betaling tien dagen na factuurdatum"
+        },
+        "net30": {
+          "label": "Netto 30",
+          "description": "Betaling 30 dagen na factuurdatum"
+        },
+        "net60": {
+          "label": "Netto 60",
+          "description": "Betaling 60 dagen na factuurdatum"
+        },
+        "net90": {
+          "label": "Netto 90",
+          "description": "Betaling 90 dagen na factuurdatum"
+        }
+      }
+    },
+    "tax": {
+      "name": "BTW",
+      "id": "BTW-nummer",
+      "method": "Methode",
+      "reverse": "Inclusief BTW"
+    },
+    "note": "Opmerking",
+    "currency": "Munt",
+    "payment": {
+      "name": "Betaling",
+      "details": "Betaalgegevens",
+      "description": "Bankrekeningen, digitale betaalopties of andere betalingsgerelateerde informatie"
+    }
+  }
+}

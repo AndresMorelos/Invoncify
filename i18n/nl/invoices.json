@@ -1,0 +1,23 @@
+{
+  "header": {
+    "name": "Alle facturen"
+  },
+  "fields": {
+    "client": "Klant",
+    "invoiceID": "Factuurnummer",
+    "createdDate": "Gemaakt op",
+    "dueDate": "Vervaldatum",
+    "total": "Totaal Bedrag"
+  },
+  "status": {
+    "pending": "In behandeling",
+    "paid": "Betaald\n",
+    "refunded": "Terugbetaald",
+    "cancelled": "Geannuleerd"
+  },
+  "btns": {
+    "view": "Weergeven",
+    "edit": "Bewerken",
+    "markAsPaid": "Markeren als betaald"
+  }
+}

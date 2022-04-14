@@ -1,0 +1,33 @@
+{
+  "actions": {
+    "skip": "Overslaan",
+    "next": "Volgende",
+    "start": "Start met factureren"
+  },
+  "slides": {
+    "welcome": {
+      "heading": "👋 Hallo",
+      "description": "Bedankt voor het proberen van Invoncify. Graag laten wij zien hoe u een verbluffend factuur maakt met slechts 4 eenvoudige stappen"
+    },
+    "create": {
+      "heading": "Stap 1. Aanmaken",
+      "description": "Invoncify is een flexibele vorm-interface. Het houdt dingen standaard en eenvoudig. U kunt natuurlijk extra velden in en uitschakelen wanneer u deze nodig heeft."
+    },
+    "preview": {
+      "heading": "Stap 2. Personaliseren",
+      "description": "Invoncify is voorzien van professioneel ogende sjablonen die verder kunnen worden aangepast aan de stijl van uw bedrijf."
+    },
+    "encryption": {
+      "heading": "Stap 3. Encryptie",
+      "description": "Invoncify voorziet end-to-end versleuteling die uw informatie beschermt en u ook de mogelijkheid geeft om uw gegevens veilig te exporteren of te importeren."
+    },
+    "save": {
+      "heading": "Stap 4. Opslaan",
+      "description": "Eenmaal tevreden met het uiterlijk van de factuur kunt u deze opslaan als PDF om deze vervolgens uit te printen of te mailen. Laten we gebruik maken van Invoncify om indruk te maken op uw klanten!"
+    },
+    "success": {
+      "heading": "Voltooid!!! ✋️",
+      "description": "Dat was het al weer! De 4 eenvoudige stappen voor het maken van een prachtig factuur met Invoncify. Vergeet niet om vooraf het bedrijfsprofiel in te stellen met uw logo en bedrijfsinformatie, zodat uw klanten ook weten dat dit uw factuur is."
+    }
+  }
+}

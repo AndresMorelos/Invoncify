@@ -1,0 +1,78 @@
+{
+  "header": "Instellingen",
+  "tabs": {
+    "profile": "Profiel",
+    "invoice": "Factuur",
+    "general": "Algemeen"
+  },
+  "fields": {
+    "logo": {
+      "name": "Logo",
+      "hint": "Accepteert .PNG, .JPG en .SVG (aanbevolen)"
+    },
+    "taxSettings": "Btw instellingen",
+    "paymentSettings": "Betalingsinstellingen",
+    "template": "Sjabloon",
+    "dateFormat": "Datumformaat",
+    "pdfExportDir": "PDF exporteer locatie",
+    "requiredFields": "Verplichte velden",
+    "sound": "Geluid",
+    "trayIcon": "Menubalkitem",
+    "sendMetricsAnon": "Stuur App Metrics Anoniem",
+    "mute": "Dempen",
+    "autoCheckUpdate": {
+      "name": "Check automatisch voor updates",
+      "daily": "Dagelijks (aanbevolen)",
+      "weekly": "Wekelijks"
+    },
+    "currency": {
+      "placement": "Plaatsing scheidingsteken",
+      "afterAmount": "Na bedrag",
+      "beforeAmount": "Voor bedrag",
+      "fraction": "Decimalen",
+      "separator": "Scheidingsteken",
+      "commaDot": "Komma & Punt",
+      "dotComma": "Punt & Komma",
+      "spaceDot": "Spatie en Punt"
+    },
+    "openPDFReader": "Open PDF na het exporteren",
+    "language": {
+      "name": "Taal",
+      "ar": "Arabisch",
+      "cs": "Tsjechisch",
+      "da": "Deens",
+      "de": "Duits",
+      "el": "Grieks",
+      "en": "Engels",
+      "esES": "Spaans",
+      "fr": "Frans",
+      "id": "Indonesisch",
+      "it": "Italiaans",
+      "ja": "Japans",
+      "ko": "Koreaans",
+      "lt": "Litouws",
+      "nl": "Nederlands",
+      "ptBR": "Portugees, Braziliaans",
+      "ptPT": "Portugees",
+      "ru": "Russisch",
+      "sk": "Slowaaks",
+      "th": "Thais",
+      "tl": "Tagalog, Philippines",
+      "tr": "Turks",
+      "ur-PK": "Urdu (Pakistan)",
+      "vi": "Vietnamees",
+      "zh-CN": "Chinees (vereenvoudigd)",
+      "zh-TW": "Chinees (traditioneel)"
+    },
+    "importExport": {
+      "name": "Importeren/Exporteren",
+      "import": "Importeer",
+      "export": "Exporteer",
+      "information": {
+        "label": "Opmerking:",
+        "info": "De exportactie exporteert uw contactpersoon en facturen worden gecodeerd, ook de basisinstellingen voor versleuteling worden geëxporteerd"
+      }
+    },
+    "other": "Anders"
+  }
+}
