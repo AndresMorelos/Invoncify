@@ -30,6 +30,10 @@
       "percentage": "Проценат",
       "flat": "Фиксна стопа"
     },
+    "createAtDate": {
+      "name": "Датум креирања",
+      "placeHolder": "Одаберите датум"
+    },
     "dueDate": {
       "name": "Датум валуте",
       "placeHolder": "Одабери датум",

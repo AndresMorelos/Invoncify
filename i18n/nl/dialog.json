@@ -1,0 +1,101 @@
+{
+  "appUpdate": {
+    "available": {
+      "title": "Nieuwe update beschikbaar",
+      "message": "Wilt u de update op de achtergrond starten?"
+    },
+    "noUpdate": {
+      "title": "Er zijn momenteel geen updates beschikbaar",
+      "message": "U maakt al gebruik van de meest recente versie"
+    },
+    "error": {
+      "title": "Er is een fout opgetreden"
+    },
+    "downloaded": {
+      "title": "Update gedownload",
+      "message": "Wilt u het programma afsluiten om een upgrade uit te voeren?",
+      "quitNow": "Nu afsluiten",
+      "later": "Later"
+    }
+  },
+  "noAccess": {
+    "title": "Geen toegang",
+    "message": "Kies een andere map"
+  },
+  "errorBoundary": "Er is een fout opgetreden",
+  "deleteInvoice": {
+    "title": "Wilt u deze factuur verwijderen?",
+    "message": "De factuur wordt permanent uit de database verwijderd"
+  },
+  "deleteContact": {
+    "title": "Deze contactpersoon verwijderen?",
+    "message": "De contactpersoon wordt permanent uit de database verwijderd"
+  },
+  "fileTypeErr": {
+    "title": "Kies alstublieft een ander bestand."
+  },
+  "validation": {
+    "invoiceID": {
+      "title": "Ongeldig factuurnummer",
+      "message": "Factuurnummer kan niet leeg zijn"
+    },
+    "recipient": {
+      "empty": {
+        "title": "Ongeldige contactpersoon",
+        "message": "Contact mag niet leeg zijn"
+      },
+      "requiredFields": {
+        "title": "Verplicht veld",
+        "message": "Vul alle vereiste velden in"
+      },
+      "email": {
+        "title": "Ongeldig e-mailadres",
+        "message": "Kies alstublieft een ander e-mailadres."
+      }
+    },
+    "rows": {
+      "emptyDescription": {
+        "title": "Ongeldige beschrijving",
+        "message": "{description} kan niet leeg zijn"
+      },
+      "priceZero": {
+        "title": "Ongeldige prijs",
+        "message": "De totaalprijs moet hoger zijn dan nul"
+      },
+      "qtyZero": {
+        "title": "Ongeldige hoeveelheid",
+        "message": "Hoeveelheid moet groter zijn dan nul"
+      }
+    },
+    "dueDate": {
+      "title": "Ongeldige vervaldatum",
+      "message": "Selecteer een datum"
+    },
+    "currency": {
+      "fraction": {
+        "title": "Ongeldige breuk",
+        "message": "Aantal decimalen moet groter dan of gelijk aan nul zijn"
+      }
+    },
+    "discount": {
+      "title": "Ongeldige korting",
+      "message": "Kortingsbedrag moet groter zijn dan nul"
+    },
+    "tax": {
+      "title": "Ongeldige BTW",
+      "message": "Het BTW-bedrag dient groter te zijn dan nul."
+    },
+    "note": {
+      "title": "Ongeldige opmerking!",
+      "message": "Opmerking mag niet leeg zijn"
+    },
+    "payment": {
+      "title": "Ongeldige betalingssdetails",
+      "message": "Betalingsgegevens mogen niet leeg zijn"
+    }
+  },
+  "events": {
+    "clickToCopy": "Klik om te kopiëren",
+    "copied": "Gekopieerd!"
+  }
+}

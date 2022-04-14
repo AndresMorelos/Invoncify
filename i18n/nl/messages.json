@@ -1,0 +1,20 @@
+{
+  "noContact": "U heeft nog geen contactpersonen",
+  "noInvoice": "Er is nog geen enkel factuur aangemaakt",
+  "invoice": {
+    "saved": "De factuur is met succes opgeslagen",
+    "updated": "Factuur succesvol bijgewerkt",
+    "deleted": "De factuur is met succes verwijderd"
+  },
+  "contact": {
+    "saved": "Uw contactpersoon is met succes opgeslagen",
+    "deleted": "Uw contactpersoon is met succes verwijderd"
+  },
+  "settings": {
+    "saved": "Alle instellingen zijn succesvol opgeslagen"
+  },
+  "login": {
+    "badSecret": "Ik kon uw identiteit niet bevestigen",
+    "success": "Ik kon uw identiteit bevestigen"
+  }
+}

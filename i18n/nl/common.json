@@ -1,0 +1,17 @@
+{
+  "fields": {
+    "fullname": "Voor En Achternaam",
+    "company": "Bedrijfsnaam",
+    "address": "Adres",
+    "email": "E-mail",
+    "phone": "Telefoonnummer",
+    "website": "Website"
+  },
+  "save": "Opslaan",
+  "amount": "Bedrag",
+  "default": "Standaard",
+  "saveAsDefault": "Bewaar als standaard",
+  "yes": "Ja",
+  "noThanks": "Nee, bedankt",
+  "details": "Details"
+}

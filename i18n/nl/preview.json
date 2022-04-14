@@ -1,0 +1,43 @@
+{
+  "sidebar": {
+    "template": "Sjabloon",
+    "alignment": {
+      "name": "Uitlijning",
+      "top": "Bovenaan",
+      "middle": "Midden",
+      "bottom": "Onderkant"
+    },
+    "fontSize": "Lettertypegrootte",
+    "logoSize": "Logo grootte",
+    "toggle": {
+      "name": "Aan/uit",
+      "logo": "Logo",
+      "symbol": "Symbool",
+      "recipient": "Ontvanger"
+    },
+    "accentColor": {
+      "name": "Accentkleur",
+      "useCustom": "Gebruik aangepaste"
+    },
+    "actions": {
+      "name": "Acties",
+      "savePDF": "Exporteer PDF",
+      "saveConfigs": "Configuratie opslaan"
+    }
+  },
+  "common": {
+    "billedTo": "Gefactureerd aan",
+    "chooseInvoiceToPreview": "Kies een factuur om weer te geven",
+    "created": "Aangemaakt",
+    "due": "Vervaldatum",
+    "invoice": "Factuur",
+    "quote": "Offerte",
+    "itemDescription": "Artikelbeschrijving",
+    "notice": "Melding",
+    "order": "Nee",
+    "price": "Prijs",
+    "qty": "Aantal",
+    "subtotal": "Subtotaal",
+    "total": "Totaal"
+  }
+}
