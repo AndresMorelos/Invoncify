@@ -36,16 +36,16 @@ const ExportImportMW =
               contacts,
               invoices,
               settings,
-              encryption,
             };
 
             const dataEncrypted = encrypt({ docs: dataToEncrypt, secretKey });
 
             const docToExport = {
               data: dataEncrypted,
+              encryptionSettings: encryption,
             };
 
-            ipc.send('export-data', docToExport);
+            ipc.send('export-data', JSON.stringify(docToExport));
           })
           .catch((err) => {
             next({
