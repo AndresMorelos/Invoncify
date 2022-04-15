@@ -7,14 +7,16 @@ function getEncryptionSettings() {
   // eslint-disable-next-line prefer-const
   let { iv, salt, validation, dataMigrated } = appConfig.getSync('encryption');
 
-  if (!Buffer.isBuffer(iv)) {
-    iv = Buffer.from(iv, 'hex');
-  }
-  if (!Buffer.isBuffer(salt)) {
-    salt = Buffer.from(salt, 'hex');
-  }
+  iv = bufferToHex(iv);
+  salt = bufferToHex(salt);
 
   return { iv, salt, validation, dataMigrated };
+}
+
+function bufferToHex(value) {
+  if (!Buffer.isBuffer(value)) {
+    return Buffer.from(value, 'hex');
+  }
 }
 
 ipcMain.on('secret-key-updated', (event, { secretKey }) => {
@@ -64,6 +66,16 @@ ipcMain.on('encrypt-data', (event, { message, secretKey }) => {
 ipcMain.on('decrypt-data', (event, { content, secretKey }) => {
   const { iv, salt } = getEncryptionSettings();
   event.returnValue = decrypt({ content, secretKey, salt, iv });
+});
+
+ipcMain.on('decrypt-import-data', (event, { content, iv, salt, secretKey }) => {
+  const value = decrypt({
+    content,
+    secretKey,
+    salt: bufferToHex(salt),
+    iv: bufferToHex(iv),
+  });
+  event.returnValue = value;
 });
 
 ipcMain.on('encryption-get-settings', (event) => {

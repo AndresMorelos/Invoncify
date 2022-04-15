@@ -3,38 +3,51 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-ctr';
 
 function encrypt({ secretKey, salt, message, iv }) {
-    const cipher = crypto.createCipheriv(algorithm, generateKey(secretKey, salt), iv);
-    const encrypted = Buffer.concat([cipher.update(message), cipher.final()]);
+  const cipher = crypto.createCipheriv(
+    algorithm,
+    generateKey(secretKey, salt),
+    iv
+  );
+  const encrypted = Buffer.concat([cipher.update(message), cipher.final()]);
 
-    return encrypted.toString('hex')
+  return encrypted.toString('hex');
 }
 
 function decrypt({ content, secretKey, salt, iv }) {
-    if(!content) return null;
-    
+  if (!content) return null;
+  try {
     let returnValue;
-    const decipher = crypto.createDecipheriv(algorithm, generateKey(secretKey, salt), iv);
-    const decrpyted = Buffer.concat([decipher.update(Buffer.from(content, 'hex')), decipher.final()]);
+    const decipher = crypto.createDecipheriv(
+      algorithm,
+      generateKey(secretKey, salt),
+      iv
+    );
+    const decrypted = Buffer.concat([
+      decipher.update(Buffer.from(content, 'hex')),
+      decipher.final(),
+    ]);
     try {
-        returnValue = JSON.parse(decrpyted.toString('utf-8'))
+      returnValue = JSON.parse(decrypted.toString('utf-8'));
     } catch (error) {
-        returnValue = null;
+      returnValue = null;
     }
-    return returnValue
+    return returnValue;
+  } catch (error) {
+    console.error(error);
+  }
 }
-
 
 function generateKey(secretKey, salt) {
-    return crypto.scryptSync(secretKey, salt, 32);
+  return crypto.scryptSync(secretKey, salt, 32);
 }
 
-function generaterRandmBytes() {
-    return crypto.randomBytes(16).toString('hex');
+function generateRandomBytes() {
+  return crypto.randomBytes(16).toString('hex');
 }
 
 module.exports = {
-    generaterRandmBytes,
-    generateKey,
-    encrypt,
-    decrypt
-}
+  generateRandomBytes,
+  generateKey,
+  encrypt,
+  decrypt,
+};
