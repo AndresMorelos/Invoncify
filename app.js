@@ -36,7 +36,7 @@ Sentry.init({
 // Place a BrowserWindow in center of primary display
 const centerOnPrimaryDisplay = require('./helpers/center-on-primary-display');
 const windowStateKeeper = require('./helpers/windowStateKeeper');
-const { generaterRandmBytes } = require('./helpers/encryption');
+const { generateRandomBytes } = require('./helpers/encryption');
 
 // commmandline arguments
 const forceDevtools = process.argv.includes('--force-devtools');
@@ -327,8 +327,8 @@ function setInitialValues() {
       },
     },
     encryption: {
-      iv: generaterRandmBytes(),
-      salt: generaterRandmBytes(),
+      iv: generateRandomBytes(),
+      salt: generateRandomBytes(),
       validation: null,
       dataMigrated: true,
     },
@@ -453,8 +453,8 @@ function migrateData() {
       return {
         ...configs,
         encryption: {
-          iv: generaterRandmBytes(),
-          salt: generaterRandmBytes(),
+          iv: generateRandomBytes(),
+          salt: generateRandomBytes(),
           validation: null,
           dataMigrated: false,
         },

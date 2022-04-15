@@ -56,12 +56,12 @@ function decryptDataToImport( { data , secretKey }) {
     return contentDecrypted;
 }
 
-function getSettings() {
+function getEncryptionSettings() {
     return ipc.sendSync('encryption-get-settings')
 }
 
-function setSettings(iv, salt, validation) {
+function setEncryptionSettings(iv, salt, validation) {
     return ipc.sendSync('encryption-set-settings', { iv, salt, validation })
 }
 
-module.exports = { encrypt, decrypt, decryptDataToImport, getSettings, setSettings }
+module.exports = { encrypt, decrypt, decryptDataToImport, getEncryptionSettings, setEncryptionSettings }
