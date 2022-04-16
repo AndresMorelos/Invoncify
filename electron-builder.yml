@@ -18,6 +18,7 @@ mac:
     - zip
     - dmg
 win:
+  publisherName: ['Developer ID Application: Andres Camilo Morelos Negrette (7U3PPW87MJ)']
   target:
     - target: nsis
       arch:
