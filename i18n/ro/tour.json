@@ -1,0 +1,33 @@
+{
+  "actions": {
+    "skip": "Omite",
+    "next": "Următorul",
+    "start": "Începe să emiți facturi"
+  },
+  "slides": {
+    "welcome": {
+      "heading": "👋 Salut!",
+      "description": "Mulțumesc pentru că îmi acordați o probă. Iată cum puteți crea facturi uimitoare în patru pași simpli"
+    },
+    "create": {
+      "heading": "Pasul 1. Crează",
+      "description": "Invoncify are o interfață flexibilă. În mod implicit păstrează lucrurile simple, dar întotdeauna puteți activa/dezactiva câmpuri suplimentare ori de câte ori este necesar."
+    },
+    "preview": {
+      "heading": "Pasul 2. Personalizează",
+      "description": "Invoncify vine cu șabloane profesionale care pot fi personalizate pentru a se potrivi stilului de marcă."
+    },
+    "encryption": {
+      "heading": "Pasul 3. Criptare",
+      "description": "Invoncify vine cu criptare de la un capăt la altul, care vă protejează informațiile și, de asemenea, vă oferă posibilitatea de a exporta sau importa datele în siguranță."
+    },
+    "save": {
+      "heading": "Pasul 3. Salvează",
+      "description": "Odată ce sunteți mulțumit de aspectul facturii dumneavoastră, o puteți salva în format PDF pentru o utilizare ulterioară. O puteți imprima sau trimite prin email. Să folosim Invoncify acum pentru a impresiona clienții dumneavoastră!"
+    },
+    "success": {
+      "heading": "Gata!!! ✋",
+      "description": "Și iată ca ați finalizat, cei patru pași simpli pentru a crea facturi uimitoare cu Invoncify. Nu uitați să actualizați profilul companiei și logo-ul înainte de a emite facturi."
+    }
+  }
+}

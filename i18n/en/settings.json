@@ -63,7 +63,8 @@
       "vi": "Vietnamese",
       "zh-CN": "Chinese (Simplified)",
       "zh-TW": "Chinese (Traditional)",
-      "sr": "Serbian (Cyrillic)"
+      "sr": "Serbian (Cyrillic)",
+      "ro": "Romanian"
     },
     "importExport": {
       "name": "Import/Export",

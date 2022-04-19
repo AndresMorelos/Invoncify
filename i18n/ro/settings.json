@@ -1,0 +1,78 @@
+{
+  "header": "Setări",
+  "tabs": {
+    "profile": "Profil",
+    "invoice": "Factură",
+    "general": "General"
+  },
+  "fields": {
+    "logo": {
+      "name": "Siglă",
+      "hint": "Acceptă PNG, JPG & SVG (Recomandat)"
+    },
+    "taxSettings": "Setări fiscale",
+    "paymentSettings": "Setări plată",
+    "template": "Șablon",
+    "dateFormat": "Format dată",
+    "pdfExportDir": "Dosar export PDF",
+    "requiredFields": "Câmpuri obligatorii",
+    "sound": "Sunet",
+    "trayIcon": "Iconiță bară meniu",
+    "sendMetricsAnon": "Trimite valori aplicație anonim",
+    "mute": "Mut",
+    "autoCheckUpdate": {
+      "name": "Verificare automată pentru actualizări",
+      "daily": "Zilnic (recomandat)",
+      "weekly": "Săptămânal"
+    },
+    "currency": {
+      "placement": "Poziționarea semnului",
+      "afterAmount": "După sumă",
+      "beforeAmount": "Înainte de sumă",
+      "fraction": "Fracție zecimală",
+      "separator": "Separator",
+      "commaDot": "Virgulă & Punct",
+      "dotComma": "Punct & Virgulă",
+      "spaceDot": "Spațiu & Punct"
+    },
+    "openPDFReader": "Deschide PDF-ul după export",
+    "language": {
+      "name": "Limbă",
+      "ar": "Arabă",
+      "cs": "Cehă",
+      "da": "Daneză",
+      "de": "Germană",
+      "el": "Greacă",
+      "en": "Engleză",
+      "esES": "Spaniolă",
+      "fr": "Franceză",
+      "id": "Indoneziană",
+      "it": "Italiană",
+      "ja": "Japoneză",
+      "ko": "Coreeană",
+      "lt": "Lituaniană",
+      "nl": "Olandeză",
+      "ptBR": "Portugheză, Braziliană",
+      "ptPT": "Portugheză",
+      "ru": "Rusă",
+      "sk": "Slovacă",
+      "th": "Thailandeză",
+      "tl": "Tagalog, Filipine",
+      "tr": "Turcă",
+      "ur-PK": "Urdu (Pakistan)",
+      "vi": "Vietnameză",
+      "zh-CN": "Chineză (simplificată)",
+      "zh-TW": "Chineză (tradiţională)"
+    },
+    "importExport": {
+      "name": "Importați/Exportați",
+      "import": "Importă",
+      "export": "Exportă",
+      "information": {
+        "label": "Notă:",
+        "info": "Acțiunea de export va exporta persoanele de contact și facturile criptate, de asemenea, setările de bază pentru criptare vor fi exportate"
+      }
+    },
+    "other": "Altele"
+  }
+}

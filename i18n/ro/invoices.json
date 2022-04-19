@@ -1,0 +1,23 @@
+{
+  "header": {
+    "name": "Toate facturile"
+  },
+  "fields": {
+    "client": "Client",
+    "invoiceID": "ID factură",
+    "createdDate": "Creat in data de",
+    "dueDate": "Dată scadentă",
+    "total": "Valoare totală"
+  },
+  "status": {
+    "pending": "În așteptare",
+    "paid": "Plătit",
+    "refunded": "Rambursat",
+    "cancelled": "Anulat"
+  },
+  "btns": {
+    "view": "Afișare",
+    "edit": "Editează",
+    "markAsPaid": "Marcați ca plătit"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "sidebar": {
+    "template": "Șablon",
+    "alignment": {
+      "name": "Aliniere",
+      "top": "Sus",
+      "middle": "Mijloc",
+      "bottom": "Jos"
+    },
+    "fontSize": "Mărime font",
+    "logoSize": "Dimensiune logo",
+    "toggle": {
+      "name": "Comutare",
+      "logo": "Siglă",
+      "symbol": "Simbol",
+      "recipient": "Destinatar"
+    },
+    "accentColor": {
+      "name": "Nuanță culoare",
+      "useCustom": "Acces personalizat"
+    },
+    "actions": {
+      "name": "Acțiuni",
+      "savePDF": "Exportă ca PDF",
+      "saveConfigs": "Salvează configurări"
+    }
+  },
+  "common": {
+    "billedTo": "Facturat către",
+    "chooseInvoiceToPreview": "Vă rugăm să alegeți o factură pentru a previzualiza",
+    "created": "Creat",
+    "due": "Scadent",
+    "invoice": "Factură",
+    "quote": "Ofertă",
+    "itemDescription": "Descriere articol",
+    "notice": "Aviz",
+    "order": "Nu",
+    "price": "Preț",
+    "qty": "Cantitate",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  }
+}

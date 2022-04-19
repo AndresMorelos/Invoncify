@@ -1,0 +1,9 @@
+{
+  "header": "Toate contactele",
+  "fields": {
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Telefon",
+    "actions": "Acțiuni"
+  }
+}
