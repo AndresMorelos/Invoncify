@@ -62,7 +62,8 @@
       "ur-PK": "Urdu (Pakistan)",
       "vi": "Vietnamees",
       "zh-CN": "Chinees (vereenvoudigd)",
-      "zh-TW": "Chinees (traditioneel)"
+      "zh-TW": "Chinees (traditioneel)",
+      "ro": "Romanian"
     },
     "importExport": {
       "name": "Importeren/Exporteren",

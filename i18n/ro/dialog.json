@@ -1,0 +1,101 @@
+{
+  "appUpdate": {
+    "available": {
+      "title": "Actualizare nouă disponibilă",
+      "message": "Doriți să descărcați actualizarea în fundal?"
+    },
+    "noUpdate": {
+      "title": "Nicio actualizare disponibilă",
+      "message": "Utilizați cea mai actuală versiune a aplicației"
+    },
+    "error": {
+      "title": "S-a produs o eroare"
+    },
+    "downloaded": {
+      "title": "Actualizare descărcată",
+      "message": "Doriți să ieșiți și să actualizați aplicația acum?",
+      "quitNow": "Ieșiți acum",
+      "later": "Mai târziu"
+    }
+  },
+  "noAccess": {
+    "title": "Nu ai permisiuni de acces",
+    "message": "Selectați un alt director"
+  },
+  "errorBoundary": "S-a produs o eroare",
+  "deleteInvoice": {
+    "title": "Ștergeți această factură?",
+    "message": "Factura va fi eliminată definitiv din baza de date"
+  },
+  "deleteContact": {
+    "title": "Ștergeți contactul?",
+    "message": "Contactul va fi eliminat definitiv din baza de date"
+  },
+  "fileTypeErr": {
+    "title": "Vă rugăm să selectați un alt fișier"
+  },
+  "validation": {
+    "invoiceID": {
+      "title": "ID invalid pentru factură",
+      "message": "ID-ul facturii nu poate rămâne gol"
+    },
+    "recipient": {
+      "empty": {
+        "title": "Contact invalid",
+        "message": "Contactul nu poate rămâne gol"
+      },
+      "requiredFields": {
+        "title": "Spațiu necesar de completat",
+        "message": "Vă rugăm să completați toate câmpurile solicitate"
+      },
+      "email": {
+        "title": "E-mail invalid",
+        "message": "Vă rugăm să alegeți alt e-mail"
+      }
+    },
+    "rows": {
+      "emptyDescription": {
+        "title": "Descriere invalidă",
+        "message": "Descrierea nu poate rămâne necompletată"
+      },
+      "priceZero": {
+        "title": "Preț invalid",
+        "message": "Prețul trebuie să fie mai mare decât zero"
+      },
+      "qtyZero": {
+        "title": "Cantitate invalidă",
+        "message": "Cantitatea trebuie să fie mai mare decât zero"
+      }
+    },
+    "dueDate": {
+      "title": "Dată scadentă invalidă",
+      "message": "Vă rugăm să selectați o dată"
+    },
+    "currency": {
+      "fraction": {
+        "title": "Fracție invalidă",
+        "message": "Fracția zecimală trebuie să fie egală sau mai mare decât zero"
+      }
+    },
+    "discount": {
+      "title": "Reducere invalidă",
+      "message": "Valoarea reducerii trebuie să fie mai mare decât zero"
+    },
+    "tax": {
+      "title": "Impozit invalid",
+      "message": "Valoarea impozitului trebuie să fie mai mare decât zero"
+    },
+    "note": {
+      "title": "Notă invalidă",
+      "message": "Conținutul notei nu poate rămâne gol"
+    },
+    "payment": {
+      "title": "Detalii de plată invalide",
+      "message": "Detaliile de plată nu pot rămâne goale"
+    }
+  },
+  "events": {
+    "clickToCopy": "Clic pentru a copia",
+    "copied": "Copiat!!"
+  }
+}

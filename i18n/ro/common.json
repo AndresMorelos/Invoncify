@@ -1,0 +1,17 @@
+{
+  "fields": {
+    "fullname": "Nume complet",
+    "company": "Companie",
+    "address": "Adresă",
+    "email": "Email",
+    "phone": "Număr de telefon",
+    "website": "Site web"
+  },
+  "save": "Salvează",
+  "amount": "Cantitate",
+  "default": "Mod implicit",
+  "saveAsDefault": "Salvează drept mod implicit?",
+  "yes": "Da",
+  "noThanks": "Nu, mulțumesc",
+  "details": "Detalii"
+}

@@ -1,0 +1,78 @@
+{
+  "header": {
+    "new": "Creează o factură nouă",
+    "edit": "Editează factură",
+    "btns": {
+      "clear": "Șterge",
+      "update": "Actualizează",
+      "saveAndPreview": "Salvează & previzualizează"
+    }
+  },
+  "settings": {
+    "name": "Setări formular",
+    "hint": "Comută orice câmp pentru a-l face obligatoriu în formular."
+  },
+  "fields": {
+    "items": {
+      "name": "Produs/Serviciu",
+      "description": "Descriere",
+      "price": "Preț",
+      "quantity": "Cantitate",
+      "add": "Adaugă un element nou"
+    },
+    "recipient": {
+      "name": "Destinatar",
+      "select": "Selectează",
+      "add": "Creează nou"
+    },
+    "discount": {
+      "name": "Reducere",
+      "percentage": "Procentaj",
+      "flat": "Taxă forfetară"
+    },
+    "createAtDate": {
+      "name": "Data creării",
+      "placeHolder": "Selectaţi o dată personalizată"
+    },
+    "dueDate": {
+      "name": "Dată scadentă",
+      "placeHolder": "Selectaţi o dată personalizată",
+      "paymentTerms": {
+        "name": "Selectează termen de plată",
+        "net7": {
+          "label": "Net 7",
+          "description": "Plata la șapte zile de la data facturii"
+        },
+        "net10": {
+          "label": "Net 10",
+          "description": "Plata la zece zile de la data facturii"
+        },
+        "net30": {
+          "label": "Net 30",
+          "description": "Plata la treizeci de zile de la data facturii"
+        },
+        "net60": {
+          "label": "Net 60",
+          "description": "Plata la șaizeci de zile de la data facturii"
+        },
+        "net90": {
+          "label": "Net 90",
+          "description": "Plata la nouăzeci de zile de la data facturii"
+        }
+      }
+    },
+    "tax": {
+      "name": "Taxă",
+      "id": "ID TVA",
+      "method": "Metodă",
+      "reverse": "Taxare inversă"
+    },
+    "note": "Notă",
+    "currency": "Valută",
+    "payment": {
+      "name": "Plată",
+      "details": "Detalii plată",
+      "description": "Conturi bancare, opțiuni de plată digitale sau alte informații legate de plată"
+    }
+  }
+}

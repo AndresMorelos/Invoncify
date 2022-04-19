@@ -14,6 +14,7 @@ import vi from './vi';
 import zhCN from './zh-CN';
 import sr from './sr';
 import nl from './nl';
+import ro from './ro';
 const moment = require('moment');
 const appConfig = require('@electron/remote').require('electron-settings');
 
@@ -37,6 +38,7 @@ i18n.use(initReactI18next).init({
     'zh-CN': zhCN,
     sr,
     nl,
+    ro,
   },
   interpolation: {
     function(value, format, lng) {

@@ -1,0 +1,20 @@
+{
+  "noContact": "Nu aveți încă persoane de contact",
+  "noInvoice": "Nu ați creat încă nicio factură",
+  "invoice": {
+    "saved": "Factură salvată cu succes",
+    "updated": "Factură actualizată cu succes",
+    "deleted": "Factură ștearsă cu succes"
+  },
+  "contact": {
+    "saved": "Contact salvat cu succes",
+    "deleted": "Contact șters cu succes"
+  },
+  "settings": {
+    "saved": "Toate setările au fost salvate cu succes"
+  },
+  "login": {
+    "badSecret": "Nu am reușit să vă confirm identitatea",
+    "success": "Am reușit să vă confirm identitatea"
+  }
+}
