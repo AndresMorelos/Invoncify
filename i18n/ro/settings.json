@@ -62,7 +62,9 @@
       "ur-PK": "Urdu (Pakistan)",
       "vi": "Vietnameză",
       "zh-CN": "Chineză (simplificată)",
-      "zh-TW": "Chineză (tradiţională)"
+      "zh-TW": "Chineză (tradiţională)",
+      "sr": "Sârbă (alfabet chirilic)",
+      "ro": "Română"
     },
     "importExport": {
       "name": "Importați/Exportați",
