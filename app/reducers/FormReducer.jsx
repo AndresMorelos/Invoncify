@@ -18,6 +18,7 @@ const initialState = {
     new: {},
   },
   rows: [],
+  paymentRows: [],
   dueDate: {
     selectedDate: null,
     paymentTerm: null,
@@ -81,6 +82,32 @@ const FormReducer = handleActions(
       return { ...state, rows: newRows };
     },
 
+    [ACTION_TYPES.FORM_PAYMENT_ITEM_ADD]: (state, action) => ({
+      ...state,
+      paymentRows: [...state.paymentRows, action.payload],
+    }),
+
+    [ACTION_TYPES.FORM_PAYMENT_ITEM_REMOVE]: (state, action) => ({
+      ...state,
+      paymentRows: state.paymentRows.filter((item) => item.id !== action.payload),
+    }),
+
+    [ACTION_TYPES.FORM_PAYMENT_ITEM_UPDATE]: (state, action) => ({
+      ...state,
+      paymentRows: state.paymentRows.map((item) =>
+        item.id !== action.payload.id ? item : action.payload
+      ),
+    }),
+
+    [ACTION_TYPES.FORM_PAYMENT_ITEM_MOVE]: (state, action) => {
+      const { dragIndex, hoverIndex } = action.payload;
+      const dragRow = state.paymentRows[dragIndex];
+      const newRows = state.paymentRows;
+      newRows.splice(dragIndex, 1);
+      newRows.splice(hoverIndex, 0, dragRow);
+      return { ...state, paymentRows: newRows };
+    },
+
     [ACTION_TYPES.FORM_FIELD_UPDATE_DATA]: (state, action) => {
       const { field, data } = action.payload;
       if (typeof data === 'object') {
@@ -121,6 +148,7 @@ const FormReducer = handleActions(
         invoiceID,
         recipient,
         rows,
+        paymentRows,
         currency,
         tax,
         dueDate,
@@ -138,6 +166,7 @@ const FormReducer = handleActions(
         },
         rows,
         // Optional Data
+        paymentRows: paymentRows !== undefined ? paymentRows : [],
         invoiceID: invoiceID !== undefined ? invoiceID : state.invoiceID,
         currency: currency !== undefined ? currency : state.currency,
         discount: discount !== undefined ? discount : state.discount,
@@ -219,6 +248,11 @@ export const getRows = createSelector(
   getFormState,
   (formState) => formState.rows
 );
+
+export const getPaymentRows = createSelector(
+  getFormState,
+  (formState) => formState.paymentRows
+)
 
 export const getRecipient = createSelector(
   getFormState,

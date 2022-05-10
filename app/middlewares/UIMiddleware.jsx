@@ -30,7 +30,7 @@ const UIMiddleware = ({ getState }) => next => action => {
       }
       // Create a new ID for the notification
       return next(
-        { ...action, payload: { ...action.payload, id: uuidv4(),},}
+        { ...action, payload: { ...action.payload, id: uuidv4(), }, }
       );
     }
 
@@ -41,6 +41,16 @@ const UIMiddleware = ({ getState }) => next => action => {
     }
 
     case ACTION_TYPES.FORM_ITEM_REMOVE: {
+      sounds.play('REMOVE');
+      return next(action);
+    }
+
+    case ACTION_TYPES.FORM_PAYMENT_ITEM_ADD: {
+      sounds.play('ADD');
+      return next(action);
+    }
+
+    case ACTION_TYPES.FORM_PAYMENT_ITEM_REMOVE: {
       sounds.play('REMOVE');
       return next(action);
     }

@@ -25,18 +25,18 @@ import '@styles/items.css';
 import '@styles/date-picker.css';
 import '@styles/tooltip.css';
 
-const generalConfig = appConfig.getSync('general');
 Sentry.init({
   enabled:
-    generalConfig && generalConfig.enableMetrics
-      ? generalConfig.enableMetrics
-      : true,
+  generalConfig && generalConfig.enableMetrics
+  ? generalConfig.enableMetrics
+  : true,
   dsn: 'https://369beb9600244b6e83ef6f3fe77b4d29@o1191884.ingest.sentry.io/6313417',
   integrations: [new BrowserTracing()],
   tracesSampleRate: 1,
   normalizeDepth: 100,
 });
 
+const generalConfig = appConfig.getSync('general');
 // Store
 const store = configureStore();
 

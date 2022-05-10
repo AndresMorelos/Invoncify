@@ -41,9 +41,9 @@ const StatusBar = styled.div`
   height: 6px;
   border-radius: 4px 4px 0 0;
   ${(props) => props.status === 'pending' && `background: #469FE5;`} ${(
-    props
-  ) => props.status === 'paid' && `background: #6BBB69;`} ${(props) =>
-    props.status === 'refunded' && `background: #4F555C;`} ${(props) =>
+  props
+) => props.status === 'paid' && `background: #6BBB69;`} ${(props) =>
+  props.status === 'refunded' && `background: #4F555C;`} ${(props) =>
     props.status === 'cancelled' && `background: #EC476E;`};
 `;
 
@@ -54,8 +54,8 @@ const Status = styled.div`
   letter-spacing: 1px;
   ${(props) => props.status === 'pending' && `color: #469FE5;`} ${(props) =>
     props.status === 'paid' && `color: #6BBB69;`} ${(props) =>
-    props.status === 'refunded' && `color: #4F555C;`} ${(props) =>
-    props.status === 'cancelled' && `color: #EC476E;`} span {
+      props.status === 'refunded' && `color: #4F555C;`} ${(props) =>
+        props.status === 'cancelled' && `color: #EC476E;`} span {
     display: flex;
     align-items: center;
     i {
@@ -320,9 +320,9 @@ class Invoice extends PureComponent {
                   {invoice.invoiceID
                     ? invoice.invoiceID
                     : truncate(invoice._id, {
-                        length: 8,
-                        omission: '',
-                      })}
+                      length: 8,
+                      omission: '',
+                    })}
                   <span className="tooltiptext">
                     {' '}
                     {t('dialog:events:clickToCopy')}
@@ -335,6 +335,32 @@ class Invoice extends PureComponent {
                   {currencyBefore ? invoice.currency.code : null}{' '}
                   {formatNumber(
                     invoice.grandTotal,
+                    invoice.currency.fraction,
+                    invoice.currency.separator
+                  )}{' '}
+                  {currencyBefore ? null : invoice.currency.code}
+                </p>
+              </Field>
+            </Row>
+            <Row>
+              <Field>
+                <label>{t('invoices:fields:prepaid')}</label>
+                <p>
+                  {currencyBefore ? invoice.currency.code : null}{' '}
+                  {formatNumber(
+                    invoice.prepayment || 0,
+                    invoice.currency.fraction,
+                    invoice.currency.separator
+                  )}{' '}
+                  {currencyBefore ? null : invoice.currency.code}
+                </p>
+              </Field>
+              <Field>
+                <label>{t('invoices:fields:remaining')}</label>
+                <p>
+                  {currencyBefore ? invoice.currency.code : null}{' '}
+                  {formatNumber(
+                    invoice.remaining || 0,
                     invoice.currency.fraction,
                     invoice.currency.separator
                   )}{' '}

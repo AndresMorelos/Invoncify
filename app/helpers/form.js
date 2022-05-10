@@ -38,6 +38,7 @@ function getInvoiceData(formData, secretKey) {
     invoiceID,
     recipient,
     rows,
+    paymentRows,
     dueDate,
     currency,
     discount,
@@ -50,7 +51,7 @@ function getInvoiceData(formData, secretKey) {
   // Required fields
   const { editMode, required_fields } = settings;
   // Set Initial Value
-  const invoiceData = { rows };
+  const invoiceData = { rows, paymentRows };
   // Set Recipient
   if (recipient.newRecipient) {
     // Add id & created_at so the invoice records will remembers
@@ -105,8 +106,10 @@ function getInvoiceData(formData, secretKey) {
       created_at: createdAtToUpdate,
       updated_at: Date.now(),
       status: editMode.active ? editMode.data.status : 'pending',
-      // Alway calculate subtotal & grandTotal
+      // Alway calculate subtotal, prepayment, remaining, & grandTotal
       subtotal: getInvoiceValue(invoiceData).subtotal,
+      prepayment: getInvoiceValue(invoiceData).prepayment,
+      remaining: getInvoiceValue(invoiceData).remaining,
       grandTotal: getInvoiceValue(invoiceData).grandTotal,
     },
     secretKey,

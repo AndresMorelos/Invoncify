@@ -7,3 +7,5 @@ export const setSecretKey = createAction(
     ACTION_TYPES.LOGIN_SET_SECRET,
     secretKey => secretKey
 );
+
+export const deleteSecretKey = createAction(ACTION_TYPES.LOGIN_DELETE_SECRET);

@@ -20,6 +20,12 @@
       "quantity": "Quantity",
       "add": "Add a New Item"
     },
+    "paymentItems": {
+      "name": "Prepayments",
+      "description": "Description",
+      "value": "Value",
+      "add": "Add a PrePayment New Item"
+    },
     "recipient": {
       "name": "Recipient",
       "select": "Select",

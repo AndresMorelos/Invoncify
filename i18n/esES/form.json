@@ -20,6 +20,12 @@
       "quantity": "Cantidad",
       "add": "Agregar un Nuevo Artículo"
     },
+    "paymentItems": {
+      "name": "Pagos Adelantados",
+      "description": "Descripción",
+      "value": "Valor",
+      "add": "Add a nuevo pago adelantado"
+    },
     "recipient": {
       "name": "Destinatario",
       "select": "Seleccionar",

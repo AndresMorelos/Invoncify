@@ -25,6 +25,24 @@ export const moveRow = createAction(
   (dragIndex, hoverIndex) => ({ dragIndex, hoverIndex })
 );
 
+// PaymentItemsRow
+export const addPaymentItem = createAction(ACTION_TYPES.FORM_PAYMENT_ITEM_ADD);
+
+export const removePaymentItem = createAction(
+  ACTION_TYPES.FORM_PAYMENT_ITEM_REMOVE,
+  itemID => itemID
+);
+
+export const updatePaymentItem = createAction(
+  ACTION_TYPES.FORM_PAYMENT_ITEM_UPDATE,
+  itemData => itemData
+);
+
+export const movePaymentRow = createAction(
+  ACTION_TYPES.FORM_PAYMENT_ITEM_MOVE,
+  (dragIndex, hoverIndex) => ({ dragIndex, hoverIndex })
+);
+
 // Form Actions
 export const clearForm = createAction(
   ACTION_TYPES.FORM_CLEAR,

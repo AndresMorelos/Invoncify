@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 // Components
 import Recipient from '@components/form/Recipient';
 import ItemsList from '@components/form/ItemsList';
+import PaymentItemsList from '@components/form/PaymentItemsList';
 import Currency from '@components/form/Currency';
 import Discount from '@components/form/Discount';
 import DueDate from '@components/form/DueDate';
@@ -107,6 +108,7 @@ class Form extends PureComponent {
           )}
           <Recipient />
           <ItemsList />
+          <PaymentItemsList />
           {editMode.active && (
             <CreatedAt
               t={t}
@@ -181,6 +183,7 @@ Form.propTypes = {
       new: PropTypes.object.isRequired,
     }),
     rows: PropTypes.array.isRequired,
+    paymentRows: PropTypes.array,
     dueDate: PropTypes.object.isRequired,
     currency: PropTypes.object.isRequired,
     discount: PropTypes.object.isRequired,
