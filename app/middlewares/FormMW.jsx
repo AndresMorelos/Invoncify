@@ -54,6 +54,12 @@ const FormMW = ({ dispatch, getState }) => next => action => {
       );
     }
 
+    case ACTION_TYPES.FORM_PAYMENT_ITEM_ADD: {
+      return next(
+        { ...action, payload: { id: uuidv4() }, }
+      );
+    }
+
     case ACTION_TYPES.FORM_CLEAR: {
       // Close Setting Panel
       dispatch(FormActions.closeFormSettings());

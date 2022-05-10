@@ -49,6 +49,12 @@ const trayMenu = [
     },
   },
   {
+    label: 'Lock Invoncify',
+    click() {
+      mainWindow.webContents.send('lock-app')
+    },
+  },
+  {
     type: 'separator',
   },
   {

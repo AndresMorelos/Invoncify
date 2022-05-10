@@ -27,10 +27,7 @@ const LoginMW =
       }
       case ACTION_TYPES.LOGIN_DELETE_SECRET: {
         sessionStorage.removeItem('secretKey');
-        next({
-          type: ACTION_TYPES.LOGIN_SET_SECRET,
-          payload: undefined,
-        });
+        next(action);
         break;
       }
       default: {

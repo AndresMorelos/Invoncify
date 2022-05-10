@@ -7,7 +7,9 @@
     "invoiceID": "Invoice ID",
     "createdDate": "Created On",
     "dueDate": "Due Date",
-    "total": "Total Value"
+    "total": "Total Value",
+    "prepaid":"PrePaid",
+    "remaining":"Remaining Balance"
   },
   "status": {
     "pending": "Pending",

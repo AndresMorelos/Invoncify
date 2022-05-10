@@ -6,8 +6,9 @@ import ContactsReducer from './ContactsReducer';
 import SettingsReducer from './SettingsReducer';
 import LoginReducer from './LoginReducer';
 import exportImportReducer from './exportImportReducer';
+import * as ACTION_TYPES from '../constants/actions'
 
-export default combineReducers({
+const appReducers = combineReducers({
   ui: UIReducer,
   form: FormReducer,
   invoices: InvoicesReducer,
@@ -16,3 +17,10 @@ export default combineReducers({
   login: LoginReducer,
   exportImport: exportImportReducer,
 });
+
+export default function rootReducer(state, action) {
+  if (action.type === ACTION_TYPES.LOGIN_DELETE_SECRET) {
+    state = undefined
+  }
+  return appReducers(state, action)
+}

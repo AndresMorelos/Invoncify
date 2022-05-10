@@ -14,6 +14,7 @@ import * as FormActions from './actions/form';
 import * as SettingsActions from './actions/settings';
 import * as InvoicesActions from './actions/invoices';
 import * as ContactsActions from './actions/contacts';
+import * as LoginActions from './actions/login'
 
 // Components
 
@@ -88,6 +89,10 @@ class App extends PureComponent {
       dispatch(InvoicesActions.encryptInvoices())
       ipc.send('data-migrated');
     })
+
+    ipc.on('lock-app', (event, options) => {
+      dispatch(LoginActions.deleteSecretKey())
+    })
   }
 
   componentWillUnmount() {
@@ -105,7 +110,8 @@ class App extends PureComponent {
       // Save template configs to invoice
       'save-configs-to-invoice',
       'file-exported',
-      'migrate-all-data'
+      'migrate-all-data',
+      'lock-app'
     ]);
   }
 

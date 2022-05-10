@@ -40,10 +40,31 @@ function getInvoiceValue(data) {
     return grandTotal;
   }
 
+  function calPrePayments(data) {
+    if (Array.isArray(data.paymentRows) && data.paymentRows.length > 0) {
+      return data.paymentRows.reduce((value, row) => value + row.value, 0);
+    }
+    return 0
+  }
+
+  function calcRemaining() {
+    let grandTotal = calTotal();
+
+
+    const prepayment = calPrePayments(data);
+
+    grandTotal -= prepayment;
+
+
+    return grandTotal;
+  }
+
   return {
     subtotal: calSub(data),
     discount: calDiscount(data),
     taxAmount: calTax(data),
+    prepayment: calPrePayments(data),
+    remaining: calcRemaining(),
     grandTotal: calTotal(),
   };
 }
