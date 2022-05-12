@@ -15,8 +15,14 @@ directories:
 mac:
   category: public.app-category.business
   target:
-    - zip
-    - dmg
+    - target: zip
+      arch:
+        - x64
+        - arm64
+    - target: dmg
+      arch:
+        - x64
+        - arm64
 win:
   publisherName: ['Developer ID Application: Andres Camilo Morelos Negrette (7U3PPW87MJ)']
   target:
