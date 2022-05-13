@@ -70,8 +70,18 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
           <label>
             Pending
           </label>
-          <p>
+          <p
+            aria-hidden="true"
+            className="tooltips"
+            onClick={[Function]}
+          >
             37b2804e
+            <span
+              className="tooltiptext"
+            >
+               
+              Pending
+            </span>
           </p>
         </div>
         <div
@@ -98,7 +108,37 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
             Pending
           </label>
           <p>
-            01/17/22
+             
+            0
+             
+            USD
+          </p>
+        </div>
+        <div
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
+        >
+          <label>
+            Pending
+          </label>
+          <p>
+             
+            0
+             
+            USD
+          </p>
+        </div>
+      </div>
+      <div
+        className="Invoice__Row-sc-igsenw-7 ggPAQb"
+      >
+        <div
+          className="Invoice__Field-sc-igsenw-8 dcENEK"
+        >
+          <label>
+            Pending
+          </label>
+          <p>
+            05/13/22
           </p>
         </div>
         <div

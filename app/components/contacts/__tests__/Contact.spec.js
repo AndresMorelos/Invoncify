@@ -24,6 +24,7 @@ describe('Renders correctly to the DOM', () => {
   beforeEach(() => {
     wrapper = shallow(
       <Contact
+        t={key => key}
         contact={contact}
         newInvoice={newInvoice}
         deleteContact={deleteContact}
@@ -44,6 +45,7 @@ describe('Renders correctly to the DOM', () => {
   it('receive correct props', () => {
     const mountWrapper = mount(
       <Contact
+        t={key => key}
         contact={contact}
         newInvoice={newInvoice}
         deleteContact={deleteContact}
@@ -100,6 +102,7 @@ describe('Renders correctly to the DOM', () => {
     const tree = renderer
       .create(
         <Contact
+          t={key => key}
           contact={contact}
           newInvoice={newInvoice}
           deleteContact={deleteContact}

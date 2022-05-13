@@ -23,10 +23,13 @@ import {
 jest.mock('../../renderers/dialog');
 const openDialog = require('../../renderers/dialog');
 
+const created_at = Date.now();
+
 describe('getInvoiceData', () => {
   let formData;
   beforeEach(() => {
     formData = {
+      created_at: { created_at },
       invoiceID: 'Invoice: 123-456-789',
       recipient: {
         newRecipient: true,
@@ -162,7 +165,8 @@ describe('getInvoiceData', () => {
   });
 
   it('should return dueDate data when required', () => {
-    const newFormData = { ...formData, dueDate: {
+    const newFormData = {
+      ...formData, dueDate: {
         selectedDate: {
           date: 20,
           months: 9,
@@ -171,7 +175,8 @@ describe('getInvoiceData', () => {
         useCustom: true,
         paymentTerm: null,
       },
-      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, dueDate: true,},},};
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, dueDate: true, }, },
+    };
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
       content: invoiceData.currentInvoiceData.content,
@@ -193,7 +198,7 @@ describe('getInvoiceData', () => {
   });
 
   it('should return currency data when required', () => {
-    const newFormData = { ...formData, settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, currency: true,},},};
+    const newFormData = { ...formData, settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, currency: true, }, }, };
 
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
@@ -214,12 +219,14 @@ describe('getInvoiceData', () => {
   });
 
   it('should return tax data when required', () => {
-    const newFormData = { ...formData, tax: {
+    const newFormData = {
+      ...formData, tax: {
         amount: faker.datatype.number(20),
         method: 'reverse',
         tin: '123-456-789',
       },
-      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, tax: true,},},};
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, tax: true, }, },
+    };
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
       content: invoiceData.currentInvoiceData.content,
@@ -228,11 +235,13 @@ describe('getInvoiceData', () => {
   });
 
   it('should return discount when required', () => {
-    const newFormData = { ...formData, discount: {
+    const newFormData = {
+      ...formData, discount: {
         amount: faker.datatype.number(20),
         type: 'flat',
       },
-      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, discount: true,},},};
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, discount: true, }, },
+    };
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
       content: invoiceData.currentInvoiceData.content,
@@ -244,10 +253,12 @@ describe('getInvoiceData', () => {
   });
 
   it('should return note data when required', () => {
-    const newFormData = { ...formData, note: {
+    const newFormData = {
+      ...formData, note: {
         content: faker.lorem.paragraph(),
       },
-      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, note: true,},},};
+      settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, note: true, }, },
+    };
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
       content: invoiceData.currentInvoiceData.content,
@@ -256,7 +267,7 @@ describe('getInvoiceData', () => {
   });
 
   it('should return invoiceID data when required', () => {
-    const newFormData = { ...formData, settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, invoiceID: true,},},};
+    const newFormData = { ...formData, settings: { ...formData.settings, required_fields: { ...formData.settings.required_fields, invoiceID: true, }, }, };
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
       content: invoiceData.currentInvoiceData.content,
@@ -267,16 +278,24 @@ describe('getInvoiceData', () => {
   it('should return correct metadata on editMode', () => {
     const invoiceID = uuidv4();
     const invoiceRev = uuidv4();
-    const createdDate = Date.now();
-    const newFormData = { ...formData, settings: { ...formData.settings, editMode: { ...formData.settings.editMode, active: true,
-          data: { ...omit(formData, ['settings, savedSettings']), _id: invoiceID,
+    const createdDate = created_at;
+    const newFormData = {
+      ...formData, settings: {
+        ...formData.settings, editMode: {
+          ...formData.settings.editMode, active: true,
+          data: {
+            ...omit(formData, ['settings, savedSettings']), _id: invoiceID,
             _rev: invoiceRev,
-            created_at: createdDate,},},},};
+            created_at: createdDate,
+          },
+        },
+      },
+    };
     const invoiceData = getInvoiceData(newFormData);
     const currentInvoiceData = decryptData({
       content: invoiceData.currentInvoiceData.content,
     });
-    
+
     expect(invoiceData.currentInvoiceData._id).toEqual(invoiceID);
     expect(invoiceData.currentInvoiceData._rev).toEqual(invoiceRev);
     expect(currentInvoiceData.created_at).toEqual(createdDate);
@@ -379,7 +398,7 @@ describe('validateFormData', () => {
   });
 
   it('should NOT pass with INCORRECT recipient data', () => {
-    const newFormData = { ...formData, recipient: { ...formData.recipient, new: {},},};
+    const newFormData = { ...formData, recipient: { ...formData.recipient, new: {}, }, };
     const validation = validateFormData(newFormData);
     expect(validation).toEqual(false);
   });

@@ -7,17 +7,53 @@ exports[`Renders correctly to the DOM matches snapshot 1`] = `
   <td
     className="Table__TDStyle-sc-vcm0yz-5 diKbJX"
   >
-    Jon Snow
+    <span
+      aria-hidden="true"
+      className="tooltips"
+      onClick={[Function]}
+    >
+      Jon Snow
+      <span
+        className="tooltiptext"
+      >
+         
+        dialog:events:clickToCopy
+      </span>
+    </span>
   </td>
   <td
     className="Table__TDStyle-sc-vcm0yz-5 gCUxXq"
   >
-    jon@snow.hbo
+    <span
+      aria-hidden="true"
+      className="tooltips"
+      onClick={[Function]}
+    >
+      jon@snow.hbo
+      <span
+        className="tooltiptext"
+      >
+         
+        dialog:events:clickToCopy
+      </span>
+    </span>
   </td>
   <td
     className="Table__TDStyle-sc-vcm0yz-5 gCUxXq"
   >
-    000-000-000
+    <span
+      aria-hidden="true"
+      className="tooltips"
+      onClick={[Function]}
+    >
+      000-000-000
+      <span
+        className="tooltiptext"
+      >
+         
+        dialog:events:clickToCopy
+      </span>
+    </span>
   </td>
   <td
     className="Table__TDStyle-sc-vcm0yz-5 VeXuP"

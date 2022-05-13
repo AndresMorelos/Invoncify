@@ -82,7 +82,7 @@ describe('Settings Middleware', () => {
       ipc.send.mockClear();
       middleware(action);
       expect(ipc.send).toHaveBeenCalled();
-      expect(ipc.send.mock.calls.length).toEqual(2);
+      expect(ipc.send.mock.calls.length).toEqual(3);
       // Notify about profile change
       expect(ipc.send.mock.calls[0][0]).toBe('change-preview-window-profile');
       expect(ipc.send.mock.calls[0][1]).toBe('New Profile');
