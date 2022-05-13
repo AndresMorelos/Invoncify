@@ -11,7 +11,6 @@ import AppUpdate from '@components/layout/AppUpdate';
 import { AppWrapper, LoginWrapper } from '@components/shared/Layout';
 import * as UIActions from './actions/ui';
 import * as FormActions from './actions/form';
-import * as SettingsActions from './actions/settings';
 import * as InvoicesActions from './actions/invoices';
 import * as ContactsActions from './actions/contacts';
 import * as LoginActions from './actions/login'
@@ -19,7 +18,7 @@ import * as LoginActions from './actions/login'
 // Components
 
 // Reducers
-import { getSecretKey } from './reducers/LoginReducer'
+import { getSecretKey, getLoadEncryptedData } from './reducers/LoginReducer'
 import Login from './containers/Login';
 
 import windowStateKeeper from '../helpers/windowStateKeeper';
@@ -38,8 +37,6 @@ class App extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    // Get All Data
-    dispatch(SettingsActions.getInitialSettings());
     // Add Event Listener
     ipc.on('menu-change-tab', (event, tabName) => {
       this.changeTab(tabName);
@@ -131,14 +128,19 @@ class App extends PureComponent {
   }
 
   render() {
-    const { ui, secretKey } = this.props
+    const { ui, secretKey, loadEncryptedData } = this.props
     const { activeTab, notifications, checkUpdatesMessage } = ui;
     if (secretKey) {
       const { dispatch } = this.props;
       this.resizeWindow();
-      // Get Encrypted data
-      dispatch(InvoicesActions.getInvoices());
-      dispatch(ContactsActions.getAllContacts());
+
+      if (loadEncryptedData) {
+        // Get Encrypted data
+        dispatch(InvoicesActions.getInvoices());
+        dispatch(ContactsActions.getAllContacts());
+        dispatch(LoginActions.noLoadEncryptedData());
+      };
+
       return (
         <AppWrapper>
           <AppNav activeTab={activeTab} changeTab={this.changeTab} />
@@ -167,6 +169,7 @@ App.propTypes = {
 
 const mapStateToProps = state => ({
   secretKey: getSecretKey(state),
+  loadEncryptedData: getLoadEncryptedData(state),
   ui: state.ui
 })
 

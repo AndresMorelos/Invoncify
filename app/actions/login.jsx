@@ -8,4 +8,6 @@ export const setSecretKey = createAction(
     secretKey => secretKey
 );
 
+export const noLoadEncryptedData = createAction(ACTION_TYPES.NOT_LOAD_ENCRYPTED_DATA)
+
 export const deleteSecretKey = createAction(ACTION_TYPES.LOGIN_DELETE_SECRET);
