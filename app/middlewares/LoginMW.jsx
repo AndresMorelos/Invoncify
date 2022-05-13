@@ -1,4 +1,5 @@
 import * as ACTION_TYPES from '../constants/actions.jsx';
+import * as SettingsActions from '../actions/settings';
 
 const ipc = require('electron').ipcRenderer;
 
@@ -22,6 +23,8 @@ const LoginMW =
             type: ACTION_TYPES.LOGIN_SET_SECRET,
             payload: action.payload,
           });
+          // Load Initial Settings
+          dispatch(SettingsActions.getInitialSettings());
         }
         break;
       }
