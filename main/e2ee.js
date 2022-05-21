@@ -17,6 +17,7 @@ function bufferToHex(value) {
   if (!Buffer.isBuffer(value)) {
     return Buffer.from(value, 'hex');
   }
+  return value
 }
 
 ipcMain.on('secret-key-updated', (event, { secretKey }) => {
