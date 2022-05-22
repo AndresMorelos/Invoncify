@@ -86,6 +86,12 @@ const InvoiceDiscount = styled.tr`
   }
 `;
 
+const InvoicePrepayment = styled.tr`
+  td:last-child {
+    color: #ec4757;
+  }
+`;
+
 const InvoiceTax = styled.tr`
   td:last-child {
     color: #ec476e;
@@ -112,11 +118,11 @@ function setAlignItems(configs) {
 }
 
 // Component
-const Main = function({ invoice, configs, t }) {
+const Main = function ({ invoice, configs, t }) {
   // Set language
-  const { language, accentColor, customAccentColor  } = configs;
+  const { language, accentColor, customAccentColor } = configs;
   // Others
-  const { tax, discount } = invoice;
+  const { tax, discount, prepayment } = invoice;
   const { code, placement, fraction, separator } = invoice.currency;
   // Set placement
   const currencyBefore = placement === 'before';
@@ -141,6 +147,28 @@ const Main = function({ invoice, configs, t }) {
     </tr>
   ));
 
+  // Render Prepayment items
+
+  const prepaymentItemsComponents = invoice.paymentRows.map((row, index) => (
+    <InvoicePrepayment key={index}>
+      <td colSpan="2" />
+      <td className="label" colSpan="2">
+        {row.description}{' '}
+      </td>
+      <td>
+        {currencyBefore ? currency : null}{' '}
+        {formatNumber(
+          getInvoiceValue(invoice).prepayment,
+          fraction,
+          separator
+        )}{' '}
+        {currencyBefore ? null : currency}
+      </td>
+    </InvoicePrepayment>
+  ));
+
+
+
   return (
     <InvoiceContent alignItems={setAlignItems(configs)}>
       <Table
@@ -149,19 +177,21 @@ const Main = function({ invoice, configs, t }) {
       >
         <thead>
           <tr>
-            <th className="w5">{t('preview:common:order', {lng: language})}</th>
-            <th>{t('preview:common:itemDescription', {lng: language})}</th>
-            <th className="w15">{t('preview:common:price', {lng: language})}</th>
-            <th className="w10">{t('preview:common:qty', {lng: language})}</th>
-            <th className="w15">{t('preview:common:subtotal', {lng: language})}</th>
+            <th className="w5">{t('preview:common:order', { lng: language })}</th>
+            <th>{t('preview:common:itemDescription', { lng: language })}</th>
+            <th className="w15">{t('preview:common:price', { lng: language })}</th>
+            <th className="w10">{t('preview:common:qty', { lng: language })}</th>
+            <th className="w15">{t('preview:common:subtotal', { lng: language })}</th>
           </tr>
         </thead>
-        <tbody>{itemComponents}</tbody>
+        <tbody>
+          {itemComponents}
+        </tbody>
         <tfoot>
           <tr className="invoice__subtotal">
             <td colSpan="2" />
             <td className="label" colSpan="2">
-              {t('preview:common:subtotal', {lng: language})}
+              {t('preview:common:subtotal', { lng: language })}
             </td>
             <td>
               {currencyBefore ? currency : null}
@@ -176,7 +206,7 @@ const Main = function({ invoice, configs, t }) {
             <InvoiceDiscount>
               <td colSpan="2" />
               <td className="label" colSpan="2">
-                {t('form:fields:discount:name', {lng: language})}{' '}
+                {t('form:fields:discount:name', { lng: language })}{' '}
                 {discount.type === 'percentage' && (
                   <span> {discount.amount}%</span>
                 )}
@@ -193,18 +223,20 @@ const Main = function({ invoice, configs, t }) {
             </InvoiceDiscount>
           )}
 
+          {prepaymentItemsComponents}
+
           {tax && (
             <InvoiceTax>
               <td colSpan="2" />
               <td className="label" colSpan={tax.method === 'reverse' ? 1 : 2}>
-                {t('form:fields:tax:name', {lng: language})} {tax.amount}%
+                {t('form:fields:tax:name', { lng: language })} {tax.amount}%
               </td>
               {tax.method === 'reverse' ? (
                 <td
                   className="label"
                   colSpan={tax.method === 'reverse' ? 2 : 1}
                 >
-                  {t('form:fields:tax:reverse', {lng: language})}
+                  {t('form:fields:tax:reverse', { lng: language })}
                 </td>
               ) : (
                 <td>
@@ -221,11 +253,11 @@ const Main = function({ invoice, configs, t }) {
             customAccentColor={customAccentColor}
           >
             <td colSpan="2" />
-            <td className="label">{t('preview:common:total', {lng: language})}</td>
+            <td className="label">{t('preview:common:total', { lng: language })}</td>
             <td colSpan="2">
               {currencyBefore ? currency : null}
               {' '}
-              {formatNumber(invoice.grandTotal, fraction, separator)}
+              {formatNumber(invoice.remaining, fraction, separator)}
               {' '}
               {currencyBefore ? null : currency}
             </td>
