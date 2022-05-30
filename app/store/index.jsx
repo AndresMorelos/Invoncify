@@ -11,6 +11,7 @@ import rootReducer from '../reducers';
 import LoginMW from '../middlewares/LoginMW';
 import MeasureMW from '../middlewares/MeasureMW';
 import FormMW from '../middlewares/FormMW';
+import ContactFormMW from '../middlewares/ContactFormMW';
 import ContactsMW from '../middlewares/ContactsMW';
 import InvoicesMW from '../middlewares/InvoicesMW';
 import SettingsMW from '../middlewares/SettingsMW';
@@ -24,6 +25,7 @@ import sentryReduxEnhancer from './enhancer';
 const middlewares = [
   LoginMW,
   FormMW,
+  ContactFormMW,
   ContactsMW,
   InvoicesMW,
   SettingsMW,

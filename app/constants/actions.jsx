@@ -24,6 +24,12 @@ export const FORM_SETTING_TOGGLE = 'FORM_SETTING_TOGGLE';
 export const FORM_SETTING_CLOSE = 'FORM_SETTING_CLOSE';
 export const SAVED_FORM_SETTING_UPDATE = 'SAVED_FORM_SETTING_UPDATE';
 
+// CONTACT FORM
+// ===========================================================
+export const CONTACT_FORM_SAVE = 'CONTACT_FORM_SAVE';
+export const CONTACT_FORM_CLEAR = 'CONTACT_FORM_CLEAR';
+export const CONTACT_FORM_FIELD_UPDATE_DATA = 'CONTACT_FORM_FIELD_UPDATE_DATA';
+
 // INVOICE
 // ===========================================================
 export const INVOICE_EDIT = 'INVOICE_EDIT';
@@ -35,7 +41,7 @@ export const INVOICE_NEW_FROM_CONTACT = 'INVOICE_NEW_FROM_CONTACT';
 export const INVOICE_SET_STATUS = 'INVOICE_SET_STATUS';
 export const INVOICE_CONFIGS_SAVE = 'INVOICE_CONFIGS_SAVE';
 export const INVOICE_DUPLICATE = 'INVOICE_DUPLICATE';
-export const INVOICE_ENCRYPT = 'INVOICE_ENCRYPT'
+export const INVOICE_ENCRYPT = 'INVOICE_ENCRYPT';
 
 // CONTACTS
 // ===========================================================
@@ -43,6 +49,9 @@ export const CONTACT_GET_ALL = 'CONTACT_GET_ALL';
 export const CONTACT_DELETE = 'CONTACT_DELETE';
 export const CONTACT_SAVE = 'CONTACT_SAVE';
 export const CONTACT_ENCRYPT = 'CONTACT_ENCRYPT';
+export const CONTACT_EDIT = 'CONTACT_EDIT';
+export const CONTACT_UPDATE = 'CONTACT_UPDATE';
+
 
 // SETTINGS
 // ===========================================================
