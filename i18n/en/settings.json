@@ -19,6 +19,7 @@
     "sound": "Sound",
     "trayIcon": "Menu Bar Icon",
     "sendMetricsAnon": "Send App Metrics Anonymously",
+    "openAtLogin": "Open at Login",
     "mute": "Mute",
     "autoCheckUpdate": {
       "name": "Auto Check for Update",
