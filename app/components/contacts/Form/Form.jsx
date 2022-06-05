@@ -1,16 +1,24 @@
 // Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // Animation
 import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 
 // Styles
-import styled from 'styled-components';
-import { Part, Row, Field } from '../shared/Part';
+import { Part, Row, Field } from '../../shared/Part';
 
 export const RecipientForm = function ({ t, formData, updateRecipientForm }) {
-  const { fullname, company, email, phone, address } = formData;
+  const [contact, setContact] = useState(formData);
+
+  // Hanlde Update Recipient Form Data
+  const updateRecipientFormAction = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setContact((prevState) => ({ ...prevState, [name]: value }));
+    updateRecipientForm(name, value);
+  };
+
   return (
     <Part>
       <Row>
@@ -19,8 +27,8 @@ export const RecipientForm = function ({ t, formData, updateRecipientForm }) {
           <input
             name="fullname"
             type="text"
-            value={fullname || ''}
-            onChange={updateRecipientForm}
+            value={contact.fullname || ''}
+            onChange={updateRecipientFormAction}
           />
         </Field>
         <Field>
@@ -28,8 +36,8 @@ export const RecipientForm = function ({ t, formData, updateRecipientForm }) {
           <input
             name="company"
             type="text"
-            value={company || ''}
-            onChange={updateRecipientForm}
+            value={contact.company || ''}
+            onChange={updateRecipientFormAction}
           />
         </Field>
       </Row>
@@ -39,8 +47,8 @@ export const RecipientForm = function ({ t, formData, updateRecipientForm }) {
           <input
             name="email"
             type="text"
-            value={email || ''}
-            onChange={updateRecipientForm}
+            value={contact.email || ''}
+            onChange={updateRecipientFormAction}
           />
         </Field>
         <Field>
@@ -48,8 +56,8 @@ export const RecipientForm = function ({ t, formData, updateRecipientForm }) {
           <input
             name="phone"
             type="text"
-            value={phone || ''}
-            onChange={updateRecipientForm}
+            value={contact.phone || ''}
+            onChange={updateRecipientFormAction}
           />
         </Field>
       </Row>
@@ -59,8 +67,8 @@ export const RecipientForm = function ({ t, formData, updateRecipientForm }) {
           <input
             name="address"
             type="text"
-            value={address || ''}
-            onChange={updateRecipientForm}
+            value={contact.address || ''}
+            onChange={updateRecipientFormAction}
           />
         </Field>
       </Row>

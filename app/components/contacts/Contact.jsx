@@ -14,6 +14,7 @@ class Contact extends PureComponent {
     this.deleteContact = this.deleteContact.bind(this);
     this.newInvoice = this.newInvoice.bind(this);
     this.handleTooltipClick = this.handleTooltipClick.bind(this);
+    this.editContact = this.editContact.bind(this);
   }
 
   newInvoice() {
@@ -24,6 +25,11 @@ class Contact extends PureComponent {
   deleteContact() {
     const { contact, deleteContact } = this.props;
     deleteContact(contact._id);
+  }
+
+  editContact() {
+    const { contact, editContact } = this.props;
+    editContact(contact);
   }
 
   handleTooltipClick(event, text) {
@@ -81,6 +87,9 @@ class Contact extends PureComponent {
           </span>
         </TD>
         <TD actions>
+          <Button link info onClick={this.editContact}>
+            <i className="ion-edit" />
+          </Button>
           <Button link primary onClick={this.newInvoice}>
             <i className="ion-plus-round" />
           </Button>
@@ -98,6 +107,7 @@ Contact.propTypes = {
   contact: PropTypes.object.isRequired,
   deleteContact: PropTypes.func.isRequired,
   newInvoice: PropTypes.func.isRequired,
+  editContact: PropTypes.func.isRequired,
 };
 
 export default Contact;

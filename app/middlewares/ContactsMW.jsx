@@ -6,19 +6,40 @@ import { getAllDocs, saveDoc, deleteDoc, updateDoc } from '../helpers/pouchDB';
 import i18n from '../../i18n/i18n';
 import { decrypt, encrypt } from '../helpers/encryption.js';
 
-const ContactsMW = ({ dispatch, getState }) => next => action => {
-  switch (action.type) {
-    case ACTION_TYPES.CONTACT_GET_ALL: {
-      const secretKey = getState().login.secretKey
-      if (secretKey) {
+const ContactsMW =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    switch (action.type) {
+      case ACTION_TYPES.CONTACT_GET_ALL: {
+        const secretKey = getState().login.secretKey;
+        if (secretKey) {
+          return getAllDocs('contacts')
+            .then((allDocs) => {
+              const allDocsDecrypted = decrypt({ docs: allDocs, secretKey });
+              next({ ...action, payload: allDocsDecrypted });
+            })
+            .catch((err) => {
+              next({
+                type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+                payload: {
+                  type: 'warning',
+                  message: err.message,
+                },
+              });
+            });
+        }
+      }
+      case ACTION_TYPES.CONTACT_ENCRYPT: {
         return getAllDocs('contacts')
-          .then(allDocs => {
-            const allDocsDecrypted = decrypt({ docs: allDocs, secretKey })
-            next(
-              { ...action, payload: allDocsDecrypted, }
-            );
+          .then((allDocs) => {
+            const secretKey = getState().login.secretKey;
+            const allDocsEncrypted = encrypt({ docs: allDocs, secretKey });
+            allDocsEncrypted.forEach((contact) => {
+              updateDoc('contacts', contact);
+            });
           })
-          .catch(err => {
+          .catch((err) => {
             next({
               type: ACTION_TYPES.UI_NOTIFICATION_NEW,
               payload: {
@@ -28,87 +49,110 @@ const ContactsMW = ({ dispatch, getState }) => next => action => {
             });
           });
       }
-    }
-    case ACTION_TYPES.CONTACT_ENCRYPT: {
-      return getAllDocs('contacts')
-        .then(allDocs => {
-          const secretKey = getState().login.secretKey
-          const allDocsEncrypted = encrypt({ docs: allDocs, secretKey })
-          allDocsEncrypted.forEach(contact => {
-            updateDoc('contacts', contact)
-          });
-        })
-        .catch(err => {
-          next({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: err.message,
-            },
-          });
-        });
-    }
 
-    case ACTION_TYPES.CONTACT_SAVE: {
-      return saveDoc('contacts', action.payload)
-        .then(newDocs => {
-          const secretKey = getState().login.secretKey
-          const allDocsDecrypted = decrypt({ docs: newDocs, secretKey })
-          next({
-            type: ACTION_TYPES.CONTACT_SAVE,
-            payload: allDocsDecrypted,
+      case ACTION_TYPES.CONTACT_SAVE: {
+        return saveDoc('contacts', action.payload)
+          .then((newDocs) => {
+            const secretKey = getState().login.secretKey;
+            const allDocsDecrypted = decrypt({ docs: newDocs, secretKey });
+            next({
+              type: ACTION_TYPES.CONTACT_SAVE,
+              payload: allDocsDecrypted,
+            });
+            dispatch({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'success',
+                message: i18n.t('messages:contact:saved'),
+              },
+            });
+          })
+          .catch((err) => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
           });
-          dispatch({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'success',
-              message: i18n.t('messages:contact:saved'),
-            },
-          });
-        })
-        .catch(err => {
-          next({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: err.message,
-            },
-          });
-        });
-    }
+      }
 
-    case ACTION_TYPES.CONTACT_DELETE: {
-      return deleteDoc('contacts', action.payload[0])
-        .then(remainingDocs => {
-          const secretKey = getState().login.secretKey
-          const allDocsDecrypted = decrypt({ docs: remainingDocs, secretKey })
-          next({
-            type: ACTION_TYPES.CONTACT_DELETE,
-            payload: allDocsDecrypted,
+      case ACTION_TYPES.CONTACT_DELETE: {
+        return deleteDoc('contacts', action.payload[0])
+          .then((remainingDocs) => {
+            const secretKey = getState().login.secretKey;
+            const allDocsDecrypted = decrypt({
+              docs: remainingDocs,
+              secretKey,
+            });
+            next({
+              type: ACTION_TYPES.CONTACT_DELETE,
+              payload: allDocsDecrypted,
+            });
+            dispatch({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'success',
+                message: i18n.t('messages:contact:deleted'),
+              },
+            });
+          })
+          .catch((err) => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
           });
-          dispatch({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'success',
-              message: i18n.t('messages:contact:deleted'),
-            },
-          });
-        })
-        .catch(err => {
-          next({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: err.message,
-            },
-          });
-        });
-    }
+      }
 
-    default: {
-      return next(action);
+      case ACTION_TYPES.CONTACT_UPDATE: {
+        const secretKey = getState().login.secretKey;
+        const contactContent = encrypt({
+          docs: {
+            ...action.payload,
+          },
+          secretKey,
+        });
+
+        const newContact = {
+          _id: action.payload._id,
+          _rev: action.payload._rev,
+          content: contactContent,
+        };
+
+        return updateDoc('contacts', newContact)
+          .then((docs) => {
+            const allDocsDecrypted = decrypt({ docs, secretKey });
+            next({
+              type: ACTION_TYPES.CONTACT_UPDATE,
+              payload: allDocsDecrypted,
+            });
+            dispatch({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'success',
+                message: i18n.t('messages:contact:updated'),
+              },
+            });
+          })
+          .catch((err) => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
+          });
+      }
+      default: {
+        return next(action);
+      }
     }
-  }
-};
+  };
 
 export default ContactsMW;

@@ -8,6 +8,7 @@
   },
   "contact": {
     "saved": "Contact saved successfully",
+    "updated": "Contact updated successfully",
     "deleted": "Contact deleted successfully"
   },
   "settings": {

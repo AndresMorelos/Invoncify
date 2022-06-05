@@ -32,6 +32,7 @@ class Contacts extends PureComponent {
     super(props);
     this.newInvoice = this.newInvoice.bind(this);
     this.deleteContact = this.deleteContact.bind(this);
+    this.editContact = this.editContact.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,11 @@ class Contacts extends PureComponent {
     dispatch(InvoicesActions.newInvoiceFromContact(contact));
   }
 
+  editContact(contact) {
+    const { dispatch } = this.props;
+    dispatch(ContactsActions.editContact(contact));
+  }
+
   deleteContact(contactId) {
     const { t } = this.props;
     openDialog(
@@ -58,10 +64,7 @@ class Contacts extends PureComponent {
         type: 'warning',
         title: t('dialog:deleteContact:title'),
         message: t('dialog:deleteContact:message'),
-        buttons: [
-          t('common:yes'),
-          t('common:noThanks')
-        ],
+        buttons: [t('common:yes'), t('common:noThanks')],
       },
       'confirmed-delete-contact',
       contactId
@@ -83,6 +86,7 @@ class Contacts extends PureComponent {
         t={t}
         deleteContact={this.deleteContact}
         newInvoice={this.newInvoice}
+        editContact={this.editContact}
       />
     ));
     return (
@@ -119,7 +123,7 @@ Contacts.propTypes = {
 };
 
 // Map state to props & Export
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   contacts: getContacts(state),
 });
 

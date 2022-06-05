@@ -7,6 +7,7 @@ import SettingsReducer from './SettingsReducer';
 import LoginReducer from './LoginReducer';
 import exportImportReducer from './exportImportReducer';
 import * as ACTION_TYPES from '../constants/actions'
+import ContactFormReducer from './ContactFormReducer';
 
 const appReducers = combineReducers({
   ui: UIReducer,
@@ -16,6 +17,7 @@ const appReducers = combineReducers({
   settings: SettingsReducer,
   login: LoginReducer,
   exportImport: exportImportReducer,
+  contactForm: ContactFormReducer
 });
 
 export default function rootReducer(state, action) {
