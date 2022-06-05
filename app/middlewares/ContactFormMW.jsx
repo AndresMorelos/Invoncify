@@ -1,46 +1,47 @@
-import { v4 as uuidv4 } from 'uuid';
-
 // Actions Verbs
 import * as ACTION_TYPES from '../constants/actions.jsx';
 
 // Actions
-import * as FormActions from '../actions/form';
+import * as ContactFormActions from '../actions/contactForm';
 import * as ContactsActions from '../actions/contacts';
-import * as SettingsActions from '../actions/settings';
 import * as UIActions from '../actions/ui';
 
-// Helper
-import { getInvoiceData, validateFormData } from '../helpers/form';
-
 // Node Libs
-import i18n from '../../i18n/i18n';
 const { require: RemoteRequire } = require('@electron/remote');
-const appConfig = RemoteRequire('electron-settings');
 
-const FormMW =
+const ContactFormMW =
   ({ dispatch, getState }) =>
   (next) =>
   (action) => {
     switch (action.type) {
+      case ACTION_TYPES.CONTACT_EDIT: {
+        // Change Tab to Form
+        next(UIActions.changeActiveTab('contactForm'));
+        dispatch(
+          ContactFormActions.editContact({
+            ...action.payload,
+          })
+        );
+        break;
+      }
+
       case ACTION_TYPES.CONTACT_FORM_SAVE: {
         const currentFormData = getState().contactForm;
 
         // Update existing contact
         dispatch(ContactsActions.updateContact(currentFormData));
         // Change Tab to contacts
-        dispatch(UIActions.changeActiveTab('invoices'));
+        dispatch(UIActions.changeActiveTab('contacts'));
         // Clear The Form
-        dispatch(FormActions.clearForm(null, true));
+        dispatch(ContactFormActions.clearForm(null, true));
         break;
       }
 
-      case ACTION_TYPES.FORM_CLEAR: {
-        // Close Setting Panel
-        dispatch(FormActions.closeFormSettings());
+      case ACTION_TYPES.CONTACT_FORM_CLEAR: {
         // Clear The Form
         next(action);
-        // Create An item
-        dispatch(FormActions.addItem());
+        // Change Tab to contacts
+        dispatch(UIActions.changeActiveTab('contacts'));
         break;
       }
 
@@ -50,4 +51,4 @@ const FormMW =
     }
   };
 
-export default FormMW;
+export default ContactFormMW;

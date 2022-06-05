@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import Form from '../../containers/Form';
 import Invoices from '../../containers/Invoices';
 import Contacts from '../../containers/Contacts';
+import ContactForm from '../../containers/ContactForm';
 import Settings from '../../containers/Settings';
 import Statistics from '../../containers/Statistics';
 
 // Layout
 import { AppMainContent } from '../shared/Layout';
-
 
 class AppMain extends Component {
   shouldComponentUpdate(nextProps) {
@@ -28,6 +28,7 @@ class AppMain extends Component {
         {activeTab === 'contacts' && <Contacts />}
         {activeTab === 'statistics' && <Statistics />}
         {activeTab === 'settings' && <Settings />}
+        {activeTab === 'contactForm' && <ContactForm />}
       </AppMainContent>
     );
   }

@@ -9,17 +9,7 @@ import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 
 // Components
-import Recipient from '@components/form/Recipient';
-import ItemsList from '@components/form/ItemsList';
-import PaymentItemsList from '@components/form/PaymentItemsList';
-import Currency from '@components/form/Currency';
-import Discount from '@components/form/Discount';
-import DueDate from '@components/form/DueDate';
-import Tax from '@components/form/Tax';
-import Note from '@components/form/Note';
-import Payment from '@components/form/Payment';
-import InvoiceID from '@components/form/InvoiceID';
-import Settings from '@components/form/Settings';
+import Form from '@components/contacts/Form/Form';
 import Button from '@components/shared/Button';
 import _withFadeInAnimation from '@components/shared/hoc/_withFadeInAnimation';
 import {
@@ -29,137 +19,38 @@ import {
   PageHeaderActions,
   PageContent,
 } from '@components/shared/Layout';
-import * as SettingsActions from '../actions/settings';
-import * as FormActions from '../actions/form';
-import { getCurrentInvoice } from '../reducers/FormReducer';
-import CreatedAt from '../components/form/CreatedAt';
+import * as ContactFormActions from '../actions/contactForm';
+import { getCurrentContact } from '../reducers/ContactFormReducer';
 
 // Component
 class ContactForm extends PureComponent {
   render() {
-    const {
-      boundSettingsActionCreators,
-      boundFormActionCreators,
-      currentInvoice,
-    } = this.props;
+    const { boundFormActionCreators, currentContact } = this.props;
     // Form & Settings Actions
-    const { updateSettings } = boundSettingsActionCreators;
-    const {
-      clearForm,
-      toggleField,
-      saveFormData,
-      updateFieldData,
-      toggleFormSettings,
-      updateSavedFormSettings,
-    } = boundFormActionCreators;
-    // Form Value
-    const {
-      created_at,
-      dueDate,
-      currency,
-      discount,
-      tax,
-      note,
-      payment,
-      invoiceID,
-      settings,
-      savedSettings,
-    } = currentInvoice;
+    const { clearForm, saveFormData, updateFieldData } =
+      boundFormActionCreators;
 
-    const { required_fields, open, editMode } = settings;
     // Translation
     const { t } = this.props;
     return (
       <PageWrapper>
         <PageHeader>
-          <PageHeaderTitle>
-            {editMode.active ? t('form:header:edit') : t('form:header:new')}
-          </PageHeaderTitle>
+          <PageHeaderTitle>{t('form:header:contactEdit')}</PageHeaderTitle>
           <PageHeaderActions>
             <Button danger onClick={clearForm}>
               {t('form:header:btns:clear')}
             </Button>
-            <Button
-              primary={editMode.active}
-              success={editMode.active === false}
-              onClick={saveFormData}
-            >
-              {editMode.active
-                ? t('form:header:btns:update')
-                : t('form:header:btns:saveAndPreview')}
+            <Button primary onClick={saveFormData}>
+              {t('form:header:btns:update')}
             </Button>
           </PageHeaderActions>
         </PageHeader>
         <PageContent>
-          <Settings
+          <Form
+            formData={currentContact}
+            updateRecipientForm={updateFieldData}
             t={t}
-            toggleField={toggleField}
-            toggleFormSettings={toggleFormSettings}
-            settings={settings}
-            savedSettings={savedSettings.required_fields}
-            updateSavedSettings={updateSavedFormSettings}
           />
-          {required_fields.invoiceID && (
-            <InvoiceID
-              t={t}
-              invoiceID={invoiceID}
-              updateFieldData={updateFieldData}
-            />
-          )}
-          <Recipient />
-          <ItemsList />
-          <PaymentItemsList />
-          {editMode.active && (
-            <CreatedAt
-              t={t}
-              created_at={created_at}
-              updateFieldData={updateFieldData}
-            />
-          )}
-          {required_fields.dueDate && (
-            <DueDate
-              t={t}
-              dueDate={dueDate}
-              updateFieldData={updateFieldData}
-            />
-          )}
-          {required_fields.currency && (
-            <Currency
-              t={t}
-              currency={currency}
-              updateFieldData={updateFieldData}
-              savedSettings={savedSettings.currency}
-              updateSavedSettings={updateSavedFormSettings}
-            />
-          )}
-          {required_fields.discount && (
-            <Discount
-              t={t}
-              discount={discount}
-              updateFieldData={updateFieldData}
-            />
-          )}
-          {required_fields.tax && (
-            <Tax
-              t={t}
-              tax={tax}
-              updateFieldData={updateFieldData}
-              savedSettings={savedSettings.tax}
-              updateSavedSettings={updateSavedFormSettings}
-            />
-          )}
-          {required_fields.note && (
-            <Note t={t} note={note} updateFieldData={updateFieldData} />
-          )}
-          {required_fields.payment && (
-            <Payment
-              t={t}
-              payment={payment}
-              updateFieldData={updateFieldData}
-              savedSettings={savedSettings.payment}
-              updateSavedSettings={updateSavedFormSettings}
-            />
-          )}
         </PageContent>
       </PageWrapper>
     );
@@ -174,19 +65,16 @@ ContactForm.propTypes = {
     saveFormData: PropTypes.func.isRequired,
     updateFieldData: PropTypes.func.isRequired,
   }).isRequired,
-  currentContact: PropTypes.shape({
-   
-  }).isRequired,
+  currentContact: PropTypes.shape({}).isRequired,
 };
 
 // Map state & dispatch to props
 const mapStateToProps = (state) => ({
-  currentContact: getCurrentInvoice(state),
+  currentContact: getCurrentContact(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  boundFormActionCreators: bindActionCreators(FormActions, dispatch),
-  boundSettingsActionCreators: bindActionCreators(SettingsActions, dispatch),
+  boundFormActionCreators: bindActionCreators(ContactFormActions, dispatch),
 });
 
 // Export

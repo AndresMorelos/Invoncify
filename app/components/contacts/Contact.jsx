@@ -14,7 +14,7 @@ class Contact extends PureComponent {
     this.deleteContact = this.deleteContact.bind(this);
     this.newInvoice = this.newInvoice.bind(this);
     this.handleTooltipClick = this.handleTooltipClick.bind(this);
-    this.editContact = this.editContact(this);
+    this.editContact = this.editContact.bind(this);
   }
 
   newInvoice() {
