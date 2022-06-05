@@ -293,10 +293,11 @@ function setInitialValues() {
       sound: 'default',
       muted: false,
       previewPDF: true,
-      tayIconL: true,
+      tayIcon: true,
       checkUpdate: 'daily',
       lastCheck: Date.now(),
       enableMetrics: true,
+      openAtLogin: true,
     },
     invoice: {
       exportDir: os.homedir(),
@@ -475,6 +476,22 @@ function migrateData() {
           ...configs.general,
           trayIcon: true,
           enableMetrics: true,
+        },
+      };
+    },
+    6: (configs) => {
+      // Return current configs if this is the first time install
+      const { trayIcon, enableMetrics } = configs.general;
+      if (trayIcon !== undefined && enableMetrics !== undefined) {
+        return configs;
+      }
+
+      // Update current configs
+      return {
+        ...configs,
+        general: {
+          ...configs.general,
+          openAtLogin: true,
         },
       };
     },

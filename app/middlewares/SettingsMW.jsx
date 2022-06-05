@@ -49,14 +49,20 @@ const SettingsMW =
           // Notify previewWindow to update
           ipc.send('change-preview-window-language', newLang);
         }
+
         // Destroy Tray
         const trayIcon = action.payload.general.trayIcon;
 
         if (!trayIcon) {
           ipc.send('destroy-tray');
-        }else{
-          ipc.send('show-tray')
+        } else {
+          ipc.send('show-tray');
         }
+
+        // Login at startup
+        const openAtLogin = action.payload.general.openAtLogin;
+
+        ipc.send('openAtLogin', openAtLogin);
 
         // Save Settings
         appConfig.setSync('profile', action.payload.profile);
