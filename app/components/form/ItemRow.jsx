@@ -63,6 +63,9 @@ export class ItemRow extends Component {
     this.updateSubtotal = this.updateSubtotal.bind(this);
     this.uploadRowState = this.uploadRowState.bind(this);
     this.removeRow = this.removeRow.bind(this);
+    this.addSubItem = this.addSubItem.bind(this);
+    this.removeSubItem = this.removeSubItem.bind(this);
+    this.updateSubItem = this.updateSubItem.bind(this);
   }
 
   UNSAFE_componentWillMount() {
@@ -124,6 +127,10 @@ export class ItemRow extends Component {
 
   removeRow() {
     this.props.removeRow(this.state.id);
+  }
+
+  addSubItem() {
+    this.props.addSubItem(this.state.id);
   }
 
   render() {
@@ -193,6 +200,9 @@ ItemRow.propTypes = {
   index: PropTypes.number.isRequired,
   removeRow: PropTypes.func.isRequired,
   updateRow: PropTypes.func.isRequired,
+  addSubItem: PropTypes.func.isRequired,
+  removeSubItem: PropTypes.func.isRequired,
+  updateSubItem: PropTypes.func.isRequired,
 };
 
 export default compose(_withDraggable)(ItemRow);

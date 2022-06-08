@@ -69,7 +69,7 @@ export class ItemsList extends PureComponent {
 
   render() {
     // Bound Actions
-    const { addItem, removeItem, updateItem } = this.props.boundActionCreators;
+    const { addItem, removeItem, updateItem, addSubItem } = this.props.boundActionCreators;
     // Item Rows
     const { t, rows } = this.props;
     
@@ -84,6 +84,7 @@ export class ItemsList extends PureComponent {
         updateRow={updateItem}
         removeRow={removeItem}
         addItem={addItem}
+        addSubItem={addSubItem}
       />
     ));
 
