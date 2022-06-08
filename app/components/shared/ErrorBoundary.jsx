@@ -57,7 +57,7 @@ class ErrorBoundary extends Component {
             <br />
             GitHub: https://github.com/AndresMorelos/Invoncify
             <br />
-            Email: invoncify@andresmrorelos.me
+            Email: invoncify@andresmorelos.me
           </p>
         </ErrorContainer>
       );
