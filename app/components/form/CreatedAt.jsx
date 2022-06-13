@@ -15,7 +15,6 @@ export class CreatedAt extends Component {
     super(props);
     this.state = { created_at: this.props.created_at };
     this.updateCustomDate = this.updateCustomDate.bind(this);
-    this.updatePaymentTerm = this.updatePaymentTerm.bind(this);
     this.updateCreateAt = this.updateCreateAt.bind(this);
   }
 
@@ -33,14 +32,8 @@ export class CreatedAt extends Component {
     });
   }
 
-  updatePaymentTerm(paymentTerm) {
-    this.setState({ paymentTerm }, () => {
-      this.updateCreateAt(this.state);
-    });
-  }
-
-  updateCreateAt(data) {
-    this.props.updateFieldData('created_at', data);
+  updateCreateAt({ created_at }) {
+    this.props.updateFieldData('created_at', created_at);
   }
 
   render() {

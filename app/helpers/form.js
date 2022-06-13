@@ -95,8 +95,8 @@ function getInvoiceData(formData, secretKey) {
 
   if (editMode.active) {
     createdAtToUpdate =
-      created_at.created_at !== editMode.data.created_at
-        ? created_at.created_at
+      created_at && created_at !== editMode.data.created_at
+        ? created_at
         : editMode.data.created_at;
   }
 
