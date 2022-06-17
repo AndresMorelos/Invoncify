@@ -17,6 +17,7 @@
     "requiredFields": "Campos requeridos",
     "sound": "Sonido",
     "mute": "Silenciar",
+    "quitAtClose": "Salir al cerrar",
     "autoCheckUpdate": {
       "name": "Buscar actualizaciones automáticamente",
       "daily": "Diariamente (Recomendado)",
