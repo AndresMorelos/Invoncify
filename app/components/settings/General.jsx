@@ -38,6 +38,7 @@ class General extends Component {
       trayIcon,
       enableMetrics,
       openAtLogin,
+      quitAtClose,
     } = this.state;
     return (
       <div>
@@ -213,13 +214,13 @@ class General extends Component {
           <div className="col-md-3">
             <div className="pageItem">
               <label className="itemLabel">
-                {t('settings:fields:sendMetricsAnon')}
+                {t('settings:fields:quitAtClose')}
               </label>
               <label className="switch">
                 <input
-                  name="enableMetrics"
+                  name="quitAtClose"
                   type="checkbox"
-                  checked={enableMetrics}
+                  checked={quitAtClose}
                   onChange={this.handleInputChange}
                 />
                 <span className="slider round" />

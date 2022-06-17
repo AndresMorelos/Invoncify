@@ -154,13 +154,21 @@ function createMainWindow() {
   mainWindow.on('close', (event) => {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
-    app.isHidden = true;
-    if (process.platform !== 'darwin') {
-      mainWindow.setSkipTaskbar(true);
+
+    const needCloseApp =
+      appConfig.getSync('general.quitAtClose') || false;
+
+    if (!needCloseApp) {
+      app.isHidden = true;
+      if (process.platform !== 'darwin') {
+        mainWindow.setSkipTaskbar(true);
+      } else {
+        app.dock.hide();
+      }
+      mainWindow.hide();
     } else {
-      app.dock.hide();
+      app.quit();
     }
-    mainWindow.hide();
   });
 }
 
@@ -298,6 +306,7 @@ function setInitialValues() {
       lastCheck: Date.now(),
       enableMetrics: true,
       openAtLogin: true,
+      quitAtClose: false,
     },
     invoice: {
       exportDir: os.homedir(),
@@ -481,8 +490,8 @@ function migrateData() {
     },
     6: (configs) => {
       // Return current configs if this is the first time install
-      const { trayIcon, enableMetrics } = configs.general;
-      if (trayIcon !== undefined && enableMetrics !== undefined) {
+      const { openAtLogin } = configs.general;
+      if (openAtLogin !== undefined) {
         return configs;
       }
 
@@ -492,6 +501,22 @@ function migrateData() {
         general: {
           ...configs.general,
           openAtLogin: true,
+        },
+      };
+    },
+    7: (configs) => {
+      // Return current configs if this is the first time install
+      const { quitAtClose } = configs.general;
+      if (quitAtClose !== undefined) {
+        return configs;
+      }
+
+      // Update current configs
+      return {
+        ...configs,
+        general: {
+          ...configs.general,
+          quitAtClose: false,
         },
       };
     },
