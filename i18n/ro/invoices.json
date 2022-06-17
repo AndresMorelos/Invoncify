@@ -7,7 +7,9 @@
     "invoiceID": "ID factură",
     "createdDate": "Creat in data de",
     "dueDate": "Dată scadentă",
-    "total": "Valoare totală"
+    "total": "Valoare totală",
+    "prepaid": "Preplătit",
+    "remaining": "Soldul rămas"
   },
   "status": {
     "pending": "În așteptare",

@@ -19,6 +19,8 @@
     "sound": "Звук",
     "trayIcon": "Иконица у менију",
     "sendMetricsAnon": "Пошаљите анонимну статистику о коришћењу",
+    "openAtLogin": "Open at Login",
+    "quitAtClose": "Quit at Close",
     "mute": "Нечујно",
     "autoCheckUpdate": {
       "name": "Аутоматска провера ажурирања",
@@ -63,7 +65,8 @@
       "vi": "Вијетнамски",
       "zh-CN": "Кинески (поједностављен)",
       "zh-TW": "Кинески (традиционални)",
-      "ro": "Romanian"
+      "sr": "Српски (ћирилица)",
+      "ro": "Румунски"
     },
     "importExport": {
       "name": "Увоз/Извоз",

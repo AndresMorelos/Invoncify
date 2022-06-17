@@ -19,6 +19,8 @@
     "sound": "Geluid",
     "trayIcon": "Menubalkitem",
     "sendMetricsAnon": "Stuur App Metrics Anoniem",
+    "openAtLogin": "Open at Login",
+    "quitAtClose": "Quit at Close",
     "mute": "Dempen",
     "autoCheckUpdate": {
       "name": "Check automatisch voor updates",

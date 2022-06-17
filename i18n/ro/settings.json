@@ -19,6 +19,8 @@
     "sound": "Sunet",
     "trayIcon": "Iconiță bară meniu",
     "sendMetricsAnon": "Trimite valori aplicație anonim",
+    "openAtLogin": "Open at Login",
+    "quitAtClose": "Quit at Close",
     "mute": "Mut",
     "autoCheckUpdate": {
       "name": "Verificare automată pentru actualizări",
