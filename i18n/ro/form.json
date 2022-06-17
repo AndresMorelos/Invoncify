@@ -1,5 +1,6 @@
 {
   "header": {
+    "contactEdit": "Editare contact",
     "new": "Creează o factură nouă",
     "edit": "Editează factură",
     "btns": {
@@ -19,6 +20,12 @@
       "price": "Preț",
       "quantity": "Cantitate",
       "add": "Adaugă un element nou"
+    },
+    "paymentItems": {
+      "name": "Preplăți",
+      "description": "Descriere",
+      "value": "Valoare",
+      "add": "Adaugă un element nou de preplată"
     },
     "recipient": {
       "name": "Destinatar",

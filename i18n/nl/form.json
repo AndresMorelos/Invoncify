@@ -1,5 +1,6 @@
 {
   "header": {
+    "contactEdit": "Contact aanpassen",
     "new": "Nieuwe factuur aanmaken",
     "edit": "Factuur bewerken",
     "btns": {
@@ -19,6 +20,12 @@
       "price": "Prijs",
       "quantity": "Aantal",
       "add": "Nieuw item toevoegen"
+    },
+    "paymentItems": {
+      "name": "Voorschot",
+      "description": "Beschrijving",
+      "value": "Bedrag",
+      "add": "Voeg een voorschot toe"
     },
     "recipient": {
       "name": "Ontvanger",

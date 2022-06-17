@@ -7,7 +7,9 @@
     "invoiceID": "Factuurnummer",
     "createdDate": "Gemaakt op",
     "dueDate": "Vervaldatum",
-    "total": "Totaal Bedrag"
+    "total": "Totaal Bedrag",
+    "prepaid": "Voorschot",
+    "remaining": "Resterend bedrag"
   },
   "status": {
     "pending": "In behandeling",
