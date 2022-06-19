@@ -7,7 +7,9 @@
     "invoiceID": "ID фактуре",
     "createdDate": "Креирано",
     "dueDate": "Датум валуте",
-    "total": "Укупна вредност"
+    "total": "Укупна вредност",
+    "prepaid": "Претплата",
+    "remaining": "Преостало"
   },
   "status": {
     "pending": "На чекању",

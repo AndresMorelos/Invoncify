@@ -20,6 +20,7 @@
     "trayIcon": "Menu Bar Icon",
     "sendMetricsAnon": "Send App Metrics Anonymously",
     "openAtLogin": "Open at Login",
+    "quitAtClose": "Quit at Close",
     "mute": "Mute",
     "autoCheckUpdate": {
       "name": "Auto Check for Update",
