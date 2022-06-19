@@ -69,22 +69,34 @@ export class ItemsList extends PureComponent {
 
   render() {
     // Bound Actions
-    const { addItem, removeItem, updateItem, addSubItem } = this.props.boundActionCreators;
+    const {
+      addItem,
+      removeItem,
+      updateItem,
+      addSubItem,
+      removeSubItem,
+      updateSubItem,
+    } = this.props.boundActionCreators;
+
     // Item Rows
     const { t, rows } = this.props;
-    
+
     const rowsComponent = rows.map((item, index) => (
       <ItemRow
         key={item.id}
         item={item}
         index={index}
         t={t}
+        subItems={item.subitems || []}
         hasHandler={rows.length > 1}
         actions={index !== 0}
+        subitemActions
         updateRow={updateItem}
         removeRow={removeItem}
         addItem={addItem}
         addSubItem={addSubItem}
+        removeSubItem={removeSubItem}
+        updateSubItem={updateSubItem}
       />
     ));
 
@@ -95,11 +107,7 @@ export class ItemsList extends PureComponent {
           <ItemsListHeader>
             <label className="itemLabel">{t('form:fields:items:name')} *</label>
           </ItemsListHeader>
-          <ItemsListDiv>
-            <TransitionList componentHeight={50}>
-              {rowsComponent}
-            </TransitionList>
-          </ItemsListDiv>
+          <ItemsListDiv>{rowsComponent}</ItemsListDiv>
           <div className="itemsListActions">
             <ItemsListActionsBtn primary onClick={addItem}>
               {t('form:fields:items:add')}
@@ -116,12 +124,12 @@ ItemsList.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   formState: state.form, // Make drag & drop works
   rows: getRows(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   boundActionCreators: bindActionCreators(Actions, dispatch),
 });
 

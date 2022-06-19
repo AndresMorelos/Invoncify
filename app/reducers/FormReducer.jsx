@@ -73,6 +73,44 @@ const FormReducer = handleActions(
       ),
     }),
 
+    [ACTION_TYPES.FORM_ITEM_ADD_SUBITEM]: (state, action) => ({
+      ...state,
+      rows: state.rows.map((item) => {
+        if (item.id === action.payload.parentItemId) {
+          if (item.subitems) {
+            item.subitems = [...item.subitems, { id: action.payload.id }];
+          } else {
+            item.subitems = [{ id: action.payload.id }];
+          }
+        }
+        return item;
+      }),
+    }),
+
+    [ACTION_TYPES.FORM_ITEM_REMOVE_SUBITEM]: (state, action) => ({
+      ...state,
+      rows: state.rows.map((item) => {
+        if (item.id === action.payload.parentItemId) {
+          item.subitems = item.subitems.filter(
+            (subitem) => subitem.id !== action.payload.id
+          );
+        }
+        return item;
+      }),
+    }),
+
+    [ACTION_TYPES.FORM_ITEM_UPDATE_SUBITEM]: (state, action) => ({
+      ...state,
+      rows: state.rows.map((item) => {
+        if (item.id === action.payload.parentItemId) {
+          item.subitems = item.subitems.map((subitem) =>
+            subitem.id !== action.payload.subItem.id ? subitem : action.payload.subItem
+          );
+        }
+        return item;
+      }),
+    }),
+
     [ACTION_TYPES.FORM_ITEM_MOVE]: (state, action) => {
       const { dragIndex, hoverIndex } = action.payload;
       const dragRow = state.rows[dragIndex];
@@ -89,7 +127,9 @@ const FormReducer = handleActions(
 
     [ACTION_TYPES.FORM_PAYMENT_ITEM_REMOVE]: (state, action) => ({
       ...state,
-      paymentRows: state.paymentRows.filter((item) => item.id !== action.payload),
+      paymentRows: state.paymentRows.filter(
+        (item) => item.id !== action.payload
+      ),
     }),
 
     [ACTION_TYPES.FORM_PAYMENT_ITEM_UPDATE]: (state, action) => ({
@@ -252,7 +292,7 @@ export const getRows = createSelector(
 export const getPaymentRows = createSelector(
   getFormState,
   (formState) => formState.paymentRows
-)
+);
 
 export const getRecipient = createSelector(
   getFormState,

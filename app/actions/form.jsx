@@ -27,12 +27,12 @@ export const addSubItem = createAction(
 
 export const removeSubItem = createAction(
   ACTION_TYPES.FORM_ITEM_REMOVE_SUBITEM,
-  (itemID) => itemID
+  (parentItemId, itemID) => ({ id: itemID, parentItemId })
 );
 
 export const updateSubItem = createAction(
   ACTION_TYPES.FORM_ITEM_UPDATE_SUBITEM,
-  (itemData) => itemData
+  (parentItemId, itemData) => ({ subItem: itemData, parentItemId })
 );
 
 export const moveRow = createAction(
