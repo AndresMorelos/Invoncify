@@ -4,7 +4,7 @@ import * as ACTION_TYPES from '../constants/actions.jsx';
 // Recipient
 export const updateRecipient = createAction(
   ACTION_TYPES.FORM_RECIPIENT_UPDATE,
-  data => data
+  (data) => data
 );
 
 // ItemsRow
@@ -12,12 +12,27 @@ export const addItem = createAction(ACTION_TYPES.FORM_ITEM_ADD);
 
 export const removeItem = createAction(
   ACTION_TYPES.FORM_ITEM_REMOVE,
-  itemID => itemID
+  (itemID) => itemID
 );
 
 export const updateItem = createAction(
   ACTION_TYPES.FORM_ITEM_UPDATE,
-  itemData => itemData
+  (itemData) => itemData
+);
+
+export const addSubItem = createAction(
+  ACTION_TYPES.FORM_ITEM_ADD_SUBITEM,
+  (itemID) => itemID
+);
+
+export const removeSubItem = createAction(
+  ACTION_TYPES.FORM_ITEM_REMOVE_SUBITEM,
+  (parentItemId, itemID) => ({ id: itemID, parentItemId })
+);
+
+export const updateSubItem = createAction(
+  ACTION_TYPES.FORM_ITEM_UPDATE_SUBITEM,
+  (parentItemId, itemData) => ({ subItem: itemData, parentItemId })
 );
 
 export const moveRow = createAction(
@@ -30,12 +45,12 @@ export const addPaymentItem = createAction(ACTION_TYPES.FORM_PAYMENT_ITEM_ADD);
 
 export const removePaymentItem = createAction(
   ACTION_TYPES.FORM_PAYMENT_ITEM_REMOVE,
-  itemID => itemID
+  (itemID) => itemID
 );
 
 export const updatePaymentItem = createAction(
   ACTION_TYPES.FORM_PAYMENT_ITEM_UPDATE,
-  itemData => itemData
+  (itemData) => itemData
 );
 
 export const movePaymentRow = createAction(
@@ -72,5 +87,5 @@ export const updateFieldData = createAction(
 
 export const toggleField = createAction(
   ACTION_TYPES.FORM_FIELD_TOGGLE,
-  field => field
+  (field) => field
 );

@@ -17,7 +17,7 @@ const Table = styled.table`
   margin-top: 50px;
   margin-bottom: 50px;
   width: 100%;
-  ${props =>
+  ${(props) =>
     props.alignItems &&
     `
     justify-content: ${props.alignItems};
@@ -113,7 +113,7 @@ function setAlignItems(configs) {
 }
 
 // Component
-const Main = function({ invoice, configs, t }) {
+const Main = function ({ invoice, configs, t }) {
   // Get currentLanguage
   const currentLanguage = configs.language;
   // Destructuring values
@@ -125,26 +125,40 @@ const Main = function({ invoice, configs, t }) {
   const currency = configs.useSymbol ? currencies[code].symbol : code;
   // Render Items
   const itemComponents = invoice.rows.map((row, index) => (
-    <Item key={index}>
-      <td>
-        {padStart(index + 1, 2, 0)}
-        {'. '}
-        {row.description} ({row.quantity})
-      </td>
-      <td>
-        {currencyBefore ? currency : null}{' '}
-        {formatNumber(row.subtotal, fraction, separator)}{' '}
-        {currencyBefore ? null : currency}
-      </td>
-    </Item>
+    <>
+      <Item key={index}>
+        <td>
+          {padStart(index + 1, 2, 0)}
+          {'. '}
+          {row.description} ({row.quantity})
+        </td>
+        <td>
+          {currencyBefore ? currency : null}{' '}
+          {formatNumber(row.subtotal, fraction, separator)}{' '}
+          {currencyBefore ? null : currency}
+        </td>
+      </Item>
+      {row.subitems &&
+        row.subitems.length > 0 &&
+        row.subitems.map((subitem) => (
+          <Item key={subitem.id}>
+            
+            <td colSpan="1" style={{ textAlign: 'left' }}>
+              {subitem.description}
+            </td>
+          </Item>
+        ))}
+    </>
   ));
 
   return (
     <Table alignItems={setAlignItems(configs)}>
       <thead>
         <ItemsHeader>
-          <th>{t('preview:common:itemDescription', {lng: currentLanguage})}</th>
-          <th>{t('preview:common:price', {lng: currentLanguage})}</th>
+          <th>
+            {t('preview:common:itemDescription', { lng: currentLanguage })}
+          </th>
+          <th>{t('preview:common:price', { lng: currentLanguage })}</th>
         </ItemsHeader>
       </thead>
 
@@ -152,12 +166,10 @@ const Main = function({ invoice, configs, t }) {
 
       <InvoiceSummary>
         <Subtotal>
-          <td>{t('preview:common:subtotal', {lng: currentLanguage})}</td>
+          <td>{t('preview:common:subtotal', { lng: currentLanguage })}</td>
           <td>
-            {currencyBefore ? currency : null}
-            {' '}
-            {formatNumber(invoice.subtotal, fraction, separator)}
-            {' '}
+            {currencyBefore ? currency : null}{' '}
+            {formatNumber(invoice.subtotal, fraction, separator)}{' '}
             {currencyBefore ? null : currency}
           </td>
         </Subtotal>
@@ -165,10 +177,11 @@ const Main = function({ invoice, configs, t }) {
         {tax && (
           <Tax>
             <td>
-              {t('form:fields:tax:name', {lng: currentLanguage})} {tax.amount}%
+              {t('form:fields:tax:name', { lng: currentLanguage })} {tax.amount}
+              %
             </td>
             {tax.method === 'reverse' ? (
-              <td>{t('form:fields:tax:reverse', {lng: currentLanguage})}</td>
+              <td>{t('form:fields:tax:reverse', { lng: currentLanguage })}</td>
             ) : (
               <td>
                 {currencyBefore ? currency : null}{' '}
@@ -186,7 +199,7 @@ const Main = function({ invoice, configs, t }) {
         {discount && (
           <Discount>
             <td>
-              {t('form:fields:discount:name', {lng: currentLanguage})}{' '}
+              {t('form:fields:discount:name', { lng: currentLanguage })}{' '}
               {discount.type === 'percentage' && (
                 <span> {discount.amount}%</span>
               )}
@@ -204,19 +217,17 @@ const Main = function({ invoice, configs, t }) {
         )}
 
         <Total>
-          <td>{t('preview:common:total', {lng: currentLanguage})}</td>
+          <td>{t('preview:common:total', { lng: currentLanguage })}</td>
           <td>
-            {currencyBefore ? currency : null}
-            {' '}
-            {formatNumber(invoice.grandTotal, fraction, separator)}
-            {' '}
+            {currencyBefore ? currency : null}{' '}
+            {formatNumber(invoice.grandTotal, fraction, separator)}{' '}
             {currencyBefore ? null : currency}
           </td>
         </Total>
       </InvoiceSummary>
     </Table>
   );
-}
+};
 
 Main.propTypes = {
   configs: PropTypes.object.isRequired,

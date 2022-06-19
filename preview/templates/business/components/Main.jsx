@@ -7,13 +7,12 @@ import { formatNumber } from '../../../../helpers/formatNumber';
 import { getInvoiceValue } from '../../../../app/helpers/invoice';
 import currencies from '../../../../libs/currencies.json';
 
-
 const InvoiceContent = styled.div`
   flex: 1;
   display: flex;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  ${props =>
+  ${(props) =>
     props.alignItems &&
     `
     align-items: ${props.alignItems};
@@ -30,7 +29,7 @@ const Table = styled.table`
       text-align: right;
     }
   }
-  ${props =>
+  ${(props) =>
     props.customAccentColor &&
     `
     th { border-bottom: 4px solid ${props.accentColor};}
@@ -70,7 +69,7 @@ const InvoiceTotal = styled.tr`
     }
   }
 
-  ${props =>
+  ${(props) =>
     props.customAccentColor &&
     `
     td {
@@ -111,9 +110,9 @@ function setAlignItems(configs) {
 }
 
 // Component
-const Main = function({ invoice, configs, t }) {
+const Main = function ({ invoice, configs, t }) {
   // Set language
-  const { language, accentColor, customAccentColor  } = configs;
+  const { language, accentColor, customAccentColor } = configs;
   // Others
   const { tax, discount } = invoice;
   const { code, placement, fraction, separator } = invoice.currency;
@@ -123,36 +122,53 @@ const Main = function({ invoice, configs, t }) {
   const currency = configs.useSymbol ? currencies[code].symbol : code;
   // Render Items
   const itemComponents = invoice.rows.map((row, index) => (
-    <tr key={index}>
-      <td className="w5">{padStart(index + 1, 2, 0)}.</td>
-      <td>{row.description}</td>
-      <td className="w15">
-        {currencyBefore ? currency : null}{' '}
-        {formatNumber(row.price, fraction, separator)}{' '}
-        {currencyBefore ? null : currency}
-      </td>
-      <td className="w10">{row.quantity}</td>
-      <td className="w15">
-        {currencyBefore ? currency : null}{' '}
-        {formatNumber(row.subtotal, fraction, separator)}{' '}
-        {currencyBefore ? null : currency}
-      </td>
-    </tr>
+    <>
+      <tr key={index}>
+        <td className="w5">{padStart(index + 1, 2, 0)}.</td>
+        <td>{row.description}</td>
+        <td className="w15">
+          {currencyBefore ? currency : null}{' '}
+          {formatNumber(row.price, fraction, separator)}{' '}
+          {currencyBefore ? null : currency}
+        </td>
+        <td className="w10">{row.quantity}</td>
+        <td className="w15">
+          {currencyBefore ? currency : null}{' '}
+          {formatNumber(row.subtotal, fraction, separator)}{' '}
+          {currencyBefore ? null : currency}
+        </td>
+      </tr>
+      {row.subitems &&
+        row.subitems.length > 0 &&
+        row.subitems.map((subitem) => (
+          <tr key={subitem.id}>
+            <td colSpan="1"> </td>
+            <td colSpan="4" style={{ textAlign: 'left' }}>
+              {subitem.description}
+            </td>
+          </tr>
+        ))}
+    </>
   ));
 
   return (
     <InvoiceContent alignItems={setAlignItems(configs)}>
-      <Table
-        accentColor={accentColor}
-        customAccentColor={customAccentColor}
-      >
+      <Table accentColor={accentColor} customAccentColor={customAccentColor}>
         <thead>
           <tr>
-            <th className="w5">{t('preview:common:order', {lng: language})}</th>
-            <th>{t('preview:common:itemDescription', {lng: language})}</th>
-            <th className="w15">{t('preview:common:price', {lng: language})}</th>
-            <th className="w10">{t('preview:common:qty', {lng: language})}</th>
-            <th className="w15">{t('preview:common:subtotal', {lng: language})}</th>
+            <th className="w5">
+              {t('preview:common:order', { lng: language })}
+            </th>
+            <th>{t('preview:common:itemDescription', { lng: language })}</th>
+            <th className="w15">
+              {t('preview:common:price', { lng: language })}
+            </th>
+            <th className="w10">
+              {t('preview:common:qty', { lng: language })}
+            </th>
+            <th className="w15">
+              {t('preview:common:subtotal', { lng: language })}
+            </th>
           </tr>
         </thead>
         <tbody>{itemComponents}</tbody>
@@ -160,13 +176,11 @@ const Main = function({ invoice, configs, t }) {
           <tr className="invoice__subtotal">
             <td colSpan="2" />
             <td className="label" colSpan="2">
-              {t('preview:common:subtotal', {lng: language})}
+              {t('preview:common:subtotal', { lng: language })}
             </td>
             <td>
-              {currencyBefore ? currency : null}
-              {' '}
-              {formatNumber(invoice.subtotal, fraction, separator)}
-              {' '}
+              {currencyBefore ? currency : null}{' '}
+              {formatNumber(invoice.subtotal, fraction, separator)}{' '}
               {currencyBefore ? null : currency}
             </td>
           </tr>
@@ -175,7 +189,7 @@ const Main = function({ invoice, configs, t }) {
             <InvoiceDiscount>
               <td colSpan="2" />
               <td className="label" colSpan="2">
-                {t('form:fields:discount:name', {lng: language})}{' '}
+                {t('form:fields:discount:name', { lng: language })}{' '}
                 {discount.type === 'percentage' && (
                   <span> {discount.amount}%</span>
                 )}
@@ -196,19 +210,23 @@ const Main = function({ invoice, configs, t }) {
             <InvoiceTax>
               <td colSpan="2" />
               <td className="label" colSpan={tax.method === 'reverse' ? 1 : 2}>
-                {t('form:fields:tax:name', {lng: language})} {tax.amount}%
+                {t('form:fields:tax:name', { lng: language })} {tax.amount}%
               </td>
               {tax.method === 'reverse' ? (
                 <td
                   className="label"
                   colSpan={tax.method === 'reverse' ? 2 : 1}
                 >
-                  {t('form:fields:tax:reverse', {lng: language})}
+                  {t('form:fields:tax:reverse', { lng: language })}
                 </td>
               ) : (
                 <td>
                   {currencyBefore ? currency : null}{' '}
-                  {formatNumber(getInvoiceValue(invoice).taxAmount, fraction, separator)}{' '}
+                  {formatNumber(
+                    getInvoiceValue(invoice).taxAmount,
+                    fraction,
+                    separator
+                  )}{' '}
                   {currencyBefore ? null : currency}
                 </td>
               )}
@@ -220,12 +238,12 @@ const Main = function({ invoice, configs, t }) {
             customAccentColor={customAccentColor}
           >
             <td colSpan="2" />
-            <td className="label">{t('preview:common:total', {lng: language})}</td>
+            <td className="label">
+              {t('preview:common:total', { lng: language })}
+            </td>
             <td colSpan="2">
-              {currencyBefore ? currency : null}
-              {' '}
-              {formatNumber(invoice.grandTotal, fraction, separator)}
-              {' '}
+              {currencyBefore ? currency : null}{' '}
+              {formatNumber(invoice.grandTotal, fraction, separator)}{' '}
               {currencyBefore ? null : currency}
             </td>
           </InvoiceTotal>
@@ -233,7 +251,7 @@ const Main = function({ invoice, configs, t }) {
       </Table>
     </InvoiceContent>
   );
-}
+};
 
 Main.propTypes = {
   configs: PropTypes.object.isRequired,

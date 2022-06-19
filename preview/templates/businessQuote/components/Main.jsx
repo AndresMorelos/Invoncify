@@ -14,7 +14,7 @@ const InvoiceContent = styled.div`
   display: flex;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  ${props =>
+  ${(props) =>
     props.alignItems &&
     `
     align-items: ${props.alignItems};
@@ -31,7 +31,7 @@ const Table = styled.table`
       text-align: right;
     }
   }
-  ${props =>
+  ${(props) =>
     props.customAccentColor &&
     `
     th { border-bottom: 4px solid ${props.accentColor};}
@@ -71,7 +71,7 @@ const InvoiceTotal = styled.tr`
     }
   }
 
-  ${props =>
+  ${(props) =>
     props.customAccentColor &&
     `
     td {
@@ -130,21 +130,33 @@ const Main = function ({ invoice, configs, t }) {
   const currency = configs.useSymbol ? currencies[code].symbol : code;
   // Render Items
   const itemComponents = invoice.rows.map((row, index) => (
-    <tr key={index}>
-      <td className="w5">{padStart(index + 1, 2, 0)}.</td>
-      <td>{row.description}</td>
-      <td className="w15">
-        {currencyBefore ? currency : null}{' '}
-        {formatNumber(row.price, fraction, separator)}{' '}
-        {currencyBefore ? null : currency}
-      </td>
-      <td className="w10">{row.quantity}</td>
-      <td className="w15">
-        {currencyBefore ? currency : null}{' '}
-        {formatNumber(row.subtotal, fraction, separator)}{' '}
-        {currencyBefore ? null : currency}
-      </td>
-    </tr>
+    <>
+      <tr key={index}>
+        <td className="w5">{padStart(index + 1, 2, 0)}.</td>
+        <td>{row.description}</td>
+        <td className="w15">
+          {currencyBefore ? currency : null}{' '}
+          {formatNumber(row.price, fraction, separator)}{' '}
+          {currencyBefore ? null : currency}
+        </td>
+        <td className="w10">{row.quantity}</td>
+        <td className="w15">
+          {currencyBefore ? currency : null}{' '}
+          {formatNumber(row.subtotal, fraction, separator)}{' '}
+          {currencyBefore ? null : currency}
+        </td>
+      </tr>
+      {row.subitems &&
+        row.subitems.length > 0 &&
+        row.subitems.map((subitem) => (
+          <tr key={subitem.id}>
+            <td colSpan="1"> </td>
+            <td colSpan="4" style={{ textAlign: 'left' }}>
+              {subitem.description}
+            </td>
+          </tr>
+        ))}
+    </>
   ));
 
   // Render Prepayment items
@@ -157,36 +169,33 @@ const Main = function ({ invoice, configs, t }) {
       </td>
       <td>
         {currencyBefore ? currency : null}{' '}
-        {formatNumber(
-          getInvoiceValue(invoice).prepayment,
-          fraction,
-          separator
-        )}{' '}
+        {formatNumber(getInvoiceValue(invoice).prepayment, fraction, separator)}{' '}
         {currencyBefore ? null : currency}
       </td>
     </InvoicePrepayment>
   ));
 
-
-
   return (
     <InvoiceContent alignItems={setAlignItems(configs)}>
-      <Table
-        accentColor={accentColor}
-        customAccentColor={customAccentColor}
-      >
+      <Table accentColor={accentColor} customAccentColor={customAccentColor}>
         <thead>
           <tr>
-            <th className="w5">{t('preview:common:order', { lng: language })}</th>
+            <th className="w5">
+              {t('preview:common:order', { lng: language })}
+            </th>
             <th>{t('preview:common:itemDescription', { lng: language })}</th>
-            <th className="w15">{t('preview:common:price', { lng: language })}</th>
-            <th className="w10">{t('preview:common:qty', { lng: language })}</th>
-            <th className="w15">{t('preview:common:subtotal', { lng: language })}</th>
+            <th className="w15">
+              {t('preview:common:price', { lng: language })}
+            </th>
+            <th className="w10">
+              {t('preview:common:qty', { lng: language })}
+            </th>
+            <th className="w15">
+              {t('preview:common:subtotal', { lng: language })}
+            </th>
           </tr>
         </thead>
-        <tbody>
-          {itemComponents}
-        </tbody>
+        <tbody>{itemComponents}</tbody>
         <tfoot>
           <tr className="invoice__subtotal">
             <td colSpan="2" />
@@ -194,10 +203,8 @@ const Main = function ({ invoice, configs, t }) {
               {t('preview:common:subtotal', { lng: language })}
             </td>
             <td>
-              {currencyBefore ? currency : null}
-              {' '}
-              {formatNumber(invoice.subtotal, fraction, separator)}
-              {' '}
+              {currencyBefore ? currency : null}{' '}
+              {formatNumber(invoice.subtotal, fraction, separator)}{' '}
               {currencyBefore ? null : currency}
             </td>
           </tr>
@@ -241,7 +248,11 @@ const Main = function ({ invoice, configs, t }) {
               ) : (
                 <td>
                   {currencyBefore ? currency : null}{' '}
-                  {formatNumber(getInvoiceValue(invoice).taxAmount, fraction, separator)}{' '}
+                  {formatNumber(
+                    getInvoiceValue(invoice).taxAmount,
+                    fraction,
+                    separator
+                  )}{' '}
                   {currencyBefore ? null : currency}
                 </td>
               )}
@@ -253,12 +264,12 @@ const Main = function ({ invoice, configs, t }) {
             customAccentColor={customAccentColor}
           >
             <td colSpan="2" />
-            <td className="label">{t('preview:common:total', { lng: language })}</td>
+            <td className="label">
+              {t('preview:common:total', { lng: language })}
+            </td>
             <td colSpan="2">
-              {currencyBefore ? currency : null}
-              {' '}
-              {formatNumber(invoice.remaining, fraction, separator)}
-              {' '}
+              {currencyBefore ? currency : null}{' '}
+              {formatNumber(invoice.remaining, fraction, separator)}{' '}
               {currencyBefore ? null : currency}
             </td>
           </InvoiceTotal>
@@ -266,7 +277,7 @@ const Main = function ({ invoice, configs, t }) {
       </Table>
     </InvoiceContent>
   );
-}
+};
 
 Main.propTypes = {
   configs: PropTypes.object.isRequired,

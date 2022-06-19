@@ -7,7 +7,16 @@ import { compose } from 'recompose';
 import styled from 'styled-components';
 import _withDraggable from './hoc/_withDraggable';
 
+// Custom Components
+import SubItemsRow from './SubItemsRow';
+import { Section } from '../shared/Section';
+
 // Styles
+
+const ItemsListDiv = styled.div`
+  position: relative;
+  margin-bottom: 10px;
+`;
 
 const ItemDiv = styled.div`
   position: relative;
@@ -53,6 +62,13 @@ const ItemRemoveBtn = styled.a`
   }
 `;
 
+const ItemAddSubiTemBtn = styled.a`
+  > i {
+    color: #00a8ff;
+    margin-right: 10px;
+  }
+`;
+
 // Component
 export class ItemRow extends Component {
   constructor(props) {
@@ -63,11 +79,14 @@ export class ItemRow extends Component {
     this.updateSubtotal = this.updateSubtotal.bind(this);
     this.uploadRowState = this.uploadRowState.bind(this);
     this.removeRow = this.removeRow.bind(this);
+    this.addSubItem = this.addSubItem.bind(this);
+    this.removeSubItem = this.removeSubItem.bind(this);
+    this.updateSubItem = this.updateSubItem.bind(this);
   }
 
   UNSAFE_componentWillMount() {
-    const { id, description, quantity, price, subtotal } = this.props.item;
-    const index = this.props.index;
+    const { subItems, item, index } = this.props;
+    const { id, description, quantity, price, subtotal } = item;
     this.setState({
       id,
       index,
@@ -75,6 +94,7 @@ export class ItemRow extends Component {
       price: price || '',
       quantity: quantity || '',
       subtotal: subtotal || '',
+      subitems: subItems || [],
     });
   }
 
@@ -118,81 +138,123 @@ export class ItemRow extends Component {
   }
 
   uploadRowState() {
-    const { updateRow } = this.props;
-    updateRow(this.state);
+    const { updateRow, subItems } = this.props;
+    updateRow({
+      ...this.state,
+      subitems: [...subItems, ...this.state.subitems],
+    });
   }
 
   removeRow() {
     this.props.removeRow(this.state.id);
   }
 
+  addSubItem() {
+    this.props.addSubItem(this.state.id);
+  }
+
+  removeSubItem(itemId) {
+    this.props.removeSubItem(this.state.id, itemId);
+  }
+
+  updateSubItem(item) {
+    this.props.updateSubItem(this.state.id, item);
+  }
+
   render() {
-    const { t, actions, hasHandler } = this.props;
+    const { t, actions, hasHandler, subitemActions, subItems } = this.props;
+
+    const SubItemsRowsComponent = subItems.map((subItem, index) => (
+      <SubItemsRow
+        key={subItem.id}
+        item={subItem}
+        index={index}
+        t={t}
+        removeSubItem={this.removeSubItem}
+        updateSubItem={this.updateSubItem}
+      />
+    ));
+
     return (
-      <ItemDiv>
-        {hasHandler && (
-          <div className="dragHandler">
-            <i className="ion-grid" />
+      <>
+        <ItemDiv>
+          {hasHandler && (
+            <div className="dragHandler">
+              <i className="ion-grid" />
+            </div>
+          )}
+          <div className="flex3">
+            <ItemDivInput
+              name="description"
+              type="text"
+              value={this.state.description}
+              onChange={this.handleTextInputChange}
+              onKeyDown={this.handleKeyDown}
+              placeholder={t('form:fields:items:description')}
+            />
           </div>
-        )}
-        <div className="flex3">
-          <ItemDivInput
-            name="description"
-            type="text"
-            value={this.state.description}
-            onChange={this.handleTextInputChange}
-            onKeyDown={this.handleKeyDown}
-            placeholder={t('form:fields:items:description')}
-          />
-        </div>
 
-        <div className="flex1">
-          <ItemDivInput
-            name="price"
-            type="number"
-            step="0.01"
-            value={this.state.price}
-            onChange={this.handleNumberInputChange}
-            onKeyDown={this.handleKeyDown}
-            placeholder={t('form:fields:items:price')}
-          />
-        </div>
+          <div className="flex1">
+            <ItemDivInput
+              name="price"
+              type="number"
+              step="0.01"
+              value={this.state.price}
+              onChange={this.handleNumberInputChange}
+              onKeyDown={this.handleKeyDown}
+              placeholder={t('form:fields:items:price')}
+            />
+          </div>
 
-        <div className="flex1">
-          <ItemDivInput
-            name="quantity"
-            type="number"
-            step="0.01"
-            value={this.state.quantity}
-            onChange={this.handleNumberInputChange}
-            onKeyDown={this.handleKeyDown}
-            placeholder={t('form:fields:items:quantity')}
-          />
-        </div>
+          <div className="flex1">
+            <ItemDivInput
+              name="quantity"
+              type="number"
+              step="0.01"
+              value={this.state.quantity}
+              onChange={this.handleNumberInputChange}
+              onKeyDown={this.handleKeyDown}
+              placeholder={t('form:fields:items:quantity')}
+            />
+          </div>
 
-        {(actions || hasHandler) && (
-          <ItemActions>
-            {actions && (
-              <ItemRemoveBtn href="#" onClick={this.removeRow}>
-                <i className="ion-close-circled" />
-              </ItemRemoveBtn>
-            )}
-          </ItemActions>
-        )}
-      </ItemDiv>
+          {(actions || hasHandler || subitemActions) && (
+            <ItemActions>
+              {subitemActions && (
+                <ItemAddSubiTemBtn href="#" onClick={this.addSubItem}>
+                  <i className="ion-plus-circled" />
+                </ItemAddSubiTemBtn>
+              )}
+              {actions && (
+                <ItemRemoveBtn href="#" onClick={this.removeRow}>
+                  <i className="ion-close-circled" />
+                </ItemRemoveBtn>
+              )}
+            </ItemActions>
+          )}
+        </ItemDiv>
+        <Section>
+          <ItemsListDiv>{SubItemsRowsComponent}</ItemsListDiv>
+        </Section>
+      </>
     );
   }
 }
 
 ItemRow.propTypes = {
   actions: PropTypes.bool.isRequired,
+  subitemActions: PropTypes.bool.isRequired,
   addItem: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   hasHandler: PropTypes.bool.isRequired,
   item: PropTypes.object.isRequired,
+  subItems: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
   removeRow: PropTypes.func.isRequired,
   updateRow: PropTypes.func.isRequired,
+  addSubItem: PropTypes.func.isRequired,
+  removeSubItem: PropTypes.func.isRequired,
+  updateSubItem: PropTypes.func.isRequired,
 };
 
 export default compose(_withDraggable)(ItemRow);
