@@ -6,12 +6,12 @@ const Welcome = function({t}) {
   return (
     <Slide
       inverted
-      fromColor="#CAD2E8"
-      toColor="#6979A4"
+      fromColor="#2da4a3"
+      toColor="#ffbd3e"
       heading={t('tour:slides:welcome:heading')}
       description={t('tour:slides:welcome:description')}
       imgSrc={WelcomeImg}
-      imgSize="400px"
+      imgSize="300px"
     />
   );
 }

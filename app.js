@@ -282,11 +282,11 @@ function setInitialValues() {
     profile: {
       logo: logoBase64String,
       fullname: 'Invoncify',
-      company: 'Oceanic Preservation Society',
-      address: '336 Bon Air Center #384 Greenbrae, CA 94904',
-      email: 'info@opsociety.org',
+      company: 'Andres Morelos',
+      address: 'Colombia',
+      email: 'invoncify@andresmorelos.me',
       phone: '+01 (0) 1-2345-6789',
-      website: 'http://www.opsociety.org/',
+      website: 'https://invoncify.andresmorelos.me',
     },
     general: {
       language: 'en',
