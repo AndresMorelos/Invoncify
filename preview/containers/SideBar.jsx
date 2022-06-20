@@ -64,7 +64,7 @@ class SideBar extends Component {
 
   savePDF() {
     const { invoice } = this.props;
-    ipc.send('save-pdf', invoice._id);
+    ipc.send('save-pdf', invoice);
     // Always save template configs to invoice when export to PDF
     this.saveConfigs();
   }

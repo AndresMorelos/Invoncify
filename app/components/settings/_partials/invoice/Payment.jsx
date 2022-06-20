@@ -29,7 +29,7 @@ const Payment = function ({ t, payment, handlePaymentChange }) {
             name="details"
             cols="50"
             rows="3"
-            value={payment.details}
+            value={payment.details || ''}
             onChange={handlePaymentChange}
             placeholder={t('form:fields:payment:description')}
           />

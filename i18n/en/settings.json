@@ -15,6 +15,7 @@
     "template": "Template",
     "dateFormat": "Date Format",
     "pdfExportDir": "PDF Export Directory",
+    "pdfExportNamingFormat": "PDF Export Naming Format",
     "requiredFields": "Required Fields",
     "sound": "Sound",
     "trayIcon": "Menu Bar Icon",

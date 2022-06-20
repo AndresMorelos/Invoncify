@@ -76,7 +76,7 @@ export class Payment extends Component {
           cols="50"
           rows="4"
           onChange={this.handleInputChange}
-          value={this.state.details}
+          value={this.state.details || ''}
           placeholder={t('form:fields:payment:description')}
         />
       </Section>
