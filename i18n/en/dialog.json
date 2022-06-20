@@ -9,7 +9,9 @@
       "message": "You're using the latest version of the app"
     },
     "error": {
-      "title": "An error has occurred"
+      "title": "An error has occurred",
+      "message": "There was an error updating the app. Please try again later or download it manually.",
+      "OpenReleasePage": "Open release page"
     },
     "downloaded": {
       "title": "Update downloaded",

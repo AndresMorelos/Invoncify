@@ -1,11 +1,11 @@
 // Libs
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import './helpers/external_links';
 const appConfig = require('@electron/remote').require('electron-settings');
 const BrowserWindow = require('@electron/remote').BrowserWindow;
 const ipc = require('electron').ipcRenderer;
 const mainWindow = BrowserWindow.fromId(appConfig.getSync('mainWindowID'));
-
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,11 +26,11 @@ const Type = styled.div`
   i {
     font-size: 42px;
   }
-  ${props =>
+  ${(props) =>
     props.type === 'warning' &&
     `
     i { color: #f0ad4e; }
-  `} ${props =>
+  `} ${(props) =>
     props.type === 'info' &&
     `
     i { color: #0275d8; }
@@ -53,11 +53,11 @@ const Title = styled.h4`
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0;
-  ${props =>
+  ${(props) =>
     props.type === 'warning' &&
     `
     color: #f0ad4e;
-  `} ${props =>
+  `} ${(props) =>
     props.type === 'info' &&
     `
     color: #0275d8;
@@ -83,11 +83,11 @@ const Actions = styled.div`
   flex-direction: row;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 5px 0;
-  ${props =>
+  ${(props) =>
     props.type === 'warning' &&
     `
     border-top: 4px solid #f0ad4e;
-  `} ${props =>
+  `} ${(props) =>
     props.type === 'info' &&
     `
     border-top: 4px solid #0275d8;
@@ -163,7 +163,7 @@ class Dialog extends PureComponent {
   }
 
   rendersButtons() {
-    const { buttons } = this.state
+    const { buttons } = this.state;
     if (!buttons) {
       return (
         <a href="#" onClick={this.handleClick}>
@@ -171,11 +171,27 @@ class Dialog extends PureComponent {
         </a>
       );
     }
-    return buttons.map((button, index) => (
-      <a href="#" key={index} alt={index} onClick={this.handleClick}>
-        {button}
-      </a>
-    ));
+    return buttons.map((button, index) => {
+      if (typeof button === 'object' && button.url) {
+        return (
+          <a
+            href={button.url}
+            key={index}
+            alt={index}
+            onClick={this.handleClick}
+            className="js-external-link"
+          >
+            {button.message}
+          </a>
+        );
+      }
+
+      return (
+        <a href="#" key={index} alt={index} onClick={this.handleClick}>
+          {button}
+        </a>
+      );
+    });
   }
 
   render() {
