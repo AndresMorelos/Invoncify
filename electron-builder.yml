@@ -1,6 +1,7 @@
 appId: me.andresmorelos.invoncify
 copyright: AndresMorelos
 productName: Invoncify
+afterSign: scripts/notarize.js
 protocols:
   - name: "Invoncify protocol"
     role: "Viewer"
@@ -16,6 +17,10 @@ directories:
   output: dist/
 mac:
   category: public.app-category.business
+  hardenedRuntime: true
+  entitlements: build/entitlements.mac.inherit.plist
+  entitlementsInherit: build/entitlements.mac.inherit.plist
+  gatekeeperAssess: false
   target:
     - target: zip
       arch:
