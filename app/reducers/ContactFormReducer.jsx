@@ -11,6 +11,7 @@ const initialState = {
   phone: '',
   _id: '',
   _rev: '',
+  address: '',
   created_at: new Date().getTime(),
 };
 
@@ -31,12 +32,14 @@ const ContactFormReducer = handleActions(
     },
 
     [ACTION_TYPES.CONTACT_FORM_CONTACT_UPDATE]: (state, action) => {
-      const { company, email, fullname, phone, _id, _rev } = action.payload;
+      const { company, email, fullname, phone, _id, _rev, address } =
+        action.payload;
       return Object.assign(state, {
         company,
         email,
         fullname,
         phone,
+        address,
         _id,
         _rev,
       });
