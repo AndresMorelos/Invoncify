@@ -14,13 +14,18 @@ ipcMain.on('export-data', (event, docToExport) => {
     `data-export-${moment().format('MM-DD-YYYY')}.invoncifyExport`
   );
 
-  fs.ensureDir(dirPath);
-  fs.writeFileSync(filePath, docToExport);
+  fs.ensureDir(dirPath)
+    .then(() => {
+      fs.writeFileSync(filePath, docToExport);
 
-  // Show notification
-  event.sender.send('file-exported', {
-    title: 'Data Exported',
-    body: 'Click to reveal file.',
-    location: filePath,
-  });
+      // Show notification
+      event.sender.send('file-exported', {
+        title: 'Data Exported',
+        body: 'Click to reveal file.',
+        location: filePath,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
