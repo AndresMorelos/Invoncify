@@ -4,7 +4,7 @@ import { Circle } from 'rc-progress';
 import openDialog from '../../renderers/dialog';
 import i18n from '../../../i18n/i18n';
 import { Notify } from '../../../helpers/notify';
-const ipc = require('electron').ipcRenderer
+const ipc = require('electron').ipcRenderer;
 
 // Styled Components
 import styled, { keyframes } from 'styled-components';
@@ -54,10 +54,7 @@ class AppUpdate extends PureComponent {
           type: 'info',
           title: i18n.t('dialog:appUpdate:available:title'),
           message: i18n.t('dialog:appUpdate:available:message'),
-          buttons: [
-            i18n.t('common:yes'),
-            i18n.t('common:noThanks')
-          ],
+          buttons: [i18n.t('common:yes'), i18n.t('common:noThanks')],
         },
         'update-download-confirmed'
       );
@@ -73,11 +70,21 @@ class AppUpdate extends PureComponent {
     });
 
     ipc.on('update-error', (event, error) => {
-      openDialog({
-        type: 'warning',
-        title: i18n.t('dialog:appUpdate:error:title'),
-        message: error,
-      });
+      openDialog(
+        {
+          type: 'warning',
+          title: i18n.t('dialog:appUpdate:error:title'),
+          message: i18n.t('dialog:appUpdate:error:message'),
+          buttons: [
+            i18n.t('common:ok'),
+            {
+              message: i18n.t('dialog:appUpdate:error:OpenReleasePage'),
+              url: `https://github.com/AndresMorelos/Invoncify/releases`,
+            },
+          ],
+        },
+        'update-error-selection'
+      );
       this.hideIndicator();
     });
 
@@ -118,7 +125,7 @@ class AppUpdate extends PureComponent {
           message: i18n.t('dialog:appUpdate:downloaded:message'),
           buttons: [
             i18n.t('dialog:appUpdate:downloaded:quitNow'),
-            i18n.t('dialog:appUpdate:downloaded:later')
+            i18n.t('dialog:appUpdate:downloaded:later'),
           ],
         },
         'upgrade-confirmed'
