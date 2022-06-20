@@ -5,18 +5,18 @@ import { Row, Field, Part } from '../../../shared/Part';
 
 const moment = require('moment');
 
-
 const ExportDir = styled.div`
   display: flex;
 `;
 
 const Other = function ({
+  exportNamingFormat,
   dateFormat,
   exportDir,
   template,
   selectExportDir,
   handleInputChange,
-  t
+  t,
 }) {
   return [
     <label key="label" className="itemLabel">
@@ -25,14 +25,11 @@ const Other = function ({
     <Part key="part">
       <Row>
         <Field>
-          <label className="itemLabel">{t('settings:fields:pdfExportDir')}</label>
+          <label className="itemLabel">
+            {t('settings:fields:pdfExportDir')}
+          </label>
           <ExportDir>
-            <input
-              name="exportDir"
-              type="text"
-              value={exportDir}
-              disabled
-            />
+            <input name="exportDir" type="text" value={exportDir} disabled />
             <a
               href="#"
               className="input-group-customized "
@@ -41,6 +38,26 @@ const Other = function ({
               <i className="ion-folder" />
             </a>
           </ExportDir>
+        </Field>
+      </Row>
+      <Row>
+        <Field>
+          <label className="itemLabel">
+            {t('settings:fields:pdfExportNamingFormat')}
+          </label>
+          <ExportDir>
+            <input
+              name="exportNamingFormat"
+              type="text"
+              value={exportNamingFormat}
+              onChange={handleInputChange}
+            />
+          </ExportDir>
+          <span style={{ color: '#757D75', fontSize: '13px' }}>
+            {
+              '{invoiceID} {createdAt.month} {createdAt.day} {createdAt.year} {date.month} {date.day} {date.year} {UUID}'
+            }
+          </span>
         </Field>
       </Row>
       <Row>
@@ -86,7 +103,8 @@ const Other = function ({
               {moment(Date.now()).format('DD/MM/YY')} (DD/MM/YY)
             </option>
             <option value="dddd, Do MMMM YYYY">
-              {moment(Date.now()).format('dddd, Do MMMM YYYY')} (dddd, Do MMMM YYYY)
+              {moment(Date.now()).format('dddd, Do MMMM YYYY')} (dddd, Do MMMM
+              YYYY)
             </option>
             <option value="Do MMMM YYYY">
               {moment(Date.now()).format('Do MMMM YYYY')} (Do MMMM YYYY)
@@ -105,7 +123,7 @@ const Other = function ({
       </Row>
     </Part>,
   ];
-}
+};
 
 Other.propTypes = {
   dateFormat: PropTypes.string.isRequired,

@@ -130,6 +130,7 @@ class Invoice extends Component {
   render() {
     const { t } = this.props;
     const {
+      exportNamingFormat,
       exportDir,
       template,
       currency,
@@ -165,6 +166,7 @@ class Invoice extends Component {
       />,
       <Other
         key="other_settings"
+        exportNamingFormat={exportNamingFormat}
         dateFormat={dateFormat}
         exportDir={exportDir}
         template={template}

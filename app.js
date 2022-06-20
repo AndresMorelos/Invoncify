@@ -155,8 +155,7 @@ function createMainWindow() {
     event.preventDefault();
     if (isDev || forceDevtools) mainWindow.webContents.closeDevTools();
 
-    const needCloseApp =
-      appConfig.getSync('general.quitAtClose') || false;
+    const needCloseApp = appConfig.getSync('general.quitAtClose') || false;
 
     if (!needCloseApp) {
       app.isHidden = true;
@@ -309,6 +308,8 @@ function setInitialValues() {
       quitAtClose: false,
     },
     invoice: {
+      exportNamingFormat:
+        '{invoiceID}',
       exportDir: os.homedir(),
       template: 'default',
       dateFormat: 'MM/DD/YYYY',
@@ -517,6 +518,23 @@ function migrateData() {
         general: {
           ...configs.general,
           quitAtClose: false,
+        },
+      };
+    },
+    8: (configs) => {
+      // Return current configs if this is the first time install
+      const { exportNamingFormat } = configs.invoice;
+      if (exportNamingFormat !== undefined) {
+        return configs;
+      }
+
+      // Update current configs
+      return {
+        ...configs,
+        invoice: {
+          ...configs.invoice,
+          exportNamingFormat:
+            '{invoiceID}',
         },
       };
     },
