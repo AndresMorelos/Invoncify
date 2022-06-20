@@ -3,10 +3,38 @@ const { BrowserWindow, ipcMain, shell } = require('electron');
 const appConfig = require('electron-settings');
 const path = require('path');
 const fs = require('fs');
+const { truncate } = require('lodash');
+const { v4 } = require('uuid');
 
-ipcMain.on('save-pdf', (event, docId) => {
+function createExportName(format, invoice) {
+  const createdAt = new Date(invoice.created_at);
+  const currentDate = new Date();
+  format = format.replace(
+    /{invoiceID}/g,
+    invoice.invoiceID
+      ? invoice.invoiceID
+      : truncate(invoice._id, {
+          length: 8,
+          omission: '',
+        })
+  );
+  format = format.replace(/{createdAt.month}/g, createdAt.getMonth() + 1);
+  format = format.replace(/{createdAt.day}/g, createdAt.getDate());
+  format = format.replace(/{createdAt.year}/g, createdAt.getFullYear());
+  format = format.replace(/{date.month}/g, currentDate.getMonth() + 1);
+  format = format.replace(/{date.day}/g, currentDate.getDate());
+  format = format.replace(/{date.year}/g, currentDate.getFullYear());
+  format = format.replace(/{UUID}/g, v4());
+  return format;
+}
+
+ipcMain.on('save-pdf', (event, invoice) => {
   const exportDir = appConfig.getSync('invoice.exportDir');
-  const pdfPath = path.join(exportDir, `${docId}.pdf`);
+  const exportNamingFormat = appConfig.getSync('invoice.exportNamingFormat');
+  const pdfPath = path.join(
+    exportDir,
+    `${createExportName(exportNamingFormat, invoice)}.pdf`
+  );
   const win = BrowserWindow.fromWebContents(event.sender);
 
   let printOptions;
@@ -21,9 +49,9 @@ ipcMain.on('save-pdf', (event, docId) => {
     };
   }
 
-
-  win.webContents.printToPDF(printOptions)
-    .then(data => {
+  win.webContents
+    .printToPDF(printOptions)
+    .then((data) => {
       fs.writeFileSync(pdfPath, data);
 
       if (appConfig.getSync('general.previewPDF')) {
@@ -31,17 +59,15 @@ ipcMain.on('save-pdf', (event, docId) => {
         shell.openPath(pdfPath);
       }
       // Show notification
-      event.sender.send('pdf-exported',
-        {
-          title: 'PDF Exported',
-          body: 'Click to reveal file.',
-          location: pdfPath,
-        });
-
-    }).catch(err => { throw err; });
-
-
-
+      event.sender.send('pdf-exported', {
+        title: 'PDF Exported',
+        body: 'Click to reveal file.',
+        location: pdfPath,
+      });
+    })
+    .catch((err) => {
+      throw err;
+    });
 });
 
 ipcMain.on('reveal-file', (event, location) => {
