@@ -19,8 +19,8 @@
     "sound": "Звук",
     "trayIcon": "Иконица у менију",
     "sendMetricsAnon": "Пошаљите анонимну статистику о коришћењу",
-    "openAtLogin": "Open at Login",
-    "quitAtClose": "Quit at Close",
+    "openAtLogin": "Покренути при пријављивању",
+    "quitAtClose": "Изађи при затварању",
     "mute": "Нечујно",
     "autoCheckUpdate": {
       "name": "Аутоматска провера ажурирања",

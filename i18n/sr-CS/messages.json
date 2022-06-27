@@ -1,0 +1,21 @@
+{
+  "noContact": "Još uvek nemate ni jedan kontakt",
+  "noInvoice": "Još uvek nemate ni jednu fakturu",
+  "invoice": {
+    "saved": "Faktura je uspešno sačuvana",
+    "updated": "Faktura je uspešno ažurirana",
+    "deleted": "Faktura je uspešno obrisana"
+  },
+  "contact": {
+    "saved": "Kontakt je uspešno sačuvan",
+    "updated": "Kontakt uspešno ažuriran",
+    "deleted": "Kontakt je uspešno obrisan"
+  },
+  "settings": {
+    "saved": "Sva podešavanja su uspešno sačuvana"
+  },
+  "login": {
+    "badSecret": "Nismo mogli da potvrdimo Vaš identitet",
+    "success": "Uspešno smo potvrdili Vaš identitet"
+  }
+}
