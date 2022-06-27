@@ -15,6 +15,7 @@ import zhCN from './zh-CN';
 import sr from './sr';
 import nl from './nl';
 import ro from './ro';
+import srCS from './sr-CS';
 const moment = require('moment');
 const appConfig = require('@electron/remote').require('electron-settings');
 
@@ -37,6 +38,7 @@ i18n.use(initReactI18next).init({
     vi,
     'zh-CN': zhCN,
     sr,
+    'sr-CS': srCS,
     nl,
     ro,
   },

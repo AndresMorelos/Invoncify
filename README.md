@@ -29,7 +29,7 @@ A desktop application for creating invoices with beautiful and customizable temp
 Do you speak multiple languages? We need your help!
 
 If you're interested in translating Invoncify, please see the [detailed instruction here](https://github.com/AndresMorelos/Invoncify/discussions/31).
-The following languages are currently being translated, if you would like to Manta to support another language, [please submit your request here]https://github.com/AndresMorelos/Invoncify/discussions/31).
+The following languages are currently being translated, if you would like to Invoncify to support another language, [please submit your request here](https://github.com/AndresMorelos/Invoncify/discussions/31).
 
 * [🇨🇳 中文 (Chinese Simplified)](https://crowdin.com/project/invoncify/zh-CN)
 * [🇨🇳 中文 (Chinese Traditional)](https://crowdin.com/project/invoncify/zh-TW)
@@ -51,6 +51,8 @@ The following languages are currently being translated, if you would like to Man
 * [🇹🇷 Türkçe (Turkish)](https://crowdin.com/project/invoncify/tr)
 * [🇻🇳 Việt Nam (Vietnamese)](https://crowdin.com/project/invoncify/vi)
 * [🇭🇷 Croatia (Croatian)](https://crowdin.com/project/invoncify/hr)
+* [🇷🇸 Serbian (Cyrillic)](https://crowdin.com/project/invoncify/sr)
+* [🇷🇸 Serbian (Latin)](https://crowdin.com/project/invoncify/sr-CS)
 
 ### Features
 * 🎚 Flexible form. You can turn on/off field and save as default setting.

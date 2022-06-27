@@ -21,6 +21,7 @@ const Language = function({ t, language, handleInputChange, UILang }) {
         <option value="vi">{t('settings:fields:language:vi', { lng: 'vi' })}</option>
         <option value="zh-CN">{t('settings:fields:language:zh-CN', { lng: 'zh-CN' })}</option>
         <option value="sr">{t('settings:fields:language:sr', { lng: 'sr' })}</option>
+        <option value="sr-CS">{t('settings:fields:language:sr', { lng: 'sr-CS' })}</option>
         <option value="nl">{t('settings:fields:language:nl', { lng: 'nl' })}</option>
         <option value="ro">{t('settings:fields:language:ro', { lng: 'ro' })}</option>
       </select>

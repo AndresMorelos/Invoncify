@@ -1,0 +1,9 @@
+{
+  "header": "Svi kontakti",
+  "fields": {
+    "contact": "Kontakt",
+    "email": "Elektronska pošta",
+    "phone": "Telefon",
+    "actions": "Radnje"
+  }
+}
