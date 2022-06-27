@@ -1,0 +1,85 @@
+{
+  "header": {
+    "contactEdit": "Ažurirajte Kontakt",
+    "new": "Napravi novu fakturu",
+    "edit": "Izmeni fakturu",
+    "btns": {
+      "clear": "Obriši sve",
+      "update": "Ažuriraj",
+      "saveAndPreview": "Sačuvaj i pogledaj"
+    }
+  },
+  "settings": {
+    "name": "Podešavanja formulara",
+    "hint": "Označi polja koja su obavezna u formularu."
+  },
+  "fields": {
+    "items": {
+      "name": "Proizvod/Usluga",
+      "description": "Opis",
+      "price": "Cena",
+      "quantity": "Količina",
+      "add": "Dodaj novu stavku"
+    },
+    "paymentItems": {
+      "name": "Pretplate",
+      "description": "Opis",
+      "value": "Vrednost",
+      "add": "Dodajte novu stavku u pretplati"
+    },
+    "recipient": {
+      "name": "Primalac",
+      "select": "Izaberi",
+      "add": "Novo"
+    },
+    "discount": {
+      "name": "Popust",
+      "percentage": "Procenat",
+      "flat": "Fiksna stopa"
+    },
+    "createAtDate": {
+      "name": "Datum kreiranja",
+      "placeHolder": "Odaberite datum"
+    },
+    "dueDate": {
+      "name": "Datum valute",
+      "placeHolder": "Odaberi datum",
+      "paymentTerms": {
+        "name": "Odaberi uslove plaćanja",
+        "net7": {
+          "label": "7 dana",
+          "description": "Plaćanje 7 dana od datuma na fakturi"
+        },
+        "net10": {
+          "label": "10 dana",
+          "description": "Plaćanje deset dana od datuma na fakturi"
+        },
+        "net30": {
+          "label": "30 dana",
+          "description": "Plaćanje trideset dana od datuma na fakturi"
+        },
+        "net60": {
+          "label": "60 dana",
+          "description": "Plaćanje šezdeset dana od datuma na fakturi"
+        },
+        "net90": {
+          "label": "90 dana",
+          "description": "Plaćanje devedeset dana od datuma na fakturi"
+        }
+      }
+    },
+    "tax": {
+      "name": "Porez",
+      "id": "PIB",
+      "method": "Metoda",
+      "reverse": "Interni obračun PDV-a"
+    },
+    "note": "Napomena",
+    "currency": "Valuta",
+    "payment": {
+      "name": "Plaćanje",
+      "details": "Instrukcije za plaćanje",
+      "description": "Bankovni računi, digitalne opcije plaćanja ili druge informacije vezane za plaćanje"
+    }
+  }
+}

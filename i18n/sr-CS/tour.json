@@ -1,0 +1,33 @@
+{
+  "actions": {
+    "skip": "Preskoči",
+    "next": "Dalje",
+    "start": "Započni fakturisanje"
+  },
+  "slides": {
+    "welcome": {
+      "heading": "Zdravo!",
+      "description": "Hvala na probi. Pokazaću ti kako da napraviš sjajne fakture u 4 jednostavna koraka"
+    },
+    "create": {
+      "heading": "Prvi korak. Napravi",
+      "description": "Invoicify ima fleksibilan interfejs za formulare. Podrazumevana podešavanja su jednostavna, a po potrebi možete uključiti/isključiti dodatna polja."
+    },
+    "preview": {
+      "heading": "Drugi korak. Prilagodi",
+      "description": "Invoicify dolazi sa profesionalno dizajniranim šablonima koji mogu biti dodatno prilagođeni vašim potrebama i brendu."
+    },
+    "encryption": {
+      "heading": "Treći korak. Šifrovanje",
+      "description": "Invoncify dolazi sa end-to-end šifrovanjem koje štiti Vaše informacije i omogućava bezbedan uvoz i izvoz podataka."
+    },
+    "save": {
+      "heading": "Četvrti korak. Sačuvaj",
+      "description": "Kada ste zadovoljni kako faktura izgleda možete je sačuvati kao PDF i koristiti kasnije. Odštampajte ili pošaljite elektronskom poštom, hajde da koristimo Invoncify da impresioniramo Vaše klijente!"
+    },
+    "success": {
+      "heading": "Gotovo!!! ✋️",
+      "description": "To je to, 4 jednostavna koraka da napravite sjajne foakture koristeći Invoncify. Ne zaboravite da ažurirate profil firme i logo pre nego što počnete fakturisanje."
+    }
+  }
+}

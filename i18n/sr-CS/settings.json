@@ -1,0 +1,83 @@
+{
+  "header": "Podešavanja",
+  "tabs": {
+    "profile": "Profil",
+    "invoice": "Faktura",
+    "general": "Opšte"
+  },
+  "fields": {
+    "logo": {
+      "name": "Logo",
+      "hint": "Podržava PNG, JPG & SVG (Preporučeno)"
+    },
+    "taxSettings": "Podešavanje poreza",
+    "paymentSettings": "Podešavanja Plaćanja",
+    "template": "Šablon",
+    "dateFormat": "Format datuma",
+    "pdfExportDir": "Direktorijum za izvoz PDF datoteka",
+    "requiredFields": "Obavezna polja",
+    "sound": "Zvuk",
+    "trayIcon": "Ikonica u meniju",
+    "sendMetricsAnon": "Pošaljite anonimnu statistiku o korišćenju",
+    "openAtLogin": "Pokrenuti pri prijavljivanju",
+    "quitAtClose": "Izađi pri zatvaranju",
+    "mute": "Nečujno",
+    "autoCheckUpdate": {
+      "name": "Automatska provera ažuriranja",
+      "daily": "Svaki dan (Preporučeno)",
+      "weekly": "Svake nedelje"
+    },
+    "currency": {
+      "placement": "Mesto za oznaku valute",
+      "afterAmount": "Posle iznosa",
+      "beforeAmount": "Pre iznosa",
+      "fraction": "Decimalni zarez",
+      "separator": "Separator",
+      "commaDot": "Zarez i tačka",
+      "dotComma": "Tačka i zarez",
+      "spaceDot": "Razmak i tačka"
+    },
+    "openPDFReader": "Otvori PDF posle izvoza",
+    "language": {
+      "name": "Jezik",
+      "ar": "Arapski",
+      "cs": "Češki",
+      "da": "Danski",
+      "de": "Nemački",
+      "el": "Grčki",
+      "en": "Engleski",
+      "esES": "Španski",
+      "fr": "Francuski",
+      "id": "Indonežanski",
+      "it": "Italijanski",
+      "ja": "Japanski",
+      "ko": "Korejski",
+      "lt": "Litvanski",
+      "nl": "Holandski",
+      "ptBR": "Portugalski, Brazil",
+      "ptPT": "Portugalski",
+      "ru": "Ruski",
+      "sk": "Slovački",
+      "th": "Tajlandski",
+      "tl": "Tagalog, Filipini",
+      "tr": "Turski",
+      "ur-PK": "Urdu (Pakistanski)",
+      "vi": "Vijetnamski",
+      "zh-CN": "Kineski (pojednostavljen)",
+      "zh-TW": "Kineski (tradicionalni)",
+      "sr": "Srpski (ćirilica)",
+      "sr-CS": "Serbian (Latin)",
+      "ro": "Rumunski"
+    },
+    "importExport": {
+      "name": "Uvoz/Izvoz",
+      "import": "Uvezi",
+      "export": "Izvezi",
+      "information": {
+        "label": "Napomena:",
+        "info": "Izvoženje će sačuvati šifrovane kontakte i fakture. Biće izvezena i osnovna podešavanja šifrovanja"
+      }
+    },
+    "other": "Ostalo"
+  }
+}
