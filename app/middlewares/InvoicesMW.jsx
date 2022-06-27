@@ -222,11 +222,28 @@ const InvoicesMW =
 
       case ACTION_TYPES.INVOICE_CONFIGS_SAVE: {
         const { invoiceID, configs } = action.payload;
+        const secretKey = getState().login.secretKey;
         return getSingleDoc('invoices', invoiceID)
           .then((doc) => {
+            const docDecrypted = decrypt({
+              docs: doc,
+              secretKey,
+            });
+
+            delete docDecrypted._id;
+            delete docDecrypted._rev;
+            const content = encrypt({
+              docs: { ...docDecrypted, configs },
+              secretKey,
+            });
+            const updatedInvocie = {
+              _id: doc._id,
+              _rev: doc._rev,
+              content,
+            };
             dispatch({
               type: ACTION_TYPES.INVOICE_UPDATE,
-              payload: { ...doc, configs },
+              payload: updatedInvocie,
             });
           })
           .catch((err) => {
@@ -239,7 +256,7 @@ const InvoicesMW =
             });
           });
       }
-
+      
       case ACTION_TYPES.INVOICE_SET_STATUS: {
         const secretKey = getState().login.secretKey;
         const { invoiceID, status } = action.payload;
