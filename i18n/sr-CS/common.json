@@ -1,0 +1,17 @@
+{
+  "fields": {
+    "fullname": "Ime i Prezime",
+    "company": "Preduzeće",
+    "address": "Adresa",
+    "email": "Elektronska pošta",
+    "phone": "Broj Telefona",
+    "website": "Veb sajt"
+  },
+  "save": "Sačuvaj",
+  "amount": "Iznos",
+  "default": "Podrazumevano",
+  "saveAsDefault": "Sačuvaj kao podrazumevano?",
+  "yes": "Da",
+  "noThanks": "Ne, hvala",
+  "details": "Detalji"
+}

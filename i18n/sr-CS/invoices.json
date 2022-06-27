@@ -1,0 +1,25 @@
+{
+  "header": {
+    "name": "Sve fakture"
+  },
+  "fields": {
+    "client": "Klijent",
+    "invoiceID": "ID fakture",
+    "createdDate": "Kreirano",
+    "dueDate": "Datum valute",
+    "total": "Ukupna vrednost",
+    "prepaid": "Pretplata",
+    "remaining": "Preostalo"
+  },
+  "status": {
+    "pending": "Na čekanju",
+    "paid": "Plaćeno",
+    "refunded": "Refundirano",
+    "cancelled": "Otkazano"
+  },
+  "btns": {
+    "view": "Pregled",
+    "edit": "Uredi",
+    "markAsPaid": "Označi kao plaćeno"
+  }
+}

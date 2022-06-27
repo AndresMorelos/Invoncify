@@ -1,0 +1,103 @@
+{
+  "appUpdate": {
+    "available": {
+      "title": "Dostupna je nova verzija programa",
+      "message": "Preuzimannje ažuriranja u pozadini?"
+    },
+    "noUpdate": {
+      "title": "Nema dostupnih ažuriranja",
+      "message": "Koristite najnoviju verziju aplikacije"
+    },
+    "error": {
+      "title": "Došlo je do greške",
+      "message": "Došlo je do greške pri ažuriranju aplikacije. Pokušajte kasnije ili preuzmite instalaciju ručno.",
+      "OpenReleasePage": "Otvorite stranicu sa preuzimanjima"
+    },
+    "downloaded": {
+      "title": "Ažuriranja su preuzeta",
+      "message": "Da li želite da zatvorite i ažurirate aplikaciju odmah?",
+      "quitNow": "Zatvori odmah",
+      "later": "Kasnije"
+    }
+  },
+  "noAccess": {
+    "title": "Dozvola za pristup odbijena",
+    "message": "Molimo odaberite drugi direktorijum"
+  },
+  "errorBoundary": "Došlo je do greške",
+  "deleteInvoice": {
+    "title": "Obriši ovu fakturu?",
+    "message": "Faktura će biti trajno obrisana iz baze podataka"
+  },
+  "deleteContact": {
+    "title": "Obriši ovaj kontakt?",
+    "message": "Kontakt će biti trajno obrisan iz baze podataka"
+  },
+  "fileTypeErr": {
+    "title": "Molimo odaberite drugu datoteku"
+  },
+  "validation": {
+    "invoiceID": {
+      "title": "Nevažeći ID fakture",
+      "message": "Fakura mora da ima ID"
+    },
+    "recipient": {
+      "empty": {
+        "title": "Nevažeći kontakt",
+        "message": "Kontakt ne može biti prazan"
+      },
+      "requiredFields": {
+        "title": "Obavezna polja",
+        "message": "Molimo Vas da popunite sva obavezna polja"
+      },
+      "email": {
+        "title": "Nevažeća e-pošta",
+        "message": "Molimo odaberite drugu adresu e-pošte"
+      }
+    },
+    "rows": {
+      "emptyDescription": {
+        "title": "Nevažeći opis",
+        "message": "Opis mora da postoji"
+      },
+      "priceZero": {
+        "title": "Nevažeća cena",
+        "message": "Cena mora biti veća od nule"
+      },
+      "qtyZero": {
+        "title": "Nevažeća količina",
+        "message": "Količina mora biti veća od nule"
+      }
+    },
+    "dueDate": {
+      "title": "Nevažeći datum valute",
+      "message": "Molimo odaberite datum"
+    },
+    "currency": {
+      "fraction": {
+        "title": "Nevažeća decimalna vrednost",
+        "message": "Decimalna vrednost mora biti nula ili veća"
+      }
+    },
+    "discount": {
+      "title": "Nevažeći popust",
+      "message": "Iznos popusta mora biti veći od nule"
+    },
+    "tax": {
+      "title": "Nevažeći porez",
+      "message": "Iznos poreza mora biti veći od nule"
+    },
+    "note": {
+      "title": "Nevažeća napomena",
+      "message": "Napomena mora imati sadržaj"
+    },
+    "payment": {
+      "title": "Nevažeće instrukcije za plaćanje",
+      "message": "Instrukcije za plaćanje ne mogu biti prazne"
+    }
+  },
+  "events": {
+    "clickToCopy": "Kliknite za kopiranje",
+    "copied": "Kopirano!!"
+  }
+}
