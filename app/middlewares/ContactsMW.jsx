@@ -131,6 +131,14 @@ const ContactsMW =
               type: ACTION_TYPES.CONTACT_UPDATE,
               payload: allDocsDecrypted,
             });
+
+            next({
+              type: ACTION_TYPES.INVOICE_CONTACT_UPDATE,
+              payload: {
+                ...action.payload,
+              },
+            });
+
             dispatch({
               type: ACTION_TYPES.UI_NOTIFICATION_NEW,
               payload: {
