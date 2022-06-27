@@ -18,6 +18,7 @@ export const FORM_PAYMENT_ITEM_REMOVE = 'FORM_PAYMENT_ITEM_REMOVE';
 export const FORM_PAYMENT_ITEM_UPDATE = 'FORM_PAYMENT_ITEM_UPDATE';
 export const FORM_PAYMENT_ITEM_MOVE = 'FORM_PAYMENT_ITEM_MOVE';
 
+
 // Fields
 export const FORM_SAVE = 'FORM_SAVE';
 export const FORM_CLEAR = 'FORM_CLEAR';
@@ -45,7 +46,6 @@ export const INVOICE_SET_STATUS = 'INVOICE_SET_STATUS';
 export const INVOICE_CONFIGS_SAVE = 'INVOICE_CONFIGS_SAVE';
 export const INVOICE_DUPLICATE = 'INVOICE_DUPLICATE';
 export const INVOICE_ENCRYPT = 'INVOICE_ENCRYPT';
-export const INVOICE_CONTACT_UPDATE = 'INVOICE_CONTACT_UPDATE';
 
 // CONTACTS
 // ===========================================================
@@ -55,6 +55,7 @@ export const CONTACT_SAVE = 'CONTACT_SAVE';
 export const CONTACT_ENCRYPT = 'CONTACT_ENCRYPT';
 export const CONTACT_EDIT = 'CONTACT_EDIT';
 export const CONTACT_UPDATE = 'CONTACT_UPDATE';
+
 
 // SETTINGS
 // ===========================================================

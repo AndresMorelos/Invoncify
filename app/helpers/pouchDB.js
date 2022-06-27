@@ -11,7 +11,7 @@ async function runMigration(db, version, migrations, done) {
   try {
     // Check if there's any migration to run
     const migrationsToRun = Object.keys(migrations)
-      .filter((k) => k > version)
+      .filter(k => k > version)
       .sort();
     if (!migrationsToRun.length) {
       return done();
@@ -24,12 +24,12 @@ async function runMigration(db, version, migrations, done) {
     });
     // Run each doc through migrations
     const resultsDocs = results.rows
-      .map((row) => row.doc)
-      .map((doc) =>
+      .map(row => row.doc)
+      .map(doc =>
         migrationsToRun.reduce((prev, k) => migrations[k](prev), doc)
       );
     // Save new docs to DB
-    await Promise.all(resultsDocs.map((doc) => db.put(doc)));
+    await Promise.all(resultsDocs.map(doc => db.put(doc)));
     // Finish & update values
     done(null, migrationsToRun[migrationsToRun.length - 1]);
   } catch (err) {
@@ -43,7 +43,7 @@ let alreadyRunInvoiceMigration = false;
 const invoicesVersion = localStorage.invoicesVersion || 0;
 
 const invoicesMigrations = {
-  1: (doc) => {
+  1: doc => {
     // Don't touch newly created docs
     if (doc.status) return doc;
     // Update current doc
@@ -62,11 +62,10 @@ const invoicesMigrations = {
     return omit(newDoc, ['vat']);
   },
 
-  2: (doc) => {
+  2: doc => {
     // Update current doc currency setting
     const newDoc = {
-      ...doc,
-      currency: {
+      ...doc, currency: {
         code: doc.currency.code,
         placement: 'before',
         separator: 'commaDot',
@@ -76,26 +75,24 @@ const invoicesMigrations = {
     return newDoc;
   },
 
-  3: (doc) => {
+  3: doc => {
     if (!doc.dueDate) {
       return doc;
     }
     return {
-      ...doc,
-      dueDate: {
+      ...doc, dueDate: {
         selectedDate: doc.dueDate,
         useCustom: true,
       },
     };
   },
 
-  4: (doc) => {
+  4: doc => {
     if (!doc.configs) return doc;
     const { configs } = doc;
     const { accentColor } = configs;
     const migratedConfigs = {
-      ...configs,
-      accentColor: accentColor.color,
+      ...configs, accentColor: accentColor.color,
       customAccentColor: accentColor.useCustom,
     };
     return { ...doc, configs: migratedConfigs };
@@ -112,14 +109,14 @@ runMigration(
       localStorage.invoicesVersion = latestVersion;
     }
     // Pass the err to invoiceQueue function
-    invoiceQueue.forEach((f) => f(err));
+    invoiceQueue.forEach(f => f(err));
     // Reset the invoiceQueue
     invoiceQueue = [];
   }
 );
 
 // Set DB via dbName
-const setDB = (dbName) =>
+const setDB = dbName =>
   new Promise((resolve, reject) => {
     if (dbName === 'contacts') {
       resolve(contactsDB);
@@ -129,7 +126,7 @@ const setDB = (dbName) =>
         resolve(invoicesDB);
       }
       // Wait for runInvoiceMigration() to return a value
-      invoiceQueue.push((err) => {
+      invoiceQueue.push(err => {
         if (err) return reject(err);
         resolve(invoicesDB);
       });
@@ -137,109 +134,96 @@ const setDB = (dbName) =>
   });
 
 // Get All Document
-const getAllDocs = (dbName) =>
+const getAllDocs = dbName =>
   new Promise((resolve, reject) => {
     setDB(dbName)
-      .then((db) =>
+      .then(db =>
         db.allDocs({
           include_docs: true,
           attachments: true,
         })
       )
-      .then((results) => {
-        const resultsDocs = results.rows.map((row) => row.doc);
+      .then(results => {
+        const resultsDocs = results.rows.map(row => row.doc);
         resolve(resultsDocs);
       })
-      .catch((err) => reject(err));
+      .catch(err => reject(err));
   });
 
 // Get a Single Document
-const getSingleDoc = (dbName, docID) =>
-  new Promise((resolve, reject) => {
-    setDB(dbName)
-      .then((db) => db.get(docID))
-      .then((result) => {
-        resolve(result);
-      })
-      .catch((err) => reject(err));
-  });
+const getSingleDoc = (dbName, docID) => new Promise((resolve, reject) => {
+  setDB(dbName)
+    .then(db => db.get(docID))
+    .then(result => {
+      resolve(result);
+    })
+    .catch(err => reject(err));
+});
 
 // Save a Document
-const saveDoc = (dbName, doc) =>
-  new Promise((resolve, reject) => {
-    setDB(dbName)
-      .then((db) => db.put(doc))
-      .then(getAllDocs(dbName).then((newDocs) => resolve(newDocs)))
-      .catch((err) => reject(err));
-  });
+const saveDoc = (dbName, doc) => new Promise((resolve, reject) => {
+  setDB(dbName)
+    .then(db => db.put(doc))
+    .then(getAllDocs(dbName).then(newDocs => resolve(newDocs)))
+    .catch(err => reject(err));
+})
 
 // Delete A Document
-const deleteDoc = (dbName, doc) =>
-  new Promise((resolve, reject) => {
-    setDB(dbName)
-      .then((db) => {
-        db.get(doc).then((record) =>
-          db
-            .remove(record)
-            .then(
-              getAllDocs(dbName).then((remainingDocs) => resolve(remainingDocs))
-            )
-        );
-      })
-      .catch((err) => reject(err));
-  });
+const deleteDoc = (dbName, doc) => new Promise((resolve, reject) => {
+  setDB(dbName)
+    .then(db => {
+      db.get(doc)
+        .then(record => db
+          .remove(record)
+          .then(
+            getAllDocs(dbName).then(remainingDocs => resolve(remainingDocs))
+          )
+        )
+    }
+    )
+    .catch(err => reject(err));
+});
 
 // Update A Document
 const updateDoc = (dbName, updatedDoc) =>
   new Promise((resolve, reject) => {
     setDB(dbName)
-      .then((db) =>
+      .then(db =>
         db
           .put(updatedDoc)
-          .then(getAllDocs(dbName).then((allDocs) => resolve(allDocs)))
+          .then(getAllDocs(dbName).then(allDocs => resolve(allDocs)))
       )
-      .catch((err) => reject(err));
-  });
-
-// Update Multiple Documents
-const updateMultipleDocs = (dbName, updatedDocs) =>
-  new Promise((resolve, reject) => {
-    setDB(dbName)
-      .then((db) =>
-        db
-          .bulkDocs(updatedDocs)
-          .then(getAllDocs(dbName).then((allDocs) => resolve(allDocs)))
-      )
-      .catch((err) => reject(err));
+      .catch(err => reject(err));
   });
 
 const recreateDatabase = (dbName) =>
   new Promise((resolve, reject) => {
     setDB(dbName)
-      .then((db) =>
-        db.destroy().then((response) => {
-          if (dbName === 'contacts') {
-            contactsDB = new PouchDB('contacts');
-            resolve(contactsDB);
-          }
-          if (dbName === 'invoices') {
-            invoicesDB = new PouchDB('invoices');
-            resolve(invoicesDB);
-          }
-        })
-      )
-      .catch((err) => reject(err));
-  });
+      .then(db =>
+        db
+          .destroy()
+          .then(response => {
+            if (dbName === 'contacts') {
+              contactsDB = new PouchDB('contacts');
+              resolve(contactsDB);
+            }
+            if (dbName === 'invoices') {
+              invoicesDB = new PouchDB('invoices');
+              resolve(invoicesDB);
+            }
+          })
+      ).catch(err => reject(err))
+  })
 
 const importData = (dbName, docs = []) =>
   new Promise((resolve, reject) => {
     recreateDatabase(dbName)
-      .then((db) =>
-        Promise.all(docs.map((doc) => db.put(doc))).then((values) =>
-          getAllDocs(dbName).then((newDocs) => resolve(newDocs))
-        )
-      )
-      .catch((err) => reject(err));
-  });
+      .then(db =>
+        Promise.all(docs.map(doc => db.put(doc)))
+          .then(values =>
+            getAllDocs(dbName)
+              .then(newDocs => resolve(newDocs)))
+      ).catch(err => reject(err))
+  })
 
-export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc, updateMultipleDocs, importData };
+export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc, importData };
