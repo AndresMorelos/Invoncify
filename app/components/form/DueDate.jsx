@@ -57,19 +57,6 @@ export class DueDate extends Component {
     return (
       <Section>
         <label className="itemLabel">{t('form:fields:dueDate:name')}</label>
-        {this.state.useCustom ? (
-          <DueDatePicker
-            t={t}
-            selectedDate={selectedDate}
-            updateCustomDate={this.updateCustomDate}
-          />
-        ) : (
-          <DueDateTerms
-            t={t}
-            paymentTerm={paymentTerm}
-            updatePaymentTerm={this.updatePaymentTerm}
-          />
-        )}
         <div>
           <div className="radio">
             <label>
@@ -94,6 +81,19 @@ export class DueDate extends Component {
             </label>
           </div>
         </div>
+        {this.state.useCustom ? (
+          <DueDatePicker
+            t={t}
+            selectedDate={selectedDate}
+            updateCustomDate={this.updateCustomDate}
+          />
+        ) : (
+          <DueDateTerms
+            t={t}
+            paymentTerm={paymentTerm}
+            updatePaymentTerm={this.updatePaymentTerm}
+          />
+        )}
       </Section>
     );
   }

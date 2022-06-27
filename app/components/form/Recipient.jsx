@@ -121,7 +121,6 @@ export class Recipient extends Component {
     return (
       <Section>
         <label className="itemLabel">{t('form:fields:recipient:name')} *</label>
-        {this.renderComponent()}
         {contacts.length > 0 ? (
           <div>
             <div className="radio">
@@ -148,6 +147,7 @@ export class Recipient extends Component {
             </div>
           </div>
         ) : null}
+        {this.renderComponent()}
       </Section>
     );
   }
