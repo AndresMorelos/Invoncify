@@ -12,6 +12,7 @@ import {
   saveDoc,
   deleteDoc,
   updateDoc,
+  updateMultipleDocs,
 } from '../helpers/pouchDB';
 import { encrypt, decrypt } from '../helpers/encryption';
 
@@ -255,7 +256,7 @@ const InvoicesMW =
             });
           });
       }
-
+      
       case ACTION_TYPES.INVOICE_SET_STATUS: {
         const secretKey = getState().login.secretKey;
         const { invoiceID, status } = action.payload;
@@ -278,6 +279,44 @@ const InvoicesMW =
               type: ACTION_TYPES.INVOICE_UPDATE,
               payload: updatedInvocie,
             });
+          })
+          .catch((err) => {
+            next({
+              type: ACTION_TYPES.UI_NOTIFICATION_NEW,
+              payload: {
+                type: 'warning',
+                message: err.message,
+              },
+            });
+          });
+      }
+
+      case ACTION_TYPES.INVOICE_CONTACT_UPDATE: {
+        return getAllDocs('invoices')
+          .then((allDocs) => {
+            const secretKey = getState().login.secretKey;
+
+            const allDocsDecrypted = decrypt({
+              docs: allDocs,
+              secretKey,
+            });
+            const allInvoices = allDocsDecrypted.map((invoice) => {
+              if (
+                invoice.recipient &&
+                invoice.recipient._id === action.payload._id
+              ) {
+                invoice.recipient = action.payload;
+              }
+              return invoice;
+            });
+            const allDocsEncrypted = encrypt({ docs: allInvoices, secretKey });
+
+            next({
+              type: ACTION_TYPES.INVOICE_GET_ALL,
+              payload: allInvoices,
+            });
+            
+            updateMultipleDocs('invoices', allDocsEncrypted);
           })
           .catch((err) => {
             next({
