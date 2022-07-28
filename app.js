@@ -308,8 +308,7 @@ function setInitialValues() {
       quitAtClose: false,
     },
     invoice: {
-      exportNamingFormat:
-        '{invoiceID}',
+      exportNamingFormat: '{invoiceID}',
       exportDir: os.homedir(),
       template: 'default',
       dateFormat: 'MM/DD/YYYY',
@@ -533,10 +532,25 @@ function migrateData() {
         ...configs,
         invoice: {
           ...configs.invoice,
-          exportNamingFormat:
-            '{invoiceID}',
+          exportNamingFormat: '{invoiceID}',
         },
       };
+    },
+    9: (configs) => {
+      // Return current configs if this is the first time install
+      const { defaultLanguage } = configs.general;
+      if (defaultLanguage !== undefined && defaultLanguage === 'esES') {
+        // Update current configs
+        return {
+          ...configs,
+          general: {
+            ...configs.general,
+            defaultLanguage: 'es-ES',
+          },
+        };
+      }
+
+      return configs;
     },
   };
   // Get the current Config

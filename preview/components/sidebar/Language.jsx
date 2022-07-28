@@ -12,7 +12,7 @@ const Language = function({ t, language, handleInputChange, UILang }) {
       <select name="language" value={language} onChange={handleInputChange}>
         <option value="de">{t('settings:fields:language:de', { lng: 'de' })}</option>
         <option value="en">{t('settings:fields:language:en', { lng: 'en' })}</option>
-        <option value="esES">{t('settings:fields:language:esES', { lng: 'esES' })}</option>
+        <option value="es-ES">{t('settings:fields:language:es-ES', { lng: 'es-ES' })}</option>
         <option value="fr">{t('settings:fields:language:fr', { lng: 'fr' })}</option>
         <option value="id">{t('settings:fields:language:id', { lng: 'id' })}</option>
         <option value="it">{t('settings:fields:language:it', { lng: 'it' })}</option>
