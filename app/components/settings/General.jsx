@@ -105,8 +105,8 @@ class General extends Component {
                 <option value="en">
                   {t('settings:fields:language:en', { lng: 'en' })}
                 </option>
-                <option value="esES">
-                  {t('settings:fields:language:esES', { lng: 'esES' })}
+                <option value="es-ES">
+                  {t('settings:fields:language:es-ES', { lng: 'es-ES' })}
                 </option>
                 <option value="fr">
                   {t('settings:fields:language:fr', { lng: 'fr' })}

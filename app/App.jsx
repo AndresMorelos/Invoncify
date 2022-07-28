@@ -22,7 +22,7 @@ import { getSecretKey, getLoadEncryptedData } from './reducers/LoginReducer'
 import Login from './containers/Login';
 
 import windowStateKeeper from '../helpers/windowStateKeeper';
-import resize from './helpers/resize'
+import './helpers/resize'
 import { Notify } from '../helpers/notify'
 const ipc = require('electron').ipcRenderer;
 

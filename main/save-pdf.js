@@ -6,7 +6,11 @@ const fs = require('fs');
 const { truncate } = require('lodash');
 const { v4 } = require('uuid');
 
+
+
 function createExportName(format, invoice) {
+  const defaultLanguage = appConfig.getSync('general.language');
+  
   const createdAt = new Date(invoice.created_at);
   const currentDate = new Date();
   format = format.replace(
@@ -18,10 +22,13 @@ function createExportName(format, invoice) {
           omission: '',
         })
   );
+  
   format = format.replace(/{createdAt.month}/g, createdAt.getMonth() + 1);
+  format = format.replace(/{createdAt.MMMM}/g, createdAt.toLocaleString(defaultLanguage, { month: 'long' }));
   format = format.replace(/{createdAt.day}/g, createdAt.getDate());
   format = format.replace(/{createdAt.year}/g, createdAt.getFullYear());
   format = format.replace(/{date.month}/g, currentDate.getMonth() + 1);
+  format = format.replace(/{date.MMMM}/g, currentDate.toLocaleString(defaultLanguage, { month: 'long' }));
   format = format.replace(/{date.day}/g, currentDate.getDate());
   format = format.replace(/{date.year}/g, currentDate.getFullYear());
   format = format.replace(/{UUID}/g, v4());
