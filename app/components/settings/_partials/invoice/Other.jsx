@@ -55,7 +55,7 @@ const Other = function ({
           </ExportDir>
           <span style={{ color: '#757D75', fontSize: '13px' }}>
             {
-              '{invoiceID} {createdAt.month} {createdAt.day} {createdAt.year} {date.month} {date.day} {date.year} {UUID}'
+              '{invoiceID} {createdAt.month} {createdAt.MMMMM} {createdAt.day} {createdAt.year} {date.month} {date.MMMMM} {date.day} {date.year} {UUID}'
             }
           </span>
         </Field>

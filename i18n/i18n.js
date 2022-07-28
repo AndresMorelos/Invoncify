@@ -33,7 +33,7 @@ i18n.use(initReactI18next).init({
     id,
     it,
     sk,
-    esES,
+    'es-ES': esES,
     'ur-PK': urPK,
     vi,
     'zh-CN': zhCN,
