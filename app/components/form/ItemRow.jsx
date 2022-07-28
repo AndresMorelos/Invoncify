@@ -139,9 +139,25 @@ export class ItemRow extends Component {
 
   uploadRowState() {
     const { updateRow, subItems } = this.props;
+    const { subitems: stateSubItems } = this.state;
+
+    const subitemsToAdd = subItems.reduce((acc, item) => {
+      const subitem = stateSubItems.find((subitem) => subitem.id === item.id);
+      if (!subitem) {
+        acc.push(item);
+      }
+
+      if (subitem) {
+        const itemUpdated = Object.assign(subitem, item);
+        acc.push(itemUpdated);
+      }
+
+      return acc;
+    }, []);
+
     updateRow({
       ...this.state,
-      subitems: [...subItems, ...this.state.subitems],
+      subitems: subitemsToAdd,
     });
   }
 
