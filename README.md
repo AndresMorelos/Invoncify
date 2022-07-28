@@ -1,12 +1,13 @@
 ## ⚠️ Maintenance & support
 
-This is a continuation of Manta App, I'm taking care about the maintenance and new features as I need it
+This is a continuation of Manta App, I'm taking care about the maintenance and new features.
 
 
 ![GitHub all releases](https://img.shields.io/github/downloads/AndresMorelos/Invoncify/total?style=for-the-badge)
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/AndresMorelos/Invoncify/latest/total?color=green&style=for-the-badge)
-[![Crowdin](https://badges.crowdin.net/invoncify/localized.svg)](https://crowdin.com/project/invoncify)
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86&style=for-the-badge)](https://github.com/sponsors/AndresMorelos)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://makeapullrequest.com)
+[![Crowdin](https://badges.crowdin.net/invoncify/localized.svg)](https://crowdin.com/project/invoncify)
 
 ---------
 
