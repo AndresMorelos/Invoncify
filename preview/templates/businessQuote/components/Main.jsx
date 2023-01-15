@@ -169,7 +169,7 @@ const Main = function ({ invoice, configs, t }) {
       </td>
       <td>
         {currencyBefore ? currency : null}{' '}
-        {formatNumber(getInvoiceValue(invoice).prepayment, fraction, separator)}{' '}
+        {formatNumber(row.value, fraction, separator)}{' '}
         {currencyBefore ? null : currency}
       </td>
     </InvoicePrepayment>
