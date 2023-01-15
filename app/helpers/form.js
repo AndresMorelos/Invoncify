@@ -153,9 +153,7 @@ function validateRecipient(recipient) {
     // Are required fields empty?
     if (
       recipient.new.fullname === undefined ||
-      recipient.new.fullname === '' ||
-      recipient.new.email === undefined ||
-      recipient.new.email === ''
+      recipient.new.fullname === ''
     ) {
       openDialog({
         type: 'warning',
@@ -164,16 +162,18 @@ function validateRecipient(recipient) {
       });
       return false;
     }
-    // Is email address valid?
-    const regex =
-      /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (!regex.test(recipient.new.email)) {
-      openDialog({
-        type: 'warning',
-        title: i18n.t('dialog:validation:recipient:email:title'),
-        message: i18n.t('dialog:validation:recipient:email:message'),
-      });
-      return false;
+    if (![undefined, null, ''].includes(recipient.new.email)) {
+      // Is email address valid?
+      const regex =
+        /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if (!regex.test(recipient.new.email)) {
+        openDialog({
+          type: 'warning',
+          title: i18n.t('dialog:validation:recipient:email:title'),
+          message: i18n.t('dialog:validation:recipient:email:message'),
+        });
+        return false;
+      }
     }
   }
   // Passed
