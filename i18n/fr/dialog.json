@@ -9,7 +9,9 @@
       "message": "Vous utilisez la dernière version de l'application"
     },
     "error": {
-      "title": "Une erreur s'est produite"
+      "title": "Une erreur s'est produite",
+      "message": "Une erreur s'est produite lors de la mise à jour de l'application. Veuillez réessayer plus tard ou la télécharger manuellement.",
+      "OpenReleasePage": "Ouvrir la page de publication (Page realease sur GitHub)"
     },
     "downloaded": {
       "title": "Mise à jour téléchargée",
@@ -88,10 +90,14 @@
     "note": {
       "title": "Remarque non valide",
       "message": "Le contenu des remarques ne peut pas être vide"
+    },
+    "payment": {
+      "title": "Informations de paiement non valides",
+      "message": "Les informations de paiement ne peuvent pas être vides"
     }
   },
   "events": {
-    "clickToCopy": "Click to copy",
-    "copied": "Copied!!"
+    "clickToCopy": "Cliquer pour copier",
+    "copied": "Copié !!"
   }
 }

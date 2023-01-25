@@ -8,6 +8,7 @@
       "bottom": "Bas"
     },
     "fontSize": "Taille du texte",
+    "logoSize": "Taille du logo",
     "toggle": {
       "name": "Basculer",
       "logo": "Logo",
@@ -30,9 +31,10 @@
     "created": "Créé",
     "due": "Échéance",
     "invoice": "Facture",
+    "quote": "Citation",
     "itemDescription": "Description de l'élement",
     "notice": "Notice",
-    "order": "No",
+    "order": "Non",
     "price": "Prix",
     "qty": "Quantité",
     "subtotal": "Sous-total",

@@ -8,9 +8,14 @@
   },
   "contact": {
     "saved": "Contact enregistré avec succès",
+    "updated": "Contact mis à jour avec succès",
     "deleted": "Contact supprimé avec succès"
   },
   "settings": {
     "saved": "Tous les paramètres ont été enregistrés avec succès"
+  },
+  "login": {
+    "badSecret": "Je n'ai pas pu confirmer votre identité",
+    "success": "J'ai pu confirmer votre identité"
   }
 }

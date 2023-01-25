@@ -7,6 +7,7 @@ import { formatNumber } from '../../../../helpers/formatNumber';
 import { getInvoiceValue } from '../../../../app/helpers/invoice';
 import currencies from '../../../../libs/currencies.json';
 
+// Styles
 const InvoiceContent = styled.div`
   flex: 1;
   display: flex;
@@ -84,6 +85,12 @@ const InvoiceDiscount = styled.tr`
   }
 `;
 
+const InvoicePrepayment = styled.tr`
+  td:last-child {
+    color: #ec4757;
+  }
+`;
+
 const InvoiceTax = styled.tr`
   td:last-child {
     color: #ec476e;
@@ -114,7 +121,7 @@ const Main = function ({ invoice, configs, t }) {
   // Set language
   const { language, accentColor, customAccentColor } = configs;
   // Others
-  const { tax, discount } = invoice;
+  const { tax, discount, prepayment } = invoice;
   const { code, placement, fraction, separator } = invoice.currency;
   // Set placement
   const currencyBefore = placement === 'before';
@@ -149,6 +156,21 @@ const Main = function ({ invoice, configs, t }) {
           </tr>
         ))}
     </>
+  ));
+
+  // Render Prepayment items
+  const prepaymentItemsComponents = invoice.paymentRows.map((row, index) => (
+    <InvoicePrepayment key={index}>
+      <td colSpan="2" />
+      <td className="label" colSpan="2">
+        {row.description}{' '}
+      </td>
+      <td>
+        {currencyBefore ? currency : null}{' '}
+        {formatNumber(getInvoiceValue(invoice).prepayment, fraction, separator)}{' '}
+        {currencyBefore ? null : currency}
+      </td>
+    </InvoicePrepayment>
   ));
 
   return (
@@ -206,6 +228,7 @@ const Main = function ({ invoice, configs, t }) {
             </InvoiceDiscount>
           )}
 
+          {prepaymentItemsComponents}
           {tax && (
             <InvoiceTax>
               <td colSpan="2" />
@@ -243,7 +266,7 @@ const Main = function ({ invoice, configs, t }) {
             </td>
             <td colSpan="2">
               {currencyBefore ? currency : null}{' '}
-              {formatNumber(invoice.grandTotal, fraction, separator)}{' '}
+              {formatNumber(invoice.remaining, fraction, separator)}{' '}
               {currencyBefore ? null : currency}
             </td>
           </InvoiceTotal>

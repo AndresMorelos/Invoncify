@@ -3,7 +3,7 @@
     "fullname": "Nom et prénom",
     "company": "Société",
     "address": "Adresse",
-    "email": "Email",
+    "email": "E-mail",
     "phone": "N° de téléphone",
     "website": "Site Internet"
   },
@@ -12,5 +12,6 @@
   "default": "Valeurs par défaut",
   "saveAsDefault": "Enregistrer comme valeurs par défaut ?",
   "yes": "Oui",
-  "noThanks": "Non, merci"
+  "noThanks": "Non, merci",
+  "details": "Détails"
 }
