@@ -11,11 +11,16 @@
       "hint": "Accepte PNG, JPG & SVG (Recommandé)"
     },
     "taxSettings": "Paramètres des Taxes",
+    "paymentSettings": "Configuration du paiement",
     "template": "Modèle",
     "dateFormat": "Format de la Date",
     "pdfExportDir": "Emplacement de sauvegarde du dossier PDF",
     "requiredFields": "Champs Requis",
     "sound": "Son",
+    "trayIcon": "Icône de barre de menu",
+    "sendMetricsAnon": "Envoyer des données d'analyses anonymes",
+    "openAtLogin": "Ouvrir à l'ouverture de session",
+    "quitAtClose": "Quitter à la fermeture",
     "mute": "Muet",
     "autoCheckUpdate": {
       "name": "Verification automatique des mises à jours",
@@ -32,15 +37,16 @@
       "dotComma": "Point & Virgule",
       "spaceDot": "Espace & Point"
     },
-    "openPDFReader": "Ouvrir le fichier PDF après la sauvegarde",
+    "openPDFReader": "Ouvrir le fichier PDF après l'export",
     "language": {
       "name": "Langue",
+      "ar": "Arabe",
       "cs": "Tchèque",
       "da": "Danois",
       "de": "Allemand",
       "el": "Grec",
       "en": "Anglais",
-      "es-ES": "Espagnol",
+      "esES": "Espagnol",
       "fr": "Français",
       "id": "Indonésien",
       "it": "Italien",
@@ -51,13 +57,25 @@
       "ptBR": "Portugais (Brésil)",
       "ptPT": "Portugais",
       "ru": "Russe",
+      "sk": "Slovaque",
       "th": "Thaï",
       "tl": "Tagalog, Philippines",
       "tr": "Turc",
+      "ur-PK": "Ourdou (Pakistan)",
       "vi": "Vietnamien",
       "zh-CN": "Chinois (Simplifié)",
       "zh-TW": "Chinois (Traditionnel)",
-      "ro": "Romanian"
+      "sr": "Serbe (Cyrillique)",
+      "ro": "Roumain"
+    },
+    "importExport": {
+      "name": "Import / Export",
+      "import": "Import",
+      "export": "Export",
+      "information": {
+        "label": "Note :",
+        "info": "L'opération d'exportation exportera vos contacts, vos factures chiffrées ainsi que les paramètres de chiffrement de base"
+      }
     },
     "other": "Autre"
   }

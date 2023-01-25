@@ -9,7 +9,9 @@
       "message": "U maakt al gebruik van de meest recente versie"
     },
     "error": {
-      "title": "Er is een fout opgetreden"
+      "title": "Er is een fout opgetreden",
+      "message": "Er is een fout opgetreden bij het bijwerken van de app. Probeer het later opnieuw of download deze handmatig.",
+      "OpenReleasePage": "Open releasepagina"
     },
     "downloaded": {
       "title": "Update gedownload",

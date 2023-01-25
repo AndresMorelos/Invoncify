@@ -19,8 +19,8 @@
     "sound": "Geluid",
     "trayIcon": "Menubalkitem",
     "sendMetricsAnon": "Stuur App Metrics Anoniem",
-    "openAtLogin": "Open at Login",
-    "quitAtClose": "Quit at Close",
+    "openAtLogin": "Openen bij aanmelden",
+    "quitAtClose": "Afsluiten bij sluiten",
     "mute": "Dempen",
     "autoCheckUpdate": {
       "name": "Check automatisch voor updates",
@@ -46,7 +46,7 @@
       "de": "Duits",
       "el": "Grieks",
       "en": "Engels",
-      "es-ES": "Spaans",
+      "esES": "Spaans",
       "fr": "Frans",
       "id": "Indonesisch",
       "it": "Italiaans",
@@ -66,7 +66,6 @@
       "zh-CN": "Chinees (vereenvoudigd)",
       "zh-TW": "Chinees (traditioneel)",
       "sr": "Servisch (Cyrillisch)",
-      "sr-CS": "Servisch (Latin)",
       "ro": "Roemeens"
     },
     "importExport": {

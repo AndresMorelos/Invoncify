@@ -2,7 +2,7 @@
   "header": "Tous les contacts",
   "fields": {
     "contact": "Contact",
-    "email": "Email",
+    "email": "E-mail",
     "phone": "Téléphone",
     "actions": "Actions"
   }

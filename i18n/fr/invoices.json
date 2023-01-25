@@ -4,10 +4,12 @@
   },
   "fields": {
     "client": "Client",
-    "invoiceID": "Numero de la facture",
+    "invoiceID": "ID de facture",
     "createdDate": "Créée le",
     "dueDate": "Échéance",
-    "total": "Valeur Totale"
+    "total": "Valeur Totale",
+    "prepaid": "Prépayé",
+    "remaining": "Solde restant"
   },
   "status": {
     "pending": "En attente",

@@ -6,8 +6,8 @@
   },
   "slides": {
     "welcome": {
-      "heading": "👋 Salut !",
-      "description": "Merci de me donner une chance. Laissez-moi vous montrer comment créer de sublimes factures en seulement 3 étapes simples"
+      "heading": "👋 Bonjour !",
+      "description": "Merci de me donner une chance. Laissez-moi vous montrer comment créer de superbes factures en seulement 4 étapes simples"
     },
     "create": {
       "heading": "Étape 1. Créer",
@@ -17,13 +17,17 @@
       "heading": "Étape 2. Personnaliser",
       "description": "Invoncify est livré avec des modèles professionnels qui peuvent être personnalisés afin de correspondre au style de votre marque."
     },
+    "encryption": {
+      "heading": "Étape 3. Chiffrement",
+      "description": "Invoncify est doté d'un chiffrement de bout en bout qui protège vos informations et vous donne également la possibilité d'exporter ou d'importer vos données en toute sécurité."
+    },
     "save": {
       "heading": "Étape 3. Sauvegarder",
       "description": "Une fois satisfait de l'apparence de la facture, vous pouvez l'enregistrer en PDF pour plus tard. Imprimez-la ou envoyez-la par email dès maintenant pour impressionner vos clients avec Invoncify!"
     },
     "success": {
       "heading": "Terminé !!! ✋️",
-      "description": "Et voilà les 3 étapes simples pour créer de superbes factures avec Invoncify.\nN'oubliez pas de mettre à jour le profil de la société ainsi que son logo avant d'éditer de vraie factures."
+      "description": "Et voilà les 4 étapes simples pour créer de superbes factures avec Invoncify.\nN'oubliez pas de mettre à jour le profil de la société ainsi que son logo avant d'éditer de vraie factures."
     }
   }
 }

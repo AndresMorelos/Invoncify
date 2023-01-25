@@ -1,5 +1,6 @@
 {
   "header": {
+    "contactEdit": "Modifier le contact",
     "new": "Créer une nouvelle facture",
     "edit": "Modifier la facture",
     "btns": {
@@ -20,6 +21,12 @@
       "quantity": "Quantité",
       "add": "Ajouter un nouvel élément"
     },
+    "paymentItems": {
+      "name": "Prépaiements",
+      "description": "Description",
+      "value": "Valeur",
+      "add": "Ajouter un nouvel élément de prépaiement"
+    },
     "recipient": {
       "name": "Destinataire",
       "select": "Sélectionner",
@@ -29,6 +36,10 @@
       "name": "Remise ",
       "percentage": "Pourcentage",
       "flat": "Taux Fixe"
+    },
+    "createAtDate": {
+      "name": "Date de création",
+      "placeHolder": "Sélectionnez une date personnalisée"
     },
     "dueDate": {
       "name": "Échéance",
@@ -64,6 +75,11 @@
       "reverse": "Autoliquidation"
     },
     "note": "Remarque",
-    "currency": "Devise"
+    "currency": "Devise",
+    "payment": {
+      "name": "Paiement",
+      "details": "Informations sur le paiement",
+      "description": "Comptes bancaires, options de paiement numérique ou autres informations relatives au paiement"
+    }
   }
 }

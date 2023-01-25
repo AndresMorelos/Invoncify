@@ -1,9 +1,7 @@
-
 {
-    "header": "Statistics",
+    "header": "Statistiques",
     "legends": {
-      "date": "Dates",
-      "value": "Values"
+        "date": "Dates",
+        "value": "Valeurs"
     }
-  }
-  
+}
